@@ -77,16 +77,6 @@ export default function Home() {
       <h3 className="relative z-10 text-2xl font-bold text-white">I code and make videos.</h3>
 
       <ContactList />
-      <h3 className="text-3xl font-bold m-4">
-        Level Up your Web Dev Skills, visit{" "}
-        <a
-          href="https://coding-space.vercel.app"
-          target="_blank"
-          className="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-no-repeat bg-bottom bg-[length:100%_6px] hover:bg-[length:100%_100%] transition-[background-size]"
-        >
-          CodingSpace
-        </a>
-      </h3>
     </main>
   );
 }
