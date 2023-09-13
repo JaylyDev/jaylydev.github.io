@@ -160,9 +160,10 @@ function PreviewLatestYTVideo() {
       <iframe
         width="560"
         height="315"
-        src="https://www.youtube.com/embed?listType=playlist&list=UUguD3-nPXTVY6CHw3F1HWvw"
+        src="https://www.youtube.com/embed?listType=playlist&list=UULFguD3-nPXTVY6CHw3F1HWvw"
         title="YouTube video player"
         frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
     </div>
@@ -243,7 +244,7 @@ function AboutMe() {
         <br></br>You may know me from helping people in Scripting at Bedrock Add-Ons Discord,
         <br></br>or perhaps from my silly Minecraft animations.
         <br></br>
-        <br></br>I have made various Add-Ons on MCPEDL since 2018, and videos on YouTube
+        <br></br>I have made various Minecraft Add-Ons on MCPEDL since 2018, and Minecraft videos on YouTube
         <br></br>since 2019.
         <br></br>Somehow those projects have quite a bit of success.
         <br></br>
