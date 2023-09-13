@@ -89,3 +89,31 @@ body {
     margin-left: 320px;
   }
 }
+@media (min-width: 320px) {
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  .youtube-video-playback {
+    width: 288px;
+    height: 162px;
+  }
+}
+@media (min-width: 480px) {
+  /* smartphones, Android phones, landscape iPhone */
+  .youtube-video-playback {
+    width: 384px;
+    height: 216px;
+  }
+}
+@media (min-width: 600px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+  .youtube-video-playback {
+    width: 480px;
+    height: 270px;
+  }
+}
+@media (min-width: 801px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .youtube-video-playback {
+    width: 560px;
+    height: 315px;
+  }
+}
