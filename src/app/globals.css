@@ -117,3 +117,12 @@ body {
     height: 315px;
   }
 }
+
+svg {
+  fill: black;
+}
+@media (prefers-color-scheme: dark) {
+  svg {
+    fill: white;
+  }
+}
