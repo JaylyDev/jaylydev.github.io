@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ContactList from "./ContactList"; // Import your ContactList component
 import SkinRenderer from "./SkinRenderer"; // Import your SkinRenderer component
 
-const widthMinSize = 500;
+const widthMinSize = 512;
 
 function MinecraftNameTag({ playerName }: { playerName: string }) {
   return (
@@ -15,7 +15,7 @@ function MinecraftNameTag({ playerName }: { playerName: string }) {
 }
 
 const WebComponent = () => {
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     // Add a listener to update the isLargeScreen state when the window is resized
