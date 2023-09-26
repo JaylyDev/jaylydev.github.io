@@ -126,3 +126,9 @@ svg {
     fill: white;
   }
 }
+#skin-viewer * {
+  background-image: url("/images/skin.png");
+}
+#skin-viewer .cape {
+  background-image: url("/images/minecon_cape.png");
+}

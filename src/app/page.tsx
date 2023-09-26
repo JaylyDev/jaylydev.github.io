@@ -1,107 +1,15 @@
+"use client";
 import Image from "next/image";
 import Script from "next/script";
-
-interface IContentGridParam {
-  href: string;
-  src: string;
-  alt: string;
-  size: number;
-  title: string;
-  children: string;
-}
-
-function ContentGrid(params: IContentGridParam) {
-  return (
-    <a
-      href={params.href}
-      className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-800/30 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Image src={params.src} alt={params.alt} width={params.size} height={params.size}></Image>
-      <h2 className="mb-3 text-2xl font-semibold text-white">
-        {params.title + " "}
-        <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-          -&gt;
-        </span>
-      </h2>
-      <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{params.children}</p>
-    </a>
-  );
-}
-
-function ContactList() {
-  return (
-    <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-      <ContentGrid
-        href="https://youtube.com/@jaylymc"
-        src="/images/youtube_icon.svg"
-        alt="YouTube Icon"
-        size={100}
-        title="YouTube"
-      >
-        @JaylyMC - Animating Minecraft
-      </ContentGrid>
-      <ContentGrid
-        href="https://mcpedl.com/user/jayly"
-        src="/images/mcpedl_logo_1024.png"
-        alt="MCPEDL Icon"
-        size={70}
-        title="MCPEDL"
-      >
-        @Jayly - Making Minecraft Add-Ons
-      </ContentGrid>
-      <ContentGrid
-        href="https://github.com/JaylyDev"
-        src="/images/github-mark-white.svg"
-        alt="GitHub Icon"
-        size={70}
-        title="GitHub"
-      >
-        @JaylyDev - Developing various software projects
-      </ContentGrid>
-      <ContentGrid
-        href="https://discord.gg/5m6GqM7vYN"
-        src="/images/discord_icon.svg"
-        alt="Discord Icon"
-        size={90}
-        title="Discord"
-      >
-        My Discord server if you want to talk
-      </ContentGrid>
-    </div>
-  );
-}
-
-interface IPaddingParam {
-  size: number;
-}
-
-/**
- * Add padding into the page
- */
-function Padding(param: IPaddingParam) {
-  return (
-    <div
-      className="flex-1"
-      style={{
-        height: `${param.size}px`,
-      }}
-    ></div>
-  );
-}
+import { Padding } from "./components/Padding";
+import ProjectCard from "./components/Card";
+import SkinRenderer from "./components/SkinRenderer";
+import ContactList from "./components/ContactList";
+import WebComponent from "./components/Website";
 
 interface IHyperlinkParams {
   url: string;
   text: string;
-}
-
-function hyperlink(params: IHyperlinkParams) {
-  return (
-    <a href={params.url} className="text-blue-500 hover:underline">
-      {params.text}
-    </a>
-  );
 }
 
 function PreviewLatestYTVideo() {
@@ -150,10 +58,11 @@ function PreviewLatestYTVideo() {
   );
 }
 
-interface Project {
+export interface Project {
   title: string;
   description: string;
   links: IHyperlinkParams[];
+  image?: { src: string; alt: string };
 }
 
 function CurrentProjects() {
@@ -161,7 +70,7 @@ function CurrentProjects() {
     {
       title: `ScriptAPI Examples`,
       description:
-        "Community Driven Script Examples for using Minecraft's Scripting API.\nThis repository has been made easier for people to develop scripts for Minecraft.",
+        "Community Driven Script Examples for using Minecraft's Scripting API.\nThis makes people to easily start develop scripts for Minecraft.",
       links: [{ url: "https://github.com/JaylyDev/ScriptAPI", text: "GitHub" }],
     },
     {
@@ -175,7 +84,7 @@ function CurrentProjects() {
     },
     {
       title: "JaylyBot",
-      description: `A Discord bot that mainly debug your Minecraft scripts, this includes a debugger for both Stable and Preview version of Minecraft.
+      description: `A Discord bot that mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft.
 "Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time." - Visual1mpact`,
       links: [
         {
@@ -184,27 +93,23 @@ function CurrentProjects() {
         },
       ],
     },
+    {
+      title: "Script Interpreter",
+      description:
+        "JavaScript REPL for Minecraft, allowing you to execute ScriptAPI code ingame without reloading your script files.\n\nMade using Minecraft's scripting API.",
+      links: [{ url: "https://mcpedl.com/gametest-interpreter/", text: "MCPEDL" }],
+      image: { src: "/images/script-interpreter.png", alt: "Script Interpreter" },
+    },
   ];
 
   const ProjectElements = projects.map((project, index) => (
-    <>
-      <li key={index}>
-        <strong>
-          {project.title}{" "}
-          {project.links.map((link) => (
-            <>[{hyperlink(link)}] </>
-          ))}
-        </strong>
-        <br />
-        {project.description.split("\n").map((line) => (
-          <>
-            {line}
-            <br></br>
-          </>
-        ))}
-      </li>
-      <br />
-    </>
+    <div
+      key={index}
+      style={{ margin: "10px" }}
+      className="max-w-[550px] rounded-lg border border-5d5f61 bg-[rgb(207,207,207)] dark:bg-[rgb(23,23,23)] p-4"
+    >
+      <ProjectCard {...project} />
+    </div>
   ));
 
   return (
@@ -217,7 +122,7 @@ function CurrentProjects() {
         </a>
       </div>
       <div className="flex min-h-0 flex-col items-center p-4">
-        <h3 className="relative z-10 text-2xl font-bold text-white">
+        <h3 className="relative z-10 text-2xl font-bold dark:text-white">
           These are the projects that I{"'"}m currently working on!
         </h3>
         <br></br>
@@ -226,15 +131,7 @@ function CurrentProjects() {
             fontSize: "1.1rem",
           }}
         >
-          {ProjectElements}
-          <li>
-            <strong>
-              Script Interpreter [{hyperlink({ url: "https://mcpedl.com/gametest-interpreter/", text: "MCPEDL" })}]
-            </strong>
-            <br />
-            JavaScript REPL for Minecraft, allowing you to execute ScriptAPI code ingame without reloading your script
-            files.
-          </li>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 m-0 p-0">{ProjectElements}</div>
         </div>
       </div>
       <PreviewLatestYTVideo />
@@ -362,10 +259,7 @@ export default function Home() {
         <h1 className="relative z-10 text-5xl font-bold text-white">Jayly</h1>
         <h3 className="relative z-10 text-2xl font-bold text-white">I code and make videos</h3>
       </div>
-      <div className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-b from-indigo-600 via-blue-600 dark:via-blue-900 to-transparent">
-        <ContactList />
-      </div>
-      <div style={{ clear: "both" }}></div>
+      {WebComponent()}
       <CurrentProjects />
       <div className="p-5" />
       <AboutMe />
