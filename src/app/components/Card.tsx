@@ -7,9 +7,10 @@ interface CardProps {
   description: string;
   links: { text: string; url: string }[];
   image?: { src: string; alt: string };
+  media?: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, links, image }) => {
+const Card: React.FC<CardProps> = ({ title, description, links, image, media }) => {
   return (
     <>
       <div className="p-1 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex gap-3">
@@ -23,6 +24,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image }) => {
         </div>
       </div>
       <div className="border-b border-5d5f61 mb-2"></div>
+      {media && <Image src={media} height="full" width="full" alt="media" />}
       <p className="mb-2">
         {description.split("\n").map((line) => (
           <>

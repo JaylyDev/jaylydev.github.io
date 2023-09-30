@@ -5,7 +5,7 @@ import { Padding } from "./components/Padding";
 import ProjectCard from "./components/Card";
 import SkinRenderer from "./components/SkinRenderer";
 import ContactList from "./components/ContactList";
-import WebComponent from "./components/Website";
+import WebComponent from "./components/TopPage";
 
 interface IHyperlinkParams {
   url: string;
@@ -63,6 +63,7 @@ export interface Project {
   description: string;
   links: IHyperlinkParams[];
   image?: { src: string; alt: string };
+  media?: string;
 }
 
 function CurrentProjects() {
@@ -99,6 +100,16 @@ function CurrentProjects() {
         "JavaScript REPL for Minecraft, allowing you to execute ScriptAPI code ingame without reloading your script files.\n\nMade using Minecraft's scripting API.",
       links: [{ url: "https://mcpedl.com/gametest-interpreter/", text: "MCPEDL" }],
       image: { src: "/images/script-interpreter.png", alt: "Script Interpreter" },
+    },
+    {
+      title: "Structure Converter",
+      description: "A tool to convert Minecraft structures from Java to Bedrock. (1.19.70 support)",
+      links: [{ url: "https://github.com/jaylydev/nbt-to-mcstructure/", text: "Download from GitHub" }],
+      image: {
+        src: "https://raw.githubusercontent.com/JaylyDev/nbt-to-mcstructure/main/assets/icon.png",
+        alt: "Structure",
+      },
+      media: "https://github.com/JaylyDev/nbt-to-mcstructure/blob/main/assets/demo_video.gif?raw=true",
     },
   ];
 
