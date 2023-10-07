@@ -3,8 +3,6 @@ import Image from "next/image";
 import Script from "next/script";
 import { Padding } from "./components/Padding";
 import ProjectCard from "./components/Card";
-import SkinRenderer from "./components/SkinRenderer";
-import ContactList from "./components/ContactList";
 import WebComponent from "./components/TopPage";
 
 interface IHyperlinkParams {
@@ -79,8 +77,8 @@ function CurrentProjects() {
       description:
         "My own Documentation for using the ScriptAPI. Includes versioned API references and custom code examples for methods.",
       links: [
-        { url: "/scriptapi-docs", text: "Docs Website" },
-        { url: "https://github.com/JaylyDev/scriptapi-docs", text: "Source Code" },
+        { url: "/scriptapi-docs/latest", text: "Stable API Docs" },
+        { url: "/scriptapi-docs/preview", text: "Preview API Docs" },
       ],
     },
     {
@@ -111,6 +109,12 @@ function CurrentProjects() {
       },
       media: "https://github.com/JaylyDev/nbt-to-mcstructure/blob/main/assets/demo_video.gif?raw=true",
     },
+    {
+      title: "Introduction to Computer Hardware",
+      description: "An introduction to computer hardware (CPU, RAM, etc). For computer nerds only I presume...",
+      links: [{ url: "/introduction-to-computer-hardware/index.html", text: "Introduction to Computer Hardware" }],
+      media: "/images/cpu.png",
+    },
   ];
 
   const ProjectElements = projects.map((project, index) => (
@@ -119,17 +123,17 @@ function CurrentProjects() {
       style={{ margin: "10px" }}
       className="max-w-[550px] rounded-lg border border-5d5f61 bg-[rgb(207,207,207)] dark:bg-[rgb(23,23,23)] p-4"
     >
-      <ProjectCard {...project} />
+      <ProjectCard key={index} {...project} />
     </div>
   ));
 
   return (
     <>
       <div className="flex min-h-fit flex-col items-center" id="projects">
-        <a href="#projects">
-          <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
+        <a rel="apple-touch-icon" href="#projects">
+          <h1 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
             Projects
-          </h3>
+          </h1>
         </a>
       </div>
       <div className="flex min-h-0 flex-col items-center p-4">
@@ -151,13 +155,16 @@ function CurrentProjects() {
 }
 
 function AboutMe() {
+  const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
+                I mainly do Minecraft videos on YouTube, or making Minecraft add-ons for Bedrock,
+                specifically scripting API related.`;
   return (
     <>
-      <div className="flex min-h-fit flex-col items-center" id="about-me">
-        <a href="#about-me">
-          <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
+      <div className="flex min-h-fit flex-col items-center" id="about">
+        <a rel="apple-touch-icon" href="#about">
+          <h1 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
             About Me
-          </h3>
+          </h1>
         </a>
       </div>
       <Padding size={48} />
@@ -168,15 +175,9 @@ function AboutMe() {
         }}
       >
         <div>
-          Hi I{"'"}m Jayly.
-          <br></br>You may know me from helping people in Scripting at Bedrock Add-Ons Discord,
-          <br></br>or perhaps from my silly Minecraft animations.
-          <br></br>
-          <br></br>I have made various Minecraft Add-Ons on MCPEDL since 2018, and Minecraft videos
-          <br></br>on YouTube since 2019. Somehow those projects have quite a bit of success.
-          <br></br>
-          <br></br>If you{"'"}re interested in my work, feel free to follow me on GitHub or YouTube.
-          <br></br>
+          {text.split("\n").map((line, index) => (
+            <p key={index}>{line}</p>
+          ))}
           <h3 style={{ fontStyle: "italic" }}>
             If you have any questions, please feel free to contact me on Discord (jaylymc).
           </h3>
@@ -213,12 +214,27 @@ function SiteHeader() {
               className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             ></div>
             <div className="hidden md:ml-4 md:block order-2">
-              <a href="/" className="flex flex-none select-none items-center h-12 w-12" data-test-id="cartWidget">
+              <a
+                rel="apple-touch-icon"
+                href="/"
+                className="flex flex-none select-none items-center h-12 w-12"
+                data-test-id="cartWidget"
+              >
                 <div className="relative m-auto inline-block">
                   <Image src={"/favicon.ico"} alt={"Jayly Logo"} width={150} height={50}></Image>
                   <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
                 </div>
               </a>
+            </div>
+            {/* Subheadings */}
+            <div className="md:ml-4 md:block order-3">
+              <a href="#projects" className="text-gray-600 hover:text-black text-lg mx-4">
+                Projects
+              </a>
+              <a href="#about" className="text-gray-600 hover:text-black text-lg mx-4">
+                About Me
+              </a>
+              {/* Add more subheadings as needed */}
             </div>
           </div>
         </div>
@@ -267,8 +283,10 @@ export default function Home() {
       <StatsCollection />
       <SiteHeader />
       <div className="flex min-h-0 flex-col items-center bg-indigo-600 p-10">
-        <h1 className="relative z-10 text-5xl font-bold text-white">Jayly</h1>
-        <h3 className="relative z-10 text-2xl font-bold text-white">I code and make videos</h3>
+        <h1 className="relative z-10 text-5xl font-bold text-white" style={{ fontFamily: "Minecraft Five v2" }}>
+          Jayly
+        </h1>
+        <p className="relative z-10 text-2xl font-bold text-white">A website for Jayly</p>
       </div>
       {WebComponent()}
       <CurrentProjects />

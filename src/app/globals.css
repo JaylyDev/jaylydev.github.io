@@ -3,21 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 h1 {
-  font-family: Minecraft Five v2;
   font-weight: 700;
 }
 
@@ -97,7 +88,6 @@ body {
   display: flex;
   flex-direction: column;
   height: unset;
-  max-width: 80%;
   justify-content: space-around;
   padding: 1rem;
   position: relative;
@@ -136,13 +126,9 @@ body {
 }
 
 svg {
-  fill: black;
+  fill: white;
 }
-@media (prefers-color-scheme: dark) {
-  svg {
-    fill: white;
-  }
-}
+
 #skin-viewer * {
   background-image: url("/images/skin.png");
 }

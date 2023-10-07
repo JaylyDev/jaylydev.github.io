@@ -24,7 +24,20 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
         </div>
       </div>
       <div className="border-b border-5d5f61 mb-2"></div>
-      {media && <Image src={media} height="full" width="full" alt="media" />}
+      {media && (
+        <div className="flex justify-center items-center">
+          <Image
+            src={media}
+            alt="media"
+            style={{
+              maxHeight: "150px",
+              maxWidth: "auto",
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </div>
+      )}
       <p className="mb-2">
         {description.split("\n").map((line) => (
           <>
@@ -37,7 +50,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
       <ul className="list-disc list-inside">
         {links.map((link, index) => (
           <li key={index}>
-            <a href={link.url} className="text-blue-500 hover:underline">
+            <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
               {link.text}
             </a>
           </li>
