@@ -130,7 +130,7 @@ function CurrentProjects() {
 
   return (
     <>
-      <div className="flex min-h-fit flex-col items-center" id="projects">
+      <div className="flex min-h-fit flex-col items-center" id="projects" style={{ lineHeight: 1, paddingTop: 80 }}>
         <a rel="apple-touch-icon" href="#projects">
           <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
             Projects
