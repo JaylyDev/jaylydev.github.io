@@ -135,3 +135,7 @@ svg {
 #skin-viewer .cape {
   background-image: url("/images/minecon_cape.png");
 }
+blockquote {
+  border-left: 5px solid #ccc;
+  padding: 10px;
+}

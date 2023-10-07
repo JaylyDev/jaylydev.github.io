@@ -67,15 +67,15 @@ export interface Project {
 function CurrentProjects() {
   const projects: Project[] = [
     {
-      title: `ScriptAPI Examples`,
+      title: `Script API Examples`,
       description:
         "Community Driven Script Examples for using Minecraft's Scripting API.\nThis makes people to easily start develop scripts for Minecraft.",
       links: [{ url: "https://github.com/JaylyDev/ScriptAPI", text: "GitHub" }],
     },
     {
-      title: "ScriptAPI Docs",
+      title: "Script API Docs",
       description:
-        "My own Documentation for using the ScriptAPI. Includes versioned API references and custom code examples for methods.",
+        "My own Documentation for using the Minecraft scripting API. Includes versioned API references and custom code examples for methods.",
       links: [
         { url: "/scriptapi-docs/latest", text: "Stable API Docs" },
         { url: "/scriptapi-docs/preview", text: "Preview API Docs" },
@@ -83,8 +83,8 @@ function CurrentProjects() {
     },
     {
       title: "JaylyBot",
-      description: `A Discord bot that mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft.
-"Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time." - Visual1mpact`,
+      description: `This is my own Discord bot. It mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft.
+> "Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time." - Visual1mpact`,
       links: [
         {
           url: "https://discord.com/api/oauth2/authorize?client_id=948686094986264716&permissions=277025516544&scope=bot",
@@ -94,14 +94,15 @@ function CurrentProjects() {
     },
     {
       title: "Script Interpreter",
-      description:
-        "JavaScript REPL for Minecraft, allowing you to execute ScriptAPI code ingame without reloading your script files.\n\nMade using Minecraft's scripting API.",
+      description: `Script Interpreter is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition for testing the API features.
+> "Woah this really helps a lot! Like a LOT!" - BlueIcezen`,
       links: [{ url: "https://mcpedl.com/gametest-interpreter/", text: "MCPEDL" }],
       image: { src: "/images/script-interpreter.png", alt: "Script Interpreter" },
     },
     {
       title: "Structure Converter",
-      description: "A tool to convert Minecraft structures from Java to Bedrock. (1.19.70 support)",
+      description:
+        "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure). (1.19.70 support)",
       links: [{ url: "https://github.com/jaylydev/nbt-to-mcstructure/", text: "Download from GitHub" }],
       image: {
         src: "https://raw.githubusercontent.com/JaylyDev/nbt-to-mcstructure/main/assets/icon.png",
@@ -131,9 +132,9 @@ function CurrentProjects() {
     <>
       <div className="flex min-h-fit flex-col items-center" id="projects">
         <a rel="apple-touch-icon" href="#projects">
-          <h1 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
+          <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
             Projects
-          </h1>
+          </h3>
         </a>
       </div>
       <div className="flex min-h-0 flex-col items-center p-4">
@@ -162,9 +163,9 @@ function AboutMe() {
     <>
       <div className="flex min-h-fit flex-col items-center" id="about">
         <a rel="apple-touch-icon" href="#about">
-          <h1 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
+          <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
             About Me
-          </h1>
+          </h3>
         </a>
       </div>
       <Padding size={48} />

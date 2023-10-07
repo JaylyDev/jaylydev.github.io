@@ -38,14 +38,13 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
           />
         </div>
       )}
-      <p className="mb-2">
-        {description.split("\n").map((line) => (
-          <>
-            {line}
-            <br></br>
-          </>
-        ))}
-      </p>
+      {description.split("\n").map((line, index, array) => (
+        <span key={index}>
+          {line.startsWith(">") ? <blockquote>{line.substring(2)}</blockquote> : line}
+          {/* check if last line */}
+          {index === array.length - 1 ? null : <br />}
+        </span>
+      ))}
       <div className="border-b border-5d5f61 mb-2"></div>
       <ul className="list-disc list-inside">
         {links.map((link, index) => (
