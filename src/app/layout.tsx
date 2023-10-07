@@ -5,8 +5,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "JaylyMC Website - Homepage",
-  description: "Homepage for JaylyMC website. He makes Minecraft animations and Minecraft Bedrock Add-Ons sometimes.",
+  title: "Jayly's Website | JaylyMC",
+  description: "JaylyMC's website. Who makes Minecraft animations and make Minecraft Bedrock Add-Ons sometimes.",
   authors: [{ name: "JaylyMC", url: "https://youtube.com/jaylymc" }],
 };
 
