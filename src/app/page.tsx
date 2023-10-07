@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Padding } from "./components/Padding";
 import ProjectCard from "./components/Card";
 import WebComponent from "./components/TopPage";
+import type { CSSProperties } from "react";
 
 interface IHyperlinkParams {
   url: string;
@@ -281,18 +282,44 @@ function Footer() {
   );
 }
 
-export default function Home() {
+function TopPage() {
+  const backgroundImageUrl = "/images/cmwyl-background.png";
+
+  const containerStyle: CSSProperties = {
+    background: `url(${backgroundImageUrl}) top center / cover no-repeat`,
+    position: "relative", // Ensure the container is positioned relative
+  };
+
+  const shadowStyle: CSSProperties = {
+    content: '""',
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: "150px", // Adjust the height of the shadow as needed
+    background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+  };
+
   return (
-    <main id="home">
-      <StatsCollection />
-      <SiteHeader />
-      <div className="flex min-h-0 flex-col items-center bg-indigo-600 p-10">
+    <div className="min-h-screen" style={containerStyle}>
+      <div className="flex min-h-0 flex-col items-center p-10">
         <h1 className="relative z-10 text-5xl font-bold text-white" style={{ fontFamily: "Minecraft Five v2" }}>
           Jayly
         </h1>
         <p className="relative z-10 text-2xl font-bold text-white">A website for Jayly</p>
       </div>
       {WebComponent()}
+      <div style={shadowStyle}></div>
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <main id="home">
+      <StatsCollection />
+      <SiteHeader />
+      <TopPage />
       <CurrentProjects />
       <div className="p-5" />
       <AboutMe />
