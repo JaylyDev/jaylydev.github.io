@@ -229,6 +229,9 @@ function SiteHeader() {
             </div>
             {/* Subheadings */}
             <div className="md:ml-4 md:block order-3">
+              <a href="#home" className="text-gray-600 hover:text-black text-lg mx-4">
+                Home
+              </a>
               <a href="#projects" className="text-gray-600 hover:text-black text-lg mx-4">
                 Projects
               </a>
@@ -280,7 +283,7 @@ function Footer() {
 
 export default function Home() {
   return (
-    <main>
+    <main id="home">
       <StatsCollection />
       <SiteHeader />
       <div className="flex min-h-0 flex-col items-center bg-indigo-600 p-10">
