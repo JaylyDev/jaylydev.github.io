@@ -2,7 +2,7 @@ import "./minecraft-skinviewer.css";
 
 export default function SkinRenderer() {
   return (
-    <>
+    <a href="https://namemc.com/profile/JaylyPlays.1">
       <div id="skin-viewer" className="mc-skin-viewer-9x legacy legacy-cape spin">
         <div className="player">
           <div className="head">
@@ -111,6 +111,6 @@ export default function SkinRenderer() {
           </div>
         </div>
       </div>
-    </>
+    </a>
   );
 }

@@ -3,21 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 h1 {
-  font-family: Minecraft Five v2;
   font-weight: 700;
 }
 
@@ -89,6 +80,22 @@ body {
     margin-left: 320px;
   }
 }
+.youtube-video-playback {
+  align-content: flex-start;
+  aspect-ratio: 4/3;
+  background-color: #e9f3fd;
+  border-radius: 3rem;
+  display: flex;
+  flex-direction: column;
+  height: unset;
+  justify-content: space-around;
+  padding: 1rem;
+  position: relative;
+  margin-top: 1rem;
+  box-shadow: 0px -2px 1px 0px rgba(250, 253, 255, 1),
+    4px 0px 2px -2px rgba(170, 197, 214, 1),
+    0px 4px 1px -1px rgba(189, 213, 223, 1);
+}
 @media (min-width: 320px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
   .youtube-video-playback {
@@ -119,16 +126,16 @@ body {
 }
 
 svg {
-  fill: black;
+  fill: white;
 }
-@media (prefers-color-scheme: dark) {
-  svg {
-    fill: white;
-  }
-}
+
 #skin-viewer * {
   background-image: url("/images/skin.png");
 }
 #skin-viewer .cape {
   background-image: url("/images/minecon_cape.png");
+}
+blockquote {
+  border-left: 5px solid #ccc;
+  padding: 10px;
 }

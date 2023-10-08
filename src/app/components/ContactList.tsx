@@ -13,7 +13,7 @@ function ContentGrid(params: IContentGridParam) {
   return (
     <a
       href={params.href}
-      className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-800/30 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+      className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -24,9 +24,7 @@ function ContentGrid(params: IContentGridParam) {
           -&gt;
         </span>
       </h2>
-      <p className={`m-0 max-w-[30ch] text-sm text-black opacity-75 dark:text-gray-300 dark:opacity-50`}>
-        {params.children}
-      </p>
+      <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{params.children}</p>
     </a>
   );
 }

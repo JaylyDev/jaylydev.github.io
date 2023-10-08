@@ -7,9 +7,10 @@ interface CardProps {
   description: string;
   links: { text: string; url: string }[];
   image?: { src: string; alt: string };
+  media?: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, links, image }) => {
+const Card: React.FC<CardProps> = ({ title, description, links, image, media }) => {
   return (
     <>
       <div className="p-1 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex gap-3">
@@ -23,19 +24,32 @@ const Card: React.FC<CardProps> = ({ title, description, links, image }) => {
         </div>
       </div>
       <div className="border-b border-5d5f61 mb-2"></div>
-      <p className="mb-2">
-        {description.split("\n").map((line) => (
-          <>
-            {line}
-            <br></br>
-          </>
-        ))}
-      </p>
+      {media && (
+        <div className="flex justify-center items-center">
+          <Image
+            src={media}
+            alt="media"
+            style={{
+              maxHeight: "150px",
+              maxWidth: "auto",
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </div>
+      )}
+      {description.split("\n").map((line, index, array) => (
+        <span key={index}>
+          {line.startsWith(">") ? <blockquote>{line.substring(2)}</blockquote> : line}
+          {/* check if last line */}
+          {index === array.length - 1 ? null : <br />}
+        </span>
+      ))}
       <div className="border-b border-5d5f61 mb-2"></div>
       <ul className="list-disc list-inside">
         {links.map((link, index) => (
           <li key={index}>
-            <a href={link.url} className="text-blue-500 hover:underline">
+            <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
               {link.text}
             </a>
           </li>

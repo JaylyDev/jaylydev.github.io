@@ -32,12 +32,13 @@ const WebComponent = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-b from-indigo-600 via-blue-600 dark:via-blue-900 to-transparent">
-      <div className={`flex min-h-screen ${isLargeScreen ? "flex-row" : "flex-col"} items-stretch`}>
+    <div className="flex min-h-content flex-col items-center justify-between">
+      <div className={`flex min-h-content ${isLargeScreen ? "flex-row" : "flex-col"} items-stretch`}>
         <div className="mt-4">
           <ContactList />
         </div>
-        <div className="mt-4">
+        {/* make object center */}
+        <div className="mt-4" style={{ maxWidth: "200px", margin: "auto" }}>
           <MinecraftNameTag playerName="JaylyPlays" />
           <SkinRenderer />
         </div>

@@ -3,9 +3,8 @@ import Image from "next/image";
 import Script from "next/script";
 import { Padding } from "./components/Padding";
 import ProjectCard from "./components/Card";
-import SkinRenderer from "./components/SkinRenderer";
-import ContactList from "./components/ContactList";
-import WebComponent from "./components/Website";
+import WebComponent from "./components/TopPage";
+import type { CSSProperties } from "react";
 
 interface IHyperlinkParams {
   url: string;
@@ -63,29 +62,30 @@ export interface Project {
   description: string;
   links: IHyperlinkParams[];
   image?: { src: string; alt: string };
+  media?: string;
 }
 
 function CurrentProjects() {
   const projects: Project[] = [
     {
-      title: `ScriptAPI Examples`,
+      title: `Script API Examples`,
       description:
         "Community Driven Script Examples for using Minecraft's Scripting API.\nThis makes people to easily start develop scripts for Minecraft.",
       links: [{ url: "https://github.com/JaylyDev/ScriptAPI", text: "GitHub" }],
     },
     {
-      title: "ScriptAPI Docs",
+      title: "Script API Docs",
       description:
-        "My own Documentation for using the ScriptAPI. Includes versioned API references and custom code examples for methods.",
+        "My own Documentation for using the Minecraft scripting API. Includes versioned API references and custom code examples for methods.",
       links: [
-        { url: "/scriptapi-docs", text: "Docs Website" },
-        { url: "https://github.com/JaylyDev/scriptapi-docs", text: "Source Code" },
+        { url: "/scriptapi-docs/latest", text: "Stable API Docs" },
+        { url: "/scriptapi-docs/preview", text: "Preview API Docs" },
       ],
     },
     {
       title: "JaylyBot",
-      description: `A Discord bot that mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft.
-"Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time." - Visual1mpact`,
+      description: `This is my own Discord bot. It mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft.
+> "Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time." - Visual1mpact`,
       links: [
         {
           url: "https://discord.com/api/oauth2/authorize?client_id=948686094986264716&permissions=277025516544&scope=bot",
@@ -95,10 +95,27 @@ function CurrentProjects() {
     },
     {
       title: "Script Interpreter",
-      description:
-        "JavaScript REPL for Minecraft, allowing you to execute ScriptAPI code ingame without reloading your script files.\n\nMade using Minecraft's scripting API.",
+      description: `Script Interpreter is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition for testing the API features.
+> "Woah this really helps a lot! Like a LOT!" - BlueIcezen`,
       links: [{ url: "https://mcpedl.com/gametest-interpreter/", text: "MCPEDL" }],
       image: { src: "/images/script-interpreter.png", alt: "Script Interpreter" },
+    },
+    {
+      title: "Structure Converter",
+      description:
+        "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure). (1.19.70 support)",
+      links: [{ url: "https://github.com/jaylydev/nbt-to-mcstructure/", text: "Download from GitHub" }],
+      image: {
+        src: "https://raw.githubusercontent.com/JaylyDev/nbt-to-mcstructure/main/assets/icon.png",
+        alt: "Structure",
+      },
+      media: "https://github.com/JaylyDev/nbt-to-mcstructure/blob/main/assets/demo_video.gif?raw=true",
+    },
+    {
+      title: "Introduction to Computer Hardware",
+      description: "An introduction to computer hardware (CPU, RAM, etc). For computer nerds only I presume...",
+      links: [{ url: "/introduction-to-computer-hardware/index.html", text: "Introduction to Computer Hardware" }],
+      media: "/images/cpu.png",
     },
   ];
 
@@ -106,23 +123,23 @@ function CurrentProjects() {
     <div
       key={index}
       style={{ margin: "10px" }}
-      className="max-w-[550px] rounded-lg border border-5d5f61 bg-[rgb(207,207,207)] dark:bg-[rgb(23,23,23)] p-4"
+      className="max-w-[550px] rounded-lg border border-5d5f61 bg-[rgb(23,23,23)] p-4"
     >
-      <ProjectCard {...project} />
+      <ProjectCard key={index} {...project} />
     </div>
   ));
 
   return (
     <>
-      <div className="flex min-h-fit flex-col items-center" id="projects">
-        <a href="#projects">
+      <div className="flex min-h-fit flex-col items-center" id="projects" style={{ lineHeight: 1, paddingTop: 80 }}>
+        <a rel="apple-touch-icon" href="#projects">
           <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
             Projects
           </h3>
         </a>
       </div>
       <div className="flex min-h-0 flex-col items-center p-4">
-        <h3 className="relative z-10 text-2xl font-bold dark:text-white">
+        <h3 className="relative z-10 text-2xl font-bold text-white">
           These are the projects that I{"'"}m currently working on!
         </h3>
         <br></br>
@@ -140,10 +157,13 @@ function CurrentProjects() {
 }
 
 function AboutMe() {
+  const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
+                I mainly do Minecraft videos on YouTube, or making Minecraft add-ons for Bedrock,
+                specifically scripting API related.`;
   return (
     <>
-      <div className="flex min-h-fit flex-col items-center" id="about-me">
-        <a href="#about-me">
+      <div className="flex min-h-fit flex-col items-center" id="about">
+        <a rel="apple-touch-icon" href="#about">
           <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
             About Me
           </h3>
@@ -157,15 +177,9 @@ function AboutMe() {
         }}
       >
         <div>
-          Hi I{"'"}m Jayly.
-          <br></br>You may know me from helping people in Scripting at Bedrock Add-Ons Discord,
-          <br></br>or perhaps from my silly Minecraft animations.
-          <br></br>
-          <br></br>I have made various Minecraft Add-Ons on MCPEDL since 2018, and Minecraft videos
-          <br></br>on YouTube since 2019. Somehow those projects have quite a bit of success.
-          <br></br>
-          <br></br>If you{"'"}re interested in my work, feel free to follow me on GitHub or YouTube.
-          <br></br>
+          {text.split("\n").map((line, index) => (
+            <p key={index}>{line}</p>
+          ))}
           <h3 style={{ fontStyle: "italic" }}>
             If you have any questions, please feel free to contact me on Discord (jaylymc).
           </h3>
@@ -202,12 +216,30 @@ function SiteHeader() {
               className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             ></div>
             <div className="hidden md:ml-4 md:block order-2">
-              <a href="/" className="flex flex-none select-none items-center h-12 w-12" data-test-id="cartWidget">
+              <a
+                rel="apple-touch-icon"
+                href="/"
+                className="flex flex-none select-none items-center h-12 w-12"
+                data-test-id="cartWidget"
+              >
                 <div className="relative m-auto inline-block">
                   <Image src={"/favicon.ico"} alt={"Jayly Logo"} width={150} height={50}></Image>
                   <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
                 </div>
               </a>
+            </div>
+            {/* Subheadings */}
+            <div className="md:ml-4 md:block order-3">
+              <a href="#home" className="text-gray-600 hover:text-black text-lg mx-4">
+                Home
+              </a>
+              <a href="#projects" className="text-gray-600 hover:text-black text-lg mx-4">
+                Projects
+              </a>
+              <a href="#about" className="text-gray-600 hover:text-black text-lg mx-4">
+                About Me
+              </a>
+              {/* Add more subheadings as needed */}
             </div>
           </div>
         </div>
@@ -250,16 +282,44 @@ function Footer() {
   );
 }
 
-export default function Home() {
+function TopPage() {
+  const backgroundImageUrl = "/images/cmwyl-background.png";
+
+  const containerStyle: CSSProperties = {
+    background: `url(${backgroundImageUrl}) top center / cover no-repeat`,
+    position: "relative", // Ensure the container is positioned relative
+  };
+
+  const shadowStyle: CSSProperties = {
+    content: '""',
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: "2.5%", // Adjust the height of the shadow as needed
+    background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+  };
+
   return (
-    <main>
-      <StatsCollection />
-      <SiteHeader />
-      <div className="flex min-h-0 flex-col items-center bg-indigo-600 p-10">
-        <h1 className="relative z-10 text-5xl font-bold text-white">Jayly</h1>
-        <h3 className="relative z-10 text-2xl font-bold text-white">I code and make videos</h3>
+    <div className="min-h-screen" style={containerStyle}>
+      <div className="flex min-h-0 flex-col items-center p-10">
+        <h1 className="relative z-10 text-5xl font-bold text-white" style={{ fontFamily: "Minecraft Five v2" }}>
+          Jayly
+        </h1>
+        <p className="relative z-10 text-2xl font-bold text-white">A website for Jayly</p>
       </div>
       {WebComponent()}
+      <div style={shadowStyle}></div>
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <main id="home">
+      <StatsCollection />
+      <SiteHeader />
+      <TopPage />
       <CurrentProjects />
       <div className="p-5" />
       <AboutMe />
