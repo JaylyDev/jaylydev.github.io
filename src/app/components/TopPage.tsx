@@ -15,23 +15,21 @@ function MinecraftNameTag({ playerName }: { playerName: string }) {
 }
 
 const WebComponent = () => {
-  // Initialize isLargeScreen using a function to evaluate it immediately
-  const [isLargeScreen, setIsLargeScreen] = useState(() => window.innerWidth >= widthMinSize);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   useEffect(() => {
-    // Function to handle window resize and update isLargeScreen
+    // Add a listener to update the isLargeScreen state when the window is resized
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth >= widthMinSize);
     };
 
-    // Add a listener to update isLargeScreen when the window is resized
     window.addEventListener("resize", handleResize);
 
-    // Clean up the event listener when the component unmounts
+    // Remove the event listener when the component unmounts
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // Include widthMinSize in the dependency array to handle changes
+  }, []);
 
   return (
     <div className="flex min-h-content flex-col items-center justify-between">
