@@ -296,7 +296,7 @@ function TopPage() {
     bottom: 0,
     left: 0,
     right: 0,
-    height: "150px", // Adjust the height of the shadow as needed
+    height: "2.5%", // Adjust the height of the shadow as needed
     background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
   };
 
