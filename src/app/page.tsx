@@ -204,7 +204,7 @@ function SiteHeader() {
           data-test-id="storeHeader.mobileLayout"
           className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden"
         >
-          <Image src={"/favicon.ico"} alt={"Jayly Logo"} width={50} height={25}></Image>
+          <Image src={"/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
         </div>
         <div
           data-test-id="storeHeader.desktopLayout"
@@ -223,7 +223,7 @@ function SiteHeader() {
                 data-test-id="cartWidget"
               >
                 <div className="relative m-auto inline-block">
-                  <Image src={"/favicon.ico"} alt={"Jayly Logo"} width={150} height={50}></Image>
+                  <Image src={"/icon.png"} alt={"Jayly Logo"} width={150} height={50}></Image>
                   <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
                 </div>
               </a>
