@@ -302,7 +302,7 @@ function TopPage() {
 
   return (
     <div className="min-h-screen" style={containerStyle}>
-      <div className="flex min-h-0 flex-col items-center p-10">
+      <div className="flex min-h-0 flex-col items-center p-5">
         <h1 className="relative z-10 text-5xl font-bold text-white" style={{ fontFamily: "Minecraft Five v2" }}>
           Jayly
         </h1>

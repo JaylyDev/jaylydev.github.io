@@ -31,7 +31,7 @@ function ContentGrid(params: IContentGridParam) {
 
 export default function ContactList() {
   return (
-    <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+    <div className="mb-32 grid pb-48 text-left md:mb-0 md:grid-cols-2 md:p-0">
       <ContentGrid
         href="https://youtube.com/@jaylymc"
         src="/images/youtube_icon.svg"

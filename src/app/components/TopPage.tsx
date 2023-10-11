@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import ContactList from "./ContactList"; // Import your ContactList component
-import SkinRenderer from "./SkinRenderer"; // Import your SkinRenderer component
-
-const widthMinSize = 500;
+import React from "react";
+import Image from "next/image";
+import ContactList from "./ContactList";
+import SkinRenderer from "./SkinRenderer";
 
 function MinecraftNameTag({ playerName }: { playerName: string }) {
   return (
@@ -15,35 +14,36 @@ function MinecraftNameTag({ playerName }: { playerName: string }) {
 }
 
 const WebComponent = () => {
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
-
-  useEffect(() => {
-    // Add a listener to update the isLargeScreen state when the window is resized
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= widthMinSize);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
-    <div className="flex min-h-content flex-col items-center justify-between">
-      <div className={`flex min-h-content ${isLargeScreen ? "flex-row" : "flex-col"} items-stretch`}>
-        <div className="mt-4">
+    <>
+      <div className="hidden md:block">
+        <Image
+          src="/images/jayly-camera.png"
+          alt="Jayly Camera"
+          width={250}
+          height={250}
+          style={{
+            position: "absolute",
+            bottom: "29.5%",
+            left: "1%",
+            minHeight: "35%",
+            minWidth: "35%",
+          }}
+        />
+
+        <div
+          className="flex items-center justify-center absolute lg:pd-0"
+          style={{
+            left: "35%",
+          }}
+        >
           <ContactList />
         </div>
-        {/* make object center */}
-        <div className="mt-4" style={{ maxWidth: "200px", margin: "auto" }}>
-          <MinecraftNameTag playerName="JaylyPlays" />
-          <SkinRenderer />
-        </div>
       </div>
-    </div>
+      <div className="flex min-h-content flex-col sm:flex-row items-stretch justify-center block md:hidden">
+        <ContactList />
+      </div>
+    </>
   );
 };
 
