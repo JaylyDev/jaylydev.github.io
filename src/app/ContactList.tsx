@@ -34,7 +34,7 @@ export default function ContactList() {
     <div className="mb-32 grid pb-48 text-left md:mb-0 md:grid-cols-2 md:p-0">
       <ContentGrid
         href="https://youtube.com/@jaylymc"
-        src="/images/youtube_icon.svg"
+        src="/assets/youtube_icon.svg"
         alt="YouTube Icon"
         size={100}
         title="YouTube"
@@ -43,7 +43,7 @@ export default function ContactList() {
       </ContentGrid>
       <ContentGrid
         href="https://mcpedl.com/user/jayly"
-        src="/images/mcpedl_logo_1024.png"
+        src="/assets/mcpedl_logo_1024.png"
         alt="MCPEDL Icon"
         size={70}
         title="MCPEDL"
@@ -52,7 +52,7 @@ export default function ContactList() {
       </ContentGrid>
       <ContentGrid
         href="https://github.com/JaylyDev"
-        src="/images/github-mark-white.svg"
+        src="/assets/github-mark-white.svg"
         alt="GitHub Icon"
         size={70}
         title="GitHub"
@@ -61,7 +61,7 @@ export default function ContactList() {
       </ContentGrid>
       <ContentGrid
         href="https://discord.gg/5m6GqM7vYN"
-        src="/images/discord_icon.svg"
+        src="/assets/discord_icon.svg"
         alt="Discord Icon"
         size={90}
         title="Discord"

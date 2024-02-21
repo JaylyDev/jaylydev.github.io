@@ -1,14 +1,32 @@
 "use client";
-import Image from "next/image";
-import Script from "next/script";
-import { Padding } from "./components/Padding";
+import "@/styles/globals.css";
+import "@/styles/index.css";
 import ProjectCard from "./components/Card";
-import WebComponent from "./components/TopPage";
-import type { CSSProperties } from "react";
+import { CSSProperties, useEffect, useState } from "react";
+import { SiteHeader, SiteFooter } from "./components/SiteFormat";
+import { ResponseData } from "../../pages/api/posts_index.test";
+import { StatsCollection } from "./components/SiteFormat";
 
 interface IHyperlinkParams {
   url: string;
   text: string;
+}
+
+interface ISubheadingParams {
+  id: string;
+  title: string;
+}
+
+function Subheading({ id, title }: ISubheadingParams) {
+  return (
+    <div className="flex min-h-fit flex-col items-center" style={{ lineHeight: 1, paddingTop: 80 }} id={id}>
+      <a href={"#" + id}>
+        <h3 className="bg-red-500 inline-block px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
+          {title}
+        </h3>
+      </a>
+    </div>
+  );
 }
 
 function PreviewLatestYTVideo() {
@@ -65,7 +83,7 @@ export interface Project {
   media?: string;
 }
 
-function CurrentProjects() {
+function CurrentProjects(): JSX.Element {
   const projects: Project[] = [
     {
       title: `Script API Examples`,
@@ -98,7 +116,7 @@ function CurrentProjects() {
       description: `Script Interpreter is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition for testing the API features.
 > "Woah this really helps a lot! Like a LOT!" - BlueIcezen`,
       links: [{ url: "https://mcpedl.com/gametest-interpreter/", text: "MCPEDL" }],
-      image: { src: "/images/script-interpreter.png", alt: "Script Interpreter" },
+      image: { src: "/assets/script-interpreter.png", alt: "Script Interpreter" },
     },
     {
       title: "Structure Converter",
@@ -109,13 +127,7 @@ function CurrentProjects() {
         src: "https://raw.githubusercontent.com/JaylyDev/nbt-to-mcstructure/main/assets/icon.png",
         alt: "Structure",
       },
-      media: "https://github.com/JaylyDev/nbt-to-mcstructure/blob/main/assets/demo_video.gif?raw=true",
-    },
-    {
-      title: "Introduction to Computer Hardware",
-      description: "An introduction to computer hardware (CPU, RAM, etc). For computer nerds only I presume...",
-      links: [{ url: "/introduction-to-computer-hardware/index.html", text: "Introduction to Computer Hardware" }],
-      media: "/images/cpu.png",
+      media: "/assets/nbt_to_mcstructure_demo.gif",
     },
   ];
 
@@ -131,17 +143,8 @@ function CurrentProjects() {
 
   return (
     <>
-      <div className="flex min-h-fit flex-col items-center" id="projects" style={{ lineHeight: 1, paddingTop: 80 }}>
-        <a rel="apple-touch-icon" href="#projects">
-          <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
-            Projects
-          </h3>
-        </a>
-      </div>
-      <div className="flex min-h-0 flex-col items-center p-4">
-        <h3 className="relative z-10 text-2xl font-bold text-white">
-          These are the projects that I{"'"}m currently working on!
-        </h3>
+      <Subheading id="projects" title="Projects" />
+      <div className="flex min-h-0 flex-col items-center">
         <br></br>
         <div
           style={{
@@ -156,20 +159,71 @@ function CurrentProjects() {
   );
 }
 
-function AboutMe() {
-  const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
-                I mainly do Minecraft videos on YouTube, or making Minecraft add-ons for Bedrock,
-                specifically scripting API related.`;
+function PublicPosts() {
+  const [data, setData] = useState<ResponseData>({ posts: [] });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from your API or wherever it's located
+        const response = await fetch("/api/posts_index");
+        const jsonData = await response.json();
+        setData(jsonData);
+        setLoading(false); // Set loading to false after data is fetched
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
+  const postStyle: CSSProperties = {
+    margin: "auto",
+    width: "60%",
+    border: "5px solid white",
+    minWidth: "320px",
+    maxWidth: "1000px",
+    padding: "15px",
+  };
+
   return (
     <>
-      <div className="flex min-h-fit flex-col items-center" id="about">
-        <a rel="apple-touch-icon" href="#about">
-          <h3 className="bg-red-500 inline-block text-gray7 px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
-            About Me
-          </h3>
-        </a>
-      </div>
-      <Padding size={48} />
+      <Subheading id="posts" title="Posts" />
+      <br />
+      {loading ? (
+        <center>
+          <p>Loading Posts...</p>
+        </center>
+      ) : (
+        <>
+          {data.posts.map((post, index) => (
+            <>
+              <div key={index} style={postStyle}>
+                <a className="text-blue-500 text-2xl font-bold mb-2 hover:underline" href={post.slug}>
+                  {post.title}
+                </a>
+                <p>{post.description}</p>
+                <span>
+                  Date: {new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/")} &middot;
+                  By {post.author}
+                </span>
+              </div>
+            </>
+          ))}
+        </>
+      )}
+    </>
+  );
+}
+
+function AboutMe(): JSX.Element {
+  const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
+                I mainly do Minecraft animations on YouTube, or making Minecraft add-ons for Bedrock.`;
+  return (
+    <>
+      <Subheading id="about" title="About Me" />
       <div
         className="flex min-h-0 flex-col items-center p-4"
         style={{
@@ -189,127 +243,50 @@ function AboutMe() {
   );
 }
 
-function SiteHeader() {
-  return (
-    <div className="sticky top-0 z-30">
-      <header
-        data-test-id="storeHeader"
-        className="RepresentHeader relative leading-none shadow transition-colors duration-150"
-        style={{
-          color: "#000000",
-          backgroundColor: "#ffffff",
-        }}
-      >
-        <div
-          data-test-id="storeHeader.mobileLayout"
-          className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden"
-        >
-          <Image src={"/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
-        </div>
-        <div
-          data-test-id="storeHeader.desktopLayout"
-          className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8"
-        >
-          <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">
-            <div
-              aria-label="Logo"
-              className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            ></div>
-            <div className="hidden md:ml-4 md:block order-2">
-              <a
-                rel="apple-touch-icon"
-                href="/"
-                className="flex flex-none select-none items-center h-12 w-12"
-                data-test-id="cartWidget"
-              >
-                <div className="relative m-auto inline-block">
-                  <Image src={"/icon.png"} alt={"Jayly Logo"} width={150} height={50}></Image>
-                  <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
-                </div>
-              </a>
-            </div>
-            {/* Subheadings */}
-            <div className="md:ml-4 md:block order-3">
-              <a href="#home" className="text-gray-600 hover:text-black text-lg mx-4">
-                Home
-              </a>
-              <a href="#projects" className="text-gray-600 hover:text-black text-lg mx-4">
-                Projects
-              </a>
-              <a href="#about" className="text-gray-600 hover:text-black text-lg mx-4">
-                About Me
-              </a>
-              {/* Add more subheadings as needed */}
-            </div>
-          </div>
-        </div>
-      </header>
-    </div>
-  );
-}
-
-function StatsCollection() {
-  return (
-    <div className="container">
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-Q3X0X9VRB2" />
-      <Script id="google-analytics">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
- 
-          gtag('config', 'G-Q3X0X9VRB2');
-        `}
-      </Script>
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2533146760921020"
-        crossOrigin="anonymous"
-      ></Script>
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="flex-shrink-0">
-      <div className="container">
-        <div className="flex flex-col items-center justify-between py-4">
-          <p className="text-sm text-gray-500">&copy; JaylyMC {new Date().getFullYear()}</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function TopPage() {
-  const backgroundImageUrl = "/images/cmwyl-background.png";
-
+function HomeBanner() {
   const containerStyle: CSSProperties = {
-    background: `url(${backgroundImageUrl}) top center / cover no-repeat`,
-    position: "relative", // Ensure the container is positioned relative
+    background: `url("/assets/background.png")`,
+    position: "relative",
+    width: "100%",
+    height: "50%",
+    minHeight: "320px",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "flex-end",
   };
 
   const shadowStyle: CSSProperties = {
-    content: '""',
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    height: "2.5%", // Adjust the height of the shadow as needed
+    height: "5%",
     background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
   };
 
+  const jaylyCharStyle: CSSProperties = {
+    backgroundImage: "url(/assets/jayly.png)",
+    width: "100%",
+    height: "100%",
+    backgroundSize: "contain",
+    backgroundPosition: "bottom",
+    position: "absolute",
+    bottom: "10%",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
-    <div className="min-h-screen" style={containerStyle}>
+    <div style={containerStyle}>
       <div className="flex min-h-0 flex-col items-center p-5">
         <h1 className="relative z-10 text-5xl font-bold text-white" style={{ fontFamily: "Minecraft Five v2" }}>
           Jayly
         </h1>
         <p className="relative z-10 text-2xl font-bold text-white">A website for Jayly</p>
       </div>
-      {WebComponent()}
       <div style={shadowStyle}></div>
+      <div style={jaylyCharStyle}></div>
     </div>
   );
 }
@@ -319,12 +296,14 @@ export default function Home() {
     <main id="home">
       <StatsCollection />
       <SiteHeader />
-      <TopPage />
+      <HomeBanner />
       <CurrentProjects />
+      <div className="p-5" />
+      <PublicPosts />
       <div className="p-5" />
       <AboutMe />
       <div className="p-24" />
-      <Footer />
+      <SiteFooter />
     </main>
   );
 }
