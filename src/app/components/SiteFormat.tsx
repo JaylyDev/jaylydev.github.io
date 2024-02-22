@@ -12,7 +12,9 @@ export function SiteHeader() {
         }}
       >
         <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
-          <Image src={"/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
+          <a rel="apple-touch-icon" href="/">
+            <Image src={"/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
+          </a>
         </div>
         <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
           <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">

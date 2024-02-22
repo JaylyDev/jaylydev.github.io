@@ -4,8 +4,8 @@ import "@/styles/index.css";
 import ProjectCard from "./components/Card";
 import { CSSProperties, useEffect, useState } from "react";
 import { SiteHeader, SiteFooter } from "./components/SiteFormat";
-import { ResponseData } from "../../pages/api/posts_index.test";
 import { StatsCollection } from "./components/SiteFormat";
+import type { ResponseData } from "../../pages/posts/[slug]";
 
 interface IHyperlinkParams {
   url: string;
@@ -124,7 +124,7 @@ function CurrentProjects(): JSX.Element {
         "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure). (1.19.70 support)",
       links: [{ url: "https://github.com/jaylydev/nbt-to-mcstructure/", text: "Download from GitHub" }],
       image: {
-        src: "https://raw.githubusercontent.com/JaylyDev/nbt-to-mcstructure/main/assets/icon.png",
+        src: "/assets/nbt_to_mcstructure_icon.png",
         alt: "Structure",
       },
       media: "/assets/nbt_to_mcstructure_demo.gif",

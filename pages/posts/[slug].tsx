@@ -14,37 +14,60 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import remarkAlert from "@/remark-alert";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/app/components/SiteFormat";
-import type { PostMeta } from "../api/posts_index.test";
+import Head from "next/head";
+
+export interface PostMeta {
+  title: string;
+  date: string;
+  author: string;
+  description: string;
+}
+
+export interface PostData extends PostMeta {
+  slug: string;
+}
+
+export interface ResponseData {
+  posts: PostData[];
+}
 
 interface Props extends PostMeta {
   content: string;
 }
 
-const Post: React.FC<Props> = ({ content, title, date, author }) => {
+const Post: React.FC<Props> = ({ content, title, description, date, author }) => {
   return (
-    <div style={{ backgroundColor: "#0d1117" }}>
-      <title>{title} | JaylyMC</title>
-      <StatsCollection />
-      <SiteHeader />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <div className="markdown-header">
-        <span>
-          <a className="text-blue-500 hover:underline" href="/#posts">
-            Posts
-          </a>
-          {` > ${title}`}
-        </span>
-        <br />
-        <span className="text-gray-500">
-          By {author} &middot; {new Date(date).toISOString().replace("-", "/").split("T")[0].replace("-", "/")}
-        </span>
-      </div>
+    <>
+      <Head>
+        <title>{title + " | JaylyMC"}</title>
+        <meta charSet="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="author" content={author} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      <div style={{ backgroundColor: "#0d1117" }}>
+        <StatsCollection />
+        <SiteHeader />
+        <div className="markdown-header">
+          <span>
+            <a className="text-blue-500 hover:underline" href="/#posts">
+              Posts
+            </a>
+            {` > ${title}`}
+          </span>
+          <br />
+          <span className="text-gray-500">
+            By {author} &middot; {new Date(date).toISOString().replace("-", "/").split("T")[0].replace("-", "/")}
+          </span>
+        </div>
 
-      <article className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></article>
-      <SiteFooter />
-    </div>
+        <article className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></article>
+        <SiteFooter />
+      </div>
+    </>
   );
 };
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const postsDirectory = path.join(process.cwd(), "posts");
   const fileNames = fs.readdirSync(postsDirectory);
@@ -75,6 +98,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
+  const matterData = matterResult.data as PostMeta;
 
   // Use remark to convert markdown into HTML string
   const processedContent = await unified()
@@ -89,11 +113,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
   return {
     props: {
-      title: matterResult.data.title,
+      title: matterData.title,
       content: contentHtml,
-      date: matterResult.data.date,
-      author: matterResult.data.author,
-      description: matterResult.data.description,
+      date: matterData.date,
+      author: matterData.author,
+      description: matterData.description,
     },
   };
 };
