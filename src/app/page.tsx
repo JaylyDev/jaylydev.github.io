@@ -186,6 +186,7 @@ function PublicPosts() {
     minWidth: "320px",
     maxWidth: "1000px",
     padding: "15px",
+    marginBottom: "20px",
   };
 
   return (

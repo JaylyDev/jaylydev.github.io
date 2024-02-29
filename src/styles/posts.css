@@ -27,3 +27,11 @@
 html {
   background-color: #0d1117;
 }
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}

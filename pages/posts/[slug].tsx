@@ -7,12 +7,12 @@ import matter from "gray-matter";
 import React from "react";
 import { GetStaticProps, GetStaticPaths, Metadata } from "next";
 import rehypeStringify from "rehype-stringify";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from "remark-gfm";
+import rehypeDocument from "rehype-document";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import remarkAlert from "@/remark-alert";
+import rehypeStarryNight from "@/rehype-starry-night";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/app/components/SiteFormat";
 import Head from "next/head";
 
@@ -104,9 +104,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const processedContent = await unified()
     .use(remarkParse)
     .use(remarkAlert)
-    .use(remarkFrontmatter)
-    .use(remarkGfm)
     .use(remarkRehype)
+    .use(rehypeDocument)
+    .use(rehypeStarryNight as any)
     .use(rehypeStringify)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
