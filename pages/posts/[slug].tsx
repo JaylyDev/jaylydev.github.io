@@ -11,6 +11,7 @@ import rehypeDocument from "rehype-document";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import rehypeRaw from "rehype-raw";
 import remarkAlert from "@/remark-alert";
 import rehypeStarryNight from "@/rehype-starry-night";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/app/components/SiteFormat";
@@ -104,7 +105,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const processedContent = await unified()
     .use(remarkParse)
     .use(remarkAlert)
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
     .use(rehypeDocument)
     .use(rehypeStarryNight as any)
     .use(rehypeStringify)

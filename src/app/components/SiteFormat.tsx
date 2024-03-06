@@ -55,10 +55,8 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="flex-shrink-0">
-      <p className="flex min-h-0 flex-col items-center p-4 text-sm text-gray-500">
-        &copy; JaylyMC {new Date().getFullYear()}
-      </p>
+    <footer className="flex-shrink-0 flex min-h-0 flex-col items-center p-4 text-sm text-gray-500">
+      {"© JaylyMC " + new Date().getFullYear()}
     </footer>
   );
 }

@@ -1,6 +1,6 @@
 {
   "name": "jaylydev.github.io",
-  "version": "0.4.3",
+  "version": "0.5.2",
   "private": true,
   "scripts": {
     "dev": "npm run scripts && next dev",
@@ -22,6 +22,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rehype-document": "^7.0.3",
+    "rehype-raw": "^7.0.0",
     "rehype-stringify": "^10.0.0",
     "remark": "^15.0.1",
     "remark-rehype": "^11.1.0",

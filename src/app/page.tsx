@@ -115,7 +115,7 @@ function CurrentProjects(): JSX.Element {
       title: "Script Interpreter",
       description: `Script Interpreter is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition for testing the API features.
 > "Woah this really helps a lot! Like a LOT!" - BlueIcezen`,
-      links: [{ url: "https://mcpedl.com/gametest-interpreter/", text: "MCPEDL" }],
+      links: [{ url: "/posts/script-repl-minecraft/", text: "Learn More" }],
       image: { src: "/assets/script-interpreter.png", alt: "Script Interpreter" },
     },
     {
