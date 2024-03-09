@@ -49,7 +49,7 @@ The '**Ease Type**' button adjust the ease of a keyframe, different ease type al
 
 The following easing types are supported in the cinematic editor extension:
 
-![easing list](/assets/posts/cinematic-editor/jayly-cinematic-editor--camera-editor_2.png.png)
+![easing list](/assets/posts/cinematic-editor/jayly-cinematic-editor--camera-editor_2.png)
 
 > [!TIP]
 > The image above is taken from [Easing Functions Cheat Sheet](https://easings.net) (easings.net). Check out the website to learn more about different methods of easing.
@@ -93,7 +93,14 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 ## Cinematic Editor Extension
 
-### 1.1.1s
+### 1.1.2
+
+- Module version property is now the same as `header.version`
+- Editor extension is now compatible with 1.20.80-preview.21 or above.
+- Fix Vector class not exported from '@minecraft/server' module in 1.20.80-preview.21.
+- Output files are now bundled.
+
+### 1.1.1
 
 - Editor extension is now compatible with 1.20.80 previews.
 - HUD is now hidden when "Run Timeline" is pressed
@@ -148,6 +155,13 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 ## Cinematic Runtime Add-On
 
+### 0.3.0
+
+- Module version property is now the same as `header.version`
+- Editor extension is now compatible with 1.20.80-preview.21 or above.
+- Using '@minecraft/math' module instead of Vector class from '@minecraft/server'
+- Output files are now bundled.
+
 ### 0.2.1
 
 - Pack is now compatible with 1.20.80 previews only
@@ -173,5 +187,5 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 ## Downloads
 
 - [Download Cinematic Editor Demo World](https://www.mediafire.com/file/mf3iz1u948vwxky/Camera_Editor_Demo.mcworld/file)
-- [Download Cinematic Editor Runtime Add-On](https://www.mediafire.com/file/k5rv9iykaukpfpg/CinematicRuntime_v0.2.1.mcaddon/file)
-- [Download Cinematic Editor Extension](https://www.mediafire.com/file/z9mmjfqd57j3iul/CinematicEditor_v1.1.1.mceditoraddon/file)
+- [Download Cinematic Editor Runtime Add-On](https://www.mediafire.com/file/dytexvsxzn27mkk/CinematicRuntime_v0.3.0.mcaddon/file)
+- [Download Cinematic Editor Extension](https://www.mediafire.com/file/2legkm7hbwcbcpf/CinematicEditor_v1.1.2.mceditoraddon/file)

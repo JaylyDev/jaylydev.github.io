@@ -202,7 +202,7 @@ function PublicPosts() {
           {data.posts.map((post, index) => (
             <>
               <div key={index} style={postStyle}>
-                <a className="text-blue-500 text-2xl font-bold mb-2 hover:underline" href={post.slug}>
+                <a className="text-blue-500 text-2xl font-bold mb-2 hover:underline" href={post.slug + "/"}>
                   {post.title}
                 </a>
                 <p>{post.description}</p>
