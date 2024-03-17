@@ -1,13 +1,13 @@
 {
   "name": "jaylydev.github.io",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "private": true,
   "scripts": {
     "dev": "npm run scripts && next dev",
     "build": "npm run scripts && next build",
     "start": "next start",
     "lint": "next lint",
-    "scripts": "node scripts/fetch_index.mjs"
+    "scripts": "node scripts/fetch_all.mjs"
   },
   "dependencies": {
     "@nextui-org/react": "^2.1.13",

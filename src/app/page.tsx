@@ -167,7 +167,7 @@ function PublicPosts() {
     const fetchData = async () => {
       try {
         // Fetch data from your API or wherever it's located
-        const response = await fetch("/api/posts_index");
+        const response = await fetch("/api/posts_index.json");
         const jsonData = await response.json();
         setData(jsonData);
         setLoading(false); // Set loading to false after data is fetched

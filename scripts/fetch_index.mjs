@@ -13,4 +13,4 @@ const posts = postsFiles.map((file) => {
   };
 });
 const response = { posts: posts.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)) };
-fs.writeFileSync(path.join(process.cwd(), "public/api/posts_index"), JSON.stringify(response));
+fs.writeFileSync(path.join(process.cwd(), "public/api/posts_index.json"), JSON.stringify(response));
