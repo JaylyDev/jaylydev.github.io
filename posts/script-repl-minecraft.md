@@ -63,7 +63,7 @@ This is a very old showcase video of the add-on, fun fact the video includes the
 
 # Installation
 
-First you go to the download section and click **"Download Script Interpreter" (with or without experimentals)**.
+First you go to the download section and click **"Download Script REPL" (with or without experimentals)**.
 
 You will be redirected to Mediafire, then the add-on will be downloaded to your device.
 
@@ -72,7 +72,7 @@ You will be redirected to Mediafire, then the add-on will be downloaded to your 
 Import the add-on to Minecraft.
 
 > [!IMPORTANT]  
-> Enable **Holiday Creator Features** and **Beta APIs** experiments in world settings. These experiments are needed to run Script Interpreter with Beta API features.
+> Enable **Holiday Creator Features** and **Beta APIs** experiments in world settings. These experiments are needed to run Script REPL with Beta API features.
 
 ![experiments](/assets/posts/script-repl-minecraft/script-interpreter-v12050_9.png)
 
@@ -82,14 +82,38 @@ Import the add-on to Minecraft.
 
 No experimental toggles needed to be enabled.
 
+## What APIs the REPL supports
+
+Each invidiual version of Script REPL supports various fields of the APIs. Each version of script REPL have the latest version of script modules as the dependency on their channels:
+
+- Script REPL (Latest + Beta APIs):
+  - `@minecraft/server`: `1.10.0-beta`
+  - `@minecraft/server-ui`: `1.2.0-beta`
+  - `@minecraft/server-gametest`: `1.0.0-beta`
+  - `@minecraft/debug-utilities`: `1.0.0-beta`
+- Script REPL (Latest):
+  - `@minecraft/server`: `1.9.0`
+  - `@minecraft/server-ui`: `1.1.0`
+- Script REPL (Preview + Beta APIs):
+  - `@minecraft/server`: `1.11.0-beta`
+  - `@minecraft/server-ui`: `1.2.0-beta`
+  - `@minecraft/server-gametest`: `1.0.0-beta`
+  - `@minecraft/debug-utilities`: `1.0.0-beta`
+- Script REPL (Preview):
+  - `@minecraft/server`: `1.10.0`
+  - `@minecraft/server-ui`: `1.1.0`
+
+> [!NOTE]
+> All versions of Script REPL also loads external npm packages such as `@minecraft/vanilla-data` and `@minecraft/math` when executing JavaScript code.
+
 ## Downloads
 
 These download links do not go through Boostellar, so there shouldn't be any malicious links.
 
-- [Download Script Interpreter (Latest + Beta APIs)](https://www.mediafire.com/file/3y2k7gt16qenf2a/interpreter-20.6.0-beta.0.mcaddon/file)
+- [Download Script REPL (Latest + Beta APIs)](https://www.mediafire.com/file/ib5jb632e0oay3l/interpreter-20.7.0-beta.mcaddon/file)
 
-- [Download Script Interpreter (Latest)](https://www.mediafire.com/file/0imtfxxmyyxxsxp/interpreter-20.6.0-rc.0.mcaddon/file)
+- [Download Script REPL (Latest)](https://www.mediafire.com/file/8q9tebnd72qr0sx/interpreter-20.7.0.mcaddon/file)
 
-- [Download Script Interpreter (Preview + Beta APIs)](https://www.mediafire.com/file/cdlh4gqwzxgskyr/interpreter-20.8.0-beta.mcaddon/file)
+- [Download Script REPL (Preview + Beta APIs)](https://www.mediafire.com/file/cdlh4gqwzxgskyr/interpreter-20.8.0-beta.mcaddon/file)
 
-- [Download Script Interpreter (Preview)](https://www.mediafire.com/file/1smk9ztceua2pew/interpreter-20.8.1.mcaddon/file)
+- [Download Script REPL (Preview)](https://www.mediafire.com/file/bhjcw3c6dgype35/interpreter-20.8.2.mcaddon/file)

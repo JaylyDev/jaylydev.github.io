@@ -27,7 +27,7 @@ You will also need to download and install the following:
 > [!IMPORTANT]  
 > This project setup is only for bundling JavaScript files. For TypeScript project setup please visit below.
 
-First, open your terminal and navigate to your behvaior pack directory and and initialize a new npm project using `npm init -y` in your terminal. A new file named `package.json` should appear in your behavior pack directory. This stores metadata about the npm packages installed in this directory.
+First, open your terminal and navigate to your behvaior pack directory and initialize a new npm project using `npm init -y` in your terminal. A new file named `package.json` should appear in your behavior pack directory. This stores metadata about the npm packages installed in this directory.
 
 ```
 behavior_pack
@@ -191,7 +191,7 @@ If successful, when loading this behavior pack to a Minecraft world, obsidian bl
 > [!IMPORTANT]
 > This project setup is only for bundling TypeScript files. For JavaScript project setup please visit above.
 
-First, open your terminal and navigate to your behvaior pack directory and and initialize a new npm project using `npm init -y` in your terminal. A new file named `package.json` should appear in your behavior pack directory. This stores metadata about the npm packages installed in this directory.
+First, open your terminal and navigate to your behvaior pack directory and initialize a new npm project using `npm init -y` in your terminal. A new file named `package.json` should appear in your behavior pack directory. This stores metadata about the npm packages installed in this directory.
 
 ```
 behavior_pack

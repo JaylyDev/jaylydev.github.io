@@ -10,7 +10,8 @@
     "scripts": "node scripts/fetch_all.mjs"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.1.13",
+    "@nextui-org/button": "^2.0.27",
+    "@nextui-org/image": "^2.0.24",
     "@wooorm/starry-night": "^3.2.0",
     "autoprefixer": "10.4.14",
     "eslint": "8.44.0",

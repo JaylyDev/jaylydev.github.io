@@ -1,5 +1,5 @@
 import React from "react";
-import { Image } from "@nextui-org/react";
+import { Image } from "@nextui-org/image";
 
 interface CardProps {
   title: string;

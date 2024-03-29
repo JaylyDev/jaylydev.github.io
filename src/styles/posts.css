@@ -40,4 +40,5 @@ iframe {
   aspect-ratio: 16 / 9;
   width: 100%; /* change this to a fixed width, or create a container with a width. */
   height: 100%;
+  margin-bottom: 16px;
 }

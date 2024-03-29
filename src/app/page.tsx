@@ -6,6 +6,7 @@ import { CSSProperties, useEffect, useState } from "react";
 import { SiteHeader, SiteFooter } from "./components/SiteFormat";
 import { StatsCollection } from "./components/SiteFormat";
 import type { ResponseData } from "../../pages/posts/[slug]";
+import { Button } from "@nextui-org/button";
 
 interface IHyperlinkParams {
   url: string;
@@ -162,22 +163,22 @@ function CurrentProjects(): JSX.Element {
 function PublicPosts() {
   const [data, setData] = useState<ResponseData>({ posts: [] });
   const [loading, setLoading] = useState(true);
+  const [postsToShow, setPostsToShow] = useState(3); // State to control number of posts displayed
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from your API or wherever it's located
         const response = await fetch("/api/posts_index.json");
         const jsonData = await response.json();
         setData(jsonData);
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures this effect runs only once on component mount
+  }, []);
 
   const postStyle: CSSProperties = {
     margin: "auto",
@@ -189,17 +190,25 @@ function PublicPosts() {
     marginBottom: "20px",
   };
 
+  const handleLoadMore = () => {
+    setPostsToShow(postsToShow + 3); // Increase number of posts to show by 3
+  };
+
+  const displayedPosts = data.posts.slice(0, postsToShow); // Slice data to show only desired number
+
   return (
     <>
       <Subheading id="posts" title="Posts" />
       <br />
       {loading ? (
         <center>
-          <p>Loading Posts...</p>
+          <Button color="primary" isLoading>
+            Loading Posts
+          </Button>
         </center>
       ) : (
         <>
-          {data.posts.map((post, index) => (
+          {displayedPosts.map((post, index) => (
             <>
               <div key={index} style={postStyle}>
                 <a className="text-blue-500 text-2xl font-bold mb-2 hover:underline" href={post.slug + "/"}>
@@ -207,12 +216,19 @@ function PublicPosts() {
                 </a>
                 <p>{post.description}</p>
                 <span>
-                  Date: {new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/")} &middot;
-                  By {post.author}
+                  Date: {new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/")}
+                  &middot; By {post.author}
                 </span>
               </div>
             </>
           ))}
+          {data.posts.length > postsToShow && ( // Check if there are more posts to load
+            <center>
+              <Button color="primary" onClick={handleLoadMore}>
+                Load More Posts
+              </Button>
+            </center>
+          )}
         </>
       )}
     </>
