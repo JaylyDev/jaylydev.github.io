@@ -216,8 +216,10 @@ function PublicPosts() {
                 </a>
                 <p>{post.description}</p>
                 <span>
-                  Date: {new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/")}
-                  &middot; By {post.author}
+                  {"Date: " +
+                    new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/") +
+                    " \u00B7 by " +
+                    post.author}
                 </span>
               </div>
             </>

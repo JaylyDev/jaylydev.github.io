@@ -7,7 +7,7 @@ date: 3/4/2024
 
 # Minecraft Script REPL Add-On
 
-Script REPL Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition. This powerful add-on is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
+Script REPL (read–eval–print loop) Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition. This powerful add-on is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
 
 ![REPL Form](/assets/posts/script-repl-minecraft/script-interpreter-v12050_2.png)
 

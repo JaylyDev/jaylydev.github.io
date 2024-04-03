@@ -49,6 +49,7 @@ behavior_pack
 ```
 
 esbuild.js
+
 ```js
 const esbuild = require("esbuild");
 
@@ -108,3 +109,53 @@ If your script involves importing multiple native script dependencies, add `--ex
 With this setup, external npm packages such as `@minecraft/math` and `@minecraft/vanilla-data` in your pack's code.
 
 For further details and advanced options, please refer to the official esbuild documentation [here](https://esbuild.github.io/getting-started/).
+
+## Regolith
+
+Regolith is an Minecraft Bedrock Addon Compiler. It is possible to use the `gametests` filter which uses esbuild to bundle scripts using the following configuration:
+
+1. Install the regolith filter with `regolith install gametests`
+
+2. Setup profile in `config.json`
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.2.json",
+  "author": "Your name",
+  "name": "Project name",
+  "packs": {
+    "behaviorPack": "./packs/BP",
+    "resourcePack": "./packs/RP"
+  },
+  "regolith": {
+    "dataPath": "./packs/data",
+    "filterDefinitions": {},
+    "profiles": {
+      "default": {
+        "export": {
+          "readOnly": false,
+          "target": "development"
+        },
+        "filters": [
+          {
+            "filter": "gametests",
+            "settings": {
+              "moduleUUID": null,
+              "modules": ["@minecraft/server@1.2.0", "@minecraft/server-ui@1.0.0"],
+              "outfile": "BP/scripts/main.js",
+              "manifest": "BP/manifest.json",
+              "buildOptions": {
+                "entryPoints": ["data/gametests/src/main.ts"],
+                "target": "es2020",
+                "format": "esm",
+                "bundle": true,
+                "minify": true
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```

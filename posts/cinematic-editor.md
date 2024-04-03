@@ -186,6 +186,5 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 ## Downloads
 
-- [Download Cinematic Editor Demo World](https://www.mediafire.com/file/mf3iz1u948vwxky/Camera_Editor_Demo.mcworld/file)
 - [Download Cinematic Editor Runtime Add-On](https://www.mediafire.com/file/dytexvsxzn27mkk/CinematicRuntime_v0.3.0.mcaddon/file)
 - [Download Cinematic Editor Extension](https://www.mediafire.com/file/2legkm7hbwcbcpf/CinematicEditor_v1.1.2.mceditoraddon/file)

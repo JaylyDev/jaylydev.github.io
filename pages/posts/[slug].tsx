@@ -62,7 +62,7 @@ const Post: React.FC<Props> = ({ content, title, description, date, author }) =>
           </span>
         </div>
 
-        <article className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></article>
+        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></div>
         <SiteFooter />
       </div>
     </>
