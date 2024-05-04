@@ -125,6 +125,7 @@ npm i @minecraft/vanilla-data @minecraft/server @minecraft/math
 ```
 
 src/index.js
+
 ```js
 import { BlockPermutation, system, world } from "@minecraft/server";
 import { MinecraftBlockTypes } from "@minecraft/vanilla-data";
@@ -156,6 +157,7 @@ This will execute webpack, process your script, and create the main.js file in t
 Before running the behavior pack to Minecraft, make sure to set `modules[0].entry` to `scripts/main.js`:
 
 manifest.json
+
 ```jsonc
 {
   "format_version": 2,
@@ -284,6 +286,7 @@ module.exports = {
 If you haven't already, you also need to setup `tsconfig.json`:
 
 tsconfig.json
+
 ```json
 {
   "compilerOptions": {
@@ -293,8 +296,8 @@ tsconfig.json
     "rootDir": "./src",
     "outDir": "./scripts"
   },
-  "exclude": [ "node_modules" ],
-  "include": [ "src" ]
+  "exclude": ["node_modules"],
+  "include": ["src"]
 }
 ```
 
@@ -309,6 +312,7 @@ npm i @minecraft/vanilla-data @minecraft/server @minecraft/math
 ```
 
 src/index.ts
+
 ```ts
 import { BlockPermutation, system, world } from "@minecraft/server";
 import { MinecraftBlockTypes } from "@minecraft/vanilla-data";
@@ -340,6 +344,7 @@ This will execute webpack, process your script, and create the main.js file in t
 Before running the behavior pack to Minecraft, make sure to set `modules[0].entry` to `scripts/main.js`:
 
 manifest.json
+
 ```jsonc
 {
   "format_version": 2,

@@ -141,7 +141,10 @@ Regolith is an Minecraft Bedrock Addon Compiler. It is possible to use the `game
             "filter": "gametests",
             "settings": {
               "moduleUUID": null,
-              "modules": ["@minecraft/server@1.2.0", "@minecraft/server-ui@1.0.0"],
+              "modules": [
+                "@minecraft/server@1.2.0",
+                "@minecraft/server-ui@1.0.0"
+              ],
               "outfile": "BP/scripts/main.js",
               "manifest": "BP/manifest.json",
               "buildOptions": {

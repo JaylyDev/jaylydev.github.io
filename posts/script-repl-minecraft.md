@@ -13,7 +13,7 @@ Script REPL (read–eval–print loop) Add-On is a debugging tool for Minecraft 
 
 Currenly JavaScript is the only programming language that allow developers to use Script APIs from within their code.
 
-To learn more about Minecraft's Script API, please visit [Microsoft's Script API Documentation](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/).
+To learn more about Minecraft's Script API, please visit [Microsoft's Script API Documentation](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/)..
 
 **Here are some examples executing JavaScript in-game:**
 
