@@ -17,3 +17,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* text-blue-500 hover:underline */
+.hyperlink {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.hyperlink:hover {
+  text-decoration: underline;
+}

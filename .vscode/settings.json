@@ -5,12 +5,18 @@
     "editor.tabSize": 4
   },
   
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4
+  },
+
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.tabSize": 4
   },
-  
+
   "prettier.enable": true,
-  "prettier.configPath": ".prettierrc.json",
+  "prettier.configPath": ".prettierrc.json"
 }

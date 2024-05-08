@@ -7,6 +7,7 @@ import { SiteHeader, SiteFooter } from "./components/SiteFormat";
 import { StatsCollection } from "./components/SiteFormat";
 import type { ResponseData } from "../../pages/posts/[slug]";
 import { Button } from "@nextui-org/button";
+import { containerStyle, shadowStyle, jaylyCharStyle } from "./components/Banner";
 
 interface IHyperlinkParams {
   url: string;
@@ -211,7 +212,7 @@ function PublicPosts() {
           {displayedPosts.map((post, index) => (
             <>
               <div key={index} style={postStyle}>
-                <a className="text-blue-500 text-2xl font-bold mb-2 hover:underline" href={post.slug + "/"}>
+                <a className="hyperlink text-2xl font-bold mb-2 " href={post.slug + "/"}>
                   {post.title}
                 </a>
                 <p>{post.description}</p>
@@ -263,39 +264,6 @@ function AboutMe(): JSX.Element {
 }
 
 function HomeBanner() {
-  const containerStyle: CSSProperties = {
-    background: `url("/assets/background.png")`,
-    position: "relative",
-    width: "100%",
-    height: "50%",
-    minHeight: "320px",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "flex-end",
-  };
-
-  const shadowStyle: CSSProperties = {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: "5%",
-    background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
-  };
-
-  const jaylyCharStyle: CSSProperties = {
-    backgroundImage: "url(/assets/jayly.png)",
-    width: "100%",
-    height: "100%",
-    backgroundSize: "contain",
-    backgroundPosition: "bottom",
-    position: "absolute",
-    bottom: "10%",
-    backgroundRepeat: "no-repeat",
-  };
-
   return (
     <div style={containerStyle}>
       <div className="flex min-h-0 flex-col items-center p-5">

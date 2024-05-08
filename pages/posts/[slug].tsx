@@ -5,10 +5,10 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import React from "react";
-import { GetStaticProps, GetStaticPaths, Metadata } from "next";
+import { GetStaticProps, GetStaticPaths } from "next";
 import rehypeStringify from "rehype-stringify";
-import rehypeDocument from "rehype-document";
 import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import rehypeRaw from "rehype-raw";
@@ -51,7 +51,7 @@ const Post: React.FC<Props> = ({ content, title, description, date, author }) =>
         <SiteHeader />
         <div className="markdown-header">
           <span>
-            <a className="text-blue-500 hover:underline" href="/#posts">
+            <a className="hyperlink" href="/#posts">
               Posts
             </a>
             {` > ${title}`}
@@ -104,10 +104,10 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   // Use remark to convert markdown into HTML string
   const processedContent = await unified()
     .use(remarkParse)
+    .use(remarkGfm)
     .use(remarkAlert)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
-    .use(rehypeDocument)
     .use(rehypeStarryNight as any)
     .use(rehypeStringify)
     .process(matterResult.content);

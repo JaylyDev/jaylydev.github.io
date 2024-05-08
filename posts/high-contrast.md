@@ -17,6 +17,7 @@ Similar to the Java's built-in high contrast resource pack, this pack also only 
 
 > [!IMPORTANT]
 > This resource pack does not support any screens that are rendered with the new Minecraft UI engine. This includes but not limited to:
+>
 > - The Play screen
 > - The Edit / Create New World screen
 > - The Achievement screen

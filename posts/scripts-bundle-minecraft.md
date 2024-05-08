@@ -124,7 +124,23 @@ For this script, the following dependencies needed to be installed:
 npm i @minecraft/vanilla-data @minecraft/server @minecraft/math
 ```
 
+> [!IMPORTANT]
+> The `@minecraft/math` module requires to be dependent with stable version of `@minecraft/server`. The `overrides` key in `package.json` fixes this locally though by forcibly deduping the dependencies:
+>
+> package.json
+>
+> ```json
+> {
+>   "overrides": {
+>     "@minecraft/server": "beta"
+>   }
+> }
+> ```
+>
+> Please make sure to remove `"@minecraft/server"` key in dependencies field from `package.json`.
+
 src/index.js
+
 ```js
 import { BlockPermutation, system, world } from "@minecraft/server";
 import { MinecraftBlockTypes } from "@minecraft/vanilla-data";
@@ -156,6 +172,7 @@ This will execute webpack, process your script, and create the main.js file in t
 Before running the behavior pack to Minecraft, make sure to set `modules[0].entry` to `scripts/main.js`:
 
 manifest.json
+
 ```jsonc
 {
   "format_version": 2,
@@ -284,6 +301,7 @@ module.exports = {
 If you haven't already, you also need to setup `tsconfig.json`:
 
 tsconfig.json
+
 ```json
 {
   "compilerOptions": {
@@ -293,8 +311,8 @@ tsconfig.json
     "rootDir": "./src",
     "outDir": "./scripts"
   },
-  "exclude": [ "node_modules" ],
-  "include": [ "src" ]
+  "exclude": ["node_modules"],
+  "include": ["src"]
 }
 ```
 
@@ -308,7 +326,23 @@ Since webpack integrates TypeScript through `ts-loader`, installing type definit
 npm i @minecraft/vanilla-data @minecraft/server @minecraft/math
 ```
 
+> [!IMPORTANT]
+> The `@minecraft/math` module requires to be dependent with stable version of `@minecraft/server`. The `overrides` key in `package.json` fixes this locally though by forcibly deduping the dependencies:
+>
+> package.json
+>
+> ```json
+> {
+>   "overrides": {
+>     "@minecraft/server": "beta"
+>   }
+> }
+> ```
+>
+> Please make sure to remove `"@minecraft/server"` key in dependencies field from `package.json`.
+
 src/index.ts
+
 ```ts
 import { BlockPermutation, system, world } from "@minecraft/server";
 import { MinecraftBlockTypes } from "@minecraft/vanilla-data";
@@ -340,6 +374,7 @@ This will execute webpack, process your script, and create the main.js file in t
 Before running the behavior pack to Minecraft, make sure to set `modules[0].entry` to `scripts/main.js`:
 
 manifest.json
+
 ```jsonc
 {
   "format_version": 2,
