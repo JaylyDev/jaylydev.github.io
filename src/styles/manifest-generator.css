@@ -1,0 +1,13 @@
+.content-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 50px 5%;
+}
+
+.row {
+  margin-top: 2px;
+  min-width: 250px;
+  max-width: 50%;
+}

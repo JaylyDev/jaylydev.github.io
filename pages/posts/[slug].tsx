@@ -51,7 +51,7 @@ const Post: React.FC<Props> = ({ content, title, description, date, author }) =>
         <SiteHeader />
         <div className="markdown-header">
           <span>
-            <a className="text-blue-500 hover:underline" href="/#posts">
+            <a className="hyperlink" href="/#posts">
               Posts
             </a>
             {` > ${title}`}

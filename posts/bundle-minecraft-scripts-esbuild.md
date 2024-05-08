@@ -66,7 +66,7 @@ const external = [
 
 esbuild
   .build({
-    entryPoints: ["src/main.js"],
+    entryPoints: ["src/index.js"],
     outfile: "scripts/main.js",
     bundle: true,
     minify: true,
@@ -83,12 +83,61 @@ esbuild
 
 Code explaination:
 
-- `entryPoints`: List of entry points (your main JavaScript files in the `src` folder)
+- `entryPoints`: List of entry points (your main JavaScript or TypeScript files in the `src` folder)
 - `outfile`: Output file name (the same as the `entry` field in `manifest.json`)
 - `bundle`: Enable bundling (default is false)
 - `minify`: Optional: Minify output for smaller file size
 - `format`: Output file format (it's `esm` for Minecraft)
 - `external` array: List of native Minecraft modules. This list may change as more native modules will be added into Minecraft in the future.
+
+## Using external npm packages
+
+With this setup, external npm packages such as `@minecraft/math` and `@minecraft/vanilla-data` in your pack's code.
+
+In this example, we have an example script that uses `@minecraft/vanilla-data` and `@minecraft/math` module, to demostrate how bundling works. The script runs every tick, iterates over all players in the Minecraft world, set the block type to Obsidian in each player's view direction.
+
+For this script, the following dependencies needed to be installed:
+
+```bash
+npm i @minecraft/vanilla-data @minecraft/server @minecraft/math
+```
+
+> [!IMPORTANT]
+> The `@minecraft/math` module requires to be dependent with stable version of `@minecraft/server`. The `overrides` key in `package.json` fixes this locally though by forcibly deduping the dependencies:
+>
+> package.json
+>
+> ```json
+> {
+>   "overrides": {
+>     "@minecraft/server": "beta"
+>   }
+> }
+> ```
+>
+> Please make sure to remove `"@minecraft/server"` key in dependencies field from `package.json`.
+
+src/index.js
+
+```js
+import { BlockPermutation, system, world } from "@minecraft/server";
+import { MinecraftBlockTypes } from "@minecraft/vanilla-data";
+import { Vector3Builder } from "@minecraft/math";
+
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) {
+    const location = new Vector3Builder(player.location);
+    const viewDirection = new Vector3Builder(player.getViewDirection())
+      .scale(10)
+      .add(new Vector3Builder(0, 1, 0));
+    const block = player.dimension.getBlock(location.add(viewDirection));
+    if (!block) continue;
+    block.setPermutation(
+      BlockPermutation.resolve(MinecraftBlockTypes.Obsidian)
+    );
+  }
+});
+```
 
 ## Bundling Process
 
@@ -98,17 +147,43 @@ If you have the configuration file setup, run the following command should bundl
 node esbuild.js
 ```
 
-Or if you're using the command line only, run the following command:
+> For further details and advanced options, please refer to the official esbuild documentation [here](https://esbuild.github.io/getting-started/).
 
-```bash
-esbuild src/main.js --bundle --outfile=scripts/main.js --minify --external:@minecraft/server
+This will execute esbuild, process your script, and create the main.js file in the `scripts` directory.
+
+Before running the behavior pack to Minecraft, make sure to set `modules[0].entry` to `scripts/main.js`:
+
+manifest.json
+
+```jsonc
+{
+  "format_version": 2,
+  "header": {
+    "description": "My scripting behavior pack!",
+    "name": "My Behavior Pack",
+    "uuid": "4f75452a-793e-4427-9732-f932ff6afffd",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 50]
+  },
+  "modules": [
+    {
+      "description": "Test Scripting",
+      "type": "script",
+      "uuid": "92bb9cc8-e286-457d-8988-a4c2f27664f1",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js" // loads bundled script file
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.7.0"
+    }
+  ]
+}
 ```
 
-If your script involves importing multiple native script dependencies, add `--external` flag for each script module.
-
-With this setup, external npm packages such as `@minecraft/math` and `@minecraft/vanilla-data` in your pack's code.
-
-For further details and advanced options, please refer to the official esbuild documentation [here](https://esbuild.github.io/getting-started/).
+If successful, when loading this behavior pack to a Minecraft world, obsidian blocks should appear about 10 blocks within your view direction for every player.
 
 ## Regolith
 
@@ -148,7 +223,7 @@ Regolith is an Minecraft Bedrock Addon Compiler. It is possible to use the `game
               "outfile": "BP/scripts/main.js",
               "manifest": "BP/manifest.json",
               "buildOptions": {
-                "entryPoints": ["data/gametests/src/main.ts"],
+                "entryPoints": ["src/index.ts"],
                 "target": "es2020",
                 "format": "esm",
                 "bundle": true,

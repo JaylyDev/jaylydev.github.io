@@ -52,7 +52,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
               href={link.url}
               target={link.url.startsWith("/") ? undefined : "_blank"}
               rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
+              className="hyperlink"
             >
               {link.text}
             </a>

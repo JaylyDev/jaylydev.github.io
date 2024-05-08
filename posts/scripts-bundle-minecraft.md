@@ -124,6 +124,21 @@ For this script, the following dependencies needed to be installed:
 npm i @minecraft/vanilla-data @minecraft/server @minecraft/math
 ```
 
+> [!IMPORTANT]
+> The `@minecraft/math` module requires to be dependent with stable version of `@minecraft/server`. The `overrides` key in `package.json` fixes this locally though by forcibly deduping the dependencies:
+>
+> package.json
+>
+> ```json
+> {
+>   "overrides": {
+>     "@minecraft/server": "beta"
+>   }
+> }
+> ```
+>
+> Please make sure to remove `"@minecraft/server"` key in dependencies field from `package.json`.
+
 src/index.js
 
 ```js
@@ -310,6 +325,21 @@ Since webpack integrates TypeScript through `ts-loader`, installing type definit
 ```bash
 npm i @minecraft/vanilla-data @minecraft/server @minecraft/math
 ```
+
+> [!IMPORTANT]
+> The `@minecraft/math` module requires to be dependent with stable version of `@minecraft/server`. The `overrides` key in `package.json` fixes this locally though by forcibly deduping the dependencies:
+>
+> package.json
+>
+> ```json
+> {
+>   "overrides": {
+>     "@minecraft/server": "beta"
+>   }
+> }
+> ```
+>
+> Please make sure to remove `"@minecraft/server"` key in dependencies field from `package.json`.
 
 src/index.ts
 
