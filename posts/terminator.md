@@ -8,7 +8,7 @@ date: 5/3/2024
 # Minecraft Terminator [v2.0.0-beta]
 
 > [!IMPORTANT]
-> The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable, and the add-on may not work unless you're using Minecraft Preview. Check the changelog below this post for details on any changes to the add-on. This post reflects the latest updates to the terminator add-on in Minecraft beta versions.
+> The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog below this post for details on any changes to the add-on. This post reflects the latest updates to the Minecraft Terminator add-on.
 
 **Introducing Terminator to your Minecraft world!** This is a powerful mob that has the ability to follow entities, destroy blocks and build blocks when the terminator thinks it's necessary, pick up melee and ranged weapons such as swords and bows to attack entities, and wear armors such as chestplates to protect itself from being damaged.
 
