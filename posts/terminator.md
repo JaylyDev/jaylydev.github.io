@@ -21,6 +21,8 @@ date: 5/3/2024
 
 This terminator can build blocks to reach its target and break blocks that stops the terminator from reaching the target.
 
+![terminator-building](/assets/posts/terminator/terminator-building.png)
+
 ## Attack Entities
 
 The terminator can attack the following types of mobs. Please note that Terminator will attack a selected mob when the terminator and it's target met the right conditions (which you can check the table below the list):;
@@ -52,7 +54,9 @@ The terminator can attack the following types of mobs. Please note that Terminat
 
 ## Respawn Event
 
-When the terminator dies, the terminator will trigger a respawn event which will respawn itself, after respawn terminator will no longer be able to revive itself after death.
+When the terminator dies for the first time, the terminator will trigger a respawn event which will respawn itself.
+
+The terminator will have the ability to respawn itself for the second time until terminator dies for the third time.
 
 The following image is taken after the terminator dies:
 
@@ -74,6 +78,8 @@ Difference about food points for players and health points for terminators:
 
 - Terminator restores 14 health points from eating cake
 - Terminator cannot eat chorus fruit
+
+More infomation about food points: https://minecraft.wiki/w/Food#Foods
 
 ## Combat
 
@@ -137,12 +143,40 @@ Features:
 
 Shield is activated when the terminator is holding a shield in main hand or off hand.
 
-Shield has a 5 ticks (0.25 seconds) cooldown after a defense before blocking another attack or terminator's hand
-The shield disables damage cause by: block explosion, entity attack, entity explosion and projectile
+- Shield has a 5 ticks (0.25 seconds) cooldown after a defense before blocking another attack or terminator's hand.
+- The shield disables damage cause by: block explosion, entity attack, entity explosion and projectile.
+
+## Skins!
+
+**Terminator now has different skins!**
+
+Christmas skins only display in Minecraft from **December 1st to December 25th**. The add-on will change their skin back to normal afterwards.
+
+![terminator skins](/assets/posts/terminator/terminator-skins.png)
+
+This feature includes the introduction of skin models:
+
+![terminator skin models](/assets/posts/terminator/minecraft-terminator-customization-update_6.png)
+
+<details><summary><strong>Differences</strong></summary>
+
+The difference here are the steve's model arm's are 4 pixels wide and the alex's model arm's are 3 pixels wide, like what you see when choosing your own custom skin.
+
+![terminator skin models](/assets/posts/terminator/minecraft-terminator-customization-update_7.png)
+
+</details>
+
+## Capes!
+
+Terminator now spawns with Minecraft: Java Edition migrator cape.
+
+![terminator with cape](/assets/posts/terminator/minecraft-terminator-customization-update_4.png)
+
+Currently there is only 1 cape available to Terminator. Expect more capes to be available to them in future updates!
 
 ## Spawn a Terminator
 
-There are multiple ways to spawn a terminator in your Minecraft world:
+You have seen the cool features the Terminator add-on offers. There are multiple ways to spawn a terminator in your Minecraft world:
 
 1. You can obtain the terminator spawn egg in the creative inventory
 
@@ -156,37 +190,87 @@ There are multiple ways to spawn a terminator in your Minecraft world:
 
    ![recipe](/assets/posts/terminator/terminator-recipe.png)
 
-## Skins!
+   > Thanks May5Flames for the terminator crafting recipe!
 
-**Terminator now has different skins!**
+### Still stuck at spawning a terminator?
 
-Christmas skins only display in Minecraft from **December 1st to December 25th**. The add-on will change their skin back to normal afterwards.
+Don't worry. When you spawn into the world with the Add-On loaded for the first time, a Terminator guide book will appear in your inventory.
 
-![terminator skins](/assets/posts/terminator/terminator-skins.png)
+![guide book](/assets/posts/terminator/guide-book.png)
 
-## Capes!
+Right click and scroll down to the bottom, a button that says "Spawn Terminator" will redirect you to this form:
 
-Terminator now spawns with Minecraft: Java Edition migrator cape.
+![form pt.2](/assets/posts/terminator/minecraft-terminator--november-2023-update_2.png)
 
-<details><summary><h2>Changelog (Version 2)</h2></summary>
+![form pt.2](/assets/posts/terminator/minecraft-terminator--november-2023-update_3.png)
 
-# 2.0.0-beta (5/9/2024)
+By pressing the 'Submit' button, the game will spawn a terminator with changes applied based on options available in the 'Spawn Terminator' form.
+
+<details><summary><h1>Changelog</h1></summary>
+
+## 2.0.0-beta (2024/5/17)
+
+> [!IMPORTANT]
+> The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
+
+We're fixing more bugs in preparation for Terminator add-on release v2.0.0.
+
+Releasing this add-on to MCPEDL for public testing.
+
+#### Add-On Changes
+
+- Added Terminator Guide Book. Obtained when player first join with this add-on loaded to world.
+
+#### Add-On Codebase
+
+- Converted death event to scripts
+
+#### Terminator Entity Changes
+
+- Fixed a bug that modified terminator nametag won't display in join message.
+- Added Terminator spawn sound.
+- Fixed a bug that entity nametag is not shown in death messages.
+- Added deepslate to terminator breakable block list
+- Fix issues with terminator respawn event
+
+## 2.0.0-beta (2024/5/12)
+
+> [!IMPORTANT]
+> The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
+
+We're fixing more bugs in preparation for Terminator add-on release v2.0.0.
+
+#### Add-On Codebase
+
+- Revamped death message system from entity JSON to TypeScript.
+- Revamped forward bridging from animation controller JSON to TypeScript fully.
+
+#### Terminator Entity Changes
+
+- Added 1.20 death messages to terminator add-on.
+- Fix Terminator left message not shown and not colored yellow.
+- Fix a bug where terminator will fly when attempting to jump.
+- Fix a bug that terminator will not place blocks at certain directions when bridging.
+- Fix [Terminator doesn't move when using snowballs #46](https://github.com/JaylyDev/terminator/issues/46)
+- Terminator will now bridge inside the height range of each dimension.
+
+## 2.0.0-beta (5/9/2024)
 
 Once again, I'm rewriting this add-on so it works in latest versions of Minecraft - The 1.21 Update, I mean the Tricky Trials Update. This update includes the codebase of the add-on migrating from JSON to TypeScript, tons of bug fixes, and experimental features! Sounds impressive? Let's dive in.
 
-## Engine Changes
+#### Engine Changes
 
 - Add-On now no longer requires experiments to run.
 - Addon now requires Minecraft version 1.20.70 or above to run properly.
 - Fix a bug where addon can be applied to Global Resources.
 - Converted `glow_squid` family to `squid`
 
-## Function Commands Changes
+#### Function Commands Changes
 
 - Fixed invalid command syntax which caused add-on not being to run properly.
 - Function commands are being deprecated in v2.0.0, and it will be replaced by script forms which will be released in future v2.0.0 beta updates.
 
-## Terminator Entity Changes
+#### Terminator Entity Changes
 
 - Fix a bug where terminator unable to bridge towards northwest direction.
 - Updated terminator to leave chest boats.
@@ -207,36 +291,29 @@ Once again, I'm rewriting this add-on so it works in latest versions of Minecraf
   - Air
 - Add-On now detects death causes and broadcast death messages added from 1.20.
 
-</details>
+## 1.4.0
 
-<details>
-  <summary><h2>Changelog (Version 1)</h2></summary>
-
-Changelog for Minecraft Terminator Add-On
-
-# 1.4.0
-
-## What's Changed
+#### What's Changed
 
 - Terminator now changes skin to christmas theme across all platforms.
 - Removed `#summon` command, replaced with `/scriptevent terminator:spawn` with a modal form.
 - Add-On now doesn't require Beta APIs experiment enabled
 - Add-On is now compatible with v1.20.40+
 
-## Pull Requests
+#### Pull Requests
 
 - Add multiple ci workflows by @Hallis1221 in https://github.com/JaylyDev/terminator/pull/44
 - v1.4 - November 2023 Update by @JaylyDev in https://github.com/JaylyDev/terminator/pull/50
 
-## New Contributors
+#### New Contributors
 
 - @Hallis1221 made their first contribution in https://github.com/JaylyDev/terminator/pull/44
 
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.70...v1.4.0
 
-# 1.3.70
+## 1.3.70
 
-## New features
+#### New features
 
 - add "terminator join the game" text when terminator is spawned
 - added custom slim geometry (alex model)
@@ -258,14 +335,14 @@ Changelog for Minecraft Terminator Add-On
 - Added capes to terminator
   - You can switch cape texture by changing `cape_custom.png`
 
-## Changes
+#### Changes
 
 - removed end portal sound when spawning terminator
 - removed lightning bolt when terminator dies
 - Removed GameTest compatibility
 - Removed device based subpacks
 
-## Bug fixes
+#### Bug fixes
 
 - Fixed several skin-related bugs
 - Fixed path limit crash caused in console platform (specifically XBox)
@@ -279,36 +356,36 @@ Changelog for Minecraft Terminator Add-On
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.45...v1.3.70
 **Discussion here**: https://discord.com/invite/8xzSHD84xv
 
-# Patch 1.3.45
+## 1.3.45
 
-### ⚠️ This is a critical patch update for players that installed Terminator v1.3.40 - v1.3.44 on all Minecraft platforms excluding Windows. It's highly recommended to download and update the add-on.
+**⚠️ This is a critical patch update for players that installed Terminator v1.3.40 - v1.3.44 on all Minecraft platforms excluding Windows. It's highly recommended to download and update the add-on.**
 
 > For beta testers, there are currently no beta versions that fixed this issue.
 
-## Changes
+#### Changes
 
 This category shows things that existed in previous versions that's modified from the last public release `v1.3.43.2`
 
 - Christmas themed skins of terminator will now only appear starting **December 19 to January 8** every year
 - Christmas themed skins are removed from all platforms excluding Windows
 
-## Bug fix
+#### Bug fix
 
 This category shows bugs that existed in previous release `v1.3.43.2`
 
 - GameTest Framework do not support javascript modules required by the add-on on all Minecraft platforms except Windows, this leads to Minecraft unloads the add-on when starting a world.
 
-## Installations:
+#### Installations:
 
-### If you're installing this add-on on Windows 10 & 11:
+**If you're installing this add-on on Windows 10 & 11:**
 
-#### You can choose to download either [`terminator.windows_v1.3.45.0.mcaddon`](https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.windows_v1.3.45.0.mcaddon) on this page or [`terminator_v1.3.43.2.mcaddon`](https://github.com/JaylyDev/terminator/releases/download/v1.3.43/terminator_v1.3.43.2.mcaddon) on patch 1.3.43 changelog. There are no changes for Windows platform.
+You can choose to download either [`terminator.windows_v1.3.45.0.mcaddon`](https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.windows_v1.3.45.0.mcaddon) on this page or [`terminator_v1.3.43.2.mcaddon`](https://github.com/JaylyDev/terminator/releases/download/v1.3.43/terminator_v1.3.43.2.mcaddon) on patch 1.3.43 changelog. There are no changes for Windows platform.
 
-### If you're installing this add-on on other platforms:
+**If you're installing this add-on on other platforms:**
 
-### Download [`terminator.non-windows_v1.3.45.0.mcaddon`](https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.non-windows_v1.3.45.0.mcaddon)
+Download [`terminator.non-windows_v1.3.45.0.mcaddon`](https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.non-windows_v1.3.45.0.mcaddon)
 
-## Setup instructions
+#### Setup instructions
 
 This add-on is released for Minecraft version 1.17.30 or above. These are the experimentals options required to be activated:
 
@@ -316,47 +393,47 @@ This add-on is released for Minecraft version 1.17.30 or above. These are the ex
 > ![image](https://user-images.githubusercontent.com/65847850/145708230-c6dde04e-3ee0-4121-9416-8089996f88ef.png)
 > IF YOU HOST THIS ADD-ON IN XBOX PLATFORM, READ "Revision update for terminator add-on"
 
-### For versions below Minecraft version 1.17.30:
+#### For versions below Minecraft version 1.17.30:
 
 > **GameTest Framework will not be supported**, you can thank mojang for that
 > ![image](https://user-images.githubusercontent.com/65847850/146677619-d181742f-5c32-4b1b-8f58-ab9b4f6a87d5.png)
 
-## Release 1.3.43 changelog: [Click here](https://github.com/JaylyDev/terminator/releases/tag/v1.3.43)
+- Release 1.3.43 changelog: [Click here](https://github.com/JaylyDev/terminator/releases/tag/v1.3.43)
 
-## Release 1.3.40 changelog: [Click here](https://github.com/JaylyDev/terminator/releases/tag/v1.3.40)
+- Release 1.3.40 changelog: [Click here](https://github.com/JaylyDev/terminator/releases/tag/v1.3.40)
 
 ---
 
-# 1/5/2022 Update:
+#### 1/5/2022 Update:
 
-## Experiments (For Xbox platform)
+**Experiments (For Xbox platform):**
 
 Since Xbox do not support GameTest Framework and there have been reports of unable to import `terminator.non-windows_v1.3.45.0.mcaddon` into Minecraft: Try downloading the Windows version of Minecraft, import the add-on and **disable GameTest Framework** in world settings.
 Beware: There are also reports of installing Windows version of the add-on to Xbox can cause Minecraft to crash. You must disable **GameTest Framework** when downloading Windows version of terminator add-on.
 
 @JaylyDev is trying to fix this critical issue for Xbox users, please notify him if this works or not.
 
-### If you ran into any issue, please create a bug report here: https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&template=bug_report.md
+**If you ran into any issue, please create a bug report here: https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&template=bug_report.md**
 
-## Changes
+#### Changes
 
 - Renamed `terminator.non-windows_v1.3.45.0.mcaddon` to `terminator.mobile_v1.3.45.1.mcaddon`
 
 ---
 
-## 1/6/2022 Update:
+#### 1/6/2022 Update:
 
 This add-on does not support **Beta 1.18.10.20 and beyond** for now, @JaylyDev will implement compatibility in the future
 
-## 1/10/2022 Update:
+#### 1/10/2022 Update:
 
 The latest beta version of terminator add-on now fixes all critical issues
 
-# Patch 1.3.43.2
+## 1.3.43.2
 
 **This is an important bug fix update, highly recommend update the add-on if you downloaded terminator v1.3.40 & v1.3.43.1**
 
-## Bug fix (Important)
+#### Bug fix (Important)
 
 This category shows things that existed in previous versions that's modified from the last public release `v1.3.43.1`
 
@@ -379,11 +456,11 @@ This category shows things that existed in previous versions that's modified fro
 > [Texture][warning]-Failed to find either texture set or image file of name (ms-appx:/data/images/textures/entity/terminator/steve_xmas)
 > ```
 
-# Patch 1.3.43.1
+## 1.3.43.1
 
 **This is an important bug fix update, highly recommend update the add-on if you downloaded terminator v1.3.40**
 
-## Bug fix (Important)
+#### Bug fix (Important)
 
 This category shows things that existed in previous versions that's modified from the last public release `v1.3.40`
 
@@ -391,11 +468,11 @@ This category shows things that existed in previous versions that's modified fro
   > Image from a report by ornage in Jayly's Discord
   > ![image](https://user-images.githubusercontent.com/65847850/147704300-8b5864aa-0398-4b14-9c65-0d96e362cb4f.png)
 
-### Release 1.3.40 changelog: [Click here](https://github.com/JaylyDev/terminator/releases/tag/v1.3.40)
+**Release 1.3.40 changelog: [Click here](https://github.com/JaylyDev/terminator/releases/tag/v1.3.40)**
 
-# Patch v1.3.40.17
+## Patch 1.3.40.17
 
-## Bug fixes (Important)
+#### Bug fixes (Important)
 
 This version fixes 2 important bugs from Revision version 13:
 
@@ -413,27 +490,27 @@ This version fixes 2 important bugs from Revision version 13:
 [Geometry][error]-entity:terminator | entity:terminator | Invalid render controller: controller.render.terminator
 ```
 
-### If more bugs are caused after revision update v13 (v1.3.40.13), please submit a bug report as soon as possible [here](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&template=bug_report.md&title=)
+**If more bugs are caused after revision update v13 (v1.3.40.13), please submit a bug report as soon as possible [here](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&template=bug_report.md&title=)**
 
-# Patch v1.3.40.15
+## Patch 1.3.40.15
 
-## Bug fix
+#### Bug fix
 
 - Minecraft is not able to translate text (a bug from revision v13)
 
-# Revision Update (v1.3.40.13)
+## Revision Update 1.3.40.13
 
-## New change (Experimental)
+#### New change (Experimental)
 
 - The filenames in `.mcaddon` file has been 'encrypted'
 
-## Changes
+#### Changes
 
 - Extend expire date for Terminator Christmas themed skin to January 24
 
-# Release 1.3.40.12
+## Patch 1.3.40.12
 
-## New features
+#### New features
 
 This category shows things that added from the last public release `v1.3.20`
 
@@ -490,7 +567,7 @@ This category shows things that added from the last public release `v1.3.20`
 
 - Added 30 death messages for terminator to display when they die
 
-## Changes
+#### Changes
 
 This category shows things that existed in previous versions that's modified from the last public release `v1.3.20`
 
@@ -501,13 +578,13 @@ This category shows things that existed in previous versions that's modified fro
 - Removed some cache files from behavior and resource pack
   > The files have been moved to `resources` folder
 
-## Bug fixes
+#### Bug fixes
 
 This category shows things that existed in previous versions that's modified from the last public release `v1.3.20`
 
 - Removed glowing obsidian from terminator build block list
 
-## Installations:
+#### Installations:
 
 **This add-on is released for Minecraft version 1.17.30 or above**
 
@@ -515,16 +592,16 @@ When you're installing this add-on in Minecraft 1.17.30, these are the experimen
 
 ![image](https://user-images.githubusercontent.com/65847850/146676644-0265f2a8-3fec-4ef8-bae8-1b25ff944e09.png)
 
-### For versions below Minecraft version 1.17.30:
+**For versions below Minecraft version 1.17.30:**
 
 > **GameTest Framework will not be supported**, you can thank mojang for that
 > ![image](https://user-images.githubusercontent.com/65847850/146677619-d181742f-5c32-4b1b-8f58-ab9b4f6a87d5.png)
 
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.20...v1.3.40
 
-# 1.3.20
+## 1.3.20
 
-## New features
+#### New features
 
 This category shows things that added from the last release
 
@@ -547,7 +624,7 @@ This category shows things that added from the last release
 - Added "minecraft:block_climber"to make it compatible for Minecraft v1.17.10.22 or above
 - Added "minecraft:strength"
 
-## Changes
+#### Changes
 
 This category shows things that existed in previous versions that's modified from the last release
 
@@ -559,7 +636,7 @@ This category shows things that existed in previous versions that's modified fro
 - Removed camera block from terminator break block list
 - Increased HP from 40 to 60 (also suggested by https://mcpedl.com/mc-terminator-addon-1/#comment-585361)
 
-## Bug fixes
+#### Bug fixes
 
 This category shows things that existed in previous versions that's modified from the last release
 
@@ -570,13 +647,13 @@ This category shows things that existed in previous versions that's modified fro
 - Edited github repository links in both packs
 - Terminator now has a name tag when terminator respawns
 
-# Release 1.3.0.50
+## Release 1.3.0.50
 
 > Release Date: 19/9/2021
 
 Offical release for Minecraft Terminator v1.3.0
 
-## New features
+#### New features
 
 This category shows things that added from the last release
 
@@ -608,7 +685,7 @@ This category shows things that added from the last release
 - Terminator can now path from air
 - Terminator now avoid lava and flowing lava
 
-### Combat Changelog
+##### Combat Changelog
 
 In order for the terminator to use different kinds of combat, they need to pick up the weapon in order to switch combat mechanic.
 
@@ -630,7 +707,7 @@ In order for the terminator to use different kinds of combat, they need to pick 
 - Added crossbow to list of items terminator wants
 - Added trident ranged and melee combat into terminator's combat method
 
-## Changes
+#### Changes
 
 This category shows things that existed in previous versions that's modified from the last release
 
@@ -651,7 +728,7 @@ This category shows things that existed in previous versions that's modified fro
 - Terminator is now able to track players within a 2048 blocks radius
 - Players now can only feed terminator that does not have full health or a target
 
-## Bug fixes
+#### Bug fixes
 
 <!-- Compare v1.2.23 to v1.3.0 -->
 
@@ -683,11 +760,11 @@ Following bugs have been fixed in this version of add-on:
 - Fixed terminator's environment sensor
 - Fixed terminator's target AI behaviours
 
-# 1.2.10.3
+## 1.2.10.3
 
 > Release Date: 23/8/2021
 
-## Changelog
+#### Changes
 
 - Removed respawn fog after respawn event ends
 - Entities now takes damage when they get too close to where the terminator respawn during the respawn event
@@ -701,11 +778,11 @@ Following bugs have been fixed in this version of add-on:
 - Removes the limit of terminator's teleportation when it's too far away from nearest player
 - Spawning a terminator via function commands will include a nametag on the terminator
 
-# 1.2.0.10
+## 1.2.0.10
 
 > Release Date: 12/8/2021
 
-## Changelog
+#### Changelog
 
 - Redesigned the terminator death event
 - Fix a bug that causes the terminator to break illegal blocks
@@ -726,7 +803,7 @@ Following bugs have been fixed in this version of add-on:
 
 ![requirements](/assets/posts/terminator/requirements-old.png)
 
-### 1.1.2
+## 1.1.2
 
 > Release Date: 19/7/2021
 
@@ -794,14 +871,17 @@ Following bugs have been fixed in this version of add-on:
 - Terminator now has a sound effect when spawning
 - Mininum engine version has been changed from 1.16.220 to 1.16.100
 
-# 1.0.0
+## 1.0.0
 
 Initial Release
 
 </details>
 
-## Download
+# Download
 
 After downloading the add-on below and import the add-on to Minecraft, **make sure both resource pack and behavior pack are imported** so you do not have the error related to incompatibility when applying the add-on.
 
-- [Download Minecraft Terminator Add-On](https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.0/terminator_v2.0.0-beta.mcaddon)
+> [!NOTE]
+> This add-on is compatible with Minecraft v1.20.70 or above.
+
+- [Download Minecraft Terminator Add-On](https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.2/terminator_v2.0.0-beta.mcaddon)

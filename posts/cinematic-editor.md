@@ -87,7 +87,7 @@ This video has infomations of installing this editor extension, and behind the s
 > The Cinematic Runtime Add-On also requires Minecraft Preview v1.20.80, but it's available on all devices.
 
 <details>
-  <summary><h2>Changelog</h2></summary>
+  <summary><h1>Changelog</h1></summary>
 
 Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
@@ -184,7 +184,7 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 </details>
 
-## Downloads
+# Downloads
 
 - [Download Cinematic Editor Runtime Add-On](https://www.mediafire.com/file/dytexvsxzn27mkk/CinematicRuntime_v0.3.0.mcaddon/file)
 - [Download Cinematic Editor Extension](https://www.mediafire.com/file/2legkm7hbwcbcpf/CinematicEditor_v1.1.2.mceditoraddon/file)

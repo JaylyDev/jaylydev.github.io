@@ -6,14 +6,17 @@ import path from "path";
 import matter from "gray-matter";
 import React from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
+import { unified } from "unified";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
-import { unified } from "unified";
 import rehypeRaw from "rehype-raw";
 import remarkAlert from "@/remark-alert";
 import rehypeStarryNight from "@/rehype-starry-night";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeToc, { toc } from "@jsdevtools/rehype-toc";
+import rehypeSlug from "rehype-slug";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/app/components/SiteFormat";
 import Head from "next/head";
 
@@ -110,6 +113,29 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     .use(rehypeRaw)
     .use(rehypeStarryNight as any)
     .use(rehypeStringify)
+    .use(rehypeSlug)
+    .use(rehypeToc, {
+      headings: ["h1", "h2", "h3"],
+      customizeTOC(toc) {
+        if (toc.children) {
+          toc.children.forEach((child) => {
+            if ("tagName" in child && child.tagName === "ol") {
+              child.tagName = "ul";
+            }
+          });
+        }
+        return toc;
+      },
+      customizeTOCItem(tocItem) {
+        for (const child of tocItem.children ?? []) {
+          if ("tagName" in child && child.tagName === "ol") {
+            child.tagName = "ul";
+          }
+        }
+        return true;
+      },
+    })
+    .use(rehypeAutolinkHeadings, { behavior: "append" })
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 

@@ -15,6 +15,8 @@ Script REPL (read–eval–print loop) Add-On is a debugging tool for Minecraft 
 
 Currenly JavaScript is the only programming language that allow developers to use Script APIs from within their code.
 
+This add-on allows developers to debug JavaScript code and reports an error condition immediately in Minecraft in-game using this interpreter. This reduces the amount of script errors happened in your code development and time, and allows developers to experiment with the new features available in Script API modules in Minecraft.
+
 **Learning Minecraft's Script API**
 
 You are advised to learn JavaScript free from online courses available online before learning how to use Minecraft's Scripting API, such as the following:
@@ -54,16 +56,17 @@ There are somewhat decent amount of resources available online related to script
 ![repl item](/assets/posts/script-repl-minecraft/script-interpreter-v12050_7.png)
 
 1. You can get the `JavaScript REPL [Use]` item through the following methods:
-  - Script event command
-    ```
-    /scriptevent interpreter:js
-    ```
-  - Chat Command
-    ```
-    !javascript
-    ```
-    > [!IMPORTANT]  
-    > This feature is only available behind beta versions of interpreter only.
+
+- Script event command
+  ```
+  /scriptevent interpreter:js
+  ```
+- Chat Command
+  ```
+  !javascript
+  ```
+  > [!IMPORTANT]  
+  > This feature is only available behind beta versions of interpreter only.
 
 2. Use the enchantment book with the name `JavaScript REPL [Use]` to open the interpreter
 3. Type your javascript code in the form. Best thing is this form has multi-line supported, meaning you can write multiple lines of code here.
@@ -133,14 +136,14 @@ Each invidiual version of Script REPL supports various fields of the APIs. Each 
 > [!NOTE]
 > All versions of Script REPL also loads external npm packages such as `@minecraft/vanilla-data` and `@minecraft/math` when executing JavaScript code.
 
-## Downloads
+# Downloads
 
 These download links do not go through Boostellar, so there shouldn't be any malicious links.
 
-- [Download Script REPL (Latest + Beta APIs)](/assets/posts/script-repl-minecraft/script_repl_v20.8.0-beta.mcaddon)
+- [Download Script REPL (v1.20.80 + Beta APIs Experiment)](/assets/posts/script-repl-minecraft/script_repl_v20.8.0-beta.mcaddon)
 
-- [Download Script REPL (Latest)](/assets/posts/script-repl-minecraft/script_repl_v20.8.2.mcaddon)
+- [Download Script REPL (v1.20.80)](/assets/posts/script-repl-minecraft/script_repl_v20.8.2.mcaddon)
 
-- [Download Script REPL (Preview + Beta APIs)](/assets/posts/script-repl-minecraft/script_repl_v21.0.0-beta.mcaddon)
+- [Download Script REPL (v1.21.0 Preview + Beta APIs Experiment)](/assets/posts/script-repl-minecraft/script_repl_v21.0.0-beta.mcaddon)
 
-- [Download Script REPL (Preview)](/assets/posts/script-repl-minecraft/script_repl_v21.0.0-beta.mcaddon)
+- [Download Script REPL (v1.21.0 Preview)](/assets/posts/script-repl-minecraft/script_repl_v21.0.0-beta.mcaddon)
