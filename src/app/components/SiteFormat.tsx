@@ -5,7 +5,6 @@ export function SiteHeader() {
   return (
     <div className="sticky top-0 z-30">
       <header
-        className="RepresentHeader relative leading-none shadow transition-colors duration-150"
         style={{
           color: "#000000",
           backgroundColor: "#ffffff",
