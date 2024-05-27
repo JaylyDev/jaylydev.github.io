@@ -25,7 +25,9 @@ You will also need to download and install the following:
 ## JavaScript Project Setup
 
 > [!IMPORTANT]  
-> This project setup is only for bundling JavaScript files. For TypeScript project setup please visit below.
+> This project setup is only for bundling JavaScript files. For TypeScript project setup please [click here](#typescript-project-setup).
+
+### Dependencies and Project Structure
 
 First, open your terminal and navigate to your behvaior pack directory and initialize a new npm project using `npm init -y` in your terminal. A new file named `package.json` should appear in your behavior pack directory. This stores metadata about the npm packages installed in this directory.
 
@@ -49,6 +51,8 @@ behavior_pack
 │
 └───scripts
 ```
+
+### Webpack Config Setup
 
 Open the `webpack.config.js` file using Visual Studio Code (or another similar text editor), then add the following basic configuration to the file:
 
@@ -97,6 +101,9 @@ module.exports = {
     After that, move your JavaScript source files from `scripts` to `src` folder. Make sure `scripts` folder is empty as webpack will generate a bundled JavaScript file there.
 - `experiments.outputModule` and `externalsType`: This allows webpack to output javascript files as module source type for Minecraft to run.
 - `externals`: Specify dependencies that is part of native Minecraft scripting modules and shouldn't be resolved by webpack.
+
+> [!NOTE]  
+> Set `optimization.minimize` to `false` if you wish to bundle your scripts without minifying the JavaScript code.
 
 If you're setting this project on your existing behavior pack, be sure to copy all the JavaScript source files from `scripts` folder to `src` folder, and rename entry file to `index.js`.
 
@@ -161,6 +168,8 @@ system.runInterval(() => {
 });
 ```
 
+### Bundling Process
+
 Finally, save this file to `src/index.js`. In your terminal, run the following command to build your project:
 
 ```bash
@@ -206,7 +215,9 @@ If successful, when loading this behavior pack to a Minecraft world, obsidian bl
 ## TypeScript Project Setup
 
 > [!IMPORTANT]
-> This project setup is only for bundling TypeScript files. For JavaScript project setup please visit above.
+> This project setup is only for bundling TypeScript files. For JavaScript project setup please [click here](#javascript-project-setup).
+
+### Installing Dependencies
 
 First, open your terminal and navigate to your behvaior pack directory and initialize a new npm project using `npm init -y` in your terminal. A new file named `package.json` should appear in your behavior pack directory. This stores metadata about the npm packages installed in this directory.
 
@@ -240,6 +251,8 @@ behavior_pack
 └───src
         index.ts
 ```
+
+### Configuration Setup
 
 Open the `webpack.config.js` file using Visual Studio Code (or another similar text editor), then add the following basic configuration to the file:
 
@@ -297,6 +310,9 @@ module.exports = {
     After that, move your JavaScript source files from `scripts` to `src` folder. Make sure `scripts` folder is empty as webpack will generate a bundled JavaScript file there.
 - `experiments.outputModule` and `externalsType`: This allows webpack to output javascript files as module source type for Minecraft to run.
 - `externals`: Specify dependencies that is part of native Minecraft scripting modules and shouldn't be resolved by webpack.
+
+> [!NOTE]  
+> Set `optimization.minimize` to `false` if you wish to bundle your scripts without minifying the JavaScript code.
 
 If you haven't already, you also need to setup `tsconfig.json`:
 
@@ -362,6 +378,8 @@ system.runInterval(() => {
   }
 });
 ```
+
+### Bundling Process
 
 Finally, save this file to `src/index.ts`. In your terminal, run the following command to build your project:
 
