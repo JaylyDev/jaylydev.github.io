@@ -3,6 +3,7 @@ author: Jayly
 title: High Contrast Resource Pack (Bedrock)
 description: Enchance the contrast of UI elements in Minecraft Bedrock Edition.
 date: 3/30/2024
+image: /assets/posts/high-contrast/thumbnail.png
 ---
 
 # High Contrast Resource Pack (Bedrock)

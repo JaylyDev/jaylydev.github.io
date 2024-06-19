@@ -2,7 +2,8 @@
 author: Jayly
 title: Minecraft Terminator [v2.0.0-beta]
 description: A Minecraft Bedrock Add-On that adds a powerful mob that has the ability to follow entities, destroy blocks and build blocks, to prevent you from beating the game.
-date: 5/26/2024
+date: 6/9/2024
+image: /assets/posts/terminator/terminator-v2-beta-thumbnail.png
 ---
 
 # Minecraft Terminator [v2.0.0-beta]
@@ -176,13 +177,24 @@ The difference here are the steve's model arm's are 4 pixels wide and the alex's
 
 </details>
 
-## Capes!
+## Capes
 
-Terminator now spawns with Minecraft: Java Edition migrator cape.
+Terminator can now equip all the capes obtainable in Bedrock Edition, and Migrator cape as a bonus. When they equip the cape it also change the appearance of a worn elytra. Capes are purely decorational, and do not alter the wearers' capabilities in any way.
 
-![terminator with cape](/assets/posts/terminator/minecraft-terminator-customization-update_4.png)
+![terminator with cape](/assets/posts/terminator/terminator-capes.png)
 
-Currently there is only 1 cape available to Terminator. Expect more capes to be available to them in future updates!
+Terminators can equip the following cape, which they can be spawned using the 'Spawn Terminator' form:
+
+- 15th Anniversary
+- Cherry Blossom
+- Founder
+- Migrator
+- Mojang New
+- Pan
+- Progress Pride
+- Follower (TikTok)
+- Purple Heart (Twitch)
+- One Vanilla
 
 ## Spawn a Terminator
 
@@ -202,6 +214,14 @@ You have seen the cool features the Terminator add-on offers. There are multiple
 
    > Thanks May5Flames for the terminator crafting recipe!
 
+4. Spawn Terminator command
+
+   ```
+   /function terminator
+   ```
+
+   This function command will lead you to the 'Spawn Terminator' form, allowing you to spawn your own Terminator entity.
+
 ### Still stuck at spawning a terminator?
 
 Don't worry. When you spawn into the world with the Add-On loaded for the first time, a Terminator guide book will appear in your inventory.
@@ -210,16 +230,49 @@ Don't worry. When you spawn into the world with the Add-On loaded for the first 
 
 Right click and scroll down to the bottom, a button that says "Spawn Terminator" will redirect you to this form:
 
-![form pt.2](/assets/posts/terminator/minecraft-terminator--november-2023-update_2.png)
+![Spawn Terminator form 1](/assets/posts/terminator/spawn-terminator-form-1.png)
 
-![form pt.2](/assets/posts/terminator/minecraft-terminator--november-2023-update_3.png)
+![Spawn Terminator form 2](/assets/posts/terminator/spawn-terminator-form-2.png)
 
 By pressing the 'Submit' button, the game will spawn a terminator with changes applied based on options available in the 'Spawn Terminator' form.
 
 # Changelog
 
+## 2.0.0-beta (2024/6/9)
+
+> [!IMPORTANT]
+> The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
+
+Another Terminator beta release! This will likely be the final beta release for v2.0.0. This release focus on Behavior AI changes for Terminator mob along some bug fixes, oh and additional capes for the mob.
+
+#### Terminator Entity Changes
+
+- Fix a bug that terminator sometimes attempts to punch nothing [#70](https://github.com/JaylyDev/terminator/issues/70)
+- Fix a bug where massive explosions occurs when terminator dies in water and respawn [#64](https://github.com/JaylyDev/terminator/issues/64)
+- Fix an issue where addon fails to retrieve damaging entity nameTag
+- Fix an issue that terminator will not escape when reaching below 20hp after `/reload`
+- Terminator is now able all the bedrock capes, incuding:
+  - 15th Anniversary
+  - Cherry Blossom
+  - Founder
+  - Migrator
+  - Mojang New
+  - Pan
+  - Progress Pride
+  - Follower (TikTok)
+  - Purple Heart (Twitch)
+  - One Vanilla
+- Fix an issue where death message didn't display item name tag
+- Fix an issue where Terminator name will not display in some cases
+
+#### Add-On Changes
+
+- Removed `.pdn` files from resource pack.
+- `/function terminator` command now returns the spawn terminator form
+
 ## 2.0.0-beta (2024/5/26)
 
+<details>
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
 
@@ -257,6 +310,8 @@ I'm still rewriting this add-on in hopes for most of the feature works before re
 - Fix Terminator not being able to get off boats, chest boats and minecarts
 - Fix an issue where spawn Terminator form will spawn default alex skin instead of terminator variant
 - Fixed an issue where multiple terminator can have the same nametags
+
+</details>
 
 ## 2.0.0-beta (2024/5/17)
 
@@ -995,7 +1050,7 @@ After downloading the add-on below and import the add-on to Minecraft, **make su
 >
 > - This add-on is compatible with **Minecraft Bedrock v1.20.70 or above**. It won't work on Minecraft Education (unless you're using Preview)
 
-- [Download Minecraft Terminator Add-On](https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.3/terminator_v2.0.0-beta.mcaddon)
+- [Download Minecraft Terminator Add-On](https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.4/terminator_v2.0.0-beta.mcaddon)
 - [Submit a bug report to improve the add-on](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=)
 - [Suggest an idea for this add-on](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=)
 - [Support Discord Server](https://discord.com/invite/SuhGvZEXb4)

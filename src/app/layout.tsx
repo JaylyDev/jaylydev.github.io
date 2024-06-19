@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: "Jayly's Website | JaylyMC",
   description: "JaylyMC's website. Who makes Minecraft animations and make Minecraft Bedrock Add-Ons sometimes.",
   authors: [{ name: "JaylyMC", url: "https://youtube.com/jaylymc" }],
+  openGraph: {
+    type: "website",
+    images: "https://jaylydev.github.io/icon.png",
+  },
+  twitter: {
+    card: "summary",
+  },
+  metadataBase: new URL("https://jaylydev.github.io"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

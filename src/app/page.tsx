@@ -96,10 +96,10 @@ function CurrentProjects(): JSX.Element {
     {
       title: "Script API Docs",
       description:
-        "My own Documentation for using the Minecraft scripting API. Includes versioned API references and custom code examples for methods.",
+        "My own documentation for using the Minecraft scripting API. Includes versioned API references, custom code examples for methods and more technical guides.",
       links: [
-        { url: "/scriptapi-docs/latest", text: "Stable API Docs" },
-        { url: "/scriptapi-docs/preview", text: "Preview API Docs" },
+        { url: "/scriptapi-docs/", text: "Script API Homepage" },
+        { url: "/scriptapi-docs/latest/", text: "Stable API Docs" },
       ],
     },
     {
@@ -107,6 +107,10 @@ function CurrentProjects(): JSX.Element {
       description: `This is my own Discord bot. It mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft.
 > "Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time." - Visual1mpact`,
       links: [
+        {
+          url: "/posts/jaylybot/",
+          text: "Learn More",
+        },
         {
           url: "https://discord.com/api/oauth2/authorize?client_id=948686094986264716&permissions=277025516544&scope=bot",
           text: "Invite Now",

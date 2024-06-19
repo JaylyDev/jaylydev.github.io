@@ -4,7 +4,7 @@ import "@/styles/posts.css";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { unified } from "unified";
 import rehypeStringify from "rehype-stringify";
@@ -25,6 +25,7 @@ export interface PostMeta {
   date: string;
   author: string;
   description: string;
+  image: string | null;
 }
 
 export interface PostData extends PostMeta {
@@ -37,9 +38,17 @@ export interface ResponseData {
 
 interface Props extends PostMeta {
   content: string;
+  image: string;
+  card: "summary_large_image" | "summary";
 }
 
-const Post: React.FC<Props> = ({ content, title, description, date, author }) => {
+interface PostHeaderProps {
+  title: string;
+  author: string;
+  date: string;
+}
+
+const Post: React.FC<Props> = ({ content, title, description, date, author, image, card }) => {
   return (
     <>
       <Head>
@@ -47,28 +56,41 @@ const Post: React.FC<Props> = ({ content, title, description, date, author }) =>
         <meta charSet="UTF-8" />
         <meta name="description" content={description} />
         <meta name="author" content={author} />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={image} />
+        <meta property="twitter:card" content={card} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <div style={{ backgroundColor: "#0d1117" }}>
-        <StatsCollection />
-        <SiteHeader />
-        <div className="markdown-header">
-          <span>
-            <a className="hyperlink" href="/#posts">
-              Posts
-            </a>
-            {` > ${title}`}
-          </span>
-          <br />
-          <span className="text-gray-500">
-            By {author} &middot; {new Date(date).toISOString().replace("-", "/").split("T")[0].replace("-", "/")}
-          </span>
-        </div>
-
-        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></div>
-        <SiteFooter />
-      </div>
+      <StatsCollection />
+      <SiteHeader />
+      <PostHeader title={title} author={author} date={date} />
+      <div className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></div>
+      <SiteFooter />
     </>
+  );
+};
+
+const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date }) => {
+  const [dateString, setDate] = useState(date);
+
+  useEffect(() => {
+    setDate(new Date(date).toISOString().replace("-", "/").split("T")[0].replace("-", "/"));
+  }, [date]);
+
+  return (
+    <div className="markdown-header">
+      <span>
+        <a className="hyperlink" href="/#posts">
+          Posts
+        </a>
+        {` > ${title}`}
+      </span>
+      <br />
+      <span className="text-gray-500">
+        By {author} &middot; {dateString}
+      </span>
+    </div>
   );
 };
 
@@ -146,6 +168,8 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
       date: matterData.date,
       author: matterData.author,
       description: matterData.description,
+      image: matterData.image ?? "https://jaylydev.github.io/icon.png",
+      card: matterData.image ? "summary_large_image" : "summary",
     },
   };
 };

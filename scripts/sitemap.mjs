@@ -8,7 +8,7 @@ const posts = postsFiles.map((file) => {
   const postData = fs.readFileSync(path.join(process.cwd(), "posts", file), "utf8");
   const data = matter(postData).data;
   return `  <url>
-    <loc>https://jaylydev.github.io/posts/${file.replace(".md", "")}</loc>
+    <loc>https://jaylydev.github.io/posts/${file.replace(".md", "")}/</loc>
     <lastmod>${new Date(data.date).toISOString().split('T')[0]}</lastmod>
   </url>`;
 });
