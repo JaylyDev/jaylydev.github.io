@@ -10,6 +10,8 @@ image: /assets/posts/cinematic-editor/thumbnail.png
 
 <iframe width="930" height="523" src="https://www.youtube.com/embed/nHYLVo_IvKA" title="I Made An Editor For Minecraft Camera Command" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+> Download links for the add-on is located at the bottom of the page.
+
 The Cinematic Editor is a Minecraft editor extension that utilizing the `/camera` command for changing perspectives and designing cinematic scenes. The editor has the capability to control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the `/camera` command.
 
 # Cinematic Editor Extension

@@ -8,9 +8,11 @@ image: /assets/posts/high-contrast/thumbnail.png
 
 # High Contrast Resource Pack (Bedrock)
 
-This is a resource pack for Minecraft: Bedrock Edition that enchance the contrast of UI elements, which it's high contrast theme is based off Minecraft Java's built-in high contrast resource pack.
+> Download links for the add-on is located at the bottom of the page.
 
 ![High Contrast Resource Pack](/assets/posts/high-contrast/thumbnail.png)
+
+This is a resource pack for Minecraft: Bedrock Edition that enchance the contrast of UI elements, which it's high contrast theme is based off Minecraft Java's built-in high contrast resource pack.
 
 The pack changes the user interface, such as textures of buttons and colors of text in menus like the settings screen to a high contrast look, which helps making elements in the menu UI easier to see, reduce eye strain, improve text readability, and accommodate user preferences to the screen contrast.
 

@@ -15,7 +15,8 @@ This is what piston sounds like before snapshot 24w20a update:
 
 - When a piston extends‌
   <audio controls>
-    <source src="/assets/posts/revert-piston-sounds-pack/Piston_extend_JE1_BE1.ogg" type="audio/ogg">x
+    <source src="/assets/posts/revert-piston-sounds-pack/Piston_extend_JE1_BE1.ogg" type="audio/ogg">
+  Your browser does not support the audio element.
   </audio>
 
 - When a piston contracts
@@ -29,6 +30,7 @@ This is what piston sounds like in 24w20a update:
 - When a piston extends‌
   <audio controls>
     <source src="/assets/posts/revert-piston-sounds-pack/Piston_extend_JE2.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
   </audio>
 
 - When a piston contracts
