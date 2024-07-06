@@ -127,7 +127,7 @@ function CurrentProjects(): JSX.Element {
     {
       title: "Structure Converter",
       description:
-        "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure). (1.19.70 support)",
+        "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure). (1.21.0 support)",
       links: [{ url: "https://github.com/jaylydev/nbt-to-mcstructure/", text: "Download from GitHub" }],
       image: {
         src: "/assets/nbt_to_mcstructure_icon.png",

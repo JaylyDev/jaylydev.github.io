@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Script REPL Add-On
 description: Script REPL Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft.
-date: 6/16/2024
+date: 7/6/2024
 image: /assets/posts/script-repl-minecraft/thumbnail.png
 ---
 
