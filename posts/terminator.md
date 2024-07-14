@@ -10,6 +10,8 @@ image: /assets/posts/terminator/terminator-v2-beta-thumbnail.png
 
 ![thumbnail](/assets/posts/terminator/terminator-v2-beta-thumbnail.png)
 
+> Download links for the add-on is located at the bottom of the page.
+
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing, as this add-on is being rewritten to be compatible with Minecraft versions 1.20.70 or above. The Add-On is unstable. Check the [changelog](#changelog) this post for details on any changes to the add-on. This post reflects the latest updates to the Minecraft Terminator add-on.
 
@@ -273,6 +275,7 @@ Another Terminator beta release! This will likely be the final beta release for 
 ## 2.0.0-beta (2024/5/26)
 
 <details>
+
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
 

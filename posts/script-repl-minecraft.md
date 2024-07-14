@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Script REPL Add-On
 description: Script REPL Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft.
-date: 6/16/2024
+date: 7/6/2024
 image: /assets/posts/script-repl-minecraft/thumbnail.png
 ---
 
@@ -146,12 +146,12 @@ Each invidiual version of Script REPL supports various fields of the APIs. Each 
   - `@minecraft/server`: `1.11.0`
   - `@minecraft/server-ui`: `1.1.0`
 - Script REPL (Preview + Beta APIs):
-  - `@minecraft/server`: `1.13.0-beta`
+  - `@minecraft/server`: `1.14.0-beta`
   - `@minecraft/server-ui`: `1.3.0-beta`
   - `@minecraft/server-gametest`: `1.0.0-beta`
   - `@minecraft/debug-utilities`: `1.0.0-beta`
 - Script REPL (Preview):
-  - `@minecraft/server`: `1.12.0`
+  - `@minecraft/server`: `1.13.0`
   - `@minecraft/server-ui`: `1.2.0`
 
 > [!NOTE]
@@ -163,15 +163,15 @@ These download links do not go through Boostellar, so there shouldn't be any mal
 
 ### Minecraft Preview
 
-- [Download Script REPL (v1.21.10 Preview + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.10.0/script_repl_v21.10.0-beta.mcaddon)
+- [Download Script REPL (v1.21.20 Preview + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0-beta.mcaddon)
 
-- [Download Script REPL (v1.21.10 Preview)](https://github.com/JaylyDev/interpreter/releases/download/v21.10.0/script_repl_v21.10.0.mcaddon)
+- [Download Script REPL (v1.21.20 Preview)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0.mcaddon)
 
 ### Minecraft (Latest)
 
-- [Download Script REPL (v1.21.0 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.1-beta.mcaddon)
+- [Download Script REPL (v1.21.0 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.2-beta.mcaddon)
 
-- [Download Script REPL (v1.21.0)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.2.mcaddon)
+- [Download Script REPL (v1.21.0)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.3.mcaddon)
 
 ### Minecraft Education
 
