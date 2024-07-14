@@ -274,8 +274,6 @@ Another Terminator beta release! This will likely be the final beta release for 
 
 ## 2.0.0-beta (2024/5/26)
 
-<details>
-
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
 
@@ -314,11 +312,7 @@ I'm still rewriting this add-on in hopes for most of the feature works before re
 - Fix an issue where spawn Terminator form will spawn default alex skin instead of terminator variant
 - Fixed an issue where multiple terminator can have the same nametags
 
-</details>
-
 ## 2.0.0-beta (2024/5/17)
-
-<details>
 
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
@@ -343,11 +337,7 @@ Releasing this add-on to MCPEDL for public testing.
 - Added deepslate to terminator breakable block list
 - Fix issues with terminator respawn event
 
-</details>
-
 ## 2.0.0-beta (2024/5/12)
-
-<details>
 
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
@@ -368,11 +358,7 @@ We're fixing more bugs in preparation for Terminator add-on release v2.0.0.
 - Fix [Terminator doesn't move when using snowballs #46](https://github.com/JaylyDev/terminator/issues/46)
 - Terminator will now bridge inside the height range of each dimension.
 
-</details>
-
 ## 2.0.0-beta (5/9/2024)
-
-<details>
 
 Once again, I'm rewriting this add-on so it works in latest versions of Minecraft - The 1.21 Update, I mean the Tricky Trials Update. This update includes the codebase of the add-on migrating from JSON to TypeScript, tons of bug fixes, and experimental features! Sounds impressive? Let's dive in.
 
@@ -409,11 +395,7 @@ Once again, I'm rewriting this add-on so it works in latest versions of Minecraf
   - Air
 - Add-On now detects death causes and broadcast death messages added from 1.20.
 
-</details>
-
 ## 1.4.0
-
-<details>
 
 #### What's Changed
 
@@ -433,11 +415,7 @@ Once again, I'm rewriting this add-on so it works in latest versions of Minecraf
 
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.70...v1.4.0
 
-</details>
-
 ## 1.3.70
-
-<details>
 
 #### New features
 
@@ -482,11 +460,7 @@ Once again, I'm rewriting this add-on so it works in latest versions of Minecraf
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.45...v1.3.70
 **Discussion here**: https://discord.com/invite/8xzSHD84xv
 
-</details>
-
 ## 1.3.45
-
-<details>
 
 **⚠️ This is a critical patch update for players that installed Terminator v1.3.40 - v1.3.44 on all Minecraft platforms excluding Windows. It's highly recommended to download and update the add-on.**
 
@@ -559,11 +533,8 @@ This add-on does not support **Beta 1.18.10.20 and beyond** for now, @JaylyDev w
 
 The latest beta version of terminator add-on now fixes all critical issues
 
-</details>
-
 ## 1.3.43.2
 
-<details>
 **This is an important bug fix update, highly recommend update the add-on if you downloaded terminator v1.3.40 & v1.3.43.1**
 
 #### Bug fix (Important)
@@ -589,11 +560,8 @@ This category shows things that existed in previous versions that's modified fro
 > [Texture][warning]-Failed to find either texture set or image file of name (ms-appx:/data/images/textures/entity/terminator/steve_xmas)
 > ```
 
-</details>
-
 ## 1.3.43.1
 
-<details>
 **This is an important bug fix update, highly recommend update the add-on if you downloaded terminator v1.3.40**
 
 #### Bug fix (Important)
@@ -735,11 +703,7 @@ When you're installing this add-on in Minecraft 1.17.30, these are the experimen
 
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.20...v1.3.40
 
-</details>
-
 ## 1.3.20
-
-<details>
 
 #### New features
 
@@ -787,11 +751,7 @@ This category shows things that existed in previous versions that's modified fro
 - Edited github repository links in both packs
 - Terminator now has a name tag when terminator respawns
 
-</details>
-
 ## Release 1.3.0.50
-
-<details>
 
 > Release Date: 19/9/2021
 
@@ -904,11 +864,7 @@ Following bugs have been fixed in this version of add-on:
 - Fixed terminator's environment sensor
 - Fixed terminator's target AI behaviours
 
-</details>
-
 ## 1.2.10.3
-
-<details>
 
 > Release Date: 23/8/2021
 
@@ -926,11 +882,7 @@ Following bugs have been fixed in this version of add-on:
 - Removes the limit of terminator's teleportation when it's too far away from nearest player
 - Spawning a terminator via function commands will include a nametag on the terminator
 
-</details>
-
 ## 1.2.0.10
-
-<details>
 
 > Release Date: 12/8/2021
 
@@ -953,11 +905,7 @@ Following bugs have been fixed in this version of add-on:
 
 ![requirements](/assets/posts/terminator/requirements-old.png)
 
-</details>
-
 ## 1.1.2
-
-<details>
 
 > Release Date: 19/7/2021
 
@@ -1025,17 +973,11 @@ Following bugs have been fixed in this version of add-on:
 - Terminator now has a sound effect when spawning
 - Mininum engine version has been changed from 1.16.220 to 1.16.100
 
-</details>
-
 ## 1.0.0
-
-<details>
 
 > Release Date: July 06, 2021
 
 Initial Release
-
-</details>
 
 # Download
 

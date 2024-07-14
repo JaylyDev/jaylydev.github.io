@@ -90,8 +90,6 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 
 ### 1.7.0-beta.2
 
-<details>
-
 > Release Date: 3/8/2021
 
 1st beta release for Manhunt v1.7
@@ -127,11 +125,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 - Holiday Creator Features
 - Upcoming Creator Features
 
-</details>
-
 ### 1.6.6
-
-<details>
 
 > Release Date: July 26, 2021
 
@@ -154,11 +148,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 - Holiday Creator Features
 - Upcoming Creator Features
 
-</details>
-
 ### 1.6.5-beta.6
-
-<details>
 
 > Release Date: 25/7/2021
 
@@ -181,11 +171,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 - Holiday Creator Features
 - Upcoming Creator Features
 
-</details>
-
 ### 1.6.4-beta.13
-
-<details>
 
 > Release Date: 23/7/2021
 
@@ -211,11 +197,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 - Holiday Creator Features
 - Upcoming Creator Features
 
-</details>
-
 ### 1.6.3-beta
-
-<details>
 
 > Release Date: 21/7/2021
 
@@ -242,11 +224,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 - Holiday Creator Features
 - Upcoming Creator Features
 
-</details>
-
 ### 1.6.2
-
-<details>
 
 > Release Date: 12/7/2021
 
@@ -271,11 +249,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 
 ![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
 
-</details>
-
 ### 1.6.1-beta
-
-<details>
 
 > Release Date: 11/7/2021
 
@@ -302,11 +276,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 
 ![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
 
-</details>
-
 ### 1.6.0
-
-<details>
 
 > Release Date: July 2021
 
@@ -342,11 +312,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 
 ![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
 
-</details>
-
 ### 1.5.11
-
-<details>
 
 > Release Date: 26/6/2021
 
@@ -370,11 +336,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 
 ![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
 
-</details>
-
 ### 1.5.5
-
-<details>
 
 #### Download
 
@@ -393,11 +355,7 @@ If you're running this addon in version 1.17, you now need to activate these 3 e
 
 ![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
 
-</details>
-
 ### 1.5.4
-
-<details>
 
 #### Download
 
@@ -418,11 +376,7 @@ If you're running this addon in version 1.17, you now need to activate these 3 e
 
 ![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
 
-</details>
-
 ### 1.5.3
-
-<details>
 
 #### Download
 
@@ -445,11 +399,7 @@ If you're running this addon in version 1.17, you now need to activate these 3 e
 
 ![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
 
-</details>
-
 ### 1.5.0
-
-<details>
 
 **Post Changelog:**
 
@@ -471,11 +421,7 @@ If you're running this addon in version 1.17, you now need to activate these 3 e
 - The game will not end when the speedrunner or all hunters left the game because of client's connection (get disconnected), but the game will still run during this time
 - You now do not need to activate education edition in order to run the Add-On
 
-</details>
-
 ### 1.4.0
-
-<details>
 
 Addon infomation - Pack icon is changed
 
@@ -501,11 +447,7 @@ Normal - Removed guide option in order to improve the performance
 
 Normal - The 2 speedrunners glitch is fixed (meaning the game won't start executing if you do /function start)
 
-</details>
-
 ### 1.3.0
-
-<details>
 
 **Fixed 2 bugs we have discovered:**
 
@@ -517,11 +459,7 @@ Zero speedrunners at one game and it has been fixed.
 
 Limited to only 1 speedrunner at the game while the other one gets disqualified.
 
-</details>
-
 ### 1.2.0
-
-<details>
 
 **Featuring in both resolutions:**
 
@@ -540,11 +478,7 @@ Give people better instructions to start the game
 >
 > You cannot track more than one person in this version, if you track multiple players, the game will select from one of them.
 
-</details>
-
 ### 1.1.0
-
-<details>
 
 **Featuring in both resolutions:**
 
@@ -562,15 +496,9 @@ Health - Hunter: 20hp, Speedrunner: 40 hp
 
 Hunters' starter kit is added into this version.
 
-</details>
-
 ### 1.0.0
 
-<details>
-
 Initial Release
-
-</details>
 
 ## Installation
 

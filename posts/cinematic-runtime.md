@@ -94,8 +94,6 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 ### 0.4.0
 
-<details>
-
 - You can now create and modify the scene within the Cinematic Runtime Add-On, alternative to Cinematic Editor Extension.
 
   > [!NOTE]
@@ -108,54 +106,32 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 - Updated Add-On Manifest metadata, changing license from MIT to All Rights Reserved.
 - Add-On now supports Minecraft v1.20.80, v1.21.0 and v1.21.10
 
-</details>
-
 ### 0.3.0
-
-<details>
 
 - Module version property is now the same as `header.version`
 - Editor extension is now compatible with 1.20.80-preview.21 or above.
 - Using '@minecraft/math' module instead of Vector class from '@minecraft/server'
 - Output files are now bundled.
 
-</details>
-
 ### 0.2.1
-
-<details>
 
 - Pack is now compatible with 1.20.80 previews only
 
-</details>
-
 ### 0.2.0
-
-<details>
 
 - Pack is now compatible with 1.20.70 previews only
 - Runtime add-on now requires Beta APIs experiment
 - HUD is now hidden when using camera runtime until scene ends
 
-</details>
-
 ### 0.1.1
-
-<details>
 
 - Fix a critical bug where world hangs when 'Run Timeline' is pressed.
 
-</details>
-
 ### 0.1.0
-
-<details>
 
 - Initial Release for Release 1.20.50
 - Added input form
 - Added an item that plays a scene when used
-
-</details>
 
 # Installation
 

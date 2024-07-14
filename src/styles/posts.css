@@ -15,18 +15,6 @@
   padding-left: 45px;
 }
 
-@media (max-width: 767px) {
-  .markdown-body {
-    padding: 15px;
-  }
-  .markdown-header {
-    padding-left: 15px;
-  }
-  .download-assets {
-    padding: 15px;
-  }
-}
-
 body {
   background-color: #0d1117;
 }
@@ -76,4 +64,19 @@ iframe {
   margin-bottom: 16px;
   font-weight: 600;
   line-height: 1.25;
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
+  .download-section {
+    padding: 15px;
+  }
+  .markdown-header {
+    padding-left: 15px;
+  }
+  .download-assets {
+    padding: 15px;
+  }
 }

@@ -118,8 +118,6 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 ### 1.3.0
 
-<details>
-
 - Editor extension now requires Minecraft v1.21.10 Previews to run
 - Renamed 'Run Timeline' to 'Play Scene' - Plays the scene which is stored in editor extension storage.
 - Renamed 'Export Keyframes' to 'Export Scene' - Export the scene from editor extension storage to Cinematic Editor Runtime Add-On, which can be played through Scene Player item.
@@ -127,82 +125,46 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 - Added 'Reset Scene' button - Reset editor extension camera scene.
 - Updated Add-On Manifest metadata, changing license from MIT to All Rights Reserved.
 
-</details>
-
 ### 1.2.0
-
-<details>
 
 - Module version property is now the same as `header.version`
 - Editor extension is now compatible with 1.20.80-preview.21 or above.
 - Fix Vector class not exported from '@minecraft/server' module in 1.20.80-preview.21.
 - Output files are now bundled.
 
-</details>
-
 ### 1.1.1
-
-<details>
 
 - Editor extension is now compatible with 1.20.80 previews.
 - HUD is now hidden when 'Run Timeline' is pressed
 - When pressing 'Export Keyframes', the keyframe data will automatically transfer to Cinematic Runtime add-on. This requires cinematic runtime add-on to be loaded on editor world.
 
-</details>
-
 ### 1.0.5
-
-<details>
 
 - Fix a critical bug where world hangs when 'Run Timeline' is pressed.
 
-</details>
-
 ### 1.0.4
-
-<details>
 
 - Editor extension is now compatible with 1.20.70 previews
 
-</details>
-
 ### 1.0.3
-
-<details>
 
 - Exported data from Export Keyframes can now be used in Cinematic Runtime Add-On
 - Behavior packs and resource packs are now dependent, so when one of the resource or behavior pack is applied to world the other pack is also applied automatically.
 
-</details>
-
 ### 1.0.2
-
-<details>
 
 - Update pack name and description
 - Add-on is now compatible with 1.20.60 previews.
 
-</details>
-
 ### 1.0.1
-
-<details>
 
 - Export keyframes now converts keyframes into /camera commands
 
-</details>
-
 ### 1.0.0
-
-<details>
 
 - Added extension icon (icon by Mojang)
 
-</details>
-
 ### 0.3.0-beta
-
-<details>
 
 - Refactor storage system to make it compatible for latest Dynamic Properties changes.
 - Fix a bug where Ease Type and Ease Time aren't sync when changing keyframe selection.
@@ -210,28 +172,18 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 - Export Content field is now hidden unless 'Export Keyframes' button is pushed.
 - Easing values are now saved automatically when changed.
 
-</details>
-
 ### 0.2.0-beta
-
-<details>
 
 - Increase maximum stored keyframes from 9 to 600
 - Fix the delay caused by running timeline
 - Text pane now disallow user from modifying the export content
 - Add easing into cinematic editor
 
-</details>
-
 ### 0.1.0-beta
-
-<details>
 
 - Add tool and pane with no functionality.
 - Add export content
 - Add player location, rotation
-
-</details>
 
 # Installation
 
