@@ -198,10 +198,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const downloadMetaPath = path.join(process.cwd(), "downloads", params.slug + ".json");
   if (!fs.existsSync(downloadMetaPath)) {
     return {
-      redirect: {
-        destination: "/posts/" + params.slug,
-        permanent: false,
-      },
+      notFound: true,
     };
   }
   const metadata: DownloadMetadataJSON = JSON.parse(fs.readFileSync(downloadMetaPath, "utf8"));
