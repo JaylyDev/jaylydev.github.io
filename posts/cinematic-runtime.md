@@ -1,0 +1,174 @@
+---
+author: Jayly
+title: Cinematic Runtime Add-On
+description: Control your camera perspective to make a Minecraft scene, without knowledge to use the /camera command.
+date: 5/27/2024
+image: /assets/posts/cinematic-editor/thumbnail.png
+---
+
+# Cinematic Runtime Add-On
+
+> [!IMPORTANT]
+> This article is about the Cinematic Editor with cross-platform support. For the Cinematic Editor extension which uses the Bedrock Editor engine, see [Cinematic Editor extension](/posts/cinematic-editor).
+
+The Cinematic Runtime is an Add-On allows players to play a scene by sending scene data from Cinematic Editor in the release version of Minecraft.
+
+The Cinematic Runtime add-on is part of the Cinematic Editor extension, a Minecraft editor add-on which utilizing the `/camera` command for changing perspectives and designing cinematic scenes. The editor has the capability to control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the `/camera` command.
+
+This is made possible through exporting the scene data from the editor extension to another add-on. And the data is saved in world storage, so the scene can still be played when rejoining without the need to import the data again.
+
+<iframe width="914" height="514" src="https://www.youtube.com/embed/sFjZIkR1pKY" title="This Minecraft Mod Changes Player Perspective" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+The video above showcase how you can export keyframes from the editor and import the data and play a scene in a normal Minecraft world.
+
+## Import Scene from Editor to World
+
+In the video, it showcased the extension has the capability to transfer a scene data to the runtime Add-On. Here's how you do it:
+
+1. Apply both Cinematic Editor Extension and Cinematic Runtime Add-On to an Editor project.
+2. Create a scene in the Editor UI, then press the **Export Scene** button.
+3. Either using **Test World feature** or **export the project as world** in world settings to convert an Editor project to normal world.
+4. Enter the world, and type the following command:
+
+   ```
+   /function cinematic/editor
+   ```
+
+## Creating a Scene
+
+The runtime add-on now supports creating and editing a Minecraft scene without the Editor, by sacrificing the fancy UI given by Minecraft Editor engine.
+
+Start by running the following command:
+
+```
+/function cinematic/editor
+```
+
+When executed, this form should appear when you have not created a scene:
+
+![Runtime Editor showing Create scene](/assets/posts/cinematic-editor/runtime-editor-create-scene.png)
+
+## Scene Editor Mode
+
+After pressing the create scene button, you will enter Scene Editor mode. There will be 3 items in your hotbar, and your whole inventory will be cleared until you exit scene editor mode:
+
+![Scene editor mode](/assets/posts/cinematic-editor/addon-scene-editor.png)
+
+### Exit without saving scene
+
+Exits scene editor without saving the scene using the **Cancel** item.
+
+### Create keyframe
+
+**Create a keyframe** using the camera item. Not to be confused with Minecraft's camera item.
+
+When using this item a keyframe will be saved temperatory to a scene.
+
+It will also asks you to set values of ease type and ease time, which you can change it later after exiting scene editor mode.
+
+![Scene editor mode create keyframe](/assets/posts/cinematic-editor/addon-create-keyframe.png)
+
+### Saving Scene
+
+Using the **Confirm** item will save the scene to the world.
+
+## Edit Existing Scene
+
+Once you have created an existing scene and when you decide to edit that scene, enter `/function cinematic/editor` command and you will be greeted with different panel:
+
+![Runtime Editor edit scene](/assets/posts/cinematic-editor/runtime-editor-edit-scene.png)
+
+Select a keyframe then select **Edit Keyframe**, which brings you back to the form seen in [Create Keyframe](#create-keyframe).
+
+You can also delete a keyframe from existing scene.
+
+![edit keyframe](/assets/posts/cinematic-editor/addon-edit-keyframe.png)
+
+# Changelog
+
+Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
+
+### 0.4.1
+
+- Add-On is compatible with Minecraft 1.21.20 Previews
+
+### 0.4.0
+
+<details>
+
+- You can now create and modify the scene within the Cinematic Runtime Add-On, alternative to Cinematic Editor Extension.
+
+  > [!NOTE]
+  >
+  > - This feature is made mainly to support creators without Minecraft for Windows to make a scene.
+  > - For detailed usage of this feature, please check the post.
+
+- Added `/function cinematic/editor` command - Opens an editor for creating and modifying a Minecraft scene.
+- Renamed 'Camera Runtime' item to 'Scene Player'
+- Updated Add-On Manifest metadata, changing license from MIT to All Rights Reserved.
+- Add-On now supports Minecraft v1.20.80, v1.21.0 and v1.21.10
+
+</details>
+
+### 0.3.0
+
+<details>
+
+- Module version property is now the same as `header.version`
+- Editor extension is now compatible with 1.20.80-preview.21 or above.
+- Using '@minecraft/math' module instead of Vector class from '@minecraft/server'
+- Output files are now bundled.
+
+</details>
+
+### 0.2.1
+
+<details>
+
+- Pack is now compatible with 1.20.80 previews only
+
+</details>
+
+### 0.2.0
+
+<details>
+
+- Pack is now compatible with 1.20.70 previews only
+- Runtime add-on now requires Beta APIs experiment
+- HUD is now hidden when using camera runtime until scene ends
+
+</details>
+
+### 0.1.1
+
+<details>
+
+- Fix a critical bug where world hangs when 'Run Timeline' is pressed.
+
+</details>
+
+### 0.1.0
+
+<details>
+
+- Initial Release for Release 1.20.50
+- Added input form
+- Added an item that plays a scene when used
+
+</details>
+
+# Installation
+
+> [!IMPORTANT]
+> Cinematic Editor Runtime Add-On requires **Beta APIs** experiment enabled.
+>
+> ![beta api enabled](/assets/posts/cinematic-editor/beta-api-enabled.png)
+
+> [!IMPORTANT]
+> You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post https://jaylydev.github.io/posts/cinematic-editor/ in the description of the video or a webpage and must not have any other direct-download links.
+
+# Downloads
+
+Click the link below and choose a version to download.
+
+- [Download Cinematic Runtime Add-On](/posts/cinematic-runtime/downloads/)

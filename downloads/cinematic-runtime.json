@@ -1,0 +1,52 @@
+{
+  "downloads": [
+    {
+      "title": "v0.4.1 (Behavior)",
+      "supports": "Preview 1.21.20",
+      "changelog_url": "/posts/cinematic-runtime/#041",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic%2B1.21.20/CinematicRuntime_BP_v0.4.1.mcpack"
+    },
+    {
+      "title": "v0.4.1 (Resource)",
+      "supports": "Preview 1.21.20",
+      "changelog_url": "/posts/cinematic-runtime/#041",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic%2B1.21.20/CinematicRuntime_RP_v0.4.1.mcpack"
+    },
+    {
+      "title": "v0.4.0",
+      "supports": "Preview 1.21.10",
+      "changelog_url": "/posts/cinematic-runtime/#040",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic-runtime_v0.4.0/CinematicRuntime_v0.4.0+1.21.10.mcaddon"
+    },
+    {
+      "title": "v0.4.0",
+      "supports": "1.21.0",
+      "changelog_url": "/posts/cinematic-runtime/#040",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic-runtime_v0.4.0/CinematicRuntime_v0.4.0+1.21.0.mcaddon"
+    },
+    {
+      "title": "v0.4.0",
+      "supports": "1.20.80",
+      "changelog_url": "/posts/cinematic-runtime/#040",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic-runtime_v0.4.0/CinematicRuntime_v0.4.0+1.20.80.mcaddon"
+    },
+    {
+      "title": "v0.3.0",
+      "supports": "Preview 1.20.80",
+      "changelog_url": "/posts/cinematic-runtime/#030",
+      "url": "https://www.mediafire.com/file/dytexvsxzn27mkk/CinematicRuntime_v0.3.0.mcaddon/file"
+    },
+    {
+      "title": "v0.2.1",
+      "supports": "Preview 1.20.80",
+      "changelog_url": "/posts/cinematic-runtime/#021",
+      "url": "https://www.mediafire.com/file/k5rv9iykaukpfpg/CinematicRuntime_v0.2.1.mcaddon/file"
+    },
+    {
+      "title": "v0.1.0",
+      "supports": "1.20.50+",
+      "changelog_url": "/posts/cinematic-runtime/#010",
+      "url": "https://www.mediafire.com/file/dz7gi0e0ypvi8vk/CinematicRuntime_v0.1.0.mcaddon/file"
+    }
+  ]
+}
