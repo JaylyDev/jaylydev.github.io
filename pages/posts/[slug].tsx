@@ -15,7 +15,7 @@ import rehypeRaw from "rehype-raw";
 import remarkAlert from "@/remark-alert";
 import rehypeStarryNight from "@/rehype-starry-night";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeToc, { toc } from "@jsdevtools/rehype-toc";
+import rehypeToc from "@jsdevtools/rehype-toc";
 import rehypeSlug from "rehype-slug";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/app/components/SiteFormat";
 import Head from "next/head";

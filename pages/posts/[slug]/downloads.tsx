@@ -73,12 +73,16 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
   const rows = downloads.map((item, index) => {
     return {
       key: index.toString(),
-      version: item.title + (item.channel || " (Release)"),
+      version: item.title + (item.channel ? ` (${item.channel})` : " (Release)"),
       supports: item.supports,
-      changelog: (
+      changelog: item.changelog_url ? (
         <a href={item.changelog_url}>
           <Button color="primary">Changelog</Button>
         </a>
+      ) : (
+        <Button disabled color="default">
+          Changelog
+        </Button>
       ),
       download: (
         <a href={item.url}>
@@ -97,8 +101,8 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
       if (value >= 100) {
         clearInterval(interval);
       }
-      setValue((v) => (v >= 100 ? v : v + 2));
-    }, 100);
+      setValue((v) => (v >= 100 ? v : v + 5));
+    }, 250);
 
     return () => clearInterval(interval);
   }, [value]);

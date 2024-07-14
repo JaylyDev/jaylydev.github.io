@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Cinematic Editor
 description: Control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the /camera command.
-date: 5/27/2024
+date: 7/14/2024
 image: /assets/posts/cinematic-editor/thumbnail.png
 ---
 

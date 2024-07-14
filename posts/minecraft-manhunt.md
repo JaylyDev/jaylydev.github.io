@@ -572,30 +572,7 @@ Initial Release
 
 </details>
 
-## Download Archives
-
-If you are interested in downloading previous versions of Minecraft Manhunt add-on:
-
-| Version       | Link                                                                                                    | Changelog                 |
-| ------------- | ------------------------------------------------------------------------------------------------------- | ------------------------- |
-| Beta 1.7.1.5  | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.7.1.mcaddon)    |
-| Beta 1.7.0    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.7.0.2.mcaddon)  | [Beta 1.7.0](#170-beta2)  |
-| Beta 1.6.5    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.6.5.6.mcaddon)  | [Beta 1.6.5](#165-beta6)  |
-| Beta 1.6.4    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.6.5.6.mcaddon)  | [Beta 1.6.4](#164-beta13) |
-| Beta 1.6.3    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-v1.6.3.mcaddon)    | [Beta 1.6.3](#163-beta)   |
-| Patch 1.6.2   | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-v1.6.2.mcaddon)    | [Beta 1.6.2](#162)        |
-| Beta 1.6.1    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-v1.6.1.mcaddon)    | [Beta 1.6.1](#161-beta)   |
-| Release 1.6.0 | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-1.6.0.mcaddon)     | [Release 1.6.0](#160)     |
-| Beta 1.5.4    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/Beta_1.5.4.mcpack)         | [Patch 1.5.4](#154)       |
-| Beta 1.5.3    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-beta-1.5.3.mcpack) | [Patch 1.5.3](#153)       |
-| Beta 1.5.2    | [Download](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-beta-1.5.2.mcpack) |
-| Release 1.4   | [Download](<https://www.mediafire.com/folder/e9fnoqwu530kf/Manhunt+2.4+(2020-08-29)>)                   |
-| Release 1.3   | [Download](<https://www.mediafire.com/folder/rvelcp0kbo9g6/Manhunt+1.3.0+(2020-07-09)>)                 |
-| Release 1.2   | [Download](<https://www.mediafire.com/folder/1z3qxmkb2penr/Manhunt+1.2.0+(2020-07-03)>)                 |
-| Release 1.1   | [Download](<https://www.mediafire.com/folder/89p1l4m5xmto9/Manhunt+1.1.0+(2020-06-12)>)                 |
-| Release 1.0   | [Download](<https://www.mediafire.com/folder/sz51u52fblyyl/Manhunt+1.0.0+(2020-06-10)>)                 |
-
-## Latest Downloads
+## Installation
 
 This game requires a resource pack and a behavior pack in order to activate, or else Minecraft will pop up an error about incompatibility.
 
@@ -603,4 +580,8 @@ After downloading the Add-on from the link below and importing the Add-On to Min
 
 The Add-on setups the game automatically on a brand new world.
 
-- [Download Minecraft Manhunt Add-On (Latest)](https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.7.1.15.mcaddon)
+## Downloads
+
+Click the link below and choose a version to download.
+
+- [Download Minecraft Manhunt Add-On](/posts/minecraft-manhunt/downloads/)
