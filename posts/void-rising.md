@@ -10,6 +10,8 @@ image: /assets/posts/void-rising/thumbnail.png
 
 <iframe width="914" height="514" src="https://www.youtube.com/embed/BOLNYZUB5xk" title="Minecraft But The Void Rises (Montage)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+> Download links for the add-on is located at the bottom of the page.
+
 What happens if you made the void rises constantly in Minecraft? This add-on is made so the void rises every 5 seconds, making the game more of a challenge. Last player survive the rising void longest wins!
 
 ## Add-on features
