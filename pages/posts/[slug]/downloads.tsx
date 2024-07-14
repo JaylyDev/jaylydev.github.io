@@ -122,30 +122,25 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
       <StatsCollection />
       <SiteHeader />
       <PostHeader title={title} author={author} date={date} />
-      <div className="markdown-body">
+      <div className="download-section">
         <h1>Downloads</h1>
+        {value < 100 ? (
+          <Progress label="Fetching Downloads..." size="md" value={value} color="success" showValueLabel={true} />
+        ) : (
+          <Table aria-label="Example static collection table">
+            <TableHeader columns={columns}>
+              {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+            </TableHeader>
+            <TableBody items={rows} emptyContent="No rows to display.">
+              {(item) => (
+                <TableRow key={item.key}>
+                  {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        )}
       </div>
-      {value < 100 ? (
-        <Progress
-          label="Fetching Downloads..."
-          size="md"
-          value={value}
-          color="success"
-          showValueLabel={true}
-          className="download-assets"
-        />
-      ) : (
-        <Table className="download-assets" aria-label="Example static collection table">
-          <TableHeader columns={columns}>
-            {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-          </TableHeader>
-          <TableBody items={rows} emptyContent="No rows to display.">
-            {(item) => (
-              <TableRow key={item.key}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>
-            )}
-          </TableBody>
-        </Table>
-      )}
       <div className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></div>
       <SiteFooter />
     </div>

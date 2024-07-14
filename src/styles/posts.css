@@ -6,14 +6,6 @@
   padding: 15px 45px;
 }
 
-.download-assets {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 1px 45px;
-}
-
 .markdown-header {
   box-sizing: border-box;
   min-width: 200px;
@@ -64,4 +56,24 @@ iframe {
 }
 .icon:hover {
   opacity: 1;
+}
+
+.download-section {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1px 45px;
+}
+
+.download-section h1 {
+  margin: 0.67em 0;
+  font-weight: 600;
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #21262d;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
 }
