@@ -2,22 +2,22 @@
 author: Jayly
 title: Minecraft Manhunt
 description: Minecraft Manhunt brings many manhunt concepts by Dream from the Java Edition of Minecraft into Minecraft Bedrock Edition. The basic concept of the Add-On is the speedrunner needs to beat Minecraft before the hunter kills the speedrunner.
-date: 6/19/2024
+date: 7/15/2024
 image: /assets/posts/minecraft-manhunt/thumbnail-v1.png
 ---
 
 # Minecraft Manhunt
 
-![Thumbnail v1](/assets/posts/minecraft-manhunt/thumbnail-v1.png)
+<iframe width="914" height="514" src="https://www.youtube.com/embed/RQ5CAYMlq_8" title="Minecraft Manhunt (Teaser Trailer)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 Minecraft Manhunt is a Bedrock Edition Add-On which brings the infamous skill based competitive game, where players have individual roles, where they can either become a speedrunner or a hunter. It brings many manhunt concept by Dream from the Java Edition of Minecraft into Minecraft: Bedrock Edition. The basic concept of the Add-On gameplay is the speedrunner needs to beat Minecraft before the hunter kills the speedrunner.
 
 > [!WARNING]
-> This Add-On has not been updated since November 2021 (Minecraft v1.17.40). It might not be compatible with latest versions of Minecraft.
+> This Add-On has not been updated since November 2021 (Minecraft v1.17.40). Some features might be broken.
 
 ## Core Gameplay Concept
 
-> Check out https://mcpedl.com/minecraft-manhunt/ for full description.
+![Thumbnail v1](/assets/posts/minecraft-manhunt/thumbnail-v1.png)
 
 ### The Speedrunner's goal
 
@@ -34,6 +34,238 @@ Their goal is to kill the speedrunner by the end of beating Minecraft or the tim
 Hunter(s) has/have a compass which can track the speedrunner. Remember the compass works only in the overworld dimension, or last location if the speedrunner is in the Nether.
 
 The hunter also has unlimited amount of life (excludes Minecraft Item Randomizer gamemode), the compass the game gives you cannot be moved, dropped, crafted with and the compass is not lost on death.
+
+### Features applied on this Add-on
+
+- This game should have <ins>chosen the one who host the world to become speedrunner</ins>, rest of them are hunters.
+- This game requires a **_resource pack_** and a **_behavior pack_** in order to activate, or else Minecraft will pop up an error about incompatibility.
+- The Add-on setups the game automatically on a brand new world.
+
+![rp_apply](/assets/posts/minecraft-manhunt/rp_apply.png)
+
+![bp_apply](/assets/posts/minecraft-manhunt/bp_apply.png)
+
+- One of the hunters need to hold the compass in order to track the direction of the speedrunner.
+- When hunter dies, only the compass is kept in the inventory.
+- Hunters have the compass in order to track the direction of the speedrunner.
+
+> [!IMPORTANT]
+> The compass does not work in the nether nor the end dimension.
+
+## Manhunt GameModes
+
+There are 6 concepts included in this Add-on, including:
+
+**Multiplayer game modes** (requires 2+ people to start the game)
+
+- Minecraft Manhunt
+- Minecraft Hitmen
+- Minecraft Juggernaut
+- Minecraft Item Randomizer (Minecraft Random Item Challenge by Dream)
+- Minecraft Assassin
+
+**Singleplayer gamemodes** (compatible with multiplayer)
+
+- Terminator Manhunt
+
+### Minecraft Manhunt
+
+![setings manhunt](/assets/posts/minecraft-manhunt/settings-manhunt.png)
+
+- **The speedrunner has to beat the Ender Dragon** before getting killed by the hunters.
+- This game requires 2 players or more to start the game.
+
+### Minecraft Hitmen
+
+![setings hitmen](/assets/posts/minecraft-manhunt/settings-hitmen.png)
+
+<center>
+
+![hitmen timer](/assets/posts/minecraft-manhunt/hitmen-timer.png)
+
+</center>
+
+- **The speedrunner has to survive 1 hour** before getting killed by the hunters.
+- The speedrunner also win if they beat Minecraft in under an hour.
+- This game requires 2 players or more to start the game.
+- If you think 1 hour is too long to survive, you can execute this command to change the time:
+  ```
+  /scoreboard players set @a[tag=host] time_m <count: integer (minutes)>
+  ```
+
+### Minecraft Juggernaut
+
+![settings-juggernaut](/assets/posts/minecraft-manhunt/settings-juggernaut.png)
+
+When the game starts, the hunters are spawned with **FULL DIAMOND ARMOR and a compass**, and **the speedrunner has NOTHING**.
+
+![hunters-kit](/assets/posts/minecraft-manhunt/hunters-kit.png)
+
+- The hunters' diamond armor given at the start will keep in inventory when they die unless you dropped them during the game.
+- The speedrunner wins by beating Minecraft, just like the original Minecraft Manhunt's concept.
+- This game requires 2 players or more to start the game.
+
+### Minecraft Item Randomizer (or Minecraft Random Item Challenge vs Hunters)
+
+![settings-item-randomizer](/assets/posts/minecraft-manhunt/settings-item-randomizer.png)
+
+This gamemode or concept is similar to Minecraft Manhunt - The host becomes the speedrunner and the rest are hunters.
+
+![randomizer-rules](/assets/posts/minecraft-manhunt/randomizer-rules.png)
+
+- **_The hunters and speedrunner have 1 life only_**
+- The hunters do not have the compass
+- There is a 1000x1000 border across all dimensions, if you are outside of the border the system will teleport back to inside the border.
+- Everyone gets a random type of item for every 2 minutes
+- Anything dropped on ground disappears instantly (with the exception of a 5 second cooldown after a random type of item was given to everyone).
+
+![random item arrives](/assets/posts/minecraft-manhunt/randomizer-message.png)
+
+- The item dropped on the ground during the cooldown can be collected by anyone unlike the original concept by Dream.
+- Everyone has to try and use the item to kill their enemy.
+- When the host setups and starts the game, the add-on teleports everyone to 0,0 to make sure they are within the border.
+
+### Minecraft Assassin
+
+![assassin gamemode](/assets/posts/minecraft-manhunt/settings-assassin.png)
+
+- The assassins have the ability to **kill the speedrunner in one hit**.
+- When the speedrunner look at the assassin, they will get frozen and will not able to move at all.
+
+### Minecraft Terminator Manhunt
+
+![terminaor gamemode](/assets/posts/minecraft-manhunt/settings-terminator-manhunt.png)
+
+- **This gamemode supports singleplayer!** Which means this game only requires 1 player or more to start the game.
+- The terminator add-on in the installation is intended to be compatible with the manhunt Add-on
+- All the players joined the game become speedrunners, and the terminator becomes the hunter
+- The terminator will be spawned when the host executes `/function start`
+- There is a reason of not making the terminator Add-on in this Manhunt Add-on: The terminator has a lot of bugs and glitches which the add-on will be uploaded from time to time and updating both add-on will be a waste of time.
+
+> [!IMPORTANT]
+> The terminator is not included in this Add-on, you need to install the Terminator Add-on and the manhunt Add-on in order to activate the Add-on successfully.
+>
+> Download the terminator add-on here: https://jaylydev.github.io/posts/terminator/
+
+## Additional features
+
+### Multi-speedrunners support
+
+This add-on supports 2 speedrunners or more in a single game.
+
+You need to select all speedrunners before the game starts by executing the following command:
+
+```
+/tag <entity:target> add speedrunner
+```
+
+### Change Speedrunner
+
+The player who host the world becomes a speedrunner by default.
+
+The host can change themselves to become a hunter by executing the following command before the game starts:
+
+```
+/tag <entity:target> add speedrunner
+```
+
+This selects other player as a speedrunner and the add-on will automatically change your role.
+
+### Tracking Compass
+
+In order to increase client and server performance, one of the hunters must hold the compass in order to locate speedrunner's direction. The compass will update speedrunner's direction every 1 second.
+
+![tracking compass](/assets/posts/minecraft-manhunt/compass-tracking-showcase.png)
+
+The compass the add-on gives to the hunters cannot be moved, dropped, crafted with and the compass is not lost on death.
+
+![tracking compass tags](/assets/posts/minecraft-manhunt/compass-tags.png)
+
+### Spectator mode
+
+This feature is available when 2+ speedrunners are in the same game.
+
+When one of the speedrunners dies, they will respawn and they will become a spectator.
+
+Spectators have the following effects:
+
+- Spectators cannot deal damages to speedrunner or hunter.
+- Spectators has invisibility effect when the game is running.
+- Spectator mode disables when the game is ended or in lobby stage.
+
+> [!NOTE]
+> This add-on is made before the introduction of the spectator gamemode, the add-on will not put you into actual spectator mode.
+
+### Grace period (Experimental)
+
+> [!CAUTION]
+> This feature is an experimental. It may change or removed in future versions.
+
+**This feature only works in the following gamemodes**:
+
+- Minecraft Manhunt
+- Minecraft Hitmen
+- Minecraft Juggernaut
+- Minecraft Item Randomizer
+- Minecraft Assassin
+
+![grace period ready](/assets/posts/minecraft-manhunt/grace-period-pvp.png)
+
+![grace period enabled](/assets/posts/minecraft-manhunt/grace-period-pvp-on.png)
+
+- Enabling grace period disables PVP at the start of the game
+- If grace period is enabled before the game started, the game will enable PVP in 1 minute after the game started
+- Grace period is disabled by default
+
+**Enabling and disabling Grace Period**
+
+![Function commands to toggle grace period](/assets/posts/minecraft-manhunt/grace-period-toggle.png)
+
+Enable grace period through the following command:
+
+```
+/function settings/graceperiod/true
+```
+
+The game will enable grace period for all the players.
+
+> [!IMPORTANT]
+>
+> - You must execute this command before starting the game
+> - Please make sure the following text appears to make sure you enable grace period
+
+![response](/assets/posts/minecraft-manhunt/grace-period-toggle-on.png)
+
+Disabling grace period through the following command:
+
+```
+/function settings/graceperiod/false
+```
+
+The game will disable grace period for all the players.
+
+> [!IMPORTANT]
+>
+> - You must execute this command before starting the game
+> - Please make sure the following text appears to make sure you enable grace period
+
+![response off](/assets/posts/minecraft-manhunt/grace-period-toggle-off.png)
+
+## Credits
+
+Game Designer
+
+- Dream: [YouTube](https://youtube.com/@dream), [Twitter](https://x.com/dreamwastaken)
+- GeorgeNotFound: [YouTube](https://youtube.com/@GeorgeNotFound), [Twitter](https://x.com/georgenotfound)
+
+Add-On Developer
+
+- JaylyMC: [YouTube](https://youtube.com/@jaylymc)
+- r4isen1920: [MCPEDL](https://mcpedl.com/user/r4isen1920/)
+
+Logo Designer
+
+- ItsMeJacob21
 
 ## Changelog
 
@@ -247,7 +479,7 @@ This Add-On is released for Minecraft version 1.17, but there is a chance of it 
 
 When you're installing this Add-On in Minecraft 1.17, these are the experimentals options required to be activated.
 
-![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
+![image](/assets/posts/minecraft-manhunt/experimental-1.5.3-beta.png)
 
 ### 1.6.1-beta
 
@@ -274,7 +506,7 @@ This Add-On is released for Minecraft version 1.17, but there is a chance of it 
 
 When you're installing this Add-On in Minecraft 1.17, these are the experimentals options required to be activated.
 
-![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
+![image](/assets/posts/minecraft-manhunt/experimental-1.5.3-beta.png)
 
 ### 1.6.0
 
@@ -310,7 +542,7 @@ This Add-On is released for Minecraft version 1.17, but there is a chance of it 
 
 When you're installing this Add-On in Minecraft 1.17, these are the experimentals options required to be activated.
 
-![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
+![image](/assets/posts/minecraft-manhunt/experimental-1.5.3-beta.png)
 
 ### 1.5.11
 
@@ -334,7 +566,7 @@ This Add-On is released for Minecraft version 1.17, but there is a chance of it 
 
 When you're installing this Add-On in Minecraft 1.17, these are the experimentals options required to be activated.
 
-![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
+![image](/assets/posts/minecraft-manhunt/experimental-1.5.3-beta.png)
 
 ### 1.5.5
 
@@ -353,7 +585,7 @@ When you're installing this Add-On in Minecraft 1.17, these are the experimental
 
 If you're running this addon in version 1.17, you now need to activate these 3 experimental options when applying addon
 
-![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
+![image](/assets/posts/minecraft-manhunt/experimental-1.5.3-beta.png)
 
 ### 1.5.4
 
@@ -374,7 +606,7 @@ If plan goes accordingly, I'll start adding more gamemodes to the addon in an at
 
 If you're running this addon in version 1.17, you now need to activate these 3 experimental options when applying addon
 
-![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
+![image](/assets/posts/minecraft-manhunt/experimental-1.5.3-beta.png)
 
 ### 1.5.3
 
@@ -397,7 +629,7 @@ If plan goes accordingly, I'll start adding more gamemodes to the addon in an at
 
 If you're running this addon in version 1.17, you now need to activate these 3 experimental options when applying addon
 
-![image](/assets/posts/minecraft-terminator/experimental-1.5.3-beta.png)
+![image](/assets/posts/minecraft-manhunt/experimental-1.5.3-beta.png)
 
 ### 1.5.0
 
@@ -499,6 +731,14 @@ Hunters' starter kit is added into this version.
 ### 1.0.0
 
 Initial Release
+
+## Important infomation
+
+The add-on is licensed under the MIT license. As long as you have stated license and copyright notice, you have permission for commercial use, modification, distribution and private use of the add-on. This excludes liability and warranty.
+
+When you are uploading a video about the add-on, you must credit the add-on by leaving a link (https://jaylydev.github.io/posts/minecraft-manhunt) in the description and do not use the thumbnail on the add-on post or on the trailer as your video thumbnail.
+
+We are not accepting bug reports or feedback to the Minecraft Manhunt add-on currently.
 
 ## Installation
 
