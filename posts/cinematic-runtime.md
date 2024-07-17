@@ -88,6 +88,12 @@ You can also delete a keyframe from existing scene.
 
 Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
+### 0.4.2
+
+- Fix a packaging issue where resource pack and behavior pack are split as multiple `.mcpack` files.
+- Updated manifest
+- Resource pack now requires the same minimum engine version as behavior pack.
+
 ### 0.4.1
 
 - Add-On is compatible with Minecraft 1.21.20 Previews

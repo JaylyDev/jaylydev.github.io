@@ -85,15 +85,15 @@ You can modify the ease type and the ease time for the keyframe. However you can
 
 ## Scene Action
 
-![scene action](/assets/posts/cinematic-editor/scene-action.png)
+![scene action](/assets/posts/cinematic-editor/scene-action-updated.png)
 
 The Scene Action section in the extension panel allows creators to either play the scene, export the scene to Cinematic Runtime Add-On, or reset the scene.
 
-**Play Scene**
+### Play Scene
 
 This will play the scene which is stored in the Cinematic Editor Extension Add-On. To play a scene stored in Cinematic Runtime Add-On, use the Scene Player item.
 
-**Export Scene**
+### Export Scene
 
 Pressing this button will transfer the scene details from Cinematic Editor Extension to Cinematic Runtime Add-On. This means you can play the scene with the Scene Player item available from Cinematic Runtime Add-On without the Minecraft Editor or the extension.
 
@@ -102,13 +102,41 @@ Pressing this button will transfer the scene details from Cinematic Editor Exten
 >
 > ![loaded packs](/assets/posts/cinematic-editor/cinematic-addons-loaded.png)
 
-**Reset Scene**
+### Reset Scene
 
 This action will reset all data of the camera scene from the Editor extension, and it cannot be undone once the scene is removed. This does not affect the scene in Cinematic Runtime Add-On.
+
+### Hud Elements Visibility
+
+> [!CAUTION]
+> This feature is in pre-release and not compatible with Cinematic Runtime add-on yet. It may change in the future.
+
+There are multiple toggles under the action buttons which indicates the HUD elements to display when playing a scene.
+
+- `Show Hunger` - Shows hunger bar element.
+- `Show Paper Doll` - Shows'paper doll' on-screen representation of the player.
+- `Show Armor` - Shows armor element on the HUD.
+- `Show Tool Tips` - Shows tool tip elements of the HUD.
+- `Show Touch Controls` - Shows touch controls elements of the HUD. Depending on the players' platform, these elements may never show up.
+- `Show Cross Hair` - Shows cross-hair section of the HUD.
+- `Show Hotbar` - Shows hotbar inventory area element of the HUD.
+- `Show Health` - Shows health element of the HUD.
+- `Show Progress Bar` - Shows progress bar element of the HUD.
+- `Show Air Bubbles` - Shows air bubble status element of the HUD.
+- `Show Horse Health` - Shows visual representation of the players' ride element of the HUD.
+- `Show Status Effects` - Shows status effects element of the HUD.
+- `Show Item Text` - Shows item text element.
 
 # Changelog
 
 Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
+
+### 1.3.2
+
+- Fix an issue with HUD elements not displaying when toggled on.
+- When playing the scene the following HUD elements can be shown if toggled on: ProgressBar, Hunger, AirBubbles, HorseHealth, StatusEffects, ItemText
+- Updated manifest
+- Resource pack now requires the same minimum engine version as behavior pack.
 
 ### 1.3.1
 
