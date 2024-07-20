@@ -269,6 +269,21 @@ Logo Designer
 
 ## Changelog
 
+### 1.8.0
+
+> Release Date: Soon
+
+#### Add-on changes
+
+- Behavior pack is updated to be fully compatible with Minecraft v1.21.20 or above.
+- The add-on now does not require Holiday Creator Features or Upcoming Creator Features experiments to be enabled.
+- The add-on now requires minimum Minecraft version v1.20.60.
+
+#### Gameplay Changes
+
+- Compass now supports tracking players in the nether and the end dimension too.
+- Fix a bug where players can hit entities before the game starts.
+
 ### 1.7.1
 
 > Release Date: 8/11/2021

@@ -1,0 +1,42 @@
+{
+  "downloads": [
+    {
+      "title": "v2.0.0",
+      "supports": "1.20.70+",
+      "changelog_url": "/posts/terminator/#200",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v2.0.0/terminator_v2.0.0.mcaddon"
+    },
+    {
+      "title": "v1.4.0",
+      "supports": "1.20.40+",
+      "changelog_url": "/posts/terminator/#140",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v1.4.0/terminator_v1.4.0.mcaddon"
+    },
+    {
+      "title": "v1.3.70",
+      "supports": "1.19.0+",
+      "changelog_url": "/posts/terminator/#1370",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.70/terminator_v1.3.70.181.mcaddon"
+    },
+    {
+      "title": "v1.3.45",
+      "supports": "1.17.30-1.18.10",
+      "changelog_url": "/posts/terminator/#1345",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.mobile_v1.3.45.1.mcaddon",
+      "channel": "Mobile"
+    },
+    {
+      "title": "v1.3.45",
+      "supports": "1.17.30-1.18.10",
+      "changelog_url": "/posts/terminator/#1345",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.windows_v1.3.45.0.mcaddon",
+      "channel": "Windows"
+    },
+    {
+      "title": "v1.3.20",
+      "supports": "1.17.30+",
+      "changelog_url": "/posts/terminator/#1320",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.20/terminator_v1.3.20.25.mcaddon"
+    }
+  ]
+}

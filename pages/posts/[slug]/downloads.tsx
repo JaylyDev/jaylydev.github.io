@@ -62,6 +62,15 @@ interface DownloadMetadataJSON {
   downloads: DownloadItem[];
 }
 
+const adsenseCode = `<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-format="autorelaxed"
+  data-ad-client="ca-pub-2533146760921020"
+  data-ad-slot="7551172365"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>`;
+
 const Post: React.FC<Props> = ({ content, title, description, date, author, image, card, downloads }) => {
   const columns = [
     { key: "version", label: "Version" },
@@ -73,7 +82,7 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
   const rows = downloads.map((item, index) => {
     return {
       key: index.toString(),
-      version: item.title + (item.channel ? ` (${item.channel})` : " (Release)"),
+      version: item.title + (item.channel ? ` (${item.channel})` : ""),
       supports: item.supports,
       changelog: item.changelog_url ? (
         <a href={item.changelog_url}>
@@ -141,7 +150,7 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
           </Table>
         )}
       </div>
-      <div className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></div>
+      <div className="markdown-body" dangerouslySetInnerHTML={{ __html: adsenseCode + content }}></div>
       <SiteFooter />
     </div>
   );

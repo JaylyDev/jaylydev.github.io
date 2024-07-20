@@ -214,20 +214,18 @@ function PublicPosts() {
       ) : (
         <>
           {displayedPosts.map((post, index) => (
-            <>
-              <div key={index} style={postStyle}>
-                <a className="hyperlink text-2xl font-bold mb-2 " href={post.slug + "/"}>
-                  {post.title}
-                </a>
-                <p>{post.description}</p>
-                <span>
-                  {"Date: " +
-                    new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/") +
-                    " \u00B7 by " +
-                    post.author}
-                </span>
-              </div>
-            </>
+            <div key={index} style={postStyle}>
+              <a className="hyperlink text-2xl font-bold mb-2 " href={post.slug + "/"}>
+                {post.title}
+              </a>
+              <p>{post.description}</p>
+              <span>
+                {"Date: " +
+                  new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/") +
+                  " \u00B7 by " +
+                  post.author}
+              </span>
+            </div>
           ))}
           {data.posts.length > postsToShow && ( // Check if there are more posts to load
             <center>

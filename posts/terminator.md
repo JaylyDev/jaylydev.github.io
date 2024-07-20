@@ -1,19 +1,16 @@
 ---
 author: Jayly
-title: Minecraft Terminator [v2.0.0-beta]
+title: Minecraft Terminator [v2.0.0]
 description: A Minecraft Bedrock Add-On that adds a powerful mob that has the ability to follow entities, destroy blocks and build blocks, to prevent you from beating the game.
-date: 6/9/2024
+date: 7/19/2024
 image: /assets/posts/terminator/terminator-v2-beta-thumbnail.png
 ---
 
-# Minecraft Terminator [v2.0.0-beta]
+# Minecraft Terminator [v2.0.0]
 
 ![thumbnail](/assets/posts/terminator/terminator-v2-beta-thumbnail.png)
 
 > Download links for the add-on is located at the bottom of the page.
-
-> [!IMPORTANT]
-> The Terminator add-on is currently in early testing, as this add-on is being rewritten to be compatible with Minecraft versions 1.20.70 or above. The Add-On is unstable. Check the [changelog](#changelog) this post for details on any changes to the add-on. This post reflects the latest updates to the Minecraft Terminator add-on.
 
 **Introducing Terminator to your Minecraft world!** This is a powerful mob that has the ability to follow entities, destroy blocks and build blocks when the terminator thinks it's necessary, pick up melee and ranged weapons such as swords and bows to attack entities, and wear armors such as chestplates to protect itself from being damaged.
 
@@ -238,7 +235,130 @@ Right click and scroll down to the bottom, a button that says "Spawn Terminator"
 
 By pressing the 'Submit' button, the game will spawn a terminator with changes applied based on options available in the 'Spawn Terminator' form.
 
+### Function commands
+
+The terminator add-on also provides ways to activate advanced features via `/function` commands.
+
+- `/function terminator` - This shows the 'Spawn Terminator' form.
+
+- `/function terminator/killall` - This kills every terminator and disables all currently running respawn events in existence, terminators will not respawn by running this command.
+
 # Changelog
+
+## 2.0.0
+
+> Release Date: July 14, 2024
+
+For the past few months I have been rewriting this Terminator add-on so it works in Minecraft's Tricky Trials Update and to celebrate Terminator add-on's 3rd anniversary. Thanks to everyone who helped testing beta versions of Terminator add-on version 2.
+
+### Add-On Changes
+
+- Add-On now no longer requires experiments to run.
+- Addon now requires Minecraft version 1.20.70 or above to run properly.
+- Fix a bug where addon can be applied to Global Resources.
+- Converted `glow_squid` family to `squid`
+- Revamped death message system from entity JSON to TypeScript.
+- Revamped forward bridging from animation controller JSON to TypeScript fully.
+- Converted death event to scripts
+- Added Terminator Guide Book. Obtained when player first join with this add-on loaded to world.
+- Removed `/function terminator/nbt/nodeathevent` - Please spawn a terminator without death event activated on it's death through the Spawn Terminator form.
+- Spawn Terminator form now allow spawning default/custom steve and alex skin
+- Terminator now drops their entire inventory on death
+- Removed property dimension from spawn terminator form
+- Spawn terminator form now has settings preference for players
+- Removed `.pdn` files from resource pack.
+- `/function terminator` command now returns the spawn terminator form.
+- Removed all nbt-related function commands. Please spawn it using `/function terminator` command instead.
+
+### Function Commands Changes
+
+- Fixed invalid command syntax which caused add-on not being to run properly.
+- Function commands are being deprecated in v2.0.0, and it will be replaced by script forms which will be released in future v2.0.0 beta updates.
+
+### Terminator Entity Changes
+
+- Updated terminator to leave chest boats.
+- Updated unbreakable blocks list so terminator cannot break blocks with blast resistance of 100 or above, which includes the following:
+  - Barrier
+  - Light Block
+  - Bedrock
+  - Command Block
+  - End Gateway
+  - End Portal
+  - End Portal Frame
+  - Jigsaw
+  - Structure Block
+  - Water
+  - Lava
+  - Flowing Lava
+  - Flowing Water
+  - Air
+- Add-On now detects death causes and broadcast death messages added from 1.20.
+- Added 1.20 death messages to terminator add-on.
+- Terminator will now bridge inside the height range of each dimension.
+- Added Terminator spawn sound.
+- Added deepslate to terminator breakable block list
+- Terminator placing blocks now includes sounds
+- Added a set of rules for terminator to have the ability to place blocks.
+- Terminator names are now sanitized. Following bedrock edition nametag rules.
+- Terminator now has the ability to break blocks around it's hitbox when attempting to break the block below
+- Reduced maximum distance Terminator can be from the target when following it, from 2048 blocks to 1024 blocks in favor of performance improvement. I'll increase the limit when the navigation behavior is having a rewrite from JSON to JavaScript.
+- Terminator is now able all the bedrock capes, incuding:
+  - 15th Anniversary
+  - Cherry Blossom
+  - Founder
+  - Migrator
+  - Mojang New
+  - Pan
+  - Progress Pride
+  - Follower (TikTok)
+  - Purple Heart (Twitch)
+  - One Vanilla
+
+##### Terminator Entity Fixes
+
+- Fixed a bug that entity nametag is not shown in death messages.
+- Fixed a bug that modified terminator nametag won't display in join message.
+- Fix a bug where terminator unable to bridge towards northwest direction.
+- Fix Terminator left message not shown and not colored yellow.
+- Fix a bug where terminator will fly when attempting to jump.
+- Fix a bug that terminator will not place blocks at certain directions when bridging.
+- Fix #46
+- Fix issues with terminator respawn event
+- Fix an issue with West and East place direction having wrong coordinates.
+- Fix issue where terminator jumping action would trigger mid-air
+- Fix an issue with Terminator digs a block below when having target (#60)
+- Fix an issue where blocks broken by terminator will not drop the item.
+- Fix an issue with all directions are offset by 180 degree.
+- Fixed an issue where terminator will create multiple goals to escape to when trying to escape
+- Fixed an issue with cape flaping and legs movement
+- Fix an issue where disabling terminator death event through spawn terminator form will not work.
+- Fix an issue that terminator spawn message appearing twice
+- Fix Terminator not being able to get off boats, chest boats and minecarts
+- Fix an issue where spawn Terminator form will spawn default alex skin instead of terminator variant
+- Fixed an issue where multiple terminator can have the same nametags
+- Fix a bug that terminator sometimes attempts to punch nothing [#70](https://github.com/JaylyDev/terminator/issues/70)
+- Fix a bug where massive explosions occurs when terminator dies in water and respawn [#64](https://github.com/JaylyDev/terminator/issues/64)
+- Fix an issue where addon fails to retrieve damaging entity nameTag
+- Fix an issue that terminator will not escape when reaching below 20hp after `/reload`
+- Fix an issue where death message didn't display item name tag
+- Fix an issue where Terminator name will not display in some cases
+- Fixed a bug that Terminator death message not showing after respawn.
+- Fixed a bug that Terminator's join message appears after respawning
+- Fixed a bug where terminator doesn't spawn with terminator steve skin if spawning with the 'Spawn Terminator' form
+
+### GitHub Pull Requests
+
+- Terminator v2-beta by @JaylyDev in https://github.com/JaylyDev/terminator/pull/51
+- v2.0.0-beta.1 by @JaylyDev in https://github.com/JaylyDev/terminator/pull/57
+- v2.0.0-beta.2 MCPEDL Release by @JaylyDev in https://github.com/JaylyDev/terminator/pull/61
+- Fix Terminator Bridging Algorithm by @JaylyDev in https://github.com/JaylyDev/terminator/pull/65
+- Fix riding, spawning and inventory drop by @JaylyDev in https://github.com/JaylyDev/terminator/pull/67
+- v2.0.0-beta.4 by @JaylyDev in https://github.com/JaylyDev/terminator/pull/71
+- Add Minecraft Debugger VS Code extension by @JaylyDev in https://github.com/JaylyDev/terminator/pull/72
+- v2.0.0 Release by @JaylyDev in https://github.com/JaylyDev/terminator/pull/73
+
+**Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.4.0...v2.0.0
 
 ## 2.0.0-beta (2024/6/9)
 
@@ -995,7 +1115,7 @@ After downloading the add-on below and import the add-on to Minecraft, **make su
 >
 > - This add-on is compatible with **Minecraft Bedrock v1.20.70 or above**. It won't work on Minecraft Education (unless you're using Preview)
 
-- [Download Minecraft Terminator Add-On](https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.4/terminator_v2.0.0-beta.mcaddon)
+- [Download Minecraft Terminator Add-On](/posts/terminator/downloads/)
 - [Submit a bug report to improve the add-on](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=)
 - [Suggest an idea for this add-on](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=)
 - [Support Discord Server](https://discord.com/invite/SuhGvZEXb4)
