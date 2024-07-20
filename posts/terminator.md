@@ -663,7 +663,7 @@ This category shows things that existed in previous versions that's modified fro
 
 - Failed to find texture set for Terminator
   > Image from a report by ornage in Jayly's Discord
-  > ![image](https://media.discordapp.net/attachments/571487722934370314/925866841031708692/unknown.png)
+  > ![image](/assets/posts/terminator/terminator-textureset-missing.png)
 
 > Image from a developer of Terminator add-on
 > ![image](https://user-images.githubusercontent.com/65847850/147706728-e7ca39de-1477-4fa7-8f0e-99356af51c86.png)

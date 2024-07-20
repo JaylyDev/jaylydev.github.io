@@ -64,9 +64,10 @@ interface DownloadMetadataJSON {
 
 const adsenseCode = `<ins class="adsbygoogle"
   style="display:block"
-  data-ad-format="autorelaxed"
   data-ad-client="ca-pub-2533146760921020"
-  data-ad-slot="7551172365"></ins>
+  data-ad-slot="7014545383"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({});
 </script>`;
