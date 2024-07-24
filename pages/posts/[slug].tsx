@@ -19,6 +19,7 @@ import rehypeToc from "@jsdevtools/rehype-toc";
 import rehypeSlug from "rehype-slug";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/app/components/SiteFormat";
 import Head from "next/head";
+import { Button } from "@nextui-org/button";
 
 export interface PostMeta {
   title: string;
@@ -26,6 +27,7 @@ export interface PostMeta {
   author: string;
   description: string;
   image: string | null;
+  download: boolean;
 }
 
 export interface PostData extends PostMeta {
@@ -46,9 +48,10 @@ interface PostHeaderProps {
   title: string;
   author: string;
   date: string;
+  download: boolean;
 }
 
-const Post: React.FC<Props> = ({ content, title, description, date, author, image, card }) => {
+const Post: React.FC<Props> = ({ content, title, description, date, author, image, card, download }) => {
   return (
     <div>
       <Head>
@@ -64,14 +67,14 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
       </Head>
       <StatsCollection />
       <SiteHeader />
-      <PostHeader title={title} author={author} date={date} />
+      <PostHeader title={title} author={author} date={date} download={download} />
       <div className="markdown-body" dangerouslySetInnerHTML={{ __html: content }}></div>
       <SiteFooter />
     </div>
   );
 };
 
-export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date }) => {
+export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date, download }) => {
   const [dateString, setDate] = useState(date);
 
   useEffect(() => {
@@ -90,6 +93,32 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date }) =
       <span className="text-gray-500">
         By {author} &middot; {dateString}
       </span>
+
+      {download && (
+        <Button
+          className="md:h-11 md:w-auto"
+          color="primary"
+          href="/docs/guide/introduction"
+          radius="full"
+          size="lg"
+          onPress={() => {
+            let scrollHeight = 0;
+            const id = setInterval(() => {
+              scrollHeight += document.body.scrollHeight / 10;
+              window.scrollTo({ behavior: "smooth", top: scrollHeight });
+              if (document.body.scrollHeight < scrollHeight) {
+                clearInterval(id);
+              }
+            }, 600);
+          }}
+          style={{
+            display: "block",
+            marginTop: "1rem",
+          }}
+        >
+          Skip To Download
+        </Button>
+      )}
     </div>
   );
 };
@@ -170,6 +199,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
       description: matterData.description,
       image: matterData.image ?? "https://jaylydev.github.io/icon.png",
       card: matterData.image ? "summary_large_image" : "summary",
+      download: matterData.download ?? false,
     },
   };
 };

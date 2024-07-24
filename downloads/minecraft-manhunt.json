@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v1.8.0",
+      "supports": "1.20.60+",
+      "changelog_url": "/posts/minecraft-manhunt/#180",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_v1.8.0/manhunt_v1.8.0.mcaddon"
+    },
+    {
       "title": "v1.7.1.15",
       "supports": "1.16.220+",
       "changelog_url": "/posts/minecraft-manhunt/#171",

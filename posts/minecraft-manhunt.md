@@ -4,6 +4,7 @@ title: Minecraft Manhunt
 description: Minecraft Manhunt brings many manhunt concepts by Dream from the Java Edition of Minecraft into Minecraft Bedrock Edition. The basic concept of the Add-On is the speedrunner needs to beat Minecraft before the hunter kills the speedrunner.
 date: 7/15/2024
 image: /assets/posts/minecraft-manhunt/thumbnail-v1.png
+download: true
 ---
 
 # Minecraft Manhunt
@@ -31,7 +32,7 @@ If the speedrunner died, they lose instantly.
 
 Their goal is to kill the speedrunner by the end of beating Minecraft or the timer ends.
 
-Hunter(s) has/have a compass which can track the speedrunner. Remember the compass works only in the overworld dimension, or last location if the speedrunner is in the Nether.
+Hunter(s) has/have a compass which can track the speedrunner. The compass works in the dimension the speedrunner is in.
 
 The hunter also has unlimited amount of life (excludes Minecraft Item Randomizer gamemode), the compass the game gives you cannot be moved, dropped, crafted with and the compass is not lost on death.
 
@@ -271,12 +272,12 @@ Logo Designer
 
 ### 1.8.0
 
-> Release Date: Soon
+> Release Date: 24/7/2024
 
 #### Add-on changes
 
-- Behavior pack is updated to be fully compatible with Minecraft v1.21.20 or above.
-- The add-on now does not require Holiday Creator Features or Upcoming Creator Features experiments to be enabled.
+- Behavior pack is updated to be fully compatible with Minecraft v1.21.20 or above, ensure it doesn't rely on Holiday Creator Features experiment anymore.
+- The add-on now does not require any experiments to be enabled.
 - The add-on now requires minimum Minecraft version v1.20.60.
 
 #### Gameplay Changes

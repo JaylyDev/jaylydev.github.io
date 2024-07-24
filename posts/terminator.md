@@ -4,6 +4,7 @@ title: Minecraft Terminator [v2.0.0]
 description: A Minecraft Bedrock Add-On that adds a powerful mob that has the ability to follow entities, destroy blocks and build blocks, to prevent you from beating the game.
 date: 7/19/2024
 image: /assets/posts/terminator/terminator-v2-beta-thumbnail.png
+download: true
 ---
 
 # Minecraft Terminator [v2.0.0]
@@ -1099,21 +1100,23 @@ Following bugs have been fixed in this version of add-on:
 
 Initial Release
 
-# Download
+# Installation
 
 After downloading the add-on below and import the add-on to Minecraft, **make sure both resource pack and behavior pack are imported** so you do not have the error related to incompatibility when applying the add-on.
 
-> [!IMPORTANT]
->
-> - The Terminator add-on is currently in early testing, as this add-on is being rewritten to be compatible with Minecraft versions 1.20.70 or above. The Add-On is unstable.
->
-> - **Join my Discord server** or **report to Terminator GitHub Repository** if there are any issues, questions and feedbacks regarding to the add-on's installation or the gameplay.
->
-> - Terminator entity can cause massive destruction. **Please save a copy of your world** before activating this add-on!
->
-> - You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post https://jaylydev.github.io/posts/terminator/ in the description of the video or a webpage and must not have any other direct-download links.
->
-> - This add-on is compatible with **Minecraft Bedrock v1.20.70 or above**. It won't work on Minecraft Education (unless you're using Preview)
+**Notes**:
+
+**Join my Discord server** or **report to Terminator GitHub Repository** if there are any issues, questions and feedbacks regarding to the add-on's installation or the gameplay.
+
+Terminator entity can cause massive destruction. **Please save a copy of your world** before activating this add-on!
+
+You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post https://jaylydev.github.io/posts/terminator/ in the description of the video or a webpage and must not have any other direct-download links.
+
+This add-on is compatible with **Minecraft Bedrock v1.20.70 or above**. It won't work on Minecraft Education (unless you're using Preview)
+
+# Downloads
+
+Click the link below and choose a version to download.
 
 - [Download Minecraft Terminator Add-On](/posts/terminator/downloads/)
 - [Submit a bug report to improve the add-on](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&projects=&template=bug_report.md&title=)
