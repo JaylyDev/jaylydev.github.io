@@ -104,7 +104,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date, dow
           onPress={() => {
             let scrollHeight = 0;
             const id = setInterval(() => {
-              scrollHeight += document.body.scrollHeight / 10;
+              scrollHeight += document.body.scrollHeight / 15;
               window.scrollTo({ behavior: "smooth", top: scrollHeight });
               if (document.body.scrollHeight < scrollHeight) {
                 clearInterval(id);
