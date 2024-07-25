@@ -116,7 +116,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date, dow
             marginTop: "1rem",
           }}
         >
-          Skip To Download
+          Download
         </Button>
       )}
     </div>
