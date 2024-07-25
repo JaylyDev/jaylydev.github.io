@@ -96,9 +96,8 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date, dow
 
       {download && (
         <Button
-          className="md:h-11 md:w-auto"
+          className="download-button"
           color="primary"
-          href="/docs/guide/introduction"
           radius="full"
           size="lg"
           onPress={() => {
@@ -110,10 +109,6 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date, dow
                 clearInterval(id);
               }
             }, 600);
-          }}
-          style={{
-            display: "block",
-            marginTop: "1rem",
           }}
         >
           Download

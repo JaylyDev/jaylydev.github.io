@@ -11,8 +11,7 @@
   min-width: 200px;
   max-width: 980px;
   margin: 0 auto;
-  padding-top: 1.5rem;
-  padding-left: 45px;
+  padding: 32px 45px 0px;
 }
 
 body {
@@ -66,6 +65,11 @@ iframe {
   line-height: 1.25;
 }
 
+.download-button {
+  display: block;
+  margin-top: 1rem;
+}
+
 @media (max-width: 767px) {
   .markdown-body {
     padding: 15px;
@@ -74,9 +78,12 @@ iframe {
     padding: 15px;
   }
   .markdown-header {
-    padding-left: 15px;
+    padding: 15px 15px 0px 15px;
   }
   .download-assets {
     padding: 15px;
+  }
+  .download-button {
+    width: 100%;
   }
 }
