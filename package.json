@@ -1,6 +1,6 @@
 {
   "name": "jaylydev.github.io",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "dev": "npm run scripts && next dev",
@@ -15,7 +15,9 @@
     "@nextui-org/card": "2.0.28",
     "@nextui-org/image": "2.0.27",
     "@nextui-org/input": "^2.1.21",
+    "@nextui-org/progress": "^2.0.31",
     "@nextui-org/switch": "^2.0.28",
+    "@nextui-org/table": "^2.0.36",
     "@nextui-org/tabs": "2.0.29",
     "@wooorm/starry-night": "^3.2.0",
     "autoprefixer": "10.4.14",

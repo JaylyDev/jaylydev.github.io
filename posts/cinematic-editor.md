@@ -2,19 +2,22 @@
 author: Jayly
 title: Minecraft Cinematic Editor
 description: Control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the /camera command.
-date: 5/27/2024
+date: 7/14/2024
 image: /assets/posts/cinematic-editor/thumbnail.png
+download: true
 ---
 
-# Minecraft Cinematic Editor
+# Minecraft Cinematic Editor Extension
+
+> [!IMPORTANT]
+> This article is about the Minecraft Editor extension that is currently exclusive to the Windows version of Bedrock Edition Preview.
+> For the Cinematic add-on with cross-platform support, see [Cinematic Runtime](/posts/cinematic-runtime).
 
 <iframe width="930" height="523" src="https://www.youtube.com/embed/nHYLVo_IvKA" title="I Made An Editor For Minecraft Camera Command" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 > Download links for the add-on is located at the bottom of the page.
 
 The Cinematic Editor is a Minecraft editor extension that utilizing the `/camera` command for changing perspectives and designing cinematic scenes. The editor has the capability to control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the `/camera` command.
-
-# Cinematic Editor Extension
 
 ![Cinematic Editor v1.4 Thumbnail](/assets/posts/cinematic-editor/cinematic-editor-thumbnail-2.png)
 
@@ -83,15 +86,15 @@ You can modify the ease type and the ease time for the keyframe. However you can
 
 ## Scene Action
 
-![scene action](/assets/posts/cinematic-editor/scene-action.png)
+![scene action](/assets/posts/cinematic-editor/scene-action-updated.png)
 
 The Scene Action section in the extension panel allows creators to either play the scene, export the scene to Cinematic Runtime Add-On, or reset the scene.
 
-**Play Scene**
+### Play Scene
 
 This will play the scene which is stored in the Cinematic Editor Extension Add-On. To play a scene stored in Cinematic Runtime Add-On, use the Scene Player item.
 
-**Export Scene**
+### Export Scene
 
 Pressing this button will transfer the scene details from Cinematic Editor Extension to Cinematic Runtime Add-On. This means you can play the scene with the Scene Player item available from Cinematic Runtime Add-On without the Minecraft Editor or the extension.
 
@@ -100,88 +103,47 @@ Pressing this button will transfer the scene details from Cinematic Editor Exten
 >
 > ![loaded packs](/assets/posts/cinematic-editor/cinematic-addons-loaded.png)
 
-**Reset Scene**
+### Reset Scene
 
 This action will reset all data of the camera scene from the Editor extension, and it cannot be undone once the scene is removed. This does not affect the scene in Cinematic Runtime Add-On.
 
-# Cinematic Runtime Add-On
+### Hud Elements Visibility
 
-The Cinematic Runtime Add-On allows players to play a scene by sending scene data from Cinematic Editor in the release version of Minecraft.
+> [!CAUTION]
+> This feature is in pre-release and not compatible with Cinematic Runtime add-on yet. It may change in the future.
 
-This is made possible through exporting the scene data from the editor extension to another add-on. And the data is saved in world storage, so the scene can still be played when rejoining without the need to import the data again.
+There are multiple toggles under the action buttons which indicates the HUD elements to display when playing a scene.
 
-<iframe width="914" height="514" src="https://www.youtube.com/embed/sFjZIkR1pKY" title="This Minecraft Mod Changes Player Perspective" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-The video above showcase how you can export keyframes from the editor and import the data and play a scene in a normal Minecraft world.
-
-## Import Scene from Editor to World
-
-In the video, it showcased the extension has the capability to transfer a scene data to the runtime Add-On. Here's how you do it:
-
-1. Apply both Cinematic Editor Extension and Cinematic Runtime Add-On to an Editor project.
-2. Create a scene in the Editor UI, then press the **Export Scene** button.
-3. Either using **Test World feature** or **export the project as world** in world settings to convert an Editor project to normal world.
-4. Enter the world, and type the following command:
-
-   ```
-   /function cinematic/editor
-   ```
-
-## Creating a Scene
-
-The runtime add-on now supports creating and editing a Minecraft scene without the Editor, by sacrificing the fancy UI given by Minecraft Editor engine.
-
-Start by running the following command:
-
-```
-/function cinematic/editor
-```
-
-When executed, this form should appear when you have not created a scene:
-
-![Runtime Editor showing Create scene](/assets/posts/cinematic-editor/runtime-editor-create-scene.png)
-
-## Scene Editor Mode
-
-After pressing the create scene button, you will enter Scene Editor mode. There will be 3 items in your hotbar, and your whole inventory will be cleared until you exit scene editor mode:
-
-![Scene editor mode](/assets/posts/cinematic-editor/addon-scene-editor.png)
-
-### Exit without saving scene
-
-Exits scene editor without saving the scene using the **Cancel** item.
-
-### Create keyframe
-
-**Create a keyframe** using the camera item. Not to be confused with Minecraft's camera item.
-
-When using this item a keyframe will be saved temperatory to a scene.
-
-It will also asks you to set values of ease type and ease time, which you can change it later after exiting scene editor mode.
-
-![Scene editor mode create keyframe](/assets/posts/cinematic-editor/addon-create-keyframe.png)
-
-### Saving Scene
-
-Using the **Confirm** item will save the scene to the world.
-
-## Edit Existing Scene
-
-Once you have created an existing scene and when you decide to edit that scene, enter `/function cinematic/editor` command and you will be greeted with different panel:
-
-![Runtime Editor edit scene](/assets/posts/cinematic-editor/runtime-editor-edit-scene.png)
-
-Select a keyframe then select **Edit Keyframe**, which brings you back to the form seen in [Create Keyframe](#create-keyframe).
-
-You can also delete a keyframe from existing scene.
-
-![edit keyframe](/assets/posts/cinematic-editor/addon-edit-keyframe.png)
+- `Show Hunger` - Shows hunger bar element.
+- `Show Paper Doll` - Shows'paper doll' on-screen representation of the player.
+- `Show Armor` - Shows armor element on the HUD.
+- `Show Tool Tips` - Shows tool tip elements of the HUD.
+- `Show Touch Controls` - Shows touch controls elements of the HUD. Depending on the players' platform, these elements may never show up.
+- `Show Cross Hair` - Shows cross-hair section of the HUD.
+- `Show Hotbar` - Shows hotbar inventory area element of the HUD.
+- `Show Health` - Shows health element of the HUD.
+- `Show Progress Bar` - Shows progress bar element of the HUD.
+- `Show Air Bubbles` - Shows air bubble status element of the HUD.
+- `Show Horse Health` - Shows visual representation of the players' ride element of the HUD.
+- `Show Status Effects` - Shows status effects element of the HUD.
+- `Show Item Text` - Shows item text element.
 
 # Changelog
 
 Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
-## Cinematic Editor Extension
+### 1.3.2
+
+- Fix an issue with HUD elements not displaying when toggled on.
+- When playing the scene the following HUD elements can be shown if toggled on: ProgressBar, Hunger, AirBubbles, HorseHealth, StatusEffects, ItemText
+- Updated manifest
+- Resource pack now requires the same minimum engine version as behavior pack.
+
+### 1.3.1
+
+- Cinematic Editor extension is compatible with Minecraft Preview 1.21.20
+- Fix an issue with missing strings caused by editor API change
+- [Experimental] Add toggles for showing specific HUD elements
 
 ### 1.3.0
 
@@ -194,78 +156,44 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 ### 1.2.0
 
-<details>
-
 - Module version property is now the same as `header.version`
 - Editor extension is now compatible with 1.20.80-preview.21 or above.
 - Fix Vector class not exported from '@minecraft/server' module in 1.20.80-preview.21.
 - Output files are now bundled.
 
-</details>
-
 ### 1.1.1
-
-<details>
 
 - Editor extension is now compatible with 1.20.80 previews.
 - HUD is now hidden when 'Run Timeline' is pressed
 - When pressing 'Export Keyframes', the keyframe data will automatically transfer to Cinematic Runtime add-on. This requires cinematic runtime add-on to be loaded on editor world.
 
-</details>
-
 ### 1.0.5
-
-<details>
 
 - Fix a critical bug where world hangs when 'Run Timeline' is pressed.
 
-</details>
-
 ### 1.0.4
-
-<details>
 
 - Editor extension is now compatible with 1.20.70 previews
 
-</details>
-
 ### 1.0.3
-
-<details>
 
 - Exported data from Export Keyframes can now be used in Cinematic Runtime Add-On
 - Behavior packs and resource packs are now dependent, so when one of the resource or behavior pack is applied to world the other pack is also applied automatically.
 
-</details>
-
 ### 1.0.2
-
-<details>
 
 - Update pack name and description
 - Add-on is now compatible with 1.20.60 previews.
 
-</details>
-
 ### 1.0.1
-
-<details>
 
 - Export keyframes now converts keyframes into /camera commands
 
-</details>
-
 ### 1.0.0
-
-<details>
 
 - Added extension icon (icon by Mojang)
 
-</details>
-
 ### 0.3.0-beta
-
-<details>
 
 - Refactor storage system to make it compatible for latest Dynamic Properties changes.
 - Fix a bug where Ease Type and Ease Time aren't sync when changing keyframe selection.
@@ -273,93 +201,20 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 - Export Content field is now hidden unless 'Export Keyframes' button is pushed.
 - Easing values are now saved automatically when changed.
 
-</details>
-
 ### 0.2.0-beta
-
-<details>
 
 - Increase maximum stored keyframes from 9 to 600
 - Fix the delay caused by running timeline
 - Text pane now disallow user from modifying the export content
 - Add easing into cinematic editor
 
-</details>
-
 ### 0.1.0-beta
-
-<details>
 
 - Add tool and pane with no functionality.
 - Add export content
 - Add player location, rotation
 
-</details>
-
-## Cinematic Runtime Add-On
-
-### 0.4.0
-
-- You can now create and modify the scene within the Cinematic Runtime Add-On, alternative to Cinematic Editor Extension.
-
-  > [!NOTE]
-  >
-  > - This feature is made mainly to support creators without Minecraft for Windows to make a scene.
-  > - For detailed usage of this feature, please check the post.
-
-- Added `/function cinematic/editor` command - Opens an editor for creating and modifying a Minecraft scene.
-- Renamed 'Camera Runtime' item to 'Scene Player'
-- Updated Add-On Manifest metadata, changing license from MIT to All Rights Reserved.
-- Add-On now supports Minecraft v1.20.80, v1.21.0 and v1.21.10
-
-### 0.3.0
-
-<details>
-
-- Module version property is now the same as `header.version`
-- Editor extension is now compatible with 1.20.80-preview.21 or above.
-- Using '@minecraft/math' module instead of Vector class from '@minecraft/server'
-- Output files are now bundled.
-
-</details>
-
-### 0.2.1
-
-<details>
-
-- Pack is now compatible with 1.20.80 previews only
-
-</details>
-
-### 0.2.0
-
-<details>
-
-- Pack is now compatible with 1.20.70 previews only
-- Runtime add-on now requires Beta APIs experiment
-- HUD is now hidden when using camera runtime until scene ends
-
-</details>
-
-### 0.1.1
-
-<details>
-
-- Fix a critical bug where world hangs when 'Run Timeline' is pressed.
-
-</details>
-
-### 0.1.0
-
-<details>
-
-- Initial Release for Release 1.20.50
-- Added input form
-- Added an item that plays a scene when used
-
-</details>
-
-# Downloads
+# Installation
 
 <iframe width="930" height="523" src="https://www.youtube.com/embed/x3hAOwJrwyk" title="How to install a Minecraft Editor Extension" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -369,13 +224,10 @@ This video has infomations of installing this editor extension, and behind the s
 >
 > - Cinematic Editor Extension requires Bedrock Editor mode to be enabled, which the engine is only available to Windows 10/11 players. Check out [this article](https://learn.microsoft.com/en-us/minecraft/creator/documents/editorinstallation) to get access to the Editor.
 >
-> - Cinematic Editor Runtime Add-On requires **Beta APIs** experiment enabled.
->
->   ![beta api enabled](/assets/posts/cinematic-editor/beta-api-enabled.png)
->
 > - You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post https://jaylydev.github.io/posts/cinematic-editor/ in the description of the video or a webpage and must not have any other direct-download links.
 
-- [Download Cinematic Editor Extension (Minecraft Preview v1.21.10)](https://github.com/jayly-bot/addons/releases/download/cinematic-editor_v1.3.0/CinematicEditor_v1.3.0.mceditoraddon)
-- [Download Cinematic Runtime Add-On (Minecraft v1.20.80)](https://github.com/jayly-bot/addons/releases/download/cinematic-runtime_v0.4.0/CinematicRuntime_v0.4.0+1.20.80.mcaddon)
-- [Download Cinematic Runtime Add-On (Minecraft v1.21.0)](https://github.com/jayly-bot/addons/releases/download/cinematic-runtime_v0.4.0/CinematicRuntime_v0.4.0+1.21.0.mcaddon)
-- [Download Cinematic Runtime Add-On (Minecraft v1.21.10)](https://github.com/jayly-bot/addons/releases/download/cinematic-runtime_v0.4.0/CinematicRuntime_v0.4.0+1.21.10.mcaddon)
+# Downloads
+
+Click the link below and choose a version to download.
+
+- [Download Cinematic Editor Extension](/posts/cinematic-editor/downloads/)

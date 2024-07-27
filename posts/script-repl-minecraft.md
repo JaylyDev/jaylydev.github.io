@@ -2,8 +2,9 @@
 author: Jayly
 title: Minecraft Script REPL Add-On
 description: Script REPL Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft.
-date: 7/6/2024
+date: 7/27/2024
 image: /assets/posts/script-repl-minecraft/thumbnail.png
+download: true
 ---
 
 # Minecraft Script REPL Add-On
@@ -161,31 +162,8 @@ Each invidiual version of Script REPL supports various fields of the APIs. Each 
 
 These download links do not go through Boostellar, so there shouldn't be any malicious links.
 
-### Minecraft Preview
+Click the link below and choose a version of Script REPL add-on that is compatible with your Minecraft version to download.
 
-- [Download Script REPL (v1.21.20 Preview + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0-beta.mcaddon)
+- [Download Script REPL Add-On](/posts/script-repl-minecraft/downloads/)
 
-- [Download Script REPL (v1.21.20 Preview)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0.mcaddon)
-
-### Minecraft (Latest)
-
-- [Download Script REPL (v1.21.0 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.2-beta.mcaddon)
-
-- [Download Script REPL (v1.21.0)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.3.mcaddon)
-
-### Minecraft Education
-
-This version is available to download for Minecraft: Education Edition. Keep in mind not every feature are available to this version of add-on. [Contact JaylyMC](/#about) for more infomation.
-
-> [!IMPORTANT]
-> Holiday Creator Features experiment is required to use this add-on.
-
-- [Download Enable Experiments Resource Pack (v1.20.70)](https://github.com/jayly-bot/addons/releases/download/enable_experiments_v1.0.0/experiments_edu_v1.20.70.mcpack)
-
-- [Download Enable Experiments Resource Pack (v1.20.10)](https://github.com/jayly-bot/addons/releases/download/enable_experiments_v1.0.0/experiments_edu.mcpack)
-
-- [Download Script REPL (v1.20.70 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v20.70.0/script_repl_v20.7.0-beta.mcaddon)
-
-- [Download Script REPL (v1.20.70)](https://github.com/JaylyDev/interpreter/releases/download/v20.70.0/script_repl_v20.7.0.mcaddon)
-
-- [Download Script REPL (v1.20.10)](https://github.com/JaylyDev/interpreter/releases/download/v20.10.0/script_repl_v20.10.0-beta.mcaddon)
+- [Download Enable Experiments Resource Pack (for Minecraft Education only)](/posts/enable-experiments/)

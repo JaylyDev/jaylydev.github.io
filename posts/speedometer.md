@@ -4,6 +4,7 @@ title: Speedometer in Minecraft (Behavior Pack)
 description: This add-on adds speedometer and measures the speed of every player in Minecraft.
 date: 5/22/2024
 image: /assets/posts/speedometer/thumbnail.png
+download: true
 ---
 
 # Speedometer (Behavior Pack)
@@ -67,10 +68,12 @@ You can change the settings via the following command:
 
 Initial Release
 
+## Installation
+
+After downloading the add-on and import the add-on to Minecraft, please make sure the behavior pack is imported. You also do not need to enable any options in experimentals section when creating a new world.
+
 ## Downloads
 
-After downloading the add-on from MediaFire and import the add-on to Minecraft. Please make sure the behavior pack is imported. You also do not need to enable any options in experimentals section when creating a new world.
+Click the link below and choose a version to download.
 
-This behavior pack works in Minecraft v1.20.10 or above.
-
-- [Download Speedometer](https://github.com/jayly-bot/addons/releases/download/speedometer_v1.1.0/speedometer.mcpack)
+- [Download Speedometer Behavior Pack](/posts/speedometer/downloads/)

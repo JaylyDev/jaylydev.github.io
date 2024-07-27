@@ -1,0 +1,16 @@
+{
+  "downloads": [
+    {
+      "title": "v1.1.0",
+      "supports": "1.20.10+",
+      "changelog_url": "/posts/speedometer/#110",
+      "url": "https://github.com/jayly-bot/addons/releases/download/speedometer_v1.1.0/speedometer.mcpack"
+    },
+    {
+      "title": "v1.0.0",
+      "supports": "1.17.0+",
+      "changelog_url": "/posts/speedometer/#100",
+      "url": "https://www.mediafire.com/file/2kkpkfji151dvr2/Speedometer.mcpack/file"
+    }
+  ]
+}

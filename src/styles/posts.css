@@ -3,7 +3,7 @@
   min-width: 200px;
   max-width: 980px;
   margin: 0 auto;
-  padding: 45px;
+  padding: 15px 45px;
 }
 
 .markdown-header {
@@ -11,17 +11,7 @@
   min-width: 200px;
   max-width: 980px;
   margin: 0 auto;
-  padding-top: 1.5rem;
-  padding-left: 45px;
-}
-
-@media (max-width: 767px) {
-  .markdown-body {
-    padding: 15px;
-  }
-  .markdown-header {
-    padding-left: 15px;
-  }
+  padding: 32px 45px 0px;
 }
 
 body {
@@ -53,4 +43,47 @@ iframe {
 }
 .icon:hover {
   opacity: 1;
+}
+
+.download-section {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1px 45px;
+}
+
+.download-section h1 {
+  margin: 0.67em 0;
+  font-weight: 600;
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #21262d;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.download-button {
+  display: block;
+  margin-top: 1rem;
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
+  .download-section {
+    padding: 15px;
+  }
+  .markdown-header {
+    padding: 15px 15px 0px 15px;
+  }
+  .download-assets {
+    padding: 15px;
+  }
+  .download-button {
+    width: 100%;
+  }
 }

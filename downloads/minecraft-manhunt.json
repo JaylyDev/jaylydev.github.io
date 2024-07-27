@@ -1,0 +1,149 @@
+{
+  "downloads": [
+    {
+      "title": "v1.8.0",
+      "supports": "1.20.60+",
+      "changelog_url": "/posts/minecraft-manhunt/#180",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_v1.8.0/manhunt_v1.8.0.mcaddon"
+    },
+    {
+      "title": "v1.7.1.15",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#171",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.7.1.15.mcaddon"
+    },
+    {
+      "title": "v1.7.1.5",
+      "supports": "1.16.220+",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.7.1.mcaddon",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.7.0",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#170-beta2",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.7.0.2.mcaddon",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.6.5",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#165-beta6",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt_v1.6.5.6.mcaddon",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.6.4",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#164-beta13",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-v1.6.4.13.mcaddon",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.6.3",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#163-beta",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-v1.6.3.mcaddon",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.6.2",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#162",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-v1.6.2.mcaddon"
+    },
+    {
+      "title": "v1.6.1",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#161",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-v1.6.1.mcaddon",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.6.0",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#160",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-1.6.0.mcaddon"
+    },
+    {
+      "title": "v1.5.4",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#154",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/Beta_1.5.4.mcpack",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.5.3",
+      "supports": "1.16.220+",
+      "changelog_url": "/posts/minecraft-manhunt/#153",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-beta-1.5.3.mcpack",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.5.2",
+      "supports": "1.16.220+",
+      "url": "https://github.com/jayly-bot/addons/releases/download/manhunt_old/manhunt-beta-1.5.2.mcpack",
+      "channel": "Beta"
+    },
+    {
+      "title": "v1.4.0 (.mcpack)",
+      "supports": "1.16.0+",
+      "changelog_url": "/posts/minecraft-manhunt/#140",
+      "url": "https://www.mediafire.com/file/6sngfymj03smbu0/manhunt_v2.4.mcpack/file"
+    },
+    {
+      "title": "v1.4.0 (.zip)",
+      "supports": "1.16.0+",
+      "changelog_url": "/posts/minecraft-manhunt/#140",
+      "url": "https://www.mediafire.com/file/zgkfko7gmul14cz/manhunt_v2.4.zip/file"
+    },
+    {
+      "title": "v1.3.0 (.mcpack)",
+      "supports": "1.16.0+",
+      "changelog_url": "/posts/minecraft-manhunt/#130",
+      "url": "https://www.mediafire.com/file/wfk8n1w0emz2ssq/manhunt_2.3.mcpack/file"
+    },
+    {
+      "title": "v1.3.0 (.zip)",
+      "supports": "1.16.0+",
+      "changelog_url": "/posts/minecraft-manhunt/#130",
+      "url": "https://www.mediafire.com/file/neav1n0e8eexf2w/manhunt_2.3.zip/file"
+    },
+    {
+      "title": "v1.2.0 (.mcpack)",
+      "supports": "1.16.0+",
+      "changelog_url": "/posts/minecraft-manhunt/#120",
+      "url": "https://www.mediafire.com/file/zejp645mkmo4vrz/manhunt.mcpack/file"
+    },
+    {
+      "title": "v1.2.0 (.zip)",
+      "supports": "1.16.0+",
+      "changelog_url": "/posts/minecraft-manhunt/#120",
+      "url": "https://www.mediafire.com/file/y8nbv6fp2tz27r6/manhunt.zip/file"
+    },
+    {
+      "title": "v1.1.0 (.mcpack)",
+      "supports": "1.14.6+",
+      "changelog_url": "/posts/minecraft-manhunt/#110",
+      "url": "https://www.mediafire.com/file/zejp645mkmo4vrz/manhunt.mcpack/file"
+    },
+    {
+      "title": "v1.1.0 (.zip)",
+      "supports": "1.14.6+",
+      "changelog_url": "/posts/minecraft-manhunt/#110",
+      "url": "https://www.mediafire.com/file/fjsahifm7eq1pk9/manhunt.zip/file"
+    },
+    {
+      "title": "v1.0.0 (.mcpack)",
+      "supports": "1.14.6+",
+      "changelog_url": "/posts/minecraft-manhunt/#100",
+      "url": "https://www.mediafire.com/file/ynqx492fc8bw0v7/Manhunt.mcpack/file"
+    },
+    {
+      "title": "v1.0.0 (.zip)",
+      "supports": "1.14.6+",
+      "changelog_url": "/posts/minecraft-manhunt/#100",
+      "url": "https://www.mediafire.com/file/vkcsle7bpx080k4/Manhunt.zip/file"
+    }
+  ]
+}
