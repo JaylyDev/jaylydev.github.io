@@ -2,43 +2,43 @@
   "downloads": [
     {
       "title": "v1.3.2",
-      "supports":"Preview 1.21.20",
+      "supports": "Windows Preview 1.21.20",
       "changelog_url": "/posts/cinematic-editor/#132",
       "url": "https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.20.22/CinematicEditor_v1.3.2.mceditoraddon"
     },
     {
       "title": "v1.3.1",
-      "supports": "Preview 1.21.20",
+      "supports": "Windows Preview 1.21.20",
       "changelog_url": "/posts/cinematic-editor/#131",
       "url": "https://github.com/jayly-bot/addons/releases/download/cinematic%2B1.21.20/CinematicEditor_v1.3.1.mceditoraddon"
     },
     {
       "title": "v1.3.0",
-      "supports": "Preview 1.21.10",
+      "supports": "Windows Preview 1.21.10",
       "changelog_url": "/posts/cinematic-editor/#130",
       "url": "https://github.com/jayly-bot/addons/releases/download/cinematic-editor_v1.3.0/CinematicEditor_v1.3.0.mceditoraddon"
     },
     {
       "title": "v1.2.0",
-      "supports": "Preview 1.20.80",
+      "supports": "Windows Preview 1.20.80",
       "changelog_url": "/posts/cinematic-editor/#120",
       "url": "https://www.mediafire.com/file/2legkm7hbwcbcpf/CinematicEditor_v1.1.2.mceditoraddon/file"
     },
     {
       "title": "v1.1.1",
-      "supports": "Preview 1.20.80",
+      "supports": "Windows Preview 1.20.80",
       "changelog_url": "/posts/cinematic-editor/#111",
       "url": "https://www.mediafire.com/file/z9mmjfqd57j3iul/CinematicEditor_v1.1.1.mceditoraddon/file"
     },
     {
       "title": "v1.0.4",
-      "supports": "Preview 1.20.70",
+      "supports": "Windows Preview 1.20.70",
       "changelog_url": "/posts/cinematic-editor/#104",
       "url": "https://www.mediafire.com/file/suc0fomtot3p1hc/CinematicEditor_v1.0.4.mceditoraddon/file"
     },
     {
       "title": "v1.0.3",
-      "supports": "Preview 1.21.10",
+      "supports": "Windows Preview 1.21.10",
       "changelog_url": "/posts/cinematic-editor/#103",
       "url": "https://www.mediafire.com/file/uxot5a0potkbheb/CinematicEditor_v1.0.3.mceditoraddon/file"
     }

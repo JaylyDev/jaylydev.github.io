@@ -4,6 +4,7 @@ title: Speedometer in Minecraft (Behavior Pack)
 description: This add-on adds speedometer and measures the speed of every player in Minecraft.
 date: 5/22/2024
 image: /assets/posts/speedometer/thumbnail.png
+download: true
 ---
 
 # Speedometer (Behavior Pack)

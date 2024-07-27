@@ -4,6 +4,7 @@ title: Cinematic Runtime Add-On
 description: Control your camera perspective to make a Minecraft scene, without knowledge to use the /camera command.
 date: 7/14/2024
 image: /assets/posts/cinematic-editor/thumbnail.png
+download: true
 ---
 
 # Cinematic Runtime Add-On
