@@ -15,11 +15,6 @@ download: true
 
 **Introducing Terminator to your Minecraft world!** This is a powerful mob that has the ability to follow entities, destroy blocks and build blocks when the terminator thinks it's necessary, pick up melee and ranged weapons such as swords and bows to attack entities, and wear armors such as chestplates to protect itself from being damaged.
 
-# Core Features
-
-> [!CAUTION]
-> This add-on is still in early testing. Following features may change or it may be removed in future releases.
-
 ## Build and Destroy Blocks
 
 This terminator can build blocks to reach its target and break blocks that stops the terminator from reaching the target.
@@ -27,37 +22,6 @@ This terminator can build blocks to reach its target and break blocks that stops
 ![terminator-building](/assets/posts/terminator/terminator-building.png)
 
 ![terminator-can-build](/assets/posts/terminator/terminator-can-build.png)
-
-## Attack Entities
-
-![terminator-attack](/assets/posts/terminator/terminator-attack.png)
-
-The terminator can attack the following types of mobs. Please note that Terminator will attack a selected mob when the terminator and it's target met the right conditions (which you can check the table below the list):
-
-- Players
-- Iron Golems
-- Snow Golems
-- Tamed Parrots
-- Wolfs
-- Allay
-- Armadillo
-- Axolotl
-- Camel
-- Horse
-- Pig
-- Skeleton Horse
-- Sniffer
-- Villager
-- Wandering Trader
-
-### Terminator Entity Attack Requirement
-
-| Target Entity Type        | Requirements for Target Entity                     | Requirements for Terminator                                                                                                                                                                                                                                                                                                                                                  | Can See Through Blocks | Maximum Distance |
-| ------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------- |
-| Player                    | No invisibility                                    |                                                                                                                                                                                                                                                                                                                                                                              | Yes                    | 1024 blocks      |
-| Iron Golems               | No invisibility                                    | <p>Must wear the following:</p><ul><li>Netherite Helmet</li><li>Netherite Boots</li></ul><p>Must wear the following:</p><ul><li>Netherite Helmet</li><li>Netherite Boots</li></ul><p>Needs to hold one of the following weapons:</p><ul><li>Netherite Sword</li><li>Diamond Sword</li><li>Iron Sword</li><li>Golden Sword</li><li>Stone Sword</li><li>Wooden Sword</li></ul> | No                     | 24 blocks        |
-| Wolf                      | <ul><li>Must be tamed<li>No invisibility</li></ul> |                                                                                                                                                                                                                                                                                                                                                                              | No                     | 16 blocks        |
-| Passive mobs listed above | No invisibility                                    |                                                                                                                                                                                                                                                                                                                                                                              | No                     | 16 blocks        |
 
 ## Respawn Event
 
@@ -88,6 +52,37 @@ Difference about food points for players and health points for terminators:
 
 More infomation about food points: https://minecraft.wiki/w/Food#Foods
 
+## Entities Attack
+
+![terminator-attack](/assets/posts/terminator/terminator-attack.png)
+
+The terminator can attack the following types of mobs. Please note that Terminator will attack a selected mob when the terminator and it's target met the right conditions (which you can check the table below the list):
+
+- Players
+- Iron Golems
+- Snow Golems
+- Tamed Parrots
+- Wolfs
+- Allay
+- Armadillo
+- Axolotl
+- Camel
+- Horse
+- Pig
+- Skeleton Horse
+- Sniffer
+- Villager
+- Wandering Trader
+
+### Terminator Entity Attack Requirement
+
+| Target Entity Type        | Requirements for Target Entity                     | Requirements for Terminator                                                                                                                                                                                                                                                                                                                                                  | Can See Through Blocks | Maximum Distance |
+| ------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------- |
+| Player                    | No invisibility                                    |                                                                                                                                                                                                                                                                                                                                                                              | Yes                    | 1024 blocks      |
+| Iron Golems               | No invisibility                                    | <p>Must wear the following:</p><ul><li>Netherite Helmet</li><li>Netherite Boots</li></ul><p>Must wear the following:</p><ul><li>Netherite Helmet</li><li>Netherite Boots</li></ul><p>Needs to hold one of the following weapons:</p><ul><li>Netherite Sword</li><li>Diamond Sword</li><li>Iron Sword</li><li>Golden Sword</li><li>Stone Sword</li><li>Wooden Sword</li></ul> | No                     | 24 blocks        |
+| Wolf                      | <ul><li>Must be tamed<li>No invisibility</li></ul> |                                                                                                                                                                                                                                                                                                                                                                              | No                     | 16 blocks        |
+| Passive mobs listed above | No invisibility                                    |                                                                                                                                                                                                                                                                                                                                                                              | No                     | 16 blocks        |
+
 ## Combat
 
 The Terminator Combat is a major update released for Terminator Combat Update (add-on version 1.3).
@@ -100,7 +95,7 @@ Showcase video:
 
 <iframe width="914" height="514" src="https://www.youtube.com/embed/YkKNTtvbvtg" title="PVP against a Minecraft terminator" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-### Melee Attack
+#### Melee Attack
 
 Melee attack is activated when the terminator is spawned and is holding a melee weapon (trident is excluded from this category).
 
@@ -157,7 +152,7 @@ Shield is activated when the terminator is holding a shield in main hand or off 
 - Shield has a 5 ticks (0.25 seconds) cooldown after a defense before blocking another attack or terminator's hand.
 - The shield disables damage cause by: block explosion, entity attack, entity explosion and projectile.
 
-## Skins!
+## Skins and Models
 
 **Terminator now has different skins!**
 
@@ -236,7 +231,7 @@ Right click and scroll down to the bottom, a button that says "Spawn Terminator"
 
 By pressing the 'Submit' button, the game will spawn a terminator with changes applied based on options available in the 'Spawn Terminator' form.
 
-### Function commands
+## Function commands
 
 The terminator add-on also provides ways to activate advanced features via `/function` commands.
 
@@ -244,15 +239,15 @@ The terminator add-on also provides ways to activate advanced features via `/fun
 
 - `/function terminator/killall` - This kills every terminator and disables all currently running respawn events in existence, terminators will not respawn by running this command.
 
-# Changelog
+## Changelog
 
-## 2.0.0
+### 2.0.0
 
 > Release Date: July 14, 2024
 
 For the past few months I have been rewriting this Terminator add-on so it works in Minecraft's Tricky Trials Update and to celebrate Terminator add-on's 3rd anniversary. Thanks to everyone who helped testing beta versions of Terminator add-on version 2.
 
-### Add-On Changes
+#### Add-On Changes
 
 - Add-On now no longer requires experiments to run.
 - Addon now requires Minecraft version 1.20.70 or above to run properly.
@@ -271,12 +266,12 @@ For the past few months I have been rewriting this Terminator add-on so it works
 - `/function terminator` command now returns the spawn terminator form.
 - Removed all nbt-related function commands. Please spawn it using `/function terminator` command instead.
 
-### Function Commands Changes
+#### Function Commands Changes
 
 - Fixed invalid command syntax which caused add-on not being to run properly.
 - Function commands are being deprecated in v2.0.0, and it will be replaced by script forms which will be released in future v2.0.0 beta updates.
 
-### Terminator Entity Changes
+#### Terminator Entity Changes
 
 - Updated terminator to leave chest boats.
 - Updated unbreakable blocks list so terminator cannot break blocks with blast resistance of 100 or above, which includes the following:
@@ -316,7 +311,7 @@ For the past few months I have been rewriting this Terminator add-on so it works
   - Purple Heart (Twitch)
   - One Vanilla
 
-##### Terminator Entity Fixes
+#### Terminator Entity Fixes
 
 - Fixed a bug that entity nametag is not shown in death messages.
 - Fixed a bug that modified terminator nametag won't display in join message.
@@ -348,20 +343,7 @@ For the past few months I have been rewriting this Terminator add-on so it works
 - Fixed a bug that Terminator's join message appears after respawning
 - Fixed a bug where terminator doesn't spawn with terminator steve skin if spawning with the 'Spawn Terminator' form
 
-### GitHub Pull Requests
-
-- Terminator v2-beta by @JaylyDev in https://github.com/JaylyDev/terminator/pull/51
-- v2.0.0-beta.1 by @JaylyDev in https://github.com/JaylyDev/terminator/pull/57
-- v2.0.0-beta.2 MCPEDL Release by @JaylyDev in https://github.com/JaylyDev/terminator/pull/61
-- Fix Terminator Bridging Algorithm by @JaylyDev in https://github.com/JaylyDev/terminator/pull/65
-- Fix riding, spawning and inventory drop by @JaylyDev in https://github.com/JaylyDev/terminator/pull/67
-- v2.0.0-beta.4 by @JaylyDev in https://github.com/JaylyDev/terminator/pull/71
-- Add Minecraft Debugger VS Code extension by @JaylyDev in https://github.com/JaylyDev/terminator/pull/72
-- v2.0.0 Release by @JaylyDev in https://github.com/JaylyDev/terminator/pull/73
-
-**Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.4.0...v2.0.0
-
-## 2.0.0-beta (2024/6/9)
+### 2.0.0-beta (2024/6/9)
 
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
@@ -393,7 +375,7 @@ Another Terminator beta release! This will likely be the final beta release for 
 - Removed `.pdn` files from resource pack.
 - `/function terminator` command now returns the spawn terminator form
 
-## 2.0.0-beta (2024/5/26)
+### 2.0.0-beta (2024/5/26)
 
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
@@ -433,7 +415,7 @@ I'm still rewriting this add-on in hopes for most of the feature works before re
 - Fix an issue where spawn Terminator form will spawn default alex skin instead of terminator variant
 - Fixed an issue where multiple terminator can have the same nametags
 
-## 2.0.0-beta (2024/5/17)
+### 2.0.0-beta (2024/5/17)
 
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
@@ -458,7 +440,7 @@ Releasing this add-on to MCPEDL for public testing.
 - Added deepslate to terminator breakable block list
 - Fix issues with terminator respawn event
 
-## 2.0.0-beta (2024/5/12)
+### 2.0.0-beta (2024/5/12)
 
 > [!IMPORTANT]
 > The Terminator add-on is currently in early testing. As with all add-ons that are in development, it is unstable. Check the changelog for details on any changes to the add-on.
@@ -479,7 +461,7 @@ We're fixing more bugs in preparation for Terminator add-on release v2.0.0.
 - Fix [Terminator doesn't move when using snowballs #46](https://github.com/JaylyDev/terminator/issues/46)
 - Terminator will now bridge inside the height range of each dimension.
 
-## 2.0.0-beta (5/9/2024)
+### 2.0.0-beta (5/9/2024)
 
 Once again, I'm rewriting this add-on so it works in latest versions of Minecraft - The 1.21 Update, I mean the Tricky Trials Update. This update includes the codebase of the add-on migrating from JSON to TypeScript, tons of bug fixes, and experimental features! Sounds impressive? Let's dive in.
 
@@ -516,7 +498,7 @@ Once again, I'm rewriting this add-on so it works in latest versions of Minecraf
   - Air
 - Add-On now detects death causes and broadcast death messages added from 1.20.
 
-## 1.4.0
+### 1.4.0
 
 #### What's Changed
 
@@ -527,16 +509,16 @@ Once again, I'm rewriting this add-on so it works in latest versions of Minecraf
 
 #### Pull Requests
 
-- Add multiple ci workflows by @Hallis1221 in https://github.com/JaylyDev/terminator/pull/44
-- v1.4 - November 2023 Update by @JaylyDev in https://github.com/JaylyDev/terminator/pull/50
+- Add multiple ci workflows by @Hallis1221 in [#44](https://github.com/JaylyDev/terminator/pull/44/)
+- v1.4 - November 2023 Update by @JaylyDev in [#50](https://github.com/JaylyDev/terminator/pull/50/)
 
 #### New Contributors
 
-- @Hallis1221 made their first contribution in https://github.com/JaylyDev/terminator/pull/44
+- @Hallis1221 made their first contribution in [#44](https://github.com/JaylyDev/terminator/pull/44/)
 
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.70...v1.4.0
 
-## 1.3.70
+### 1.3.70
 
 #### New features
 
@@ -581,7 +563,7 @@ Once again, I'm rewriting this add-on so it works in latest versions of Minecraf
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.45...v1.3.70
 **Discussion here**: https://discord.com/invite/8xzSHD84xv
 
-## 1.3.45
+### 1.3.45
 
 **⚠️ This is a critical patch update for players that installed Terminator v1.3.40 - v1.3.44 on all Minecraft platforms excluding Windows. It's highly recommended to download and update the add-on.**
 
@@ -654,7 +636,7 @@ This add-on does not support **Beta 1.18.10.20 and beyond** for now, @JaylyDev w
 
 The latest beta version of terminator add-on now fixes all critical issues
 
-## 1.3.43.2
+### 1.3.43.2
 
 **This is an important bug fix update, highly recommend update the add-on if you downloaded terminator v1.3.40 & v1.3.43.1**
 
@@ -681,7 +663,7 @@ This category shows things that existed in previous versions that's modified fro
 > [Texture][warning]-Failed to find either texture set or image file of name (ms-appx:/data/images/textures/entity/terminator/steve_xmas)
 > ```
 
-## 1.3.43.1
+### 1.3.43.1
 
 **This is an important bug fix update, highly recommend update the add-on if you downloaded terminator v1.3.40**
 
@@ -693,9 +675,7 @@ This category shows things that existed in previous versions that's modified fro
   > Image from a report by ornage in Jayly's Discord
   > ![image](https://user-images.githubusercontent.com/65847850/147704300-8b5864aa-0398-4b14-9c65-0d96e362cb4f.png)
 
-**Release 1.3.40 changelog: [Click here](https://github.com/JaylyDev/terminator/releases/tag/v1.3.40)**
-
-## Patch 1.3.40.17
+### Patch 1.3.40.17
 
 #### Bug fixes (Important)
 
@@ -717,13 +697,13 @@ This version fixes 2 important bugs from Revision version 13:
 
 **If more bugs are caused after revision update v13 (v1.3.40.13), please submit a bug report as soon as possible [here](https://github.com/JaylyDev/terminator/issues/new?assignees=&labels=bug&template=bug_report.md&title=)**
 
-## Patch 1.3.40.15
+### Patch 1.3.40.15
 
 #### Bug fix
 
 - Minecraft is not able to translate text (a bug from revision v13)
 
-## Revision Update 1.3.40.13
+### Revision Update 1.3.40.13
 
 #### New change (Experimental)
 
@@ -733,7 +713,7 @@ This version fixes 2 important bugs from Revision version 13:
 
 - Extend expire date for Terminator Christmas themed skin to January 24
 
-## Patch 1.3.40.12
+### Patch 1.3.40.12
 
 #### New features
 
@@ -824,7 +804,7 @@ When you're installing this add-on in Minecraft 1.17.30, these are the experimen
 
 **Full Changelog**: https://github.com/JaylyDev/terminator/compare/v1.3.20...v1.3.40
 
-## 1.3.20
+### 1.3.20
 
 #### New features
 
@@ -872,7 +852,7 @@ This category shows things that existed in previous versions that's modified fro
 - Edited github repository links in both packs
 - Terminator now has a name tag when terminator respawns
 
-## Release 1.3.0.50
+### Release 1.3.0.50
 
 > Release Date: 19/9/2021
 
@@ -985,7 +965,7 @@ Following bugs have been fixed in this version of add-on:
 - Fixed terminator's environment sensor
 - Fixed terminator's target AI behaviours
 
-## 1.2.10.3
+### 1.2.10.3
 
 > Release Date: 23/8/2021
 
@@ -1003,7 +983,7 @@ Following bugs have been fixed in this version of add-on:
 - Removes the limit of terminator's teleportation when it's too far away from nearest player
 - Spawning a terminator via function commands will include a nametag on the terminator
 
-## 1.2.0.10
+### 1.2.0.10
 
 > Release Date: 12/8/2021
 
@@ -1026,7 +1006,7 @@ Following bugs have been fixed in this version of add-on:
 
 ![requirements](/assets/posts/terminator/requirements-old.png)
 
-## 1.1.2
+### 1.1.2
 
 > Release Date: 19/7/2021
 
@@ -1094,27 +1074,25 @@ Following bugs have been fixed in this version of add-on:
 - Terminator now has a sound effect when spawning
 - Mininum engine version has been changed from 1.16.220 to 1.16.100
 
-## 1.0.0
+### 1.0.0
 
 > Release Date: July 06, 2021
 
 Initial Release
 
-# Installation
+## Installation
 
 After downloading the add-on below and import the add-on to Minecraft, **make sure both resource pack and behavior pack are imported** so you do not have the error related to incompatibility when applying the add-on.
-
-**Notes**:
 
 **Join my Discord server** or **report to Terminator GitHub Repository** if there are any issues, questions and feedbacks regarding to the add-on's installation or the gameplay.
 
 Terminator entity can cause massive destruction. **Please save a copy of your world** before activating this add-on!
 
-You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post https://jaylydev.github.io/posts/terminator/ in the description of the video or a webpage and must not have any other direct-download links.
+You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post or the MCPEDL post in the description of the video or a webpage and must not have any other direct-download links.
 
 This add-on is compatible with **Minecraft Bedrock v1.20.70 or above**. It won't work on Minecraft Education (unless you're using Preview)
 
-# Downloads
+## Downloads
 
 Click the link below and choose a version to download.
 
