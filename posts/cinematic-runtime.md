@@ -2,7 +2,7 @@
 author: Jayly
 title: Cinematic Runtime Add-On
 description: Control your camera perspective to make a Minecraft scene, without knowledge to use the /camera command.
-date: 7/14/2024
+date: 8/11/2024
 image: /assets/posts/cinematic-editor/thumbnail.png
 download: true
 ---
@@ -85,9 +85,38 @@ You can also delete a keyframe from existing scene.
 
 ![edit keyframe](/assets/posts/cinematic-editor/addon-edit-keyframe.png)
 
+### Scene Settings
+
+This screen controls the HUD visibility when playing a scene using the Runtime Add-On.
+
+![scene settings ui](/assets/posts/cinematic-editor/addon-scene-settings.png)
+
+- `Show Hunger` - Shows hunger bar element.
+- `Show Paper Doll` - Shows'paper doll' on-screen representation of the player.
+- `Show Armor` - Shows armor element on the HUD.
+- `Show Tool Tips` - Shows tool tip elements of the HUD.
+- `Show Touch Controls` - Shows touch controls elements of the HUD. Depending on the players' platform, these elements may never show up.
+- `Show Cross Hair` - Shows cross-hair section of the HUD.
+- `Show Hotbar` - Shows hotbar inventory area element of the HUD.
+- `Show Health` - Shows health element of the HUD.
+- `Show Progress Bar` - Shows progress bar element of the HUD.
+- `Show Air Bubbles` - Shows air bubble status element of the HUD.
+- `Show Horse Health` - Shows visual representation of the players' ride element of the HUD.
+- `Show Status Effects` - Shows status effects element of the HUD.
+- `Show Item Text` - Shows item text element.
+
 # Changelog
 
-Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
+Changelog for Cinematic Runtime Add-On
+
+### 0.5.0
+
+- Added support to import HUD visibility settings from editor extension.
+- Added 'Scene Settings' screen accessible from `/function cinematic/editor` command. Allows changing HUD visibility when playing a scene within runtime addon.
+- Added ability to edit camera rotation on existing keyframes.
+- Added Camera item once a scene is created via runtime addon.
+- Add-on now doesn't require Beta APIs experiment.
+- Add-on is now compatible with Minecraft v1.21.20 or above.
 
 ### 0.4.2
 
@@ -143,7 +172,7 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 # Installation
 
 > [!IMPORTANT]
-> Cinematic Editor Runtime Add-On requires **Beta APIs** experiment enabled.
+> Cinematic Editor Runtime Add-On for Minecraft v1.21.0 requires **Beta APIs** experiment enabled.
 >
 > ![beta api enabled](/assets/posts/cinematic-editor/beta-api-enabled.png)
 
@@ -154,4 +183,6 @@ Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
 
 Click the link below and choose a version to download.
 
-- [Download Cinematic Runtime Add-On](/posts/cinematic-runtime/downloads/)
+- [Download Cinematic Runtime Add-On (Minecraft v1.21.20 or above)](https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicRuntime_v0.5.0.mcaddon)
+- [Download Cinematic Runtime Add-On (Minecraft v1.21.0 + Beta APIs experiment)](https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicRuntime_v0.5.0+1.21.0.mcaddon)
+- [Download Cinematic Runtime Add-On (Other versions)](/posts/cinematic-runtime/downloads/)

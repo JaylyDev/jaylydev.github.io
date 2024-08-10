@@ -1,6 +1,18 @@
 {
   "downloads": [
     {
+      "title": "v0.5.0",
+      "supports": "1.21.20+",
+      "changelog_url": "/posts/cinematic-runtime/#050",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicRuntime_v0.5.0.mcaddon"
+    },
+    {
+      "title": "v0.5.0",
+      "supports": "1.21.0",
+      "changelog_url": "/posts/cinematic-runtime/#050",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicRuntime_v0.5.0+1.21.0.mcaddon"
+    },
+    {
       "title": "v0.4.2",
       "supports": "Preview 1.21.20",
       "changelog_url": "/posts/cinematic-runtime/#042",

@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Script REPL Add-On
 description: Script REPL Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft.
-date: 7/27/2024
+date: 8/11/2024
 image: /assets/posts/script-repl-minecraft/thumbnail.png
 download: true
 ---
@@ -162,8 +162,29 @@ Each invidiual version of Script REPL supports various fields of the APIs. Each 
 
 These download links do not go through Boostellar, so there shouldn't be any malicious links.
 
+### Minecraft: Bedrock Edition Preview
+
+- [Download Script REPL Add-On (v1.21.30 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.0/script_repl_v21.30.0-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.30)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.0/script_repl_v21.30.0.mcaddon)
+
+### Minecraft: Bedrock Edition
+
+- [Download Script REPL Add-On (v1.21.0 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.2-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.0)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.3.mcaddon)
+
+### Minecraft: Education Edition
+
+> [!IMPORTANT]
+>
+> To use this add-on in Minecraft: Education Edition, experiments may be required to activate the add-on. The resource pack below allows experiments to be enabled in Education Edition.
+>
+> - [Download Enable Experiments Resource Pack (for Minecraft Education only)](/posts/enable-experiments/)
+
+- [Download Script REPL Add-On (v1.21.0 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.2-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.0)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.3.mcaddon)
+
+### Other Versions
+
 Click the link below and choose a version of Script REPL add-on that is compatible with your Minecraft version to download.
 
 - [Download Script REPL Add-On](/posts/script-repl-minecraft/downloads/)
-
-- [Download Enable Experiments Resource Pack (for Minecraft Education only)](/posts/enable-experiments/)

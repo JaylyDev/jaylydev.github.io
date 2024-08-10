@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Cinematic Editor
 description: Control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the /camera command.
-date: 7/14/2024
+date: 8/11/2024
 image: /assets/posts/cinematic-editor/thumbnail.png
 download: true
 ---
@@ -109,10 +109,7 @@ This action will reset all data of the camera scene from the Editor extension, a
 
 ### Hud Elements Visibility
 
-> [!CAUTION]
-> This feature is in pre-release and not compatible with Cinematic Runtime add-on yet. It may change in the future.
-
-There are multiple toggles under the action buttons which indicates the HUD elements to display when playing a scene.
+The toggles controls the HUD visibility when playing a scene using the extension. There are multiple toggles under the action buttons which indicates the HUD elements to display when playing a scene.
 
 - `Show Hunger` - Shows hunger bar element.
 - `Show Paper Doll` - Shows'paper doll' on-screen representation of the player.
@@ -130,7 +127,15 @@ There are multiple toggles under the action buttons which indicates the HUD elem
 
 # Changelog
 
-Changelog for Cinematic Editor extension and Cinematic Runtime Add-On
+Changelog for Cinematic Editor Extension.
+
+### 1.4.0
+
+- Editor extension now requires Minecraft Preview 1.21.30
+- Added ability to edit camera location and rotation on existing keyframes.
+- Player location and player rotation now shows selected keyframe's data instead of current player's data.
+- Vector3 fields now disables when there isn't a scene.
+- Editor can now export HUD visibility settings to cinematic runtime add-on.
 
 ### 1.3.2
 

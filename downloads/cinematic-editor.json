@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v1.4.0",
+      "supports": "Windows Preview 1.21.30",
+      "changelog_url": "/posts/cinematic-editor/#140",
+      "url": "https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicEditor_v1.4.0.mceditoraddon"
+    },
+    {
       "title": "v1.3.2",
       "supports": "Windows Preview 1.21.20",
       "changelog_url": "/posts/cinematic-editor/#132",
