@@ -29,11 +29,9 @@ You are advised to learn JavaScript free from online courses available online be
 
 There are somewhat decent amount of resources available online related to script API. Important links have a ⭐.
 
-- ⭐ [Sample GameTests from Microsoft](https://github.com/microsoft/minecraft-gametests) - Sample GameTest behavior files for Minecraft Bedrock Edition. Minecraft supports GameTests - a combination of JavaScript + MCStructures - for validating facets of Minecraft behavior.
-
 - ⭐ [Official Script API Documentation](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/) - Microsoft's official documentation of high-level introduction of experimental Script API
 
-- [Jayly's Script API Documentation](https://jaylydev.github.io/scriptapi-docs/) - Jayly's Script API documentation with guides and easy to use and understand API references for programming beginners.
+- [Jayly's Script API Documentation](https://jaylydev.github.io/scriptapi-docs/latest/) - Jayly's Script API documentation with guides and easy to use and understand API references for programming beginners.
 
 - [Script API Examples](https://github.com/JaylyDev/ScriptAPI) - JavaScript code snippets that uses Script API modules only
 
@@ -139,21 +137,21 @@ No experimental toggles needed to be enabled.
 Each invidiual version of Script REPL supports various fields of the APIs. Each version of script REPL have the latest version of script modules as the dependency on their channels:
 
 - Script REPL (Latest + Beta APIs):
-  - `@minecraft/server`: `1.12.0-beta`
-  - `@minecraft/server-ui`: `1.2.0-beta`
-  - `@minecraft/server-gametest`: `1.0.0-beta`
-  - `@minecraft/debug-utilities`: `1.0.0-beta`
-- Script REPL (Latest):
-  - `@minecraft/server`: `1.11.0`
-  - `@minecraft/server-ui`: `1.1.0`
-- Script REPL (Preview + Beta APIs):
   - `@minecraft/server`: `1.14.0-beta`
   - `@minecraft/server-ui`: `1.3.0-beta`
   - `@minecraft/server-gametest`: `1.0.0-beta`
   - `@minecraft/debug-utilities`: `1.0.0-beta`
-- Script REPL (Preview):
+- Script REPL (Latest):
   - `@minecraft/server`: `1.13.0`
   - `@minecraft/server-ui`: `1.2.0`
+- Script REPL (Preview + Beta APIs):
+  - `@minecraft/server`: `1.15.0-beta`
+  - `@minecraft/server-ui`: `1.4.0-beta`
+  - `@minecraft/server-gametest`: `1.0.0-beta`
+  - `@minecraft/debug-utilities`: `1.0.0-beta`
+- Script REPL (Preview):
+  - `@minecraft/server`: `1.14.0`
+  - `@minecraft/server-ui`: `1.3.0`
 
 > [!NOTE]
 > All versions of Script REPL also loads external npm packages such as `@minecraft/vanilla-data` and `@minecraft/math` when executing JavaScript code.
@@ -169,8 +167,8 @@ These download links do not go through Boostellar, so there shouldn't be any mal
 
 ### Minecraft: Bedrock Edition
 
-- [Download Script REPL Add-On (v1.21.0 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.2-beta.mcaddon)
-- [Download Script REPL Add-On (v1.21.0)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.3.mcaddon)
+- [Download Script REPL Add-On (v1.21.20 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.20)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0.mcaddon)
 
 ### Minecraft: Education Edition
 
