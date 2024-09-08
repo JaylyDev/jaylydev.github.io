@@ -4,6 +4,7 @@ title: Enable Experiments on Minecraft Education
 description: Enable experimental features on a Minecraft Education Edition worlds using a resource pack for testing the latest features offered in latest Minecraft Education edition and Minecraft Education Preview.
 date: 7/27/2024
 download: true
+image: /assets/posts/enable-experiments/enable-experiments.png
 ---
 
 # Enable Experiments on Minecraft Education

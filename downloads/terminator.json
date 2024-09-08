@@ -1,89 +1,95 @@
 {
   "downloads": [
     {
+      "title": "v2.1.0",
+      "supports": "1.21.0+",
+      "changelog_url": "/posts/terminator-changelog/#210",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v2.1.0/terminator_v2.1.0.mcaddon"
+    },
+    {
       "title": "v2.0.0",
       "supports": "1.20.70+",
-      "changelog_url": "/posts/terminator/#200",
+      "changelog_url": "/posts/terminator-changelog/#200",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v2.0.0/terminator_v2.0.0.mcaddon"
     },
     {
       "title": "v2.0.0-beta (2024/6/9)",
       "supports": "1.20.70+",
-      "changelog_url": "/posts/terminator/#200-beta-202469",
+      "changelog_url": "/posts/terminator-changelog/#200-beta-202469",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.4/terminator_v2.0.0-beta.mcaddon"
     },
     {
       "title": "v2.0.0-beta (2024/5/26)",
       "supports": "1.20.70+",
-      "changelog_url": "/posts/terminator/#200-beta-2024526",
+      "changelog_url": "/posts/terminator-changelog/#200-beta-2024526",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.3/terminator_v2.0.0-beta.mcaddon"
     },
     {
       "title": "v2.0.0-beta (2024/5/17)",
       "supports": "1.20.70+",
-      "changelog_url": "/posts/terminator/#200-beta-2024517",
+      "changelog_url": "/posts/terminator-changelog/#200-beta-2024517",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.2/terminator_v2.0.0-beta.mcaddon"
     },
     {
       "title": "v2.0.0-beta (2024/5/12)",
       "supports": "1.20.70+",
-      "changelog_url": "/posts/terminator/#200-beta-2024512",
+      "changelog_url": "/posts/terminator-changelog/#200-beta-2024512",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.1/terminator_v2.0.0-beta.mcaddon"
     },
     {
       "title": "v2.0.0-beta (2024/5/9)",
       "supports": "1.20.70+",
-      "changelog_url": "/posts/terminator/#200-beta-592024",
+      "changelog_url": "/posts/terminator-changelog/#200-beta-592024",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v2.0.0-beta.0/terminator_v2.0.0-beta.mcaddon"
     },
     {
       "title": "v1.4.0",
       "supports": "1.20.40+",
-      "changelog_url": "/posts/terminator/#140",
+      "changelog_url": "/posts/terminator-changelog/#140",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v1.4.0/terminator_v1.4.0.mcaddon"
     },
     {
       "title": "v1.3.70",
       "supports": "1.19.0+",
-      "changelog_url": "/posts/terminator/#1370",
+      "changelog_url": "/posts/terminator-changelog/#1370",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.70/terminator_v1.3.70.181.mcaddon"
     },
     {
       "title": "v1.3.45",
       "supports": "1.17.30-1.18.10",
-      "changelog_url": "/posts/terminator/#1345",
+      "changelog_url": "/posts/terminator-changelog/#1345",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.mobile_v1.3.45.1.mcaddon",
       "channel": "Mobile"
     },
     {
       "title": "v1.3.45",
       "supports": "1.17.30-1.18.10",
-      "changelog_url": "/posts/terminator/#1345",
+      "changelog_url": "/posts/terminator-changelog/#1345",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.45/terminator.windows_v1.3.45.0.mcaddon",
       "channel": "Windows"
     },
     {
       "title": "v1.3.20",
       "supports": "1.17.30+",
-      "changelog_url": "/posts/terminator/#1320",
+      "changelog_url": "/posts/terminator-changelog/#1320",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.20/terminator_v1.3.20.25.mcaddon"
     },
     {
       "title": "v1.3.0",
       "supports": "1.17.30+",
-      "changelog_url": "/posts/terminator/#release-13050",
+      "changelog_url": "/posts/terminator-changelog/#release-13050",
       "url": "https://github.com/JaylyDev/terminator/releases/download/v1.3.0/terminator_v1.3.0.50.mcaddon"
     },
     {
       "title": "v1.2.10.3",
       "supports": "1.16.100+",
-      "changelog_url": "/posts/terminator/#12103",
+      "changelog_url": "/posts/terminator-changelog/#12103",
       "url": "https://www.mediafire.com/file/x1jkq89fsvqh3ts/terminator_v1.2.10.3.mcaddon/file"
     },
     {
       "title": "v1.2.0.10",
       "supports": "1.16.100+",
-      "changelog_url": "/posts/terminator/#12010",
+      "changelog_url": "/posts/terminator-changelog/#12010",
       "url": "https://www.mediafire.com/file/fkyazzdf5sznb67/terminator_v1.2.0.10.mcaddon/file"
     },
     {
@@ -94,13 +100,13 @@
     {
       "title": "v1.1.2",
       "supports": "1.16.100+",
-      "changelog_url": "/posts/terminator/#112",
+      "changelog_url": "/posts/terminator-changelog/#112",
       "url": "https://www.mediafire.com/file/nb1terul8k6ne1p/terminator_v1.1.2.mcaddon/file"
     },
     {
       "title": "v1.0.0",
       "supports": "1.16.220+",
-      "changelog_url": "/posts/terminator/#100",
+      "changelog_url": "/posts/terminator-changelog/#100",
       "url": "https://www.mediafire.com/file/qdp95oisonnbl1o/terminator_v1.0.0.mcaddon/file"
     },
     {
