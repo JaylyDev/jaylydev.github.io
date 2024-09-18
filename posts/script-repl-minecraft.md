@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Script REPL Add-On
 description: Script REPL Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft.
-date: 8/11/2024
+date: 9/18/2024
 image: /assets/posts/script-repl-minecraft/thumbnail.png
 download: true
 ---
@@ -107,6 +107,18 @@ Scripts in a script block do not need to be prefixed with imports (e.g. `import 
 
 When finished inputing JavaScript code, save the code into the script block by pressing 'Save' button. Upon pressing the button it will not immediately execute scripts unlike the Script REPL item.
 
+### Chat Commands (Beta)
+
+The add-on also provides chat commands that is locked behind Script REPL beta versions.
+
+- `!help`: Help Command
+- `!interpreter`: Opens Interpreter
+  > This command requires operator permission.
+- `!javascript`: Opens a javascript REPL
+  > This command requires operator permission.
+- `!version`: Displays the version of the interpreter
+  > This command requires operator permission.
+
 ## Trailer
 
 This is a very old showcase video of the add-on, fun fact the video includes the ability to run TypeScript code because this add-on used to be able to run TypeScript code.
@@ -137,24 +149,24 @@ No experimental toggles needed to be enabled.
 Each invidiual version of Script REPL supports various fields of the APIs. Each version of script REPL have the latest version of script modules as the dependency on their channels:
 
 - Script REPL (Latest + Beta APIs):
-  - `@minecraft/server`: `1.14.0-beta`
-  - `@minecraft/server-ui`: `1.3.0-beta`
-  - `@minecraft/server-gametest`: `1.0.0-beta`
-  - `@minecraft/debug-utilities`: `1.0.0-beta`
-- Script REPL (Latest):
-  - `@minecraft/server`: `1.13.0`
-  - `@minecraft/server-ui`: `1.2.0`
-- Script REPL (Preview + Beta APIs):
   - `@minecraft/server`: `1.15.0-beta`
   - `@minecraft/server-ui`: `1.4.0-beta`
   - `@minecraft/server-gametest`: `1.0.0-beta`
   - `@minecraft/debug-utilities`: `1.0.0-beta`
-- Script REPL (Preview):
+- Script REPL (Latest):
   - `@minecraft/server`: `1.14.0`
+  - `@minecraft/server-ui`: `1.3.0`
+- Script REPL (Preview + Beta APIs):
+  - `@minecraft/server`: `1.16.0-beta`
+  - `@minecraft/server-ui`: `1.4.0-beta`
+  - `@minecraft/server-gametest`: `1.0.0-beta`
+  - `@minecraft/debug-utilities`: `1.0.0-beta`
+- Script REPL (Preview):
+  - `@minecraft/server`: `1.15.0`
   - `@minecraft/server-ui`: `1.3.0`
 
 > [!NOTE]
-> All versions of Script REPL also loads external npm packages such as `@minecraft/vanilla-data` and `@minecraft/math` when executing JavaScript code.
+> All versions of Script REPL also loads external npm packages such as `@minecraft/vanilla-data` and `@minecraft/math` (using v1.4.0) when executing JavaScript code.
 
 ## Downloads
 
@@ -162,13 +174,13 @@ These download links do not go through Boostellar, so there shouldn't be any mal
 
 ### Minecraft: Bedrock Edition Preview
 
-- [Download Script REPL Add-On (v1.21.30 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.0/script_repl_v21.30.0-beta.mcaddon)
-- [Download Script REPL Add-On (v1.21.30)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.0/script_repl_v21.30.0.mcaddon)
+- [Download Script REPL Add-On (v1.21.40 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.40.0/script_repl_v21.40.0-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.40)](https://github.com/JaylyDev/interpreter/releases/download/v21.40.0/script_repl_v21.40.0.mcaddon)
 
 ### Minecraft: Bedrock Edition
 
-- [Download Script REPL Add-On (v1.21.20 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0-beta.mcaddon)
-- [Download Script REPL Add-On (v1.21.20)](https://github.com/JaylyDev/interpreter/releases/download/v21.20.0/script_repl_v21.20.0.mcaddon)
+- [Download Script REPL Add-On (v1.21.30 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.1/script_repl_v21.31.1-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.30)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.1/script_repl_v21.30.1.mcaddon)
 
 ### Minecraft: Education Edition
 

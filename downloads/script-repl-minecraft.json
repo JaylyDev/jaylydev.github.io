@@ -1,6 +1,28 @@
 {
   "downloads": [
     {
+      "title": "v21.40.0-beta",
+      "supports": "1.21.40",
+      "channel": "Beta APIs",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.40.0/script_repl_v21.40.0-beta.mcaddon"
+    },
+    {
+      "title": "v21.40.0",
+      "supports": "1.21.40",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.40.0/script_repl_v21.40.0.mcaddon"
+    },
+    {
+      "title": "v21.30.1-beta",
+      "supports": "1.21.30",
+      "channel": "Beta APIs",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.30.1/script_repl_v21.31.1-beta.mcaddon"
+    },
+    {
+      "title": "v21.30.1",
+      "supports": "1.21.30",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.30.1/script_repl_v21.30.1.mcaddon"
+    },
+    {
       "title": "v21.30.0-beta",
       "supports": "1.21.30",
       "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.30.0/script_repl_v21.30.0-beta.mcaddon",
