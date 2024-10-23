@@ -2,8 +2,9 @@
 author: Jayly
 title: Minecraft Statistics
 description: Track certain tasks in the form of numerical data in Minecraft Bedrock Edition.
-date: 10/2/2024
+date: 10/23/2024
 image: /assets/posts/statistics/thumbnail.png
+download: true
 ---
 
 # Minecraft Statistics
@@ -310,6 +311,15 @@ The number of times the player took water from cauldrons with glass bottles.
 
 ## Changelog
 
+### v1.1.0
+
+> Release Date: October 23rd, 2024
+
+- Added Minecraft Education support
+- Added Minecraft v1.21.40 support
+- Update item and block translation to be compatible with Minecraft v1.21.40
+- Add-on now uses the correct version of `@minecraft/vanilla-data` which correlates to Minecraft's version.
+
 ### v1.0.0
 
 > Release Date: October 1st, 2024
@@ -347,6 +357,7 @@ After activating both resource pack and behavior pack, you will see one of the f
 
 - [Minecraft Wiki](https://minecraft.wiki/w/Statistics)
 - [Minecraft Bedrock Dedicated Server API metadata](https://github.com/bedrock-apis/bds-docs/)
+- [Bedrock Samples](https://github.com/Mojang/bedrock-samples/)
 - Minecraft: Java Edition - Statistics translations
 
 ## Downloads
@@ -354,6 +365,6 @@ After activating both resource pack and behavior pack, you will see one of the f
 > [!IMPORTANT]
 >
 > - 'Beta APIs' experiment is required to use this add-on.
-> - This add-on can only be used in Minecraft v1.21.30 only.
+> - This add-on can only be used in latest version of either Minecraft or Minecraft Education.
 
-- [Download Minecraft Statistics Add-On](https://www.mediafire.com/file/nts1kxmx8kd1j7y/statistics_v1.0.0.mcaddon/file)
+- [Download Minecraft Statistics Add-On](/posts/statistics/downloads)
