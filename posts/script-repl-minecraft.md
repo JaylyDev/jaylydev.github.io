@@ -11,11 +11,11 @@ download: true
 
 ![Thumbnail](/assets/posts/script-repl-minecraft/thumbnail.png)
 
-Script REPL (read–eval–print loop) Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition. This powerful add-on is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
+Script REPL (read-eval-print loop) Add-On is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition. This powerful add-on is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
 
 ![REPL Form](/assets/posts/script-repl-minecraft/script-interpreter-v12050_2.png)
 
-Currenly JavaScript is the only programming language that allow developers to use Script APIs from within their code.
+Currenly JavaScript is the only programming language that allow developers to use Script APIs from within their code.
 
 This add-on allows developers to debug JavaScript code and reports an error condition immediately in Minecraft in-game using this interpreter. This reduces the amount of script errors happened in your code development and time, and allows developers to experiment with the new features available in Script API modules in Minecraft.
 
@@ -149,24 +149,116 @@ No experimental toggles needed to be enabled.
 Each invidiual version of Script REPL supports various fields of the APIs. Each version of script REPL have the latest version of script modules as the dependency on their channels:
 
 - Script REPL (Latest + Beta APIs):
-  - `@minecraft/server`: `1.15.0-beta`
-  - `@minecraft/server-ui`: `1.4.0-beta`
-  - `@minecraft/server-gametest`: `1.0.0-beta`
-  - `@minecraft/debug-utilities`: `1.0.0-beta`
-- Script REPL (Latest):
-  - `@minecraft/server`: `1.14.0`
-  - `@minecraft/server-ui`: `1.3.0`
-- Script REPL (Preview + Beta APIs):
   - `@minecraft/server`: `1.16.0-beta`
   - `@minecraft/server-ui`: `1.4.0-beta`
   - `@minecraft/server-gametest`: `1.0.0-beta`
   - `@minecraft/debug-utilities`: `1.0.0-beta`
-- Script REPL (Preview):
+- Script REPL (Latest):
   - `@minecraft/server`: `1.15.0`
   - `@minecraft/server-ui`: `1.3.0`
+- Script REPL (Preview + Beta APIs):
+  - `@minecraft/server`: `1.17.0-beta`
+  - `@minecraft/server-ui`: `1.4.0-beta`
+  - `@minecraft/server-gametest`: `1.0.0-beta`
+  - `@minecraft/debug-utilities`: `1.0.0-beta`
+- Script REPL (Preview):
+  - `@minecraft/server`: `1.16.0`
+  - `@minecraft/server-ui`: `1.3.0`
+- Script REPL (Preview, Bedrock Server build):
+  - `@minecraft/server`: `1.17.0-beta`
+  - `@minecraft/server-ui`: `1.4.0-beta`
+  - `@minecraft/server-gametest`: `1.0.0-beta`
+  - `@minecraft/debug-utilities`: `1.0.0-beta`
+  - `@minecraft/server-net`: `1.0.0-beta`
+  - `@minecraft/server-admin`: `1.0.0-beta`
 
 > [!NOTE]
 > All versions of Script REPL also loads external npm packages such as `@minecraft/vanilla-data` and `@minecraft/math` (using v1.4.0) when executing JavaScript code.
+
+### Bedrock Dedicated Server Build
+
+> [!CAUTION]  
+> The Script REPL Add-On support for using Bedrock Dedicated Server exclusive APIs are currently experimental.
+
+> [!IMPORTANT]
+> This version of the Script REPL add-on do not function within the Minecraft game client or within Minecraft Realms.
+
+The Bedrock Dedicated Server version of the Script REPL Add-On allows players to access higher levels of Script APIs, specifically the `@minecraft/server-net` module and the `@minecraft/server-admin` module. These modules are exclusive to Bedrock Dedicated Servers.
+
+The `@minecraft/server-net` module can send HTTP requests from the Bedrock server, and inspect Bedrock server packets.
+
+The `@minecraft/server-admin` module can administe a Bedrock Dedicated Server, including transfer players to another Bedrock server.
+
+#### Enable modules in BDS
+
+To use this add-on, you would have to enable some modules in the Bedrock Dedicated Server folder. This allows this version of the add-on to be used.
+
+**Install Bedrock Dedicated Server**
+
+1. If you haven't already, download the Bedrock Dedicated Server package from the Minecraft website.
+2. Extract the zip file on a folder.
+
+```
+bedrock-server
+│  allowlist.json
+│  bedrock_server.exe
+│  bedrock_server_how_to.html
+│  permissions.json
+│  release-notes.txt
+│  server.properties
+│
+├─behavior_packs
+├─config
+│  └─default
+│          permissions.json
+│
+├─definitions
+└─resource_packs
+```
+
+3. In the permissions.json file, which is located in `config/<pack_id>/permissions.json` or `config/default/permissions.json`, enable `@minecraft/server-net` module, the `@minecraft/server-admin` module and the `@minecraft/debug-utilities` module by adding the following in the allowed_modules key. These module is not enabled by default in the server.
+
+```diff
+{
+  "allowed_modules": [
+    "@minecraft/server-gametest",
+    "@minecraft/server",
+    "@minecraft/server-ui",
+    "@minecraft/server-admin",
++   "@minecraft/server-net",
++   "@minecraft/debug-utilities",
+    "@minecraft/server-editor"
+  ]
+}
+```
+
+Full file (`config/default/permissions.json`):
+
+```json
+{
+  "allowed_modules": [
+    "@minecraft/server-gametest",
+    "@minecraft/server",
+    "@minecraft/server-ui",
+    "@minecraft/server-admin",
+    "@minecraft/server-net",
+    "@minecraft/debug-utilities",
+    "@minecraft/server-editor"
+  ]
+}
+```
+
+> [!IMPORTANT]
+>
+> - Modifying the files in the default config folder allows every add-on with the server-net module to have access to the @minecraft/server-net module.
+>
+> - It is recommended to assign individual permissions for each script behavior pack.
+
+4. Enable Beta APIs in world settings. It's recommended to enable this setting in Minecraft clients.
+
+![experiments](/assets/posts/script-repl-minecraft/enable-experiments.png)
+
+> Enable **Beta APIs** experiments in world settings. This is needed to run Script REPL with Beta API features.
 
 ## Downloads
 
@@ -174,13 +266,14 @@ These download links do not go through Boostellar, so there shouldn't be any mal
 
 ### Minecraft: Bedrock Edition Preview
 
-- [Download Script REPL Add-On (v1.21.40 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.40.0/script_repl_v21.40.0-beta.mcaddon)
-- [Download Script REPL Add-On (v1.21.40)](https://github.com/JaylyDev/interpreter/releases/download/v21.40.0/script_repl_v21.40.0.mcaddon)
+- [Download Script REPL Add-On (v1.21.50 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.50.0/script_repl_v21.50.0-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.50)](https://github.com/JaylyDev/interpreter/releases/download/v21.50.0/script_repl_v21.50.0.mcaddon)
+- [Download Script REPL Add-On (v1.21.50, BDS only)](https://github.com/JaylyDev/interpreter/releases/download/v21.50.0/script_repl_bds_v21.50.0-beta.mcaddon)
 
 ### Minecraft: Bedrock Edition
 
-- [Download Script REPL Add-On (v1.21.30 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.1/script_repl_v21.31.1-beta.mcaddon)
-- [Download Script REPL Add-On (v1.21.30)](https://github.com/JaylyDev/interpreter/releases/download/v21.30.1/script_repl_v21.30.1.mcaddon)
+- [Download Script REPL Add-On (v1.21.40 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.40.1/script_repl_v21.40.1-beta.mcaddon)
+- [Download Script REPL Add-On (v1.21.40)](https://github.com/JaylyDev/interpreter/releases/download/v21.40.1/script_repl_v21.40.1.mcaddon)
 
 ### Minecraft: Education Edition
 
