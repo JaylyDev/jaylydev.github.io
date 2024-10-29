@@ -123,10 +123,6 @@ Shield is activated when the terminator is holding a shield in main hand or off 
 
 ## Respawn Event
 
-<iframe width="914" height="514" src="https://www.youtube.com/embed/Tcm816bN5II" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-> Showcase Video of Terminator's new respawn event.
-
 When the terminator dies for the first time, the terminator will trigger a respawn event which will respawn itself.
 
 The terminator will have the ability to respawn itself for the second time until terminator dies for the third time.
@@ -236,6 +232,27 @@ You have seen the cool features the Terminator add-on offers. There are multiple
    ```
 
    This function command will lead you to the 'Spawn Terminator' form, allowing you to spawn your own Terminator entity.
+
+### List of settings in Spawn Terminator form
+
+In the 'Spawn Terminator' form, there are multiple properties that can be customized when spawning a new Terminator entity. This can be accessed through the `/function terminator` command mentioned above.
+
+The following is a list of settings available in the form.
+
+| Setting             | Description                                                                                  | Default Value | Type                                                                                                   |
+| ------------------- | -------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------ |
+| Name Tag            | Sets Terminator's name when spawned.                                                         | Terminator    | String                                                                                                 |
+| Spawn Coordinates   | The location at which to spawn the Terminator entity.                                        | ~ ~ ~         | x y z                                                                                                  |
+| Skin Model          | Sets the skin model for the Terminator entity.                                               | Steve         | One of the following:<ul><li>Steve</li><li>Alex</li><li>Custom (Steve)</li><li>Custom (Alex)</li></ul> |
+| Enable Custom Skin  |                                                                                              | False         | Bool                                                                                                   |
+| Enable Bossbar      | Display Terminator's health as a bossbar at the top of the screen.                           | False         | Bool                                                                                                   |
+| Enable Immunity     | when enabled, any damage will not apply to the specific terminator.                          | False         | Bool                                                                                                   |
+| Enable Death Event  | Enables the death event when the terminator dies.                                            | True          | Bool                                                                                                   |
+| Enable Physics      | Determines if the terminator entity is affected by gravity or if it collides with objects.   | True          | Bool                                                                                                   |
+| Enable Regeneration | Whether or not the terminator entity heals itself when having a low health bar.              | True          | Bool                                                                                                   |
+| Enable Respawn      | Whether or not the terminator entity is allowed to respawn 3 times before dying permanently. | True          | Bool                                                                                                   |
+| Enable Breedability | Allows the entity to procreate.                                                              | False         | Bool                                                                                                   |
+| Cape                | Equip capes for terminator entity.                                                           | None          | [Capes](#capes)                                                                                        |
 
 ### Still stuck at spawning a terminator?
 
