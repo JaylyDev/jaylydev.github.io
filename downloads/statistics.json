@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v1.1.1",
+      "supports": "1.21.50+",
+      "changelog_url": "/posts/statistics/#111",
+      "url": "https://www.mediafire.com/file/j4p9orrabpiix3o/statistics_v1.1.1.mcaddon/file"
+    },
+    {
       "title": "v1.1.0",
       "supports": "1.21.40",
       "changelog_url": "/posts/statistics/#110",
