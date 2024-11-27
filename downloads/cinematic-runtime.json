@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v0.5.1",
+      "supports": "1.21.20+",
+      "changelog_url": "/posts/cinematic-runtime/#051",
+      "url": "https://www.mediafire.com/file/6me56vk4gdp512j/CinematicRuntime_v0.5.1.mcaddon/file"
+    },
+    {
       "title": "v0.5.0",
       "supports": "1.21.20+",
       "changelog_url": "/posts/cinematic-runtime/#050",

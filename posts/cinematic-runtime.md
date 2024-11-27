@@ -109,6 +109,11 @@ This screen controls the HUD visibility when playing a scene using the Runtime A
 
 Changelog for Cinematic Runtime Add-On
 
+### 0.5.1
+
+- Better error handling
+- Various bug fixes
+
 ### 0.5.0
 
 - Added support to import HUD visibility settings from editor extension.
