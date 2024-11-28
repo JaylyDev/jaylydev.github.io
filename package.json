@@ -17,7 +17,7 @@
     "@nextui-org/input": "^2.1.21",
     "@nextui-org/progress": "^2.0.31",
     "@nextui-org/switch": "^2.0.28",
-    "@nextui-org/table": "^2.0.36",
+    "@nextui-org/table": "^2.0.40",
     "@nextui-org/tabs": "2.0.29",
     "@wooorm/starry-night": "^3.2.0",
     "autoprefixer": "10.4.14",
