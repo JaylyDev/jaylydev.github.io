@@ -74,6 +74,22 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
   );
 };
 
+function DownloadButton(): React.JSX.Element {
+  return (
+    <Button
+      className="download-button"
+      color="primary"
+      radius="full"
+      size="lg"
+      onPress={() => {
+        window.scrollTo({ behavior: "smooth", top: document.body.scrollHeight });
+      }}
+    >
+      Download
+    </Button>
+  );
+}
+
 export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date, download }) => {
   const [dateString, setDate] = useState(date);
 
@@ -94,26 +110,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date, dow
         By {author} &middot; {dateString}
       </span>
 
-      {download && (
-        <Button
-          className="download-button"
-          color="primary"
-          radius="full"
-          size="lg"
-          onPress={() => {
-            let scrollHeight = 0;
-            const id = setInterval(() => {
-              scrollHeight += document.body.scrollHeight / 15;
-              window.scrollTo({ behavior: "smooth", top: scrollHeight });
-              if (document.body.scrollHeight < scrollHeight) {
-                clearInterval(id);
-              }
-            }, 600);
-          }}
-        >
-          Download
-        </Button>
-      )}
+      {download && DownloadButton()}
     </div>
   );
 };

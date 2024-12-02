@@ -129,6 +129,13 @@ The toggles controls the HUD visibility when playing a scene using the extension
 
 Changelog for Cinematic Editor Extension.
 
+### 1.4.1
+
+- Cinematic Editor now only works on Minecraft v1.21.50
+- Refracted codebase to not use deprecated Editor APIs
+- Fixed a bug where coordinates wasn't serialize to string
+- Renamed `extensionName` field to 'CameraEditor'
+
 ### 1.4.0
 
 - Editor extension now requires Minecraft Preview 1.21.30

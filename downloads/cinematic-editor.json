@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v1.4.1",
+      "supports": "Windows 1.21.50",
+      "changelog_url": "/posts/cinematic-editor/#141",
+      "url": "https://www.mediafire.com/file/r8eszjpqyqxcd79/CinematicEditor_v1.4.1.mceditoraddon/file"
+    },
+    {
       "title": "v1.4.0",
       "supports": "Windows Preview 1.21.30",
       "changelog_url": "/posts/cinematic-editor/#140",

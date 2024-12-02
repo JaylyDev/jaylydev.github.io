@@ -9,6 +9,16 @@ date: 9/7/2024
 
 A complete release history for Minecraft Terminator Add-On.
 
+## 2.1.1
+
+> Release Date: November 16, 2024
+
+- Removed event `terminator:fix_default_target`. Players now will not be able to switch combat through commands.
+- Fixed a bug related to terminator's naming system.
+- Fixed a bug where LocationOutOfWorldBoundariesError throws when initialise respawn structure outside of height range.
+- Fixed a bug where LocationOutOfWorldBoundariesError throws when attempted to drop terminator's inventory outside of height range.
+- Fixed a bug where LocationOutOfWorldBoundariesError throws when terminator attempted to break or place blocks outside of height range.
+
 ## 2.1.0
 
 > Release Date: September 7, 2024

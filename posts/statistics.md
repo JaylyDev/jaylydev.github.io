@@ -213,6 +213,17 @@ The number of times the player has slept in a bed.
 
 ## Changelog
 
+### v1.1.1
+
+> Release Date: November 23rd, 2024
+
+- This Add-On works for any Minecraft Bedrock version above v1.21.50
+- Experimental toggles are not required to play this Add-On.
+- Updated item and block transitions to be compatible with Minecraft v1.21.50
+- Improved load times when retrieving item statistics.
+- Removed `!statistics` prototype chat command.
+- Fixed a bug where music disc track name are not visible, in the selection menu for item statistics.
+
 ### v1.1.0
 
 > Release Date: October 23rd, 2024
@@ -269,4 +280,4 @@ After activating both resource pack and behavior pack, you will see one of the f
 > - 'Beta APIs' experiment is required to use this add-on.
 > - This add-on can only be used in latest version of either Minecraft or Minecraft Education.
 
-- [Download Minecraft Statistics Add-On](/posts/statistics/downloads)
+- [Download Minecraft Statistics Add-On](/posts/statistics/downloads/)

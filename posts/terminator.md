@@ -1,13 +1,13 @@
 ---
 author: Jayly
-title: Minecraft Terminator [v2.1.0]
+title: Minecraft Terminator
 description: A Minecraft Bedrock Add-On that adds a powerful mob that has the ability to follow entities, destroy blocks and build blocks, to prevent you from beating the game.
 date: 9/7/2024
 image: /assets/posts/terminator/terminator-v2-beta-thumbnail.png
 download: true
 ---
 
-# Minecraft Terminator [v2.1.0]
+# Minecraft Terminator
 
 ![thumbnail](/assets/posts/terminator/terminator-v2-beta-thumbnail.png)
 
@@ -53,6 +53,9 @@ The terminator can attack the following types of mobs. Please note that Terminat
 | Iron Golems               | No invisibility                                    | <p>Must wear the following:</p><ul><li>Netherite Helmet</li><li>Netherite Boots</li></ul><p>Must wear the following:</p><ul><li>Netherite Helmet</li><li>Netherite Boots</li></ul><p>Needs to hold one of the following weapons:</p><ul><li>Netherite Sword</li><li>Diamond Sword</li><li>Iron Sword</li><li>Golden Sword</li><li>Stone Sword</li><li>Wooden Sword</li></ul> | No                     | 24 blocks        |
 | Wolf                      | <ul><li>Must be tamed<li>No invisibility</li></ul> |                                                                                                                                                                                                                                                                                                                                                                              | No                     | 16 blocks        |
 | Passive mobs listed above | No invisibility                                    |                                                                                                                                                                                                                                                                                                                                                                              | No                     | 16 blocks        |
+
+> [!NOTE]
+> Terminator can only attack mobs and players, when difficulty levels in the game is set to Easy, Normal, or Hard.
 
 ## Combat
 
@@ -296,6 +299,16 @@ Please leave your feedback in the [Discord Server](https://discord.com/invite/Su
 A complete release history for Terminator Add-On is available [here](/posts/terminator-changelog).
 
 Changelogs for recent releases can also be found below.
+
+### 2.1.1
+
+> Release Date: November 16, 2024
+
+- Removed event `terminator:fix_default_target`. Players now will not be able to switch combat through commands.
+- Fixed a bug related to terminator's naming system.
+- Fixed a bug where LocationOutOfWorldBoundariesError throws when initialise respawn structure outside of height range.
+- Fixed a bug where LocationOutOfWorldBoundariesError throws when attempted to drop terminator's inventory outside of height range.
+- Fixed a bug where LocationOutOfWorldBoundariesError throws when terminator attempted to break or place blocks outside of height range.
 
 ### 2.1.0
 
