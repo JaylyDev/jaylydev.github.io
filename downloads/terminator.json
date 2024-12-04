@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v2.1.2",
+      "supports": "1.21.0+",
+      "changelog_url": "/posts/terminator-changelog/#212",
+      "url": "https://github.com/JaylyDev/terminator/releases/download/v2.1.2/terminator_v2.1.2.mcaddon"
+    },
+    {
       "title": "v2.1.1",
       "supports": "1.21.0+",
       "changelog_url": "/posts/terminator-changelog/#211",

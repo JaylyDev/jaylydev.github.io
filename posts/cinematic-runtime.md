@@ -2,7 +2,7 @@
 author: Jayly
 title: Cinematic Runtime Add-On
 description: Control your camera perspective to make a Minecraft scene, without knowledge to use the /camera command.
-date: 8/11/2024
+date: 12/3/2024
 image: /assets/posts/cinematic-editor/thumbnail.png
 download: true
 ---
@@ -188,6 +188,4 @@ Changelog for Cinematic Runtime Add-On
 
 Click the link below and choose a version to download.
 
-- [Download Cinematic Runtime Add-On (Minecraft v1.21.20 or above)](https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicRuntime_v0.5.0.mcaddon)
-- [Download Cinematic Runtime Add-On (Minecraft v1.21.0 + Beta APIs experiment)](https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicRuntime_v0.5.0+1.21.0.mcaddon)
-- [Download Cinematic Runtime Add-On (Other versions)](/posts/cinematic-runtime/downloads/)
+- [Download Cinematic Runtime Add-On](/posts/cinematic-runtime/downloads/)

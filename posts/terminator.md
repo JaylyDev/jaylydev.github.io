@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Terminator
 description: A Minecraft Bedrock Add-On that adds a powerful mob that has the ability to follow entities, destroy blocks and build blocks, to prevent you from beating the game.
-date: 9/7/2024
+date: 12/4/2024
 image: /assets/posts/terminator/terminator-v2-beta-thumbnail.png
 download: true
 ---
@@ -299,6 +299,12 @@ Please leave your feedback in the [Discord Server](https://discord.com/invite/Su
 A complete release history for Terminator Add-On is available [here](/posts/terminator-changelog).
 
 Changelogs for recent releases can also be found below.
+
+### 2.1.2
+
+> Release Date: December 4, 2024
+
+- Fixed a bug where Terminator cannot pick up items
 
 ### 2.1.1
 

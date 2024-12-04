@@ -2,12 +2,18 @@
 author: Jayly
 title: Terminator Changelog
 description: A complete release history for Minecraft Terminator Add-On.
-date: 9/7/2024
+date: 12/4/2024
 ---
 
 # Terminator Changelog
 
 A complete release history for Minecraft Terminator Add-On.
+
+## 2.1.2
+
+> Release Date: December 4, 2024
+
+- Fixed a bug where Terminator cannot pick up items
 
 ## 2.1.1
 

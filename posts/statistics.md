@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Statistics
 description: Track certain tasks in the form of numerical data in Minecraft Bedrock Edition.
-date: 10/23/2024
+date: 11/23/2024
 image: /assets/posts/statistics/thumbnail.png
 download: true
 ---
@@ -246,7 +246,7 @@ Initial release.
 
    ![enable pack](/assets/posts/statistics/enable-pack.png)
 
-3. Enable Beta APIs experiment.
+3. Enable Beta APIs experiment, if you're on Minecraft v1.21.0.
 
    ![enable experiments](/assets/posts/script-repl-minecraft/enable-experiments.png)
 
@@ -277,7 +277,7 @@ After activating both resource pack and behavior pack, you will see one of the f
 
 > [!IMPORTANT]
 >
-> - 'Beta APIs' experiment is required to use this add-on.
+> - If you're on Minecraft Education, 'Beta APIs' experiment is required to use this add-on.
 > - This add-on can only be used in latest version of either Minecraft or Minecraft Education.
 
 - [Download Minecraft Statistics Add-On](/posts/statistics/downloads/)
