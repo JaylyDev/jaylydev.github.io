@@ -2,7 +2,13 @@ import "@/styles/globals.css";
 import "@/styles/articles.css";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/app/components/SiteFormat";
 import Head from "next/head";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+
+declare global {
+  interface Window {
+    adsbygoogle?: any[];
+  }
+}
 
 const PrivacyPolicy = () => {
   return (
@@ -573,6 +579,32 @@ const PrivacyPolicy = () => {
   );
 };
 
+const AdUnit = () => {
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  return (
+    <div>
+      <ins
+        className="adsbygoogle"
+        style={{
+          display: "block",
+          textAlign: "center",
+        }}
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-2533146760921020"
+        data-ad-slot="9602449199"
+      ></ins>
+    </div>
+  );
+};
+
 const Post: React.FC = () => {
   return (
     <div>
@@ -590,6 +622,7 @@ const Post: React.FC = () => {
       </Head>
       <StatsCollection />
       <SiteHeader />
+      <AdUnit />
       <PrivacyPolicy />
       <SiteFooter />
     </div>

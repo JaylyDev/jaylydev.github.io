@@ -234,7 +234,7 @@ function AboutMe(): JSX.Element {
   const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
                 I mainly do Minecraft animations on YouTube, or making Minecraft add-ons for Bedrock.`;
   return (
-    <div className="p-48">
+    <div className="pb-48">
       <Subheading id="about" title="About Me" />
       <div className="flex min-h-0 flex-col items-center p-4 text-lg">
         <div>
