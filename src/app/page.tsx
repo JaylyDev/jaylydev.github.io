@@ -148,7 +148,7 @@ function CurrentProjects(): JSX.Element {
   ));
 
   return (
-    <>
+    <div>
       <Subheading id="projects" title="Projects" />
       <div className="flex min-h-0 flex-col items-center">
         <br></br>
@@ -161,7 +161,7 @@ function CurrentProjects(): JSX.Element {
         </div>
       </div>
       <PreviewLatestYTVideo />
-    </>
+    </div>
   );
 }
 
@@ -185,16 +185,6 @@ function PublicPosts() {
     fetchData();
   }, []);
 
-  const postStyle: CSSProperties = {
-    margin: "auto",
-    width: "60%",
-    border: "5px solid white",
-    minWidth: "320px",
-    maxWidth: "1000px",
-    padding: "15px",
-    marginBottom: "20px",
-  };
-
   const handleLoadMore = () => {
     setPostsToShow(postsToShow + 3); // Increase number of posts to show by 3
   };
@@ -202,7 +192,7 @@ function PublicPosts() {
   const displayedPosts = data.posts.slice(0, postsToShow); // Slice data to show only desired number
 
   return (
-    <>
+    <div className="p-5">
       <Subheading id="posts" title="Posts" />
       <br />
       {loading ? (
@@ -212,9 +202,9 @@ function PublicPosts() {
           </Button>
         </center>
       ) : (
-        <>
+        <div>
           {displayedPosts.map((post, index) => (
-            <div key={index} style={postStyle}>
+            <div key={index} className="content">
               <a className="hyperlink text-2xl font-bold mb-2 " href={post.slug + "/"}>
                 {post.title}
               </a>
@@ -234,9 +224,9 @@ function PublicPosts() {
               </Button>
             </center>
           )}
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -244,14 +234,9 @@ function AboutMe(): JSX.Element {
   const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
                 I mainly do Minecraft animations on YouTube, or making Minecraft add-ons for Bedrock.`;
   return (
-    <>
+    <div className="p-48">
       <Subheading id="about" title="About Me" />
-      <div
-        className="flex min-h-0 flex-col items-center p-4"
-        style={{
-          fontSize: "1.1rem",
-        }}
-      >
+      <div className="flex min-h-0 flex-col items-center p-4 text-lg">
         <div>
           {text.split("\n").map((line, index) => (
             <p key={index}>{line}</p>
@@ -261,7 +246,7 @@ function AboutMe(): JSX.Element {
           </h3>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -287,11 +272,8 @@ export default function Home() {
       <SiteHeader />
       <HomeBanner />
       <CurrentProjects />
-      <div className="p-5" />
       <PublicPosts />
-      <div className="p-5" />
       <AboutMe />
-      <div className="p-24" />
       <SiteFooter />
     </main>
   );

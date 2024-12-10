@@ -48,12 +48,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
       <ul className="list-disc list-inside">
         {links.map((link, index) => (
           <li key={index}>
-            <a
-              href={link.url}
-              target={link.url.startsWith("/") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              className="hyperlink"
-            >
+            <a href={link.url} target={link.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">
               {link.text}
             </a>
           </li>

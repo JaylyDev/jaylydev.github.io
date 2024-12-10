@@ -14,12 +14,12 @@ body {
 }
 
 /* text-blue-500 hover:underline */
-.hyperlink {
+a {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
-.hyperlink:hover {
+a:hover {
   text-decoration: underline;
 }
 
@@ -29,4 +29,22 @@ body {
   height: 75px;
   margin-top: -75px;
   visibility: hidden;
+}
+
+.content {
+  margin: auto;
+  width: 60%;
+  border: 5px solid white;
+  min-width: 320px;
+  max-width: 1000px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.header {
+  position: sticky;
+  top: 0px;
+  z-index: 30;
+  color: black;
+  background-color: white;
 }
