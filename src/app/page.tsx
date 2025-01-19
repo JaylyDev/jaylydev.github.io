@@ -7,7 +7,6 @@ import { SiteHeader, SiteFooter } from "./components/SiteFormat";
 import { StatsCollection } from "./components/SiteFormat";
 import type { ResponseData } from "../../pages/posts/[slug]";
 import { Button } from "@nextui-org/button";
-import { containerStyle, shadowStyle, jaylyCharStyle } from "./components/Banner";
 
 interface IHyperlinkParams {
   url: string;
@@ -252,15 +251,15 @@ function AboutMe(): JSX.Element {
 
 function HomeBanner() {
   return (
-    <div style={containerStyle}>
+    <div className="banner-container">
       <div className="flex min-h-0 flex-col items-center p-5">
         <h1 className="relative z-10 text-5xl font-bold text-white" style={{ fontFamily: "Minecraft Five v2" }}>
           Jayly
         </h1>
         <p className="relative z-10 text-2xl font-bold text-white">A website for Jayly</p>
       </div>
-      <div style={shadowStyle}></div>
-      <div style={jaylyCharStyle}></div>
+      <div className="banner-shadow"></div>
+      <div className="banner-jayly-character"></div>
     </div>
   );
 }
