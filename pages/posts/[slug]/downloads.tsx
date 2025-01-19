@@ -167,9 +167,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ title, author, date }) =
   return (
     <div className="markdown-header">
       <span>
-        <a className="hyperlink" href="/#posts">
-          Posts
-        </a>
+        <a href="/#posts">Posts</a>
         {` > ${title}`}
       </span>
       <br />
