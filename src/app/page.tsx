@@ -2,7 +2,7 @@
 import "@/styles/globals.css";
 import "@/styles/index.css";
 import ProjectCard from "./components/Card";
-import { CSSProperties, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SiteHeader, SiteFooter } from "./components/SiteFormat";
 import { StatsCollection } from "./components/SiteFormat";
 import type { ResponseData } from "../../pages/posts/[slug]";
