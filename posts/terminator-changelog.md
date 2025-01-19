@@ -2,12 +2,221 @@
 author: Jayly
 title: Terminator Changelog
 description: A complete release history for Minecraft Terminator Add-On.
-date: 12/4/2024
+date: 1/19/2024
 ---
 
 # Terminator Changelog
 
 A complete release history for Minecraft Terminator Add-On.
+
+## 2.2.0
+
+> Release Date: January 1, 2025
+
+Terminator Add-On v2.2.0 has been released.
+
+This update contains some Minecraft parity changes, localisation, improvements and various bug fixes.
+
+### Terminator Entity Changes
+
+- Updated list of breakable blocks for terminator entity:
+  - Added small_dripleaf_block
+  - Added acacia_hanging_sign
+  - Added bamboo_hanging_sign
+  - Added birch_hanging_sign
+  - Added cherry_hanging_sign
+  - Added crimson_hanging_sign
+  - Added dark_oak_hanging_sign
+  - Added jungle_hanging_sign
+  - Added mangrove_hanging_sign
+  - Added oak_hanging_sign
+  - Added pale_oak_hanging_sign
+  - Added spruce_hanging_sign
+  - Added warped_hanging_sign
+- Added list of blocks terminator should avoid:
+  - minecraft:bamboo_trapdoor
+  - minecraft:birch_trapdoor
+  - minecraft:cherry_trapdoor
+  - minecraft:copper_trapdoor
+  - minecraft:exposed_copper_trapdoor
+  - minecraft:mangrove_trapdoor
+  - minecraft:oxidized_copper_trapdoor
+  - minecraft:waxed_copper_trapdoor
+  - minecraft:waxed_exposed_copper_trapdoor
+  - minecraft:waxed_oxidized_copper_trapdoor
+  - minecraft:waxed_weathered_copper_trapdoor
+  - minecraft:weathered_copper_trapdoor
+  - minecraft:underwater_tnt
+  - minecraft:small_dripleaf_block
+  - minecraft:soul_campfire
+  - minecraft:sculk_shrieker
+- (parity) Flattened list of preferred path blocks
+  - Removed stone_slab
+  - Removed stone_slab2
+  - Removed stone_slab3
+  - Removed stone_slab4
+  - Removed double_stone_slab
+  - Removed double_stone_slab2
+  - Removed double_stone_slab3
+  - Removed double_stone_slab4
+  - Removed wooden_slab
+  - Removed double_wooden_slab
+  - Added acacia_double_slab
+  - Added acacia_slab
+  - Added andesite_double_slab
+  - Added andesite_slab
+  - Added bamboo_double_slab
+  - Added bamboo_mosaic_double_slab
+  - Added bamboo_mosaic_slab
+  - Added bamboo_slab
+  - Added birch_double_slab
+  - Added birch_slab
+  - Added blackstone_double_slab
+  - Added blackstone_slab
+  - Added brick_double_slab
+  - Added brick_slab
+  - Added cherry_double_slab
+  - Added cherry_slab
+  - Added cobbled_deepslate_double_slab
+  - Added cobbled_deepslate_slab
+  - Added cobblestone_double_slab
+  - Added cobblestone_slab
+  - Added crimson_double_slab
+  - Added crimson_slab
+  - Added cut_copper_slab
+  - Added cut_red_sandstone_double_slab
+  - Added cut_red_sandstone_slab
+  - Added cut_sandstone_double_slab
+  - Added cut_sandstone_slab
+  - Added dark_oak_double_slab
+  - Added dark_oak_slab
+  - Added dark_prismarine_double_slab
+  - Added dark_prismarine_slab
+  - Added deepslate_brick_double_slab
+  - Added deepslate_brick_slab
+  - Added deepslate_tile_double_slab
+  - Added deepslate_tile_slab
+  - Added diorite_double_slab
+  - Added diorite_slab
+  - Added double_cut_copper_slab
+  - Added end_stone_brick_double_slab
+  - Added end_stone_brick_slab
+  - Added exposed_cut_copper_slab
+  - Added exposed_double_cut_copper_slab
+  - Added granite_double_slab
+  - Added granite_slab
+  - Added jungle_double_slab
+  - Added jungle_slab
+  - Added mangrove_double_slab
+  - Added mangrove_slab
+  - Added mossy_cobblestone_double_slab
+  - Added mossy_cobblestone_slab
+  - Added mossy_stone_brick_double_slab
+  - Added mossy_stone_brick_slab
+  - Added mud_brick_double_slab
+  - Added mud_brick_slab
+  - Added nether_brick_double_slab
+  - Added nether_brick_slab
+  - Added normal_stone_double_slab
+  - Added normal_stone_slab
+  - Added oak_double_slab
+  - Added oak_slab
+  - Added oxidized_cut_copper_slab
+  - Added oxidized_double_cut_copper_slab
+  - Added petrified_oak_double_slab
+  - Added petrified_oak_slab
+  - Added polished_andesite_double_slab
+  - Added polished_andesite_slab
+  - Added polished_blackstone_brick_double_slab
+  - Added polished_blackstone_brick_slab
+  - Added polished_blackstone_double_slab
+  - Added polished_blackstone_slab
+  - Added polished_deepslate_double_slab
+  - Added polished_deepslate_slab
+  - Added polished_diorite_double_slab
+  - Added polished_diorite_slab
+  - Added polished_granite_double_slab
+  - Added polished_granite_slab
+  - Added polished_tuff_double_slab
+  - Added polished_tuff_slab
+  - Added prismarine_brick_double_slab
+  - Added prismarine_brick_slab
+  - Added prismarine_double_slab
+  - Added prismarine_slab
+  - Added purpur_double_slab
+  - Added purpur_slab
+  - Added quartz_double_slab
+  - Added quartz_slab
+  - Added red_nether_brick_double_slab
+  - Added red_nether_brick_slab
+  - Added red_sandstone_double_slab
+  - Added red_sandstone_slab
+  - Added sandstone_double_slab
+  - Added sandstone_slab
+  - Added smooth_quartz_double_slab
+  - Added smooth_quartz_slab
+  - Added smooth_red_sandstone_double_slab
+  - Added smooth_red_sandstone_slab
+  - Added smooth_sandstone_double_slab
+  - Added smooth_sandstone_slab
+  - Added smooth_stone_double_slab
+  - Added smooth_stone_slab
+  - Added spruce_double_slab
+  - Added spruce_slab
+  - Added stone_brick_double_slab
+  - Added stone_brick_slab
+  - Added tuff_brick_double_slab
+  - Added tuff_brick_slab
+  - Added tuff_double_slab
+  - Added tuff_slab
+  - Added warped_double_slab
+  - Added warped_slab
+  - Added waxed_cut_copper_slab
+  - Added waxed_double_cut_copper_slab
+  - Added waxed_exposed_cut_copper_slab
+  - Added waxed_exposed_double_cut_copper_slab
+  - Added waxed_oxidized_cut_copper_slab
+  - Added waxed_oxidized_double_cut_copper_slab
+  - Added waxed_weathered_cut_copper_slab
+  - Added waxed_weathered_double_cut_copper_slab
+  - Added weathered_cut_copper_slab
+  - Added weathered_double_cut_copper_slab
+- Added MCC 15th year cape
+- Added Minecraft Experience cape
+- Added Mojang Office cape
+- Added legacy blocks to unbreakable blocks
+
+### Add-On Changes
+
+- Added language support for Deutsch (Deutschland)
+- Added language support for Español (España)
+- Added language support for Español (México)
+- Added language support for Français (France)
+- Added language support for Français (Canada)
+- Added language support for Italiano (Italia)
+- Added language support for 日本語 (日本)
+- Added language support for 한국어 (대한민국)
+- Added language support for Português (Brasil)
+- Added language support for Português (Portugal)
+- Added language support for Русский (Россия)
+- Added language support for 中文(简体)
+- Added language support for 中文(繁體)
+- Added language support for Nederlands (Nederland)
+- Added language support for Български (България)
+- Added language support for Čeština (Česko)
+- Added language support for Dansk (Danmark)
+- Added language support for Ελληνικά (Ελλάδα)
+- Added language support for Suomi (Suomi)
+- Added language support for Magyar (Magyarország)
+- Added language support for Indonesia (Indonesia)
+- Added language support for Norsk bokmål (Norge)
+- Added language support for Polski (Polska)
+- Added language support for Slovenčina (Slovensko)
+- Added language support for Svenska (Sverige)
+- Added language support for Türkçe (Türkiye)
+- Added language support for Українська (Україна)
+- Fixed some translations for other languages
+- Spawn Terminator form is now translated to supported languages
 
 ## 2.1.2
 
