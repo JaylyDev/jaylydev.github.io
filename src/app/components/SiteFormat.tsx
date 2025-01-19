@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import { useEffect, useState } from "react";
 
 export function SiteHeader() {
   return (
@@ -46,9 +47,16 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Fetch the current year on the client side
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="flex flex-row justify-center items-centerp-4 text-sm text-gray-500 p-4 gap-2">
-      <span>{"© JaylyMC " + new Date().getFullYear()}</span>
+      <span>{"© JaylyMC " + (year || "2025") /* Default fallback (e.g., 2025) for server-rendered HTML */}</span>
       <Link href="/privacy-policy/">Privacy Policy</Link>
     </footer>
   );
