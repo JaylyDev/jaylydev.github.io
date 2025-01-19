@@ -136,15 +136,7 @@ function CurrentProjects(): JSX.Element {
     },
   ];
 
-  const ProjectElements = projects.map((project, index) => (
-    <div
-      key={index}
-      style={{ margin: "10px" }}
-      className="max-w-[550px] rounded-lg border border-5d5f61 bg-[rgb(23,23,23)] p-4"
-    >
-      <ProjectCard key={index} {...project} />
-    </div>
-  ));
+  const ProjectElements = projects.map((project, index) => <ProjectCard key={index} {...project} />);
 
   return (
     <div>
