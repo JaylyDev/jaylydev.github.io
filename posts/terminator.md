@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Terminator
 description: A Minecraft Bedrock Add-On that adds a powerful mob that has the ability to follow entities, destroy blocks and build blocks, to prevent you from beating the game.
-date: 1/19/2024
+date: 1/19/2025
 image: /assets/posts/terminator/terminator-v2-beta-thumbnail.png
 download: true
 ---

@@ -2,7 +2,7 @@
 author: Jayly
 title: Bundle Minecraft Scripts with Webpack
 description: Use webpack to combine your script files into one for Minecraft Script API.
-date: 3/1/2024
+date: 3/8/2025
 ---
 
 # Bundle Minecraft Scripts with Webpack
@@ -19,7 +19,7 @@ You will also need to download and install the following:
 
 - [Node.js](https://nodejs.org/en/): This allows the use of webpack to bundle script files.
 - Visual Studio Code (or another similar text editor)
-- Minecraft: Bedrock Edition
+- Minecraft Bedrock
 - A Windows 10 (or higher) computer
 
 ## JavaScript Project Setup
@@ -162,7 +162,7 @@ system.runInterval(() => {
     const block = player.dimension.getBlock(location.add(viewDirection));
     if (!block) continue;
     block.setPermutation(
-      BlockPermutation.resolve(MinecraftBlockTypes.Obsidian)
+      BlockPermutation.resolve(MinecraftBlockTypes.Obsidian),
     );
   }
 });
@@ -190,7 +190,7 @@ manifest.json
     "name": "My Behavior Pack",
     "uuid": "4f75452a-793e-4427-9732-f932ff6afffd",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 20, 50]
+    "min_engine_version": [1, 20, 50],
   },
   "modules": [
     {
@@ -198,15 +198,15 @@ manifest.json
       "type": "script",
       "uuid": "92bb9cc8-e286-457d-8988-a4c2f27664f1",
       "version": [1, 0, 0],
-      "entry": "scripts/main.js" // loads bundled script file
-    }
+      "entry": "scripts/main.js", // loads bundled script file
+    },
   ],
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "1.7.0"
-    }
-  ]
+      "version": "1.7.0",
+    },
+  ],
 }
 ```
 
@@ -373,7 +373,7 @@ system.runInterval(() => {
     const block = player.dimension.getBlock(location.add(viewDirection));
     if (!block) continue;
     block.setPermutation(
-      BlockPermutation.resolve(MinecraftBlockTypes.Obsidian)
+      BlockPermutation.resolve(MinecraftBlockTypes.Obsidian),
     );
   }
 });
@@ -401,7 +401,7 @@ manifest.json
     "name": "My Behavior Pack",
     "uuid": "4f75452a-793e-4427-9732-f932ff6afffd",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 20, 50]
+    "min_engine_version": [1, 20, 50],
   },
   "modules": [
     {
@@ -409,15 +409,15 @@ manifest.json
       "type": "script",
       "uuid": "92bb9cc8-e286-457d-8988-a4c2f27664f1",
       "version": [1, 0, 0],
-      "entry": "scripts/main.js" // loads bundled script file
-    }
+      "entry": "scripts/main.js", // loads bundled script file
+    },
   ],
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "1.7.0"
-    }
-  ]
+      "version": "1.7.0",
+    },
+  ],
 }
 ```
 

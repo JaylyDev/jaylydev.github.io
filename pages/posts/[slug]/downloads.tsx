@@ -133,7 +133,7 @@ const Post: React.FC<Props> = ({ content, title, description, date, author, imag
       <SiteHeader />
       <PostHeader title={title} author={author} date={date} />
       <div className="download-section">
-        <h1>Downloads</h1>
+        <p>Downloads</p>
         {value < 100 ? (
           <Progress label="Fetching Downloads..." size="md" value={value} color="success" showValueLabel={true} />
         ) : (

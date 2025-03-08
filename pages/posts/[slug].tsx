@@ -19,6 +19,7 @@ import rehypeToc from "@jsdevtools/rehype-toc";
 import rehypeSlug from "rehype-slug";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/app/components/SiteFormat";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Button } from "@nextui-org/button";
 
 export interface PostMeta {
@@ -28,6 +29,8 @@ export interface PostMeta {
   description: string;
   image: string | null;
   download: boolean;
+  visible: boolean;
+  redirect: string;
 }
 
 export interface PostData extends PostMeta {
@@ -51,7 +54,23 @@ interface PostHeaderProps {
   download: boolean;
 }
 
-const Post: React.FC<Props> = ({ content, title, description, date, author, image, card, download }) => {
+const Post: React.FC<Props> = ({
+  content,
+  title,
+  description,
+  date,
+  author,
+  image,
+  card,
+  download,
+  redirect: redirectURL,
+}) => {
+  const router = useRouter();
+  useEffect(() => {
+    if (redirectURL) {
+      router.push(redirectURL);
+    }
+  }, [router, redirectURL]);
   return (
     <div>
       <Head>
@@ -183,13 +202,15 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   return {
     props: {
       title: matterData.title,
-      content: contentHtml,
-      date: matterData.date,
-      author: matterData.author,
-      description: matterData.description,
+      content: contentHtml ?? null,
+      date: matterData.date ?? null,
+      author: matterData.author ?? null,
+      description: matterData.description ?? null,
       image: matterData.image ?? "https://jaylydev.github.io/icon.png",
       card: matterData.image ? "summary_large_image" : "summary",
       download: matterData.download ?? false,
+      redirect: matterData.redirect ?? null,
+      visible: matterData.visible ?? true,
     },
   };
 };

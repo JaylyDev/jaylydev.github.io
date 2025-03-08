@@ -1,13 +1,13 @@
 ---
 author: Jayly
 title: JaylyBot
-description: JaylyBot is a Discord bot that includes various Minecraft Scripting API toolings such as a TypeScript debugger for Minecraft scripting, within Discord.
-date: 6/7/2024
+description: JaylyBot is a Discord bot that includes various Minecraft Script API toolings within Discord.
+date: 3/8/2025
 ---
 
 # JaylyBot
 
-JaylyBot stands for "JaylyMC's Discord Bot". It is a Discord bot used in over 200 Discord servers which includes various Minecraft Scripting API toolings such as a TypeScript debugger for Minecraft scripting, within Discord.
+JaylyBot is a Discord bot used in over 200 Discord servers which includes various Minecraft Script API toolings, such as a TypeScript debugger for Minecraft scripting, within Discord.
 
 > The invite link to the bot is at the bottom of the post.
 
