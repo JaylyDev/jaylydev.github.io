@@ -108,25 +108,20 @@ function CurrentProjects(): JSX.Element {
       links: [
         {
           url: "/posts/jaylybot/",
-          text: "Learn More",
-        },
-        {
-          url: "https://discord.com/api/oauth2/authorize?client_id=948686094986264716&permissions=277025516544&scope=bot",
-          text: "Invite Now",
+          text: "Invite the Bot",
         },
       ],
     },
     {
       title: "Script Interpreter",
-      description: `Script Interpreter is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft: Bedrock Edition for testing the API features.
+      description: `Script Interpreter is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft Bedrock for testing the API features.
 > "Woah this really helps a lot! Like a LOT!" - BlueIcezen`,
-      links: [{ url: "/posts/script-repl-minecraft/", text: "Learn More" }],
+      links: [{ url: "/posts/script-interpreter/", text: "Download Script Interpreter" }],
       image: { src: "/assets/script-interpreter.png", alt: "Script Interpreter" },
     },
     {
       title: "Structure Converter",
-      description:
-        "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure). (1.21.0 support)",
+      description: "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure).",
       links: [{ url: "https://github.com/jaylydev/nbt-to-mcstructure/", text: "Download from GitHub" }],
       image: {
         src: "/assets/nbt_to_mcstructure_icon.png",

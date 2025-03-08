@@ -1,6 +1,26 @@
 {
   "downloads": [
     {
+      "title": "v1.21.70 (Beta APIs)",
+      "supports": "1.21.70",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.70.0/interpreter_v21.70.0-beta.mcaddon"
+    },
+    {
+      "title": "v1.21.70",
+      "supports": "1.21.70",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.70.0/interpreter_v21.70.0.mcaddon"
+    },
+    {
+      "title": "v1.21.60 (Beta APIs)",
+      "supports": "1.21.60",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.60.0/interpreter_v21.60.0-beta.mcaddon"
+    },
+    {
+      "title": "v1.21.60",
+      "supports": "1.21.60",
+      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.60.0/interpreter_v21.60.0.mcaddon"
+    },
+    {
       "title": "v1.21.50 (Beta APIs)",
       "supports": "1.21.50 (BDS)",
       "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.50.0/script_repl_bds_v21.50.0-beta.mcaddon"
@@ -14,16 +34,6 @@
       "title": "v1.21.50",
       "supports": "1.21.50",
       "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.50.0/script_repl_v21.50.0.mcaddon"
-    },
-    {
-      "title": "v1.21.40.1 (Beta APIs)",
-      "supports": "1.21.40",
-      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.40.1/script_repl_v21.40.1-beta.mcaddon"
-    },
-    {
-      "title": "v1.21.40.1",
-      "supports": "1.21.40",
-      "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.40.1/script_repl_v21.40.1.mcaddon"
     },
     {
       "title": "v1.21.0.3",

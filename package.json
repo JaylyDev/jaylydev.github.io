@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "npm run scripts && next dev",
     "build": "npm run scripts && next build",
-    "start": "next start",
+    "start": "npx serve@latest out",
     "lint": "next lint",
     "scripts": "node scripts/fetch_all.mjs"
   },

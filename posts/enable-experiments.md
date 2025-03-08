@@ -2,14 +2,14 @@
 author: Jayly
 title: Enable Experiments on Minecraft Education
 description: Enable experimental features on a Minecraft Education Edition worlds using a resource pack for testing the latest features offered in latest Minecraft Education edition and Minecraft Education Preview.
-date: 7/27/2024
+date: 3/8/2025
 download: true
 image: /assets/posts/enable-experiments/enable-experiments.png
 ---
 
 # Enable Experiments on Minecraft Education
 
-With each retail version of Minecraft: Bedrock Edition includes experimental features, in which they can be toggled on to test the features in Minecraft, these experimental features are also available in Minecraft: Education Edition except they're not displayed in world settings.
+With each retail version of Minecraft Bedrock includes experimental features, in which they can be toggled on to test the features in Minecraft, these experimental features are also available in Minecraft Education Edition except they're not displayed in world settings.
 
 ## Experimental Features in Minecraft Education Edition
 
@@ -36,7 +36,7 @@ Add-On Creators - For creators of game packs and other add-ons
 
 ### Preview (Minecraft Education Preview)
 
-**Preview Version**: v1.21.01.0
+**Preview Version**: v1.21.51.0
 
 Gameplay - Change the way your world works
 
@@ -46,12 +46,15 @@ Gameplay - Change the way your world works
 
 Add-On Creators - For creators of game packs and other add-ons
 
-| Experimental Toggle       | Description                                                                                   |
-| :------------------------ | :-------------------------------------------------------------------------------------------- |
-| Holiday Creator Features  | Add data-driven block and item technology to customize block shape, rotation, damage and more |
-| Custom Biomes             | Create custom biomes and change world generation                                              |
-| Upcoming Creator Features | Includes adjustable fog parameters                                                            |
-| Beta APIs                 | Use "-beta" versions of API modules in add-on packs                                           |
+| Experimental Toggle                       | Description                                                                                                                                   |
+| :---------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| Custom Biomes                             | Create custom biomes and change world generation                                                                                              |
+| Upcoming Creator Features                 | Includes adjustable fog parameters                                                                                                            |
+| Beta APIs                                 | Use "-beta" versions of API modules in add-on packs                                                                                           |
+| Creator Cameras: New Third-Person Presets | Enables an "over the shoulder" camera preset.                                                                                                 |
+| Creator Cameras: Focus Target Camera      | Enables focus target camera preset.                                                                                                           |
+| Data-Driven Jigsaw Structures             | Loads Jigsaw Structures from the behavior pack worldgen folder.                                                                               |
+| Aim Assist                                | Player's aim assist system to interact with elements in the world while using custom cameras. Can be activated through the aimassist command. |
 
 ## Applying Enable Experiments Resource Pack
 
@@ -76,6 +79,10 @@ To enable experiments, navigate down to Experiments and select a toggle to enabl
 ![enable experiments](/assets/posts/enable-experiments/enable-experiments.png)
 
 ## Changelog
+
+### 1.0.3
+
+Updated world settings screen UI file to v1.21.50
 
 ### 1.0.2
 

@@ -2,7 +2,7 @@
 author: Jayly
 title: Bundle Minecraft Scripts with ESBuild
 description: Merge Minecraft script files through bundling with esbuild.
-date: 3/30/2024
+date: 3/8/2025
 ---
 
 # Bundle Minecraft Scripts with ESBuild
@@ -21,7 +21,7 @@ You will need to download and install the following:
 
 - [Node.js](https://nodejs.org/en/): esbuild depends on node.js to bundle files.
 - Visual Studio Code (or another similar text editor)
-- Minecraft: Bedrock Edition
+- Minecraft Bedrock
 - A Windows 10 (or higher) computer
 
 ## Project Setup
@@ -133,7 +133,7 @@ system.runInterval(() => {
     const block = player.dimension.getBlock(location.add(viewDirection));
     if (!block) continue;
     block.setPermutation(
-      BlockPermutation.resolve(MinecraftBlockTypes.Obsidian)
+      BlockPermutation.resolve(MinecraftBlockTypes.Obsidian),
     );
   }
 });
@@ -163,7 +163,7 @@ manifest.json
     "name": "My Behavior Pack",
     "uuid": "4f75452a-793e-4427-9732-f932ff6afffd",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 20, 50]
+    "min_engine_version": [1, 20, 50],
   },
   "modules": [
     {
@@ -171,15 +171,15 @@ manifest.json
       "type": "script",
       "uuid": "92bb9cc8-e286-457d-8988-a4c2f27664f1",
       "version": [1, 0, 0],
-      "entry": "scripts/main.js" // loads bundled script file
-    }
+      "entry": "scripts/main.js", // loads bundled script file
+    },
   ],
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "1.7.0"
-    }
-  ]
+      "version": "1.7.0",
+    },
+  ],
 }
 ```
 
@@ -217,8 +217,8 @@ Regolith is an Minecraft Bedrock Addon Compiler. It is possible to use the `game
             "settings": {
               "moduleUUID": null,
               "modules": [
-                "@minecraft/server@1.2.0",
-                "@minecraft/server-ui@1.0.0"
+                "@minecraft/server@2.0.0-beta",
+                "@minecraft/server-ui@1.3.0"
               ],
               "outfile": "BP/scripts/main.js",
               "manifest": "BP/manifest.json",
@@ -237,3 +237,9 @@ Regolith is an Minecraft Bedrock Addon Compiler. It is possible to use the `game
   }
 }
 ```
+
+> ![NOTE]
+> The module field uses the following format: `{module_name}@{version}`.
+>
+> - `module_name` field example: `@minecraft/server`
+> - `version` field example: `1.0.0` or `1.0.0-beta` if it uses beta APIs.

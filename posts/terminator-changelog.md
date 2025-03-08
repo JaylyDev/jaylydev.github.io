@@ -2,7 +2,7 @@
 author: Jayly
 title: Terminator Changelog
 description: A complete release history for Minecraft Terminator Add-On.
-date: 1/19/2024
+date: 1/19/2025
 ---
 
 # Terminator Changelog
@@ -811,7 +811,7 @@ This category shows things that added from the last public release `v1.3.20`
   ["sk_SK", "Slovensky (SK)"],
   ["sv_SE", "Svenska (Sverige)"],
   ["tr_TR", "Türkçe (Türkiye)"],
-  ["uk_UA", "Українська (Україна)"]
+  ["uk_UA", "Українська (Україна)"],
 ]
 ```
 

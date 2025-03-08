@@ -11,7 +11,7 @@ download: true
 
 ![stats_promo_art](/assets/posts/statistics/thumbnail.png)
 
-The Minecraft Statistics Add-On allows players to track certain tasks in the form of numerical data in a Minecraft: Bedrock Edition world. This is similar to the Statistics in-game feature presented in Java Edition.
+The Minecraft Statistics Add-On allows players to track certain tasks in the form of numerical data in a Minecraft Bedrock world. This is similar to the Statistics in-game feature presented in Java Edition.
 
 ## Statistics Screen
 
