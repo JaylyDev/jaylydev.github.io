@@ -238,7 +238,7 @@ Regolith is an Minecraft Bedrock Addon Compiler. It is possible to use the `game
 }
 ```
 
-> ![NOTE]
+> [!NOTE]
 > The module field uses the following format: `{module_name}@{version}`.
 >
 > - `module_name` field example: `@minecraft/server`

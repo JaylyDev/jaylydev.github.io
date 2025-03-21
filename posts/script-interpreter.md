@@ -131,7 +131,7 @@ The add-on also provides chat commands that is locked behind Script Interpreter 
 
 ## Shutdown Scripts (Beta)
 
-> ![IMPORTANT]
+> [!IMPORTANT]
 > This feature is only available to interpreters v1.21.70-beta or above.
 
 ![shutdown script form](/assets/posts/script-interpreter/shutdown-scripts.png)
@@ -326,8 +326,6 @@ Full file (`config/default/permissions.json`):
 
 ## Downloads
 
-These download links do not go through Boostellar, so there shouldn't be any malicious links.
-
 ### Minecraft Bedrock Preview
 
 - [Download Script Interpreter Add-On (v1.21.70 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.70.0/interpreter_v21.70.0-beta.mcaddon)
@@ -335,8 +333,8 @@ These download links do not go through Boostellar, so there shouldn't be any mal
 
 ### Minecraft Bedrock
 
-- [Download Script Interpreter Add-On (v1.21.60 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.60.0/interpreter_v21.60.0-beta.mcaddon)
-- [Download Script Interpreter Add-On (v1.21.60)](https://github.com/JaylyDev/interpreter/releases/download/v21.60.0/interpreter_v21.60.0.mcaddon)
+- [Download Script Interpreter Add-On (v1.21.60 + Beta APIs Experiment)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6289672)
+- [Download Script Interpreter Add-On (v1.21.60)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6289671)
 
 ### Minecraft Education Edition
 
@@ -346,8 +344,8 @@ These download links do not go through Boostellar, so there shouldn't be any mal
 >
 > - [Download Enable Experiments Resource Pack (for Minecraft Education only)](/posts/enable-experiments/)
 
-- [Download Script Interpreter Add-On (v1.21.0 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.2-beta.mcaddon)
-- [Download Script Interpreter Add-On (v1.21.0)](https://github.com/JaylyDev/interpreter/releases/download/v21.0.0/script_repl_v21.0.3.mcaddon)
+- [Download Script Interpreter Add-On (v1.21.0 + Beta APIs Experiment)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6327967)
+- [Download Script Interpreter Add-On (v1.21.0)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6327964)
 
 ### Other Versions
 
