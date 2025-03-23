@@ -1,6 +1,18 @@
 {
   "downloads": [
     {
+      "title": "v1.2.0",
+      "supports": "1.21.50+",
+      "changelog_url": "/posts/statistics/#120",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/6335603"
+    },
+    {
+      "title": "v0.1.0 Extension",
+      "supports": "1.21.70+ (Beta APIs)",
+      "changelog_url": "/posts/statistics/#120",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/6335601"
+    },
+    {
       "title": "v1.1.1",
       "supports": "1.21.50+",
       "changelog_url": "/posts/statistics/#111",

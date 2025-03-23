@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Script Interpreter
 description: Script Interpreter allows user to run JavaScript code within Minecraft.
-date: 3/8/2025
+date: 3/23/2025
 image: /assets/posts/script-repl-minecraft/thumbnail.png
 download: true
 ---
@@ -58,7 +58,7 @@ However you can only run JavaScript code in this add-on, because the scripting e
 
 - Script event command
   ```
-  /scriptevent interpreter:js
+  /function statistics
   ```
 - Chat Command
   ```
@@ -117,9 +117,20 @@ This add-on allows you to add scripts to run automatically when Minecraft loads 
 
 This should automatically launch the task when you load the add-on.
 
+## Function Commands
+
+The add-on also provides function commands to access Script Interpreter.
+
+- `/function repl`: Access Script Interpreter
+- `/function repl/startup`: Access Script Startup settings
+- `/function repl/shutdown`: Access Script Shutdown settings (Beta)
+
 ## Chat Commands (Beta)
 
-The add-on also provides chat commands that is locked behind Script Interpreter beta versions.
+> ![IMPORTANT]
+> This feature is locked behind Script Interpreter beta versions. We need Beta APIs to access chat events.
+
+The add-on also provides chat commands to access Script Interpreter.
 
 - `!help`: Help Command
 - `!interpreter`: Opens Interpreter

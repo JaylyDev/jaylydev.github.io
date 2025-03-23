@@ -2,7 +2,7 @@
 author: Jayly
 title: Minecraft Statistics
 description: Track certain tasks in the form of numerical data in Minecraft Bedrock Edition.
-date: 11/23/2024
+date: 3/25/2025
 image: /assets/posts/statistics/thumbnail.png
 download: true
 ---
@@ -23,13 +23,14 @@ Currently, a player's statistics can be seen through the following function comm
 
 or the statistics book given when you join the world for the first time. By which a tag (`stats_book_given`) will be assigned as they have been given the book.
 
-![main screen](/assets/posts/statistics/main-screen.png)
+![main screen](/assets/posts/statistics/main-screen-v1.2.0.png)
 
 Similar to the Java Edition statistics' screen, this add-on divides statistics into three sections:
 
 - **General** - The General screen displays a multitude of generic statistics that are listed in the form.
 - **Items** - The Items screen displays the number of times different items and blocks have been broken, crafted, used to destroy blocks, picked up and dropped.
 - **Mobs** - The Mob screen shows for each different type of mobs or other living entities (players, armor stands) how many the player has killed, or the number of deaths caused by those mobs.
+- **Settings** - Change preference when viewing statistics.
 
 ## Item Statistics
 
@@ -130,6 +131,12 @@ Statistics related to the total distance traveled by a player in the Minecraft w
 | Distance Walked             | The total distance walked.                                                                                                                                      |
 | Distance Walked on Water    | The distance covered while bobbing up and down over water.                                                                                                      |
 | Distance Walked under Water | The total distance you have walked underwater.                                                                                                                  |
+| Distance by Boat            | The total distance traveled by boats.                                                                                                                           |
+| Distance by Elytra          | The total distance traveled by elytra.                                                                                                                          |
+| Distance by Horse           | The total distance traveled by horses.                                                                                                                          |
+| Distance by Minecart        | The total distance traveled by minecarts.                                                                                                                       |
+| Distance by Pig             | The total distance traveled by pigs via saddles.                                                                                                                |
+| Distance by Strider         | The total distance traveled by striders via saddles.                                                                                                            |
 
 ### Items Dropped
 
@@ -211,7 +218,42 @@ The total amount of time the world was opened (tracked in ticks). Unlike Play Ti
 
 The number of times the player has slept in a bed.
 
+## Settings Screen
+
+![settings screen](/assets/posts/statistics/settings-screen.png)
+
+The settings screen allows you to set your own preferences when viewing statistics.
+
+- **Items: Sort by** - Sort the items types in Item Statistics screen.
+- **Mobs: Sort by** - Sort the entity types in Mobs Statistics screen.
+
+## Chat Commands
+
+> [!IMPORTANT]
+>
+> - This feature requires Minecraft Statistics Extension Pack, downloads separately.
+>
+>   ![Extension pack](/assets/posts/statistics/extension-pack.png)
+>
+> - You also need to enable Beta APIs experiment to access chat events.
+
+The add-on also provides chat commands to access statistics:
+
+- `!stats`: Runs `/function statistics` command.
+- `!statistics`: Runs `/function statistics` command.
+
 ## Changelog
+
+### v1.2.0
+
+- Add-On now tracks the following statistics: Distance by Boat, Distance by Elytra, Distance by Horse, Distance by Minecart, Distance by Pig, and Distance by Strider
+- Fully added translations for all languages Minecraft Bedrock supports
+- Players can access statistics through `!stats` and `!statistics` (Requires Minecraft Statistics Extension Pack, downloads separately).
+- Added settings form: Current you can choose to sort items and mobs statistics.
+- Performance improvement.
+- Added support for item and entity translations in selection screens.
+- Fix an issue which throws LocationOutOfWorldBoundariesError when jumping.
+- Fix an issue with Add-On not detecting item breaking properly.
 
 ### v1.1.1
 
