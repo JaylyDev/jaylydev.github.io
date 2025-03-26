@@ -11,24 +11,6 @@
       "supports": "1.21.70+ (Beta APIs)",
       "changelog_url": "/posts/statistics/#120",
       "url": "https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/6335601"
-    },
-    {
-      "title": "v1.1.1",
-      "supports": "1.21.50+",
-      "changelog_url": "/posts/statistics/#111",
-      "url": "https://www.mediafire.com/file/j4p9orrabpiix3o/statistics_v1.1.1.mcaddon/file"
-    },
-    {
-      "title": "v1.1.0",
-      "supports": "1.21.40",
-      "changelog_url": "/posts/statistics/#110",
-      "url": "https://www.mediafire.com/file/4zdsww31mdxgj4m/statistics_v1.1.0.mcaddon/file"
-    },
-    {
-      "title": "v1.1.0",
-      "supports": "1.21.0 (EDU)",
-      "changelog_url": "/posts/statistics/#110",
-      "url": "https://www.mediafire.com/file/wwxslcrmn79e7ti/statistics_v1.1.0-edu.mcaddon/file"
     }
   ]
 }

@@ -1,8 +1,8 @@
 ---
 author: Jayly
 title: Minecraft Script Interpreter
-description: Script Interpreter allows user to run JavaScript code within Minecraft.
-date: 3/23/2025
+description: Script Interpreter is a debugging tool for Minecraft Scripting. It is a Bedrock add-on allows user to run JavaScript code within Minecraft Bedrock.
+date: 3/26/2025
 image: /assets/posts/script-repl-minecraft/thumbnail.png
 download: true
 ---
@@ -11,7 +11,7 @@ download: true
 
 ![Thumbnail](/assets/posts/script-repl-minecraft/thumbnail.png)
 
-Script Interpreter is a debugging tool for Minecraft Scripting. It is a Bedrock add-on allows user to run JavaScript code in Minecraft Bedrock. This is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
+Script Interpreter is a debugging tool for Minecraft Scripting. It is a Bedrock add-on allows user to run JavaScript code within Minecraft Bedrock. This is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
 
 ## What is Scripting / Script API
 
@@ -127,7 +127,7 @@ The add-on also provides function commands to access Script Interpreter.
 
 ## Chat Commands (Beta)
 
-> ![IMPORTANT]
+> [!IMPORTANT]
 > This feature is locked behind Script Interpreter beta versions. We need Beta APIs to access chat events.
 
 The add-on also provides chat commands to access Script Interpreter.
@@ -337,15 +337,10 @@ Full file (`config/default/permissions.json`):
 
 ## Downloads
 
-### Minecraft Bedrock Preview
+### Minecraft Bedrock & Preview
 
-- [Download Script Interpreter Add-On (v1.21.70 + Beta APIs Experiment)](https://github.com/JaylyDev/interpreter/releases/download/v21.70.0/interpreter_v21.70.0-beta.mcaddon)
-- [Download Script Interpreter Add-On (v1.21.70)](https://github.com/JaylyDev/interpreter/releases/download/v21.70.0/interpreter_v21.70.0.mcaddon)
-
-### Minecraft Bedrock
-
-- [Download Script Interpreter Add-On (v1.21.60 + Beta APIs Experiment)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6289672)
-- [Download Script Interpreter Add-On (v1.21.60)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6289671)
+- [Download Script Interpreter Add-On (v1.21.70 + Beta APIs Experiment)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6350646)
+- [Download Script Interpreter Add-On (v1.21.70)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6350650)
 
 ### Minecraft Education Edition
 
