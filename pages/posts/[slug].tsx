@@ -72,7 +72,7 @@ const Post: React.FC<Props> = ({
     }
   }, [router, redirectURL]);
   return (
-    <div>
+    <div lang="en">
       <Head>
         <title>{title + " | JaylyMC"}</title>
         <meta charSet="UTF-8" />
