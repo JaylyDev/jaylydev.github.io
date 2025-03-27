@@ -1,13 +1,13 @@
 ---
 author: Jayly
-title: Track and See Statistics in Minecraft Bedrock
-description: Track certain tasks in the form of numerical data in Minecraft Bedrock Edition.
+title: Check Statistics in Minecraft Bedrock
+description: Using the Minecraft Statistics Add-On, players can track certain tasks in the form of numerical data in a Minecraft Bedrock world.
 date: 3/25/2025
 image: /assets/posts/statistics/thumbnail.png
 download: true
 ---
 
-# Track and See Statistics in Minecraft Bedrock
+# Check Statistics in Minecraft Bedrock
 
 ![stats_promo_art](/assets/posts/statistics/thumbnail.png)
 
