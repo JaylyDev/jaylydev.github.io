@@ -56,7 +56,9 @@ export function getPublicPosts(): PublicPost[] {
     .filter((file) => file.endsWith(".md"));
 
   // Map over each file, extracting frontmatter and Git date.
-  const posts: PublicPost[] = fileNames.map((fileName) => {
+  const posts: PublicPost[] = [];
+
+  for (const fileName of fileNames) {
     const slug = fileName.replace(/\.md$/, "");
     const fullPath = path.join(postsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -64,18 +66,21 @@ export function getPublicPosts(): PublicPost[] {
     // Extract frontmatter.
     const { data } = matter(fileContents);
 
+    if (!data.visible) {
+      continue;
+    }
+
     // Get last modified date from Git.
     const lastModified = getGitLastModifiedDate(fullPath);
 
-    return {
+    posts.push({
       slug,
       title: data.title,
       description: data.description,
-      date: data.date,
       author: data.author,
       lastModified,
-    };
-  });
+    });
+  }
 
   return posts;
 }
