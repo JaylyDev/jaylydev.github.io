@@ -22,7 +22,7 @@ export function PublicPosts({ posts }: PublicPostsProps) {
     setPostsToShow(postsToShow + 3);
   };
   return (
-    <div className="p-5">
+    <div>
       <Subheading id="posts" title="Posts" />
       {displayedPosts.slice(0, postsToShow).map((post) => (
         <div key={post.slug} className="content m-8">
