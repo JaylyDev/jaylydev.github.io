@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { useEffect, useState } from "react";
+
+export interface ISubheadingParams {
+  id: string;
+  title: string;
+}
 
 export function SiteHeader() {
   return (
@@ -47,12 +51,7 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    // Fetch the current year on the client side
-    setYear(new Date().getFullYear());
-  }, []);
+  const year = new Date().getFullYear(); // Static at build time
 
   return (
     <footer className="flex flex-row justify-center items-centerp-4 text-sm text-gray-500 p-4 gap-2">
@@ -80,6 +79,18 @@ export function StatsCollection() {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2533146760921020"
         crossOrigin="anonymous"
       ></Script>
+    </div>
+  );
+}
+
+export function Subheading({ id, title }: ISubheadingParams) {
+  return (
+    <div className="flex min-h-fit flex-col items-center leading-none pt-20 pb-5" id={id}>
+      <a href={"#" + id}>
+        <h3 className="bg-red-500 inline-block px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
+          {title}
+        </h3>
+      </a>
     </div>
   );
 }

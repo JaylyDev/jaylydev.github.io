@@ -1,8 +1,8 @@
+"use client";
 import "@/styles/globals.css";
 import "@/styles/articles.css";
-import { StatsCollection, SiteHeader, SiteFooter } from "@/app/components/SiteFormat";
-import Head from "next/head";
-import { memo, useEffect } from "react";
+import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
+import React, { memo, useEffect } from "react";
 
 declare global {
   interface Window {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy: React.FC = () => {
   return (
     <div className="content" style={{ marginTop: "50px" }}>
       <h1>Privacy Policy</h1>
@@ -579,53 +579,38 @@ const PrivacyPolicy = () => {
   );
 };
 
-const AdUnit = () => {
+const AdUnit: React.FC = () => {
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.error(e);
     }
   }, []);
-
   return (
-    <div>
-      <ins
-        className="adsbygoogle"
-        style={{
-          display: "block",
-          textAlign: "center",
-        }}
-        data-ad-layout="in-article"
-        data-ad-format="fluid"
-        data-ad-client="ca-pub-2533146760921020"
-        data-ad-slot="9602449199"
-      ></ins>
-    </div>
+    <ins
+      className="adsbygoogle"
+      style={{
+        display: "block",
+        textAlign: "center",
+      }}
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
+      data-ad-client="ca-pub-2533146760921020"
+      data-ad-slot="9602449199"
+    ></ins>
   );
 };
 
 const Post: React.FC = () => {
   return (
-    <div>
-      <Head>
-        <title>Privacy Policy | JaylyMC</title>
-        <meta charSet="UTF-8" />
-        <meta
-          name="description"
-          content="This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You."
-        />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://jaylydev.github.io/icon.png" />
-        <meta property="twitter:card" content="summary" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+    <main>
       <StatsCollection />
       <SiteHeader />
       <AdUnit />
       <PrivacyPolicy />
       <SiteFooter />
-    </div>
+    </main>
   );
 };
 

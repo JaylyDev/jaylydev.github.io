@@ -1,6 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+  font-family: Minecraft Ten v2;
+  src: url(/fonts/Minecraft-Ten.otf);
+}
+@font-face {
+  font-family: Minecraft Seven v2;
+  src: url(/fonts/Minecraft-Seven.otf);
+}
+@font-face {
+  font-family: Minecraft Five v2;
+  src: url(/fonts/Minecraft-Five.otf);
+}
+@font-face {
+  font-family: Minecraft Five v2;
+  font-weight: 700;
+  src: url(/fonts/Minecraft-Five-Bold.otf);
+}
 
 :root {
   --foreground-rgb: 255, 255, 255;

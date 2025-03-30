@@ -1,33 +1,23 @@
-"use client";
 import "@/styles/globals.css";
 import "@/styles/index.css";
-import ProjectCard from "./components/Card";
-import { useEffect, useState } from "react";
-import { SiteHeader, SiteFooter } from "./components/SiteFormat";
-import { StatsCollection } from "./components/SiteFormat";
-import type { ResponseData } from "../../pages/posts/[slug]";
-import { Button } from "@nextui-org/button";
+import React from "react";
+import ProjectCard from "../components/Card";
+import { SiteHeader, SiteFooter, Subheading } from "../components/SiteFormat";
+import { StatsCollection } from "../components/SiteFormat";
+import { PublicPost, getPublicPosts } from "./utilities/getPublicPosts";
+import { PublicPosts } from "@/components/Post";
 
 interface IHyperlinkParams {
   url: string;
   text: string;
 }
 
-interface ISubheadingParams {
-  id: string;
+interface Project {
   title: string;
-}
-
-function Subheading({ id, title }: ISubheadingParams) {
-  return (
-    <div className="flex min-h-fit flex-col items-center" style={{ lineHeight: 1, paddingTop: 80 }} id={id}>
-      <a href={"#" + id}>
-        <h3 className="bg-red-500 inline-block px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
-          {title}
-        </h3>
-      </a>
-    </div>
-  );
+  description: string;
+  links: IHyperlinkParams[];
+  image?: { src: string; alt: string };
+  media?: string;
 }
 
 function PreviewLatestYTVideo() {
@@ -74,14 +64,6 @@ function PreviewLatestYTVideo() {
       ></iframe>
     </div>
   );
-}
-
-export interface Project {
-  title: string;
-  description: string;
-  links: IHyperlinkParams[];
-  image?: { src: string; alt: string };
-  media?: string;
 }
 
 function CurrentProjects(): JSX.Element {
@@ -137,7 +119,6 @@ function CurrentProjects(): JSX.Element {
     <div>
       <Subheading id="projects" title="Projects" />
       <div className="flex min-h-0 flex-col items-center">
-        <br></br>
         <div
           style={{
             fontSize: "1.1rem",
@@ -151,72 +132,7 @@ function CurrentProjects(): JSX.Element {
   );
 }
 
-function PublicPosts() {
-  const [data, setData] = useState<ResponseData>({ posts: [] });
-  const [loading, setLoading] = useState(true);
-  const [postsToShow, setPostsToShow] = useState(3); // State to control number of posts displayed
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/posts_index.json");
-        const jsonData = await response.json();
-        setData(jsonData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleLoadMore = () => {
-    setPostsToShow(postsToShow + 3); // Increase number of posts to show by 3
-  };
-
-  const displayedPosts = data.posts.slice(0, postsToShow); // Slice data to show only desired number
-
-  return (
-    <div className="p-5">
-      <Subheading id="posts" title="Posts" />
-      <br />
-      {loading ? (
-        <center>
-          <Button color="primary" isLoading>
-            Loading Posts
-          </Button>
-        </center>
-      ) : (
-        <div>
-          {displayedPosts.map((post, index) => (
-            <div key={index} className="content">
-              <a className="hyperlink text-2xl font-bold mb-2 " href={post.slug + "/"}>
-                {post.title}
-              </a>
-              <p>{post.description}</p>
-              <span>
-                {"Date: " +
-                  new Date(post.date).toISOString().replace("-", "/").split("T")[0].replace("-", "/") +
-                  " \u00B7 by " +
-                  post.author}
-              </span>
-            </div>
-          ))}
-          {data.posts.length > postsToShow && ( // Check if there are more posts to load
-            <center>
-              <Button color="primary" onClick={handleLoadMore}>
-                Load More Posts
-              </Button>
-            </center>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function AboutMe(): JSX.Element {
+function AboutMe() {
   const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
                 I mainly do Minecraft animations on YouTube, or making Minecraft add-ons for Bedrock.`;
   return (
@@ -252,13 +168,15 @@ function HomeBanner() {
 }
 
 export default function Home() {
+  const posts: PublicPost[] = getPublicPosts();
+
   return (
     <main id="home">
       <StatsCollection />
       <SiteHeader />
       <HomeBanner />
       <CurrentProjects />
-      <PublicPosts />
+      <PublicPosts posts={posts} />
       <AboutMe />
       <SiteFooter />
     </main>
