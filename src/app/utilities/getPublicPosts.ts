@@ -66,7 +66,7 @@ export function getPublicPosts(): PublicPost[] {
     // Extract frontmatter.
     const { data } = matter(fileContents);
 
-    if (!data.visible) {
+    if (data.visible === false) {
       continue;
     }
 
