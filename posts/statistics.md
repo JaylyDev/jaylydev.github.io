@@ -172,7 +172,7 @@ These statistics are implemented to match Java Edition's existing statistics.
 
 - **Targets Hit**: The number of times the player has shot a target block.
 
-- **Time Played**: The total amount of time played (tracked in ticks). If the game is paused, counting does not continue.[note 1]
+- **Time Played**: The total amount of time played (tracked in ticks). If the game is paused, counting does not continue.
 
 - **Time Since Last Death**: The time since the player's last death (tracked in ticks).
 
@@ -193,6 +193,9 @@ The settings screen allows you to set your own preferences when viewing statisti
 
 ## Chat Commands
 
+> [!CAUTION]
+> This feature is deprecated and will be removed in the future. Please use custom slash commands instead.
+
 > [!IMPORTANT]
 >
 > - This feature requires Minecraft Statistics Extension Pack, downloads separately.
@@ -206,7 +209,58 @@ The add-on also provides chat commands to access statistics:
 - `!stats`: Runs `/function statistics` command.
 - `!statistics`: Runs `/function statistics` command.
 
+## Custom Slash Commands
+
+> [!IMPORTANT]
+>
+> - This feature requires Minecraft Statistics Extension Pack, downloads separately.
+>
+>   ![Extension pack](/assets/posts/statistics/extension-pack.png)
+>
+> - You also need to enable Beta APIs experiment to access Custom Command APIs.
+
+### /jayly:stats
+
+**Alt command: /stats**
+
+## Upcoming Releases
+
+**Statistics Add-On: v1.3.0**
+
+> **Releasing this when the add-on reaches 10,000 downloads**
+
+- Texture update: Image icon support for vanilla items, blocks and entities in Item statistics and Mobs statistics selection menu.
+- Custom UI texture for 'Next page' and 'Previous Page' buttons in Item statistics and Mobs statistics selection menu.
+
+**Statistics Plus Add-On - v0.2.0**
+
+> **This is an upcoming Release for Minecraft v1.21.80, release date is unknown.**
+
+- Renamed 'Statistics Extension pack' behavior pack to 'Statistics Plus Add-On', this doesn't mean it's locked behind a paywall.
+- Add-On now requires Minecraft v1.21.80
+- Added slash command `/jayly:stats` - A replacement for `/function statistics` command to view your gameplay statistics. This command can be run by any players.
+- Added slash command `/jayly:itemstats` - Manages the updating of item related statistics on scoreboard objectives. This command can be run by game directors / operators.
+- Added slash command `/jayly:mobstats` - Manages the updating of mobs related statistics on scoreboard objectives. This command can be run by game directors / operators.
+- Added slash command `/jayly:customstats` - Manages the updating of general statistics on scoreboard objectives. This command can be run by game directors / operators.
+- Added slash command `/jayly:liststats` - List available in-game statistics. This command can be run by game directors / operators.
+
+**Statistics Plus Add-On - v0.3.0**
+
+> **This is an upcoming Release for Minecraft v1.21.90, release date is unknown.**
+
+- Statistics Plus Add-On v0.3.0 requires Minecraft v1.21.90
+- Following custom commands can execute without cheats enabled: `/jayly:stats`, `/stats`.
+- Add-on now attempts to add custom slash commands without namespace, such as `/stats`, `/itemstats`, `/mobstats`, `/customstats`, `/liststats`. This is only possible if the custom command name is not used by another behavior pack, otherwise those command names will not be created and a content log warning will appear.
+
 ## Changelog
+
+### v1.2.2
+
+> Release Date: May 4th, 2025
+
+- Removed Mojang's vanilla data modules from source to improve performance.
+- Add-On runtime: Reduced load times and performance improvement.
+- Fixed a bug where mobs sort label displays 'Item: Sort by' instead of 'Mobs: Sort by'
 
 ### v1.2.0
 

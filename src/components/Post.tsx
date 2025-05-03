@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Button } from "@nextui-org/button";
+import { Link, Button } from "@heroui/react";
 import { displayDate } from "@/app/utilities/dateDisplay";
 import { PostProps, PublicPost } from "@/app/utilities/getPublicPosts";
 import { Subheading } from "./SiteFormat";
@@ -26,9 +26,9 @@ export function PublicPosts({ posts }: PublicPostsProps) {
       <Subheading id="posts" title="Posts" />
       {displayedPosts.slice(0, postsToShow).map((post) => (
         <div key={post.slug} className="content m-8">
-          <a href={`/posts/${post.slug}/`} className="hyperlink text-2xl font-bold mb-2 block">
+          <Link href={`/posts/${post.slug}/`} className="hyperlink text-2xl font-bold mb-2 block">
             {post.title}
-          </a>
+          </Link>
           <p>{post.description}</p>
           <span className="text-gray-500">{`By ${post.author} · Posted: ${displayDate(post.lastModified)}`}</span>
         </div>
@@ -48,7 +48,7 @@ export function PostHeader({ post, downloadButtonVisible = true }: PostHeaderPro
   return (
     <div className="markdown-header">
       <span>
-        <a href="/#posts">Posts</a>
+        <Link href="/#posts">Posts</Link>
         {` > ${post.title}`}
       </span>
       <br />

@@ -11,9 +11,9 @@ export function SiteHeader() {
   return (
     <header className="header">
       <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
-        <a rel="apple-touch-icon" href="/">
+        <Link rel="apple-touch-icon" href="/">
           <Image src={"/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
-        </a>
+        </Link>
       </div>
       <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
         <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">
@@ -22,27 +22,27 @@ export function SiteHeader() {
             className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           ></div>
           <div className="hidden md:ml-4 md:block order-2">
-            <a rel="apple-touch-icon" href="/" className="flex flex-none select-none items-center h-12 w-12">
+            <Link rel="apple-touch-icon" href="/" className="flex flex-none select-none items-center h-12 w-12">
               <div className="relative m-auto inline-block">
                 <Image src={"/icon.png"} alt={"Jayly Logo"} width={150} height={50}></Image>
                 <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
               </div>
-            </a>
+            </Link>
           </div>
           {/* Subheadings */}
           <div className="md:ml-4 md:block order-3">
-            <a href="/#home" className="text-gray-600 hover:text-black text-lg mx-4">
+            <Link href="/#home" className="header-subheading">
               Home
-            </a>
-            <a href="/#projects" className="text-gray-600 hover:text-black text-lg mx-4">
+            </Link>
+            <Link href="/#projects" className="header-subheading">
               Projects
-            </a>
-            <a href="/#posts" className="text-gray-600 hover:text-black text-lg mx-4">
+            </Link>
+            <Link href="/#posts" className="header-subheading">
               Posts
-            </a>
-            <a href="/#about" className="text-gray-600 hover:text-black text-lg mx-4">
+            </Link>
+            <Link href="/#about" className="header-subheading">
               About Me
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -86,11 +86,11 @@ export function StatsCollection() {
 export function Subheading({ id, title }: ISubheadingParams) {
   return (
     <div className="flex min-h-fit flex-col items-center leading-none pt-20 pb-5" id={id}>
-      <a href={"#" + id}>
-        <h3 className="bg-red-500 inline-block px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-white">
+      <Link href={"#" + id}>
+        <h3 className="bg-red-500 inline-block px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-black dark:text-white">
           {title}
         </h3>
-      </a>
+      </Link>
     </div>
   );
 }

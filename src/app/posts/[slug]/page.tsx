@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
-import "@/styles/github-markdown-dark.css";
+import "@/styles/github-markdown.css";
+import "@/styles/highlight.js/github.css";
 import "@/styles/posts.css";
 import fs from "fs";
 import path from "path";
@@ -9,7 +10,7 @@ import { getPostData } from "@/app/utilities/getPublicPosts";
 import { PostHeader } from "@/components/Post";
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Generate static parameters for all posts
@@ -26,7 +27,8 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps) {
-  const post = await getPostData(params.slug);
+  const { slug } = await params;
+  const post = await getPostData(slug);
   if (!post) return notFound();
 
   return {
@@ -45,7 +47,8 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function PostPage({ params }: PageProps) {
-  const post = await getPostData(params.slug);
+  const { slug } = await params;
+  const post = await getPostData(slug);
   if (post?.redirect) return redirect(post.redirect);
   if (!post) return notFound();
 

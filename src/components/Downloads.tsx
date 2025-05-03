@@ -1,8 +1,17 @@
 "use client";
-import { Button } from "@nextui-org/button";
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, getKeyValue } from "@nextui-org/table";
-import { Progress } from "@nextui-org/progress";
 import React from "react";
+import {
+  Button,
+  getKeyValue,
+  Link,
+  Progress,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@heroui/react";
 
 export interface DownloadItem {
   title?: string;
@@ -46,20 +55,20 @@ export function DownloadSection({ downloads }: DownloadProps) {
       version: item.title + (item.channel ? ` (${item.channel})` : ""),
       supports: item.supports,
       changelog: item.changelog_url ? (
-        <a href={item.changelog_url}>
+        <Link href={item.changelog_url}>
           <Button color="primary">Changelog</Button>
-        </a>
+        </Link>
       ) : (
         <Button disabled color="default">
           Changelog
         </Button>
       ),
       download: (
-        <a href={item.url}>
+        <Link href={item.url}>
           <Button color="success">
             <strong>Download</strong>
           </Button>
-        </a>
+        </Link>
       ),
     };
   });
@@ -78,7 +87,7 @@ export function DownloadSection({ downloads }: DownloadProps) {
   }, [value]);
 
   return (
-    <div className="dark text-foreground download-section">
+    <div className="text-foreground download-section">
       <p>Downloads</p>
       {value < 100 ? (
         <Progress label="Fetching Downloads..." size="md" value={value} color="success" showValueLabel={true} />

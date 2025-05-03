@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
-import "@/styles/github-markdown-dark.css";
+import "@/styles/github-markdown.css";
+import "@/styles/highlight.js/github.css";
 import "@/styles/posts.css";
 import fs from "fs";
 import path from "path";
@@ -10,7 +11,7 @@ import { PostHeader } from "@/components/Post";
 import { DownloadSection } from "@/components/Downloads";
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 const adsenseCode = `<ins class="adsbygoogle"
@@ -37,7 +38,8 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps) {
-  const post = await getPostData(params.slug);
+  const { slug } = await params;
+  const post = await getPostData(slug);
   if (!post) return notFound();
 
   return {
@@ -56,8 +58,9 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function PostPage({ params }: PageProps) {
-  const post = await getPostData(params.slug);
-  const downloads = getDownloadData(params.slug);
+  const { slug } = await params;
+  const post = await getPostData(slug);
+  const downloads = getDownloadData(slug);
   if (post?.redirect) return redirect(post.redirect);
   if (!post || !downloads) return notFound();
 

@@ -1,12 +1,13 @@
 "use client";
 import "@/styles/globals.css";
 import "@/styles/articles.css";
-import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import React, { memo, useEffect } from "react";
+import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
+import { Link } from "@heroui/react";
 
 declare global {
   interface Window {
-    adsbygoogle?: any[];
+    adsbygoogle?: unknown[];
   }
 }
 
@@ -95,9 +96,9 @@ const PrivacyPolicy: React.FC = () => {
         <li>
           <p>
             <strong>Website</strong> refers to JaylyMC GitHub Pages, accessible from{" "}
-            <a href="https://jaylydev.github.io/" rel="external nofollow noopener" target="_blank">
+            <Link href="https://jaylydev.github.io/" rel="external nofollow noopener" target="_blank">
               https://jaylydev.github.io/
-            </a>{" "}
+            </Link>{" "}
           </p>
         </li>
         <li>
@@ -159,12 +160,12 @@ const PrivacyPolicy: React.FC = () => {
         Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on Your personal
         computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web
         browser. Learn more about cookies on the{" "}
-        <a
+        <Link
           href="https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/#Use_Of_Cookies_And_Tracking"
           target="_blank"
         >
           Free Privacy Policy website
-        </a>{" "}
+        </Link>{" "}
         article.
       </p>
       <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
@@ -419,15 +420,15 @@ const PrivacyPolicy: React.FC = () => {
           <p>
             You may opt-out of certain Google Analytics features through your mobile device settings, such as your
             device advertising settings or by following the instructions provided by Google in their Privacy Policy:{" "}
-            <a href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
+            <Link href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
               https://policies.google.com/privacy
-            </a>{" "}
+            </Link>{" "}
           </p>
           <p>
             For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page:{" "}
-            <a href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
+            <Link href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
               https://policies.google.com/privacy
-            </a>{" "}
+            </Link>{" "}
           </p>
         </li>
       </ul>
@@ -446,9 +447,9 @@ const PrivacyPolicy: React.FC = () => {
           <p>
             You may opt out of the use of the DoubleClick Cookie for interest-based advertising by visiting the Google
             Ads Settings web page:{" "}
-            <a href="https://www.google.com/ads/preferences/" rel="external nofollow noopener" target="_blank">
+            <Link href="https://www.google.com/ads/preferences/" rel="external nofollow noopener" target="_blank">
               http://www.google.com/ads/preferences/
-            </a>{" "}
+            </Link>{" "}
           </p>
         </li>
       </ul>

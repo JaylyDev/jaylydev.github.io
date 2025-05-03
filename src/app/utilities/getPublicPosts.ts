@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import remarkAlert from "@/remark-alert";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
-import rehypeStarryNight from "@/rehype-starry-night";
+import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeSlug from "rehype-slug";
 import rehypeToc from "@jsdevtools/rehype-toc";
@@ -24,7 +24,7 @@ export interface PublicPost {
 }
 
 // Types for post frontmatter and props
-interface PostMeta {
+export interface PostMeta {
   title: string;
   author: string;
   description: string;
@@ -99,12 +99,12 @@ export async function getPostData(slug: string): Promise<PostProps | null> {
 
   // Process markdown into HTML
   const processedContent = await unified()
-    .use(remarkParse)
+    .use(remarkParse, { fragment: true })
     .use(remarkGfm)
     .use(remarkAlert)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
-    .use(rehypeStarryNight as any)
+    .use(rehypeHighlight)
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeToc, {
