@@ -1,4 +1,4 @@
-import {nextui} from '@heroui/theme'
+import {heroui} from '@heroui/theme'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -11,5 +11,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [nextui()],
+  plugins: [heroui()],
 }
