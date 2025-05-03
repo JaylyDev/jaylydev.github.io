@@ -1,4 +1,4 @@
-blockquote {
+.content > blockquote {
   display: block;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -6,19 +6,19 @@ blockquote {
   margin-right: 40px;
 }
 
-h1 {
+.content > h1 {
   display: block;
   font-size: 2em;
   font-weight: bold;
 }
 
-h2 {
+.content > h2 {
   display: block;
   font-size: 1.5em;
   font-weight: bold;
 }
 
-h3 {
+.content > h3 {
   display: block;
   font-size: 1.17em;
   margin-top: 1em;
@@ -28,7 +28,7 @@ h3 {
   font-weight: bold;
 }
 
-h4 {
+.content > h4 {
   display: block;
   margin-top: 1.33em;
   margin-bottom: 1.33em;
@@ -37,7 +37,7 @@ h4 {
   font-weight: bold;
 }
 
-h5 {
+.content > h5 {
   display: block;
   font-size: 0.83em;
   margin-top: 1.67em;
@@ -47,7 +47,7 @@ h5 {
   font-weight: bold;
 }
 
-h6 {
+.content > h6 {
   display: block;
   font-size: 0.67em;
   margin-top: 2.33em;
@@ -57,7 +57,7 @@ h6 {
   font-weight: bold;
 }
 
-ul {
+.content > ul {
   display: block;
   list-style-type: disc;
   margin-top: 1em;
@@ -67,7 +67,7 @@ ul {
   padding-left: 40px;
 }
 
-p {
+.content > p {
   display: block;
   margin-top: 1em;
   margin-bottom: 1em;
