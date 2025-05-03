@@ -11,7 +11,9 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
+  HeroUIProvider,
 } from "@heroui/react";
+import { ThemeProvider } from "next-themes";
 
 export interface DownloadItem {
   title?: string;
@@ -87,22 +89,28 @@ export function DownloadSection({ downloads }: DownloadProps) {
   }, [value]);
 
   return (
-    <div className="text-foreground download-section">
-      <p>Downloads</p>
-      {value < 100 ? (
-        <Progress label="Fetching Downloads..." size="md" value={value} color="success" showValueLabel={true} />
-      ) : (
-        <Table aria-label="Example static collection table">
-          <TableHeader columns={columns}>
-            {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-          </TableHeader>
-          <TableBody items={rows} emptyContent="No rows to display.">
-            {(item) => (
-              <TableRow key={item.key}>{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}</TableRow>
-            )}
-          </TableBody>
-        </Table>
-      )}
-    </div>
+    <HeroUIProvider>
+      <ThemeProvider>
+        <div className="download-section">
+          <p>Downloads</p>
+          {value < 100 ? (
+            <Progress label="Fetching Downloads..." size="md" value={value} color="success" showValueLabel={true} />
+          ) : (
+            <Table aria-label="Example static collection table">
+              <TableHeader columns={columns}>
+                {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+              </TableHeader>
+              <TableBody items={rows} emptyContent="No rows to display.">
+                {(item) => (
+                  <TableRow key={item.key}>
+                    {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          )}
+        </div>
+      </ThemeProvider>
+    </HeroUIProvider>
   );
 }

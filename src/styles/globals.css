@@ -66,12 +66,8 @@ a.header-subheading:hover {
   color: #000000;
 }
 
-[id]::before {
-  content: "";
-  display: block;
-  height: 75px;
-  margin-top: -75px;
-  visibility: hidden;
+[id] {
+  scroll-margin-top: 75px;
 }
 
 .content {
