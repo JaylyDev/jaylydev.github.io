@@ -1,16 +1,17 @@
+"use client";
 import "@/styles/globals.css";
 import "@/styles/articles.css";
-import { StatsCollection, SiteHeader, SiteFooter } from "@/app/components/SiteFormat";
-import Head from "next/head";
-import { memo, useEffect } from "react";
+import React, { memo, useEffect } from "react";
+import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
+import { Link } from "@heroui/react";
 
 declare global {
   interface Window {
-    adsbygoogle?: any[];
+    adsbygoogle?: unknown[];
   }
 }
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy: React.FC = () => {
   return (
     <div className="content" style={{ marginTop: "50px" }}>
       <h1>Privacy Policy</h1>
@@ -95,9 +96,9 @@ const PrivacyPolicy = () => {
         <li>
           <p>
             <strong>Website</strong> refers to JaylyMC GitHub Pages, accessible from{" "}
-            <a href="https://jaylydev.github.io/" rel="external nofollow noopener" target="_blank">
+            <Link href="https://jaylydev.github.io/" rel="external nofollow noopener" target="_blank">
               https://jaylydev.github.io/
-            </a>{" "}
+            </Link>{" "}
           </p>
         </li>
         <li>
@@ -159,12 +160,12 @@ const PrivacyPolicy = () => {
         Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on Your personal
         computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web
         browser. Learn more about cookies on the{" "}
-        <a
+        <Link
           href="https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/#Use_Of_Cookies_And_Tracking"
           target="_blank"
         >
           Free Privacy Policy website
-        </a>{" "}
+        </Link>{" "}
         article.
       </p>
       <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
@@ -419,15 +420,15 @@ const PrivacyPolicy = () => {
           <p>
             You may opt-out of certain Google Analytics features through your mobile device settings, such as your
             device advertising settings or by following the instructions provided by Google in their Privacy Policy:{" "}
-            <a href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
+            <Link href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
               https://policies.google.com/privacy
-            </a>{" "}
+            </Link>{" "}
           </p>
           <p>
             For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page:{" "}
-            <a href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
+            <Link href="https://policies.google.com/privacy" rel="external nofollow noopener" target="_blank">
               https://policies.google.com/privacy
-            </a>{" "}
+            </Link>{" "}
           </p>
         </li>
       </ul>
@@ -446,9 +447,9 @@ const PrivacyPolicy = () => {
           <p>
             You may opt out of the use of the DoubleClick Cookie for interest-based advertising by visiting the Google
             Ads Settings web page:{" "}
-            <a href="https://www.google.com/ads/preferences/" rel="external nofollow noopener" target="_blank">
+            <Link href="https://www.google.com/ads/preferences/" rel="external nofollow noopener" target="_blank">
               http://www.google.com/ads/preferences/
-            </a>{" "}
+            </Link>{" "}
           </p>
         </li>
       </ul>
@@ -579,53 +580,38 @@ const PrivacyPolicy = () => {
   );
 };
 
-const AdUnit = () => {
+const AdUnit: React.FC = () => {
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.error(e);
     }
   }, []);
-
   return (
-    <div>
-      <ins
-        className="adsbygoogle"
-        style={{
-          display: "block",
-          textAlign: "center",
-        }}
-        data-ad-layout="in-article"
-        data-ad-format="fluid"
-        data-ad-client="ca-pub-2533146760921020"
-        data-ad-slot="9602449199"
-      ></ins>
-    </div>
+    <ins
+      className="adsbygoogle"
+      style={{
+        display: "block",
+        textAlign: "center",
+      }}
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
+      data-ad-client="ca-pub-2533146760921020"
+      data-ad-slot="9602449199"
+    ></ins>
   );
 };
 
 const Post: React.FC = () => {
   return (
-    <div>
-      <Head>
-        <title>Privacy Policy | JaylyMC</title>
-        <meta charSet="UTF-8" />
-        <meta
-          name="description"
-          content="This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You."
-        />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://jaylydev.github.io/icon.png" />
-        <meta property="twitter:card" content="summary" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+    <main>
       <StatsCollection />
       <SiteHeader />
       <AdUnit />
       <PrivacyPolicy />
       <SiteFooter />
-    </div>
+    </main>
   );
 };
 

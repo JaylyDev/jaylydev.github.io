@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Link, Image } from "@heroui/react";
 
 interface IContentGridParam {
   href: string;
@@ -11,7 +11,7 @@ interface IContentGridParam {
 
 function ContentGrid(params: IContentGridParam) {
   return (
-    <a
+    <Link
       href={params.href}
       className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
       target="_blank"
@@ -25,7 +25,7 @@ function ContentGrid(params: IContentGridParam) {
         </span>
       </h2>
       <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{params.children}</p>
-    </a>
+    </Link>
   );
 }
 

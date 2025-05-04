@@ -1,9 +1,5 @@
-import "@/styles/globals.css";
-import "@/styles/index.css";
+import { inter } from "@/components/Font";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Jayly's Website | JaylyMC",

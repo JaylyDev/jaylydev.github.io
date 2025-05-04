@@ -1,15 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { useEffect, useState } from "react";
+
+export interface ISubheadingParams {
+  id: string;
+  title: string;
+}
 
 export function SiteHeader() {
   return (
     <header className="header">
       <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
-        <a rel="apple-touch-icon" href="/">
+        <Link rel="apple-touch-icon" href="/">
           <Image src={"/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
-        </a>
+        </Link>
       </div>
       <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
         <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">
@@ -18,27 +22,27 @@ export function SiteHeader() {
             className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           ></div>
           <div className="hidden md:ml-4 md:block order-2">
-            <a rel="apple-touch-icon" href="/" className="flex flex-none select-none items-center h-12 w-12">
+            <Link rel="apple-touch-icon" href="/" className="flex flex-none select-none items-center h-12 w-12">
               <div className="relative m-auto inline-block">
                 <Image src={"/icon.png"} alt={"Jayly Logo"} width={150} height={50}></Image>
                 <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
               </div>
-            </a>
+            </Link>
           </div>
           {/* Subheadings */}
           <div className="md:ml-4 md:block order-3">
-            <a href="/#home" className="text-gray-600 hover:text-black text-lg mx-4">
+            <Link href="/#home" className="header-subheading">
               Home
-            </a>
-            <a href="/#projects" className="text-gray-600 hover:text-black text-lg mx-4">
+            </Link>
+            <Link href="/#projects" className="header-subheading">
               Projects
-            </a>
-            <a href="/#posts" className="text-gray-600 hover:text-black text-lg mx-4">
+            </Link>
+            <Link href="/#posts" className="header-subheading">
               Posts
-            </a>
-            <a href="/#about" className="text-gray-600 hover:text-black text-lg mx-4">
+            </Link>
+            <Link href="/#about" className="header-subheading">
               About Me
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -47,12 +51,7 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    // Fetch the current year on the client side
-    setYear(new Date().getFullYear());
-  }, []);
+  const year = new Date().getFullYear(); // Static at build time
 
   return (
     <footer className="flex flex-row justify-center items-centerp-4 text-sm text-gray-500 p-4 gap-2">
@@ -80,6 +79,18 @@ export function StatsCollection() {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2533146760921020"
         crossOrigin="anonymous"
       ></Script>
+    </div>
+  );
+}
+
+export function Subheading({ id, title }: ISubheadingParams) {
+  return (
+    <div className="flex min-h-fit flex-col items-center leading-none pt-20 pb-5" id={id}>
+      <Link href={"#" + id}>
+        <h3 className="bg-red-500 inline-block px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-black dark:text-white">
+          {title}
+        </h3>
+      </Link>
     </div>
   );
 }

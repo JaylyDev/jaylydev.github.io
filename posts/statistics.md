@@ -1,17 +1,17 @@
 ---
 author: Jayly
-title: Minecraft Statistics
-description: Track certain tasks in the form of numerical data in Minecraft Bedrock Edition.
+title: Check Statistics in Minecraft Bedrock
+description: Using the Minecraft Statistics Add-On, players can track certain tasks in the form of numerical data in a Minecraft Bedrock world.
 date: 3/25/2025
 image: /assets/posts/statistics/thumbnail.png
 download: true
 ---
 
-# Minecraft Statistics
+# Check Statistics in Minecraft Bedrock
 
 ![stats_promo_art](/assets/posts/statistics/thumbnail.png)
 
-The Minecraft Statistics Add-On allows players to track certain tasks in the form of numerical data in a Minecraft Bedrock world. This is similar to the Statistics in-game feature presented in Java Edition.
+Using the Minecraft Statistics Add-On, players can track certain tasks in the form of numerical data in a Minecraft Bedrock world. This is similar to the Statistics in-game feature presented in Java Edition, where statistics such as time played, number of blocks mined are tracked per world.
 
 ## Statistics Screen
 
@@ -138,85 +138,49 @@ Statistics related to the total distance traveled by a player in the Minecraft w
 | Distance by Pig             | The total distance traveled by pigs via saddles.                                                                                                                |
 | Distance by Strider         | The total distance traveled by striders via saddles.                                                                                                            |
 
-### Items Dropped
+### Various Minecraft Statistics
 
-The number of items dropped. This does not include items dropped upon death. Stacked blocks count as 1.
+These statistics are implemented to match Java Edition's existing statistics.
 
-### Jumps
+- **Items Dropped**: The number of items dropped. This does not include items dropped upon death. Stacked blocks count as 1.
 
-The total number of jumps performed.
+- **Jumps**: The total number of jumps performed.
 
-### Mob Kills
+- **Mob Kills**: The number of mobs the player killed.
 
-The number of mobs the player killed.
+- **Music Discs Played**: The number of music discs played on a jukebox.
 
-### Music Discs Played
+- **Note Blocks Played**: The number of note blocks hit.
 
-The number of music discs played on a jukebox.
+- **Note Blocks Tuned**: The number of times interacted with note blocks.
 
-### Note Blocks Played
+- **Number of Deaths**: The number of times the player died.
 
-The number of note blocks hit.
+- **Plants Potted**: The number of plants potted onto flower pots.
 
-### Note Blocks Tuned
+- **Player Kills**: The number of players the player killed. Indirect kills do not count.
 
-The number of times interacted with note blocks.
+- **Raids Triggered**: The number of times the player has triggered a raid.
 
-### Number of Deaths
+- **Raids Won**: The number of times the player has won a raid.
 
-The number of times the player died.
+- **Shulker Boxes Opened**: The number of times the player has opened a shulker box.
 
-### Plants Potted
+- **Sneak Time**: The time the player has held down the sneak button (tracked in ticks).
 
-The number of plants potted onto flower pots.
+- **Talked to Villagers**: The number of times interacted with villagers (opened the trading GUI).
 
-### Player Kills
+- **Targets Hit**: The number of times the player has shot a target block.
 
-The number of players the player killed. Indirect kills do not count.
+- **Time Played**: The total amount of time played (tracked in ticks). If the game is paused, counting does not continue.
 
-### Raids Triggered
+- **Time Since Last Death**: The time since the player's last death (tracked in ticks).
 
-The number of times the player has triggered a raid.
+- **Time Since Last Rest**: The time since the player's last rest (tracked in ticks). If this value is greater than 1.00h (3 days ingame), phantoms can spawn.
 
-### Raids Won
+- **Time with World Open**: The total amount of time the world was opened (tracked in ticks). Unlike Play Time, if the game is paused this number continues to increase, but it does not change visually while the statistics menu is open.
 
-The number of times the player has won a raid.
-
-### Shulker Boxes Opened
-
-The number of times the player has opened a shulker box.
-
-### Sneak Time
-
-The time the player has held down the sneak button (tracked in ticks).
-
-### Talked to Villagers
-
-The number of times interacted with villagers (opened the trading GUI).
-
-### Targets Hit
-
-The number of times the player has shot a target block.
-
-### Time Played
-
-The total amount of time played (tracked in ticks). If the game is paused, counting does not continue.[note 1]
-
-### Time Since Last Death
-
-The time since the player's last death (tracked in ticks).
-
-### Time Since Last Rest
-
-The time since the player's last rest (tracked in ticks). If this value is greater than 1.00h (3 days ingame), phantoms can spawn.
-
-### Time with World Open
-
-The total amount of time the world was opened (tracked in ticks). Unlike Play Time, if the game is paused this number continues to increase, but it does not change visually while the statistics menu is open.
-
-### Times Slept in a Bed
-
-The number of times the player has slept in a bed.
+- **Times Slept in a Bed**: The number of times the player has slept in a bed.
 
 ## Settings Screen
 
@@ -228,6 +192,9 @@ The settings screen allows you to set your own preferences when viewing statisti
 - **Mobs: Sort by** - Sort the entity types in Mobs Statistics screen.
 
 ## Chat Commands
+
+> [!CAUTION]
+> This feature is deprecated and will be removed in the future. Please use custom slash commands instead.
 
 > [!IMPORTANT]
 >
@@ -242,9 +209,189 @@ The add-on also provides chat commands to access statistics:
 - `!stats`: Runs `/function statistics` command.
 - `!statistics`: Runs `/function statistics` command.
 
+## Custom Slash Commands
+
+> [!IMPORTANT]
+>
+> - This feature requires Minecraft Statistics Extension Pack, downloads separately.
+>
+>   ![Extension pack](/assets/posts/statistics/extension-pack.png)
+>
+> - You also need to enable Beta APIs experiment to access Custom Command APIs.
+
+### /jayly:stats
+
+**Alt command: /stats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Opens up the gameplay statistics screen to a player.
+
+**Syntax**
+
+- `jayly:stats`
+
+### /jayly:itemstats
+
+**Alt command: /itemstats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Manages the updating of item related statistics on scoreboard objectives. This command can be run by game directors / operators.
+
+**Syntax**
+
+- `jayly:itemstats track <targetObjective: string> <itemStatisticType> <itemName: Item>`
+- `jayly:itemstats untrack <targetObjective: string>`
+
+**Arguments**
+
+- targetObjective (`track` mode only): Specifies the name of the objective to be updated with the result returned by stat.
+- targetObjective (`untrack` mode only): Specifies the name of the objective to not be updated by statistics plus add-on.
+- itemStatisticType: Type of statistic to be tracked in targeted scoreboard objective. Accepted values: `jayly:mined`, `jayly:broken`, `jayly:used`, `jayly:picked_up`, `jayly:dropped`
+- itemName: Specifies the item to track.
+
+### /jayly:mobstats
+
+**Alt command: /mobstats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Manages the updating of mob related statistics on scoreboard objectives. This command can be run by game directors / operators.
+
+**Syntax**
+
+- `jayly:mobstats track <targetObjective: string> <mobStatisticType> <entityType: string>`
+- `jayly:mobstats untrack <targetObjective: string>`
+
+**Arguments**
+
+- targetObjective (`track` mode only): Specifies the name of the objective to be updated with the result returned by stat.
+- targetObjective (`untrack` mode only): Specifies the name of the objective to not be updated by statistics plus add-on.
+- mobStatisticType: Type of statistic to be tracked in targeted scoreboard objective. Accepted values: `jayly:killed`, `jayly:killed_by`
+- entityType: Specifies the entity to track. Namespace including `minecraft` is required in field, e.g. (`minecraft:zombie`, `creator:entity`)
+
+### /jayly:customstats
+
+**Alt command: /customstats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Manages the updating of general statistics on scoreboard objectives. This command can be run by game directors / operators.
+
+**Syntax**
+
+- `jayly:customstats track <targetObjective: string> <statisticType> <statistic: enum>`
+- `jayly:customstats untrack <targetObjective: string>`
+
+**Arguments**
+
+- targetObjective (`track` mode only): Specifies the name of the objective to be updated with the result returned by stat.
+- targetObjective (`untrack` mode only): Specifies the name of the objective to not be updated by statistics plus add-on.
+- statisticType: Type of statistic to be tracked in targeted scoreboard objective. Accepted values: `jayly:custom`
+- statistic: Specifies the statistic in general tab to track. Accepted values:
+  - minecraft:clean_armor
+  - minecraft:clean_banner
+  - minecraft:open_barrel
+  - minecraft:bell_ring
+  - minecraft:eat_cake_slice
+  - minecraft:fill_cauldron
+  - minecraft:open_chest
+  - minecraft:damage_dealt
+  - minecraft:damage_taken
+  - minecraft:inspect_dispenser
+  - minecraft:climb_one_cm
+  - minecraft:crouch_one_cm
+  - minecraft:fall_one_cm
+  - minecraft:fly_one_cm
+  - minecraft:sprint_one_cm
+  - minecraft:swim_one_cm
+  - minecraft:walk_one_cm
+  - minecraft:walk_on_water_one_cm
+  - minecraft:walk_under_water_one_cm
+  - minecraft:boat_one_cm
+  - minecraft:aviate_one_cm
+  - minecraft:horse_one_cm
+  - minecraft:minecart_one_cm
+  - minecraft:pig_one_cm
+  - minecraft:strider_one_cm
+  - minecraft:inspect_dropper
+  - minecraft:open_enderchest
+  - minecraft:fish_caught
+  - minecraft:leave_game
+  - minecraft:inspect_hopper
+  - minecraft:interact_with_anvil
+  - minecraft:interact_with_beacon
+  - minecraft:interact_with_blast_furnace
+  - minecraft:interact_with_brewingstand
+  - minecraft:interact_with_campfire
+  - minecraft:interact_with_cartography_table
+  - minecraft:interact_with_crafting_table
+  - minecraft:interact_with_furnace
+  - minecraft:interact_with_grindstone
+  - minecraft:interact_with_lectern
+  - minecraft:interact_with_loom
+  - minecraft:interact_with_smithing_table
+  - minecraft:interact_with_smoker
+  - minecraft:interact_with_stonecutter
+  - minecraft:drop
+  - minecraft:jump
+  - minecraft:mob_kills
+  - minecraft:play_record
+  - minecraft:play_noteblock
+  - minecraft:tune_noteblock
+  - minecraft:deaths
+  - minecraft:pot_flower
+  - minecraft:player_kills
+  - minecraft:raid_trigger
+  - minecraft:raid_win
+  - minecraft:clean_shulker_box
+  - minecraft:open_shulker_box
+  - minecraft:sneak_time
+  - minecraft:talked_to_villager
+  - minecraft:target_hit
+  - minecraft:play_time
+  - minecraft:time_since_death
+  - minecraft:time_since_rest
+  - minecraft:total_world_time
+  - minecraft:sleep_in_bed
+  - minecraft:trigger_trapped_chest
+  - minecraft:use_cauldron
+
+## Upcoming Releases
+
+**Statistics Add-On: v1.3.0**
+
+> **Releasing this when the add-on reaches 10,000 downloads**
+
+- Texture update: Image icon support for vanilla items, blocks and entities in Item statistics and Mobs statistics selection menu.
+- Custom UI texture for 'Next page' and 'Previous Page' buttons in Item statistics and Mobs statistics selection menu.
+
+**Statistics Plus Add-On - v0.2.0**
+
+> **This is an upcoming Release for Minecraft v1.21.80, release date is unknown.**
+
+- Renamed 'Statistics Extension pack' behavior pack to 'Statistics Plus Add-On', this doesn't mean it's locked behind a paywall.
+- Add-On now requires Minecraft v1.21.80
+- Added slash command `/jayly:stats` - A replacement for `/function statistics` command to view your gameplay statistics. This command can be run by any players.
+- Added slash command `/jayly:itemstats` - Manages the updating of item related statistics on scoreboard objectives. This command can be run by game directors / operators.
+- Added slash command `/jayly:mobstats` - Manages the updating of mobs related statistics on scoreboard objectives. This command can be run by game directors / operators.
+- Added slash command `/jayly:customstats` - Manages the updating of general statistics on scoreboard objectives. This command can be run by game directors / operators.
+- Added slash command `/jayly:liststats` - List available in-game statistics. This command can be run by game directors / operators.
+
+**Statistics Plus Add-On - v0.3.0**
+
+> **This is an upcoming Release for Minecraft v1.21.90, release date is unknown.**
+
+- Statistics Plus Add-On v0.3.0 requires Minecraft v1.21.90
+- Following custom commands can execute without cheats enabled: `/jayly:stats`, `/stats`.
+- Add-on now attempts to add custom slash commands without namespace, such as `/stats`, `/itemstats`, `/mobstats`, `/customstats`, `/liststats`. This is only possible if the custom command name is not used by another behavior pack, otherwise those command names will not be created and a content log warning will appear.
+
 ## Changelog
 
+### v1.2.2
+
+> Release Date: May 4th, 2025
+
+- Removed Mojang's vanilla data modules from source to improve performance.
+- Add-On runtime: Reduced load times and performance improvement.
+- Fixed a bug where mobs sort label displays 'Item: Sort by' instead of 'Mobs: Sort by'
+
 ### v1.2.0
+
+> Release Date: March 23rd, 2025
 
 - Add-On now tracks the following statistics: Distance by Boat, Distance by Elytra, Distance by Horse, Distance by Minecart, Distance by Pig, and Distance by Strider
 - Fully added translations for all languages Minecraft Bedrock supports

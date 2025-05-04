@@ -1,5 +1,5 @@
 import React from "react";
-import { Image } from "@nextui-org/image";
+import { Image, Link } from "@heroui/react";
 
 interface CardProps {
   title: string;
@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, description, links, image, media }) => {
   return (
-    <div className="max-w-[550px] rounded-lg border border-5d5f61 bg-[rgb(23,23,23)] p-4 m-2.5">
+    <div className="max-w-[550px] rounded-lg border border-black dark:border-white dark:bg-[rgb(23,23,23)] p-4 m-2.5">
       <div className="p-1 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex gap-3">
         {image && (
           <div className="relative shadow-black/5 shadow-none rounded-small" style={{ maxWidth: 40 }}>
@@ -22,7 +22,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
           <h3 className="text-2xl font-bold mb-2">{title}</h3>
         </div>
       </div>
-      <div className="border-b border-5d5f61 mb-2"></div>
+      <div className="border-b border-black dark:border-white mb-2"></div>
       {media && (
         <div className="flex justify-center items-center">
           <Image
@@ -44,13 +44,13 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
           {index === array.length - 1 ? null : <br />}
         </span>
       ))}
-      <div className="border-b border-5d5f61 mb-2"></div>
+      <div className="border-b border-black dark:border-white mb-2"></div>
       <ul className="list-disc list-inside">
         {links.map((link, index) => (
           <li key={index}>
-            <a href={link.url} target={link.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">
+            <Link href={link.url} target={link.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">
               {link.text}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
