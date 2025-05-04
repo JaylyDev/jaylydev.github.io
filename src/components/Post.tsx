@@ -25,7 +25,7 @@ export function PublicPosts({ posts }: PublicPostsProps) {
     <div>
       <Subheading id="posts" title="Posts" />
       {displayedPosts.slice(0, postsToShow).map((post) => (
-        <div key={post.slug} className="content m-8">
+        <div key={post.slug} className="post-content m-8">
           <Link href={`/posts/${post.slug}/`} className="hyperlink text-2xl font-bold mb-2 block">
             {post.title}
           </Link>
