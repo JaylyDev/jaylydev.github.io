@@ -221,7 +221,134 @@ The add-on also provides chat commands to access statistics:
 
 ### /jayly:stats
 
-**Alt command: /stats**
+**Alt command: /stats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Opens up the gameplay statistics screen to a player.
+
+**Syntax**
+
+- `jayly:stats`
+
+### /jayly:itemstats
+
+**Alt command: /itemstats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Manages the updating of item related statistics on scoreboard objectives. This command can be run by game directors / operators.
+
+**Syntax**
+
+- `jayly:itemstats track <targetObjective: string> <itemStatisticType> <itemName: Item>`
+- `jayly:itemstats untrack <targetObjective: string>`
+
+**Arguments**
+
+- targetObjective (`track` mode only): Specifies the name of the objective to be updated with the result returned by stat.
+- targetObjective (`untrack` mode only): Specifies the name of the objective to not be updated by statistics plus add-on.
+- itemStatisticType: Type of statistic to be tracked in targeted scoreboard objective. Accepted values: `jayly:mined`, `jayly:broken`, `jayly:used`, `jayly:picked_up`, `jayly:dropped`
+- itemName: Specifies the item to track.
+
+### /jayly:mobstats
+
+**Alt command: /mobstats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Manages the updating of mob related statistics on scoreboard objectives. This command can be run by game directors / operators.
+
+**Syntax**
+
+- `jayly:mobstats track <targetObjective: string> <mobStatisticType> <entityType: string>`
+- `jayly:mobstats untrack <targetObjective: string>`
+
+**Arguments**
+
+- targetObjective (`track` mode only): Specifies the name of the objective to be updated with the result returned by stat.
+- targetObjective (`untrack` mode only): Specifies the name of the objective to not be updated by statistics plus add-on.
+- mobStatisticType: Type of statistic to be tracked in targeted scoreboard objective. Accepted values: `jayly:killed`, `jayly:killed_by`
+- entityType: Specifies the entity to track. Namespace including `minecraft` is required in field, e.g. (`minecraft:zombie`, `creator:entity`)
+
+### /jayly:customstats
+
+**Alt command: /customstats** (Available in Minecraft v1.21.90 / StatisticPlus v0.3.0, when this custom command name is only used by this Add-On.)
+
+Manages the updating of general statistics on scoreboard objectives. This command can be run by game directors / operators.
+
+**Syntax**
+
+- `jayly:customstats track <targetObjective: string> <statisticType> <statistic: enum>`
+- `jayly:customstats untrack <targetObjective: string>`
+
+**Arguments**
+
+- targetObjective (`track` mode only): Specifies the name of the objective to be updated with the result returned by stat.
+- targetObjective (`untrack` mode only): Specifies the name of the objective to not be updated by statistics plus add-on.
+- statisticType: Type of statistic to be tracked in targeted scoreboard objective. Accepted values: `jayly:custom`
+- statistic: Specifies the statistic in general tab to track. Accepted values:
+  - minecraft:clean_armor
+  - minecraft:clean_banner
+  - minecraft:open_barrel
+  - minecraft:bell_ring
+  - minecraft:eat_cake_slice
+  - minecraft:fill_cauldron
+  - minecraft:open_chest
+  - minecraft:damage_dealt
+  - minecraft:damage_taken
+  - minecraft:inspect_dispenser
+  - minecraft:climb_one_cm
+  - minecraft:crouch_one_cm
+  - minecraft:fall_one_cm
+  - minecraft:fly_one_cm
+  - minecraft:sprint_one_cm
+  - minecraft:swim_one_cm
+  - minecraft:walk_one_cm
+  - minecraft:walk_on_water_one_cm
+  - minecraft:walk_under_water_one_cm
+  - minecraft:boat_one_cm
+  - minecraft:aviate_one_cm
+  - minecraft:horse_one_cm
+  - minecraft:minecart_one_cm
+  - minecraft:pig_one_cm
+  - minecraft:strider_one_cm
+  - minecraft:inspect_dropper
+  - minecraft:open_enderchest
+  - minecraft:fish_caught
+  - minecraft:leave_game
+  - minecraft:inspect_hopper
+  - minecraft:interact_with_anvil
+  - minecraft:interact_with_beacon
+  - minecraft:interact_with_blast_furnace
+  - minecraft:interact_with_brewingstand
+  - minecraft:interact_with_campfire
+  - minecraft:interact_with_cartography_table
+  - minecraft:interact_with_crafting_table
+  - minecraft:interact_with_furnace
+  - minecraft:interact_with_grindstone
+  - minecraft:interact_with_lectern
+  - minecraft:interact_with_loom
+  - minecraft:interact_with_smithing_table
+  - minecraft:interact_with_smoker
+  - minecraft:interact_with_stonecutter
+  - minecraft:drop
+  - minecraft:jump
+  - minecraft:mob_kills
+  - minecraft:play_record
+  - minecraft:play_noteblock
+  - minecraft:tune_noteblock
+  - minecraft:deaths
+  - minecraft:pot_flower
+  - minecraft:player_kills
+  - minecraft:raid_trigger
+  - minecraft:raid_win
+  - minecraft:clean_shulker_box
+  - minecraft:open_shulker_box
+  - minecraft:sneak_time
+  - minecraft:talked_to_villager
+  - minecraft:target_hit
+  - minecraft:play_time
+  - minecraft:time_since_death
+  - minecraft:time_since_rest
+  - minecraft:total_world_time
+  - minecraft:sleep_in_bed
+  - minecraft:trigger_trapped_chest
+  - minecraft:use_cauldron
 
 ## Upcoming Releases
 

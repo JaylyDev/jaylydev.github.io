@@ -1,15 +1,25 @@
 {
   "downloads": [
     {
-      "title": "v1.2.1",
+      "title": "v1.3.0",
       "supports": "1.21.50+",
-      "url": "https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/6383477"
+      "url": "https://www.mediafire.com/file/v79pz0srtxpsj0a/statistics_v1.3.0.mcaddon/file"
+    },
+    {
+      "title": "v1.2.2",
+      "supports": "1.21.50+",
+      "url": "https://www.mediafire.com/file/4t0kjwqfmnfyejv/statistics_v1.2.2.mcaddon/file"
+    },
+    {
+      "title": "v0.2.0 (StatisticPlus)",
+      "supports": "1.21.80+ (Beta APIs)",
+      "url": "https://www.mediafire.com/file/xcmxvqoqu0wp63b/statistics-plus_v0.2.0.mcpack/file"
     },
     {
       "title": "v0.1.0 Extension",
       "supports": "1.21.70+ (Beta APIs)",
       "changelog_url": "/posts/statistics/#v120",
-      "url": "https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/6335601"
+      "url": "https://www.mediafire.com/file/brb6v4xc69dx8vg/statistics_extension_pack_v0.1.0.mcpack/file"
     }
   ]
 }
