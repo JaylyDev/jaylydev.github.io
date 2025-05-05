@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import "@/styles/github-markdown.css";
 import "@/styles/highlight.js/github.css";
 import "@/styles/posts.css";
@@ -43,7 +42,7 @@ export async function generateMetadata({ params }: PageProps) {
   if (!post) return notFound();
 
   return {
-    title: `${post.title} | JaylyMC`,
+    title: `${post.title} - Downloads | JaylyMC`,
     description: post.description,
     authors: [{ name: post.author }],
     openGraph: {

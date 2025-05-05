@@ -1,9 +1,10 @@
-import { inter } from "@/components/Font";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Jayly's Website | JaylyMC",
-  description: "JaylyMC's website. Who makes Minecraft animations and make Minecraft Bedrock Add-Ons sometimes.",
+  title: "JaylyMC | A website for Jayly",
+  description:
+    "JaylyMC makes Minecraft animations on YouTube and Minecraft Add-Ons for Bedrock Edition. There are couple of articles about Minecraft and coding.",
   authors: [{ name: "JaylyMC", url: "https://youtube.com/jaylymc" }],
   openGraph: {
     type: "website",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

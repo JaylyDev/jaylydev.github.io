@@ -1,16 +1,17 @@
 ---
 author: Jayly
 title: Hide Name Tag Add-On
-description: Hide name tags for entities and players via commands in Minecraft.
-date: 9/7/2024
+description: The Hide Name Tag Add-On hide name tags for entities and players using commands within a world in Minecraft Bedrock Edition.
 image: /assets/posts/hide-nametag/thumbnail.png
 ---
 
 # Hide Name Tag Add-On
 
+![thumbnail](/assets/posts/hide-nametag/thumbnail.png)
+
 Have you ever wondered hiding name tags for entities and players, this behavior pack can do this task for you! With this add-on, you can hide and show entity name tag with chat command.
 
-![thumbnail](/assets/posts/hide-nametag/thumbnail.png)
+The Hide Name Tag Add-On hide name tags for entities and players using commands within a world in Minecraft Bedrock Edition.
 
 ## How to use
 

@@ -85,7 +85,7 @@ export function StatsCollection() {
 
 export function Subheading({ id, title }: ISubheadingParams) {
   return (
-    <div className="flex min-h-fit flex-col items-center leading-none pt-20 pb-5" id={id}>
+    <div className="flex min-h-fit flex-col items-center leading-none p-5" id={id}>
       <Link href={"#" + id}>
         <h3 className="bg-red-500 inline-block px-6 py-4 text-6xl shadow-xl relative z-10 font-bold text-black dark:text-white">
           {title}

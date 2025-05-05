@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
           </div>
         )}
         <div className="flex flex-col">
-          <h3 className="text-2xl font-bold mb-2">{title}</h3>
+          <p className="text-2xl font-bold mb-2">{title}</p>
         </div>
       </div>
       <div className="border-b border-black dark:border-white mb-2"></div>
@@ -38,7 +38,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
         </div>
       )}
       {description.split("\n").map((line, index, array) => (
-        <span key={index}>
+        <span className="text-lg" key={index}>
           {line.startsWith(">") ? <blockquote>{line.substring(2)}</blockquote> : line}
           {/* check if last line */}
           {index === array.length - 1 ? null : <br />}
@@ -48,7 +48,12 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
       <ul className="list-disc list-inside">
         {links.map((link, index) => (
           <li key={index}>
-            <Link href={link.url} target={link.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">
+            <Link
+              href={link.url}
+              className="text-lg"
+              target={link.url.startsWith("/") ? undefined : "_blank"}
+              rel="noopener noreferrer"
+            >
               {link.text}
             </Link>
           </li>

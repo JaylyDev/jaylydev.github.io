@@ -1,5 +1,4 @@
 "use client";
-import "@/styles/globals.css";
 import "@/styles/articles.css";
 import React, { memo, useEffect } from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";

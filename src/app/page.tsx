@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import "@/styles/index.css";
 import React, { JSX } from "react";
 import Image from "next/image";
@@ -102,13 +101,7 @@ function CurrentProjects(): JSX.Element {
     <div>
       <Subheading id="projects" title="Projects" />
       <div className="flex min-h-0 flex-col items-center">
-        <div
-          style={{
-            fontSize: "1.1rem",
-          }}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 m-0 p-0">{ProjectElements}</div>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 m-0 p-0">{ProjectElements}</div>
       </div>
       <PreviewLatestYTVideo />
     </div>
@@ -116,20 +109,16 @@ function CurrentProjects(): JSX.Element {
 }
 
 function AboutMe() {
-  const text = `Hi I'm Jayly, this is my website to post my stuff (aside from YouTube and MCPEDL).
-                I mainly do Minecraft animations on YouTube, or making Minecraft add-ons for Bedrock.`;
   return (
     <div className="pb-48">
       <Subheading id="about" title="About Me" />
       <div className="flex min-h-0 flex-col items-center p-4 text-lg">
-        <div>
-          {text.split("\n").map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
-          <h3 style={{ fontStyle: "italic" }}>
-            If you have any questions, please feel free to contact me on Discord (jaylymc).
-          </h3>
-        </div>
+        <span>
+          <p>Hi I&apos;m Jayly, this is my personal website to post my stuff.</p>
+          <p>I make Minecraft animations on YouTube and Minecraft Add-Ons for Bedrock Edition.</p>
+          <p>There are couple of articles about Minecraft and coding.</p>
+          <p className="italic">If you have any questions, please feel free to contact me on Discord (jaylymc).</p>
+        </span>
       </div>
     </div>
   );

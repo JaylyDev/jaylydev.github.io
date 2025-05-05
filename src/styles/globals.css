@@ -21,11 +21,6 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-}
-
 @font-face {
   font-family: Minecraft Ten v2;
   src: url(/fonts/Minecraft-Ten.otf);
@@ -42,6 +37,27 @@ body {
   font-family: Minecraft Five v2;
   font-weight: 700;
   src: url(/fonts/Minecraft-Five-Bold.otf);
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(/fonts/Inter-VariableFont_opsz,wght.ttf);
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(/fonts/Inter-Italic-VariableFont_opsz,wght.ttf);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", "Inter Fallback";
+  font-style: normal;
 }
 
 /* text-blue-500 hover:underline */

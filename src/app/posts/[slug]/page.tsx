@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import "@/styles/github-markdown.css";
 import "@/styles/highlight.js/github.css";
 import "@/styles/posts.css";

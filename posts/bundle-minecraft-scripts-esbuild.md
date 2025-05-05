@@ -1,13 +1,12 @@
 ---
 author: Jayly
 title: Bundle Minecraft Scripts with ESBuild
-description: Merge Minecraft script files through bundling with esbuild.
-date: 3/8/2025
+description: Learn how to use esbuild to bundle your JavaScript and TypeScript files so they can be run in Minecraft Bedrock Edition.
 ---
 
 # Bundle Minecraft Scripts with ESBuild
 
-In this article, you will learn how to bundle to merge your JavaScript or TypeScript code, and external libraries into your script behavior pack's code using esbuild - a JavaScript module bundler and minifier.
+In this article, you will learn how to use esbuild to bundle your JavaScript and TypeScript files so they can be run in Minecraft Bedrock Edition. This tutorial includes using external libraries, such as `@minecraft/math` and `@minecraft/vanilla-data` modules into your script behavior pack's code using esbuild - a JavaScript module bundler and minifier.
 
 ## Why esbuild?
 

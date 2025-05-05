@@ -1,15 +1,16 @@
 ---
 author: Jayly
 title: Better Mace - Minecraft Add-On
-description: Make the mace more dramatic via cutscene and particle effects.
-date: 8/3/2024
+description: This Minecraft add-on makes the mace smashing attack more dramatic via cutscene and particle effects.
 ---
 
 # Better Mace
 
+The behind-the-scenes documentary showcases the making of the better mace add-on:
+
 <iframe width="914" height="514" src="https://www.youtube.com/embed/PX9TjVSm5ds" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-This Minecraft add-on makes the mace smashing attack very dramatic, through the use of cutscene, achieved using the `/camera` command and a particle effect ported from Unity.
+This Minecraft add-on makes the mace smashing attack more dramatic via cutscene and particle effects. This is achieved using the `/camera` command and a particle effect ported from Unity.
 
 ## How To Play
 
@@ -67,7 +68,7 @@ In case you (or me in the future) want a local coordinates to absolute coordinat
 function getAbsoluteLocationFromViewAnchor(
   anchor: Vector3,
   location: Vector3,
-  viewDirection: Vector3
+  viewDirection: Vector3,
 ) {
   const dirz = new Vector3Builder(viewDirection);
   const dirx = new Vector3Builder(dirz.z, 0, -dirz.x);

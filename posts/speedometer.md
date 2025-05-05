@@ -1,7 +1,7 @@
 ---
 author: Jayly
 title: Speedometer in Minecraft (Behavior Pack)
-description: This add-on adds speedometer and measures the speed of every player in Minecraft.
+description: This add-on adds speedometer in Minecraft, a tool which measures and displays walking and flying speed of every player in a Minecraft world.
 date: 5/22/2024
 image: /assets/posts/speedometer/thumbnail.png
 download: true
@@ -9,7 +9,7 @@ download: true
 
 # Speedometer (Behavior Pack)
 
-> Download links for the add-on is at the bottom of the page.
+This add-on adds speedometer in Minecraft, a tool which measures and displays walking and flying speed of every player in a Minecraft world.
 
 A speedometer measures and displays the instantaneous speed of a vehicle in real life. This add-on adds speedometer and measures the speed of every player in Minecraft. This add-on is able to display walking and flying speed of a player.
 

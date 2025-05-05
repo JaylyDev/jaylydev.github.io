@@ -1,9 +1,9 @@
-import { inter } from "@/components/Font";
+import "@/styles/globals.css";
 
 export default function PostLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </section>
   );
 }
