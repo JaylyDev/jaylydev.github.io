@@ -15,13 +15,21 @@ Using the Minecraft Statistics Add-On, players can track certain tasks in the fo
 
 ## Statistics Screen
 
-Currently, a player's statistics can be seen through the following function command:
+Currently, a player's statistics can be seen through the following methods:
+
+1. Function command, available in the main statistics add-on:
 
 ```
 /function statistics
 ```
 
-or the statistics book given when you join the world for the first time. By which a tag (`stats_book_given`) will be assigned as they have been given the book.
+2. The statistics book given when you join the world for the first time. By which a tag (`stats_book_given`) will be assigned as they have been given the book.
+
+3. Custom Commands (requires Minecraft Statistics Extension Pack, downloads separately)
+
+```
+/jayly:stats
+```
 
 ![main screen](/assets/posts/statistics/main-screen-v1.2.0.png)
 
@@ -34,9 +42,15 @@ Similar to the Java Edition statistics' screen, this add-on divides statistics i
 
 ## Item Statistics
 
+Item statistics are viewed by each item type. To view player statistics for a specific item type, go to the **Statistics** screen, tap the **Items** button, then select the button for the desired item type.
+
+![item selection screen](/assets/posts/statistics/item-selection.png)
+
+You'll then see detailed statistics on how players have interacted with that item.
+
 ![item statistics screen](/assets/posts/statistics/item-statistics.png)
 
-Item statistics are viewed by each item type. The following statistic types are recorded:
+The following statistic types are recorded for each item type:
 
 | Statistic Type | Description                                                                                                                                                                                                                             |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,9 +65,15 @@ Item statistics are viewed by each item type. The following statistic types are 
 
 ## Mob Statistics
 
+Mobs statistics are viewed by each entity type. To view player statistics for a specific mob type, go to the **Statistics** screen, tap the **Mobs** button, then select the button for the desired mob type.
+
+![mobs selection screen](/assets/posts/statistics/mobs-selection.png)
+
+You'll then see detailed statistics on how players have interacted with that mob.
+
 ![mobs statistics screen](/assets/posts/statistics/mobs-statistics.png)
 
-For mob statistics, they are divided into statistics for each entity type. This add-on records the following mob statistics:
+This add-on records the following statistics for each mob type:
 
 | Statistic Type                            | Description                                                                                                                                                      |
 | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -352,9 +372,19 @@ Manages the updating of general statistics on scoreboard objectives. This comman
 
 ## Upcoming Releases
 
-**Statistics Add-On: v1.3.0**
+**Statistics Plus Add-On - v0.3.0**
 
-> **Releasing this when the add-on reaches 10,000 downloads**
+> **This is an upcoming Release for Minecraft v1.21.90, release date is unknown.**
+
+- Statistics Plus Add-On v0.3.0 requires Minecraft v1.21.90
+- Following custom commands can execute without cheats enabled: `/jayly:stats`, `/stats`.
+- Add-on now attempts to add custom slash commands without namespace, such as `/stats`, `/itemstats`, `/mobstats`, `/customstats`, `/liststats`. This is only possible if the custom command name is not used by another behavior pack, otherwise those command names will not be created and a content log warning will appear.
+
+## Changelog
+
+### v1.3.0
+
+> Release Date: May 9th, 2025
 
 - Texture update: Image icon support for vanilla items, blocks and entities in Item statistics and Mobs statistics selection menu.
 - Custom UI texture for 'Next page' and 'Previous Page' buttons in Item statistics and Mobs statistics selection menu.
@@ -370,16 +400,6 @@ Manages the updating of general statistics on scoreboard objectives. This comman
 - Added slash command `/jayly:mobstats` - Manages the updating of mobs related statistics on scoreboard objectives. This command can be run by game directors / operators.
 - Added slash command `/jayly:customstats` - Manages the updating of general statistics on scoreboard objectives. This command can be run by game directors / operators.
 - Added slash command `/jayly:liststats` - List available in-game statistics. This command can be run by game directors / operators.
-
-**Statistics Plus Add-On - v0.3.0**
-
-> **This is an upcoming Release for Minecraft v1.21.90, release date is unknown.**
-
-- Statistics Plus Add-On v0.3.0 requires Minecraft v1.21.90
-- Following custom commands can execute without cheats enabled: `/jayly:stats`, `/stats`.
-- Add-on now attempts to add custom slash commands without namespace, such as `/stats`, `/itemstats`, `/mobstats`, `/customstats`, `/liststats`. This is only possible if the custom command name is not used by another behavior pack, otherwise those command names will not be created and a content log warning will appear.
-
-## Changelog
 
 ### v1.2.2
 
