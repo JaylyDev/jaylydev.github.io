@@ -104,7 +104,7 @@ This screen controls the HUD visibility when playing a scene using the Runtime A
 - `Show Status Effects` - Shows status effects element of the HUD.
 - `Show Item Text` - Shows item text element.
 
-# Changelog
+## Changelog
 
 Changelog for Cinematic Runtime Add-On
 
@@ -173,7 +173,7 @@ Changelog for Cinematic Runtime Add-On
 - Added input form
 - Added an item that plays a scene when used
 
-# Installation
+## Installation
 
 > [!IMPORTANT]
 > Cinematic Editor Runtime Add-On for Minecraft v1.21.0 requires **Beta APIs** experiment enabled.
@@ -183,7 +183,7 @@ Changelog for Cinematic Runtime Add-On
 > [!IMPORTANT]
 > You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post https://jaylydev.github.io/posts/cinematic-editor/ in the description of the video or a webpage and must not have any other direct-download links.
 
-# Downloads
+## Downloads
 
 Click the link below and choose a version to download.
 
