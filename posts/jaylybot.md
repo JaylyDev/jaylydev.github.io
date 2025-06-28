@@ -1,108 +1,153 @@
 ---
 author: Jayly
-title: JaylyBot
-description: JaylyBot is a Discord bot that debugs your Minecraft scripts so they can be run in Minecraft. It provides better error reporting and more utility toolings.
+title: JaylyBot - Script Debugger Discord Bot
+description: JaylyBot provides a collection of utilities and tools for Minecraft Script APIs on Discord.
 ---
 
 # JaylyBot
 
-JaylyBot is a Discord bot used in over 350 Discord servers which includes various Minecraft Script API toolings, including a Script API debugger that debugs your Minecraft scripts so they can be run in Minecraft. It provides better error reporting and more utility toolings for Minecraft Scripting API.
+JaylyBot provides a collection of utilities and tools for Minecraft Script APIs on Discord. It is a Discord bot used in over 350 servers to enhance your Minecraft Add-On development with Script API.
 
-> The invite link to the bot is at the bottom of the post.
+This bot uses [TypeScript compiler](https://www.typescriptlang.org/), [discord.js](https://discord.js.org/), [Minecraft Scripting Libraries](https://github.com/Mojang/minecraft-scripting-libraries/) and type definitions for Minecraft Bedrock Script APIs, available through npm at [npmjs.com](https://npmjs.com/).
 
-## NPM Package Metadata
+## Invite the Bot
 
-The type definition files (_declaration files that contain only type information_) for Minecraft modules such as `@minecraft/server` are hosted on [npmjs.com](https://npmjs.com). This bot provides additional infomation on installing specific packages for Minecraft script development, and custom type definition files used in Script API Debugger for reference.
+You can invite the bot to your Discord server using [this invite link](https://discord.com/api/oauth2/authorize?client_id=948686094986264716&permissions=277025516544&scope=bot).
 
-### /docs info
-
-The `/docs info` command returns installation commands for all Minecraft's npm packages tied to specific Minecraft versions. It was made because the Minecraft developers cannot manage to categorise the versions into 4 labels or 'dist-tags' on npm.
-
-![Docs info message](/assets/posts/jaylybot/docs-info-message.png)
-
-**How does it work?**
-
-The npm version infomation are generated through a generator specifically for Script API, which involve parsing version strings with funky regex.
-
-### /docs dump
-
-The `/docs dump` command posts generated custom type definition of a Minecraft module used for Script API debugger. Keep in mind that some of the types may have modified from the original npm package files.
-
-![Docs dump](/assets/posts/jaylybot/docs-dump.png)
-
-## ScriptAPI Examples
-
-JaylyBot retrieves code exmaples from the [ScriptAPI](https://github.com/JaylyDev/ScriptAPI/) repository. Through the `/script get` command, users can search for a script listed in scripts directory in the GitHub repository (in the 'main' branch).
-
-![Script get command](/assets/posts/jaylybot/script-cmd.png)
-
-## Script API Debugger
-
-This Discord bot can mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft. It is made possible through integrating TypeScript compiler into Discord.
+## Running Script API Debugger
 
 ![Script Debugger message type](/assets/posts/jaylybot/debugger-message.png)
 
-Before debugging your scripts, make sure send your scripts with code blocks, with language type in `js` or `ts`:
+To debug your Minecraft scripts in Discord, you have to send a message in a text channel which includes samples of code with fenced code blocks with syntax highlighting.
+
+In your fenced code blocks, you must also add a language identifier to clarify which language you are using.
+
+For example, to syntax highlight JavaScript code:
 
 ````
-```js
+```javascript
 console.log("Hello World");
 ```
 ````
 
-or with JavaScript / TypeScript files:
+The bot currently supports the following language identifiers, any other will not work:
+
+- `javascript` or `js`
+- `typescript` or `ts`
+
+> [!TIP]
+> Use lower-case language identifiers, otherwise the bot's debugger may not work.
+
+Another option is to upload a file, with file names end in `.js` or `.ts` to debug the file. This is useful when your code size is greater than the character limit for messages of 2000 characters.
+
+You can also upload multiple script files in a single message, which the debugger creates a sandboxed environment with all the files in the directory to debug your scripts.
+
+For example, to upload a JavaScript file named `message.js`:
 
 ![Debug files](/assets/posts/jaylybot/debug-files.png)
 
-### Using Debugger (PC)
+### Using Debugger on Desktop
 
-![How to debug in PC](/assets/posts/jaylybot/how-to-debug-pc.png)
+Here's a step-by-step instruction on running the debugger on Discord through the desktop app or on browser.
 
 1. Right click the message
 2. Go to Apps
 3. Select **Debug Scripts**
 
+Example image on selecting **Debug Scripts** on desktop app:
+
+![How to debug on Discord desktop](/assets/posts/jaylybot/how-to-debug-pc.png)
+
 Upon selecting the action, this dropdown appears for you to choose the Minecraft version your script is run in.
 
 ![Select debugger in PC](/assets/posts/jaylybot/select-debugger-pc.png)
 
-- Latest APIs: Debug scripts using non-experimental APIs for Minecraft release builds.
+- Latest APIs: Debug scripts using stable APIs for Minecraft Bedrock Edition.
 
-- Latest Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft release builds.
+- Latest Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft Bedrock Edition.
 
-- Preview APIs: Debug scripts using non-experimental APIs for Minecraft Preview builds.
+- Preview APIs: Debug scripts using stable (release candidate) APIs for Minecraft Preview.
 
-- Preview Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft Preview builds.
+- Preview Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft Preview.
 
-### Using Debugger (Mobile)
+### Using Debugger on Mobile
 
-![How to debug in mobile](/assets/posts/jaylybot/how-to-debug-mobile.png)
+Here's a step-by-step instruction on running the debugger on Discord through the mobile app.
 
 1. Long press the message
 2. Go to Apps
 3. Select **Debug Scripts**
 
+Example image on selecting **Debug Scripts** on mobile app:
+
+![How to debug in mobile](/assets/posts/jaylybot/how-to-debug-mobile.png)
+
 Upon selecting the action, this dropdown appears for you to choose the Minecraft version your script is run in.
 
 ![Select debugger in mobile](/assets/posts/jaylybot/select-debugger-mobile.png)
 
-- Latest APIs: Debug scripts using non-experimental APIs for Minecraft release builds.
+- Latest APIs: Debug scripts using stable APIs for Minecraft Bedrock Edition.
 
-- Latest Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft release builds.
+- Latest Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft Bedrock Edition.
 
-- Preview APIs: Debug scripts using non-experimental APIs for Minecraft Preview builds.
+- Preview APIs: Debug scripts using stable (release candidate) APIs for Minecraft Preview.
 
-- Preview Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft Preview builds.
+- Preview Beta APIs: Debug scripts that requires Beta APIs experimental enabled for Minecraft Preview.
 
-### Important Notes for Script Debugger
+## Additional Features
 
-- JaylyBot doesn't run JavaScript or TypeScript code remotely. The code is only parsed by TypeScript compiler.
-- JavaScript or TypeScript code or files are only stored temporarily for debugging purposes and removed permanently after the bot responds with debug result.
-- This is a debugger for Minecraft Script API only. Addons JSON is not supported.
-- This is not to be confused with Mojang's [Minecraft Scripting Debugger extension](https://aka.ms/vscodescriptdebugger) for VSCode.
+JaylyBot also provides additional tools and utilities for Minecraft Script API. These features are available as part of Discord's slash commands.
 
-## Invite the Bot
+To access slash commands, all you have to do is type `/` in chat and you're ready to use JaylyBot!
 
-This Discord bot is public for everyone to invite to their Discord server, check it out:
+![JaylyBot's slash commands list.](/assets/posts/jaylybot/jaylybot-slash-commands.png)
 
-- [Invite JaylyBot](https://discord.com/api/oauth2/authorize?client_id=948686094986264716&permissions=277025516544&scope=bot)
+### Type Definitions for Minecraft Bedrock Script APIs
+
+You can access Minecraft Bedrock Script APIs through JaylyBot using the following commands:
+
+- `/docs info`
+
+  This command prints instructions for installing type definition for each Minecraft script modules using [npm](https://npmjs.com). The infomation is updated as soon as Minecraft or Minecraft Preview updates.
+
+  Example result of running `/docs info @minecraft/server` command:
+
+  ![Docs info command result](/assets/posts/jaylybot/docs-info-v2.png)
+
+- `/docs dump`
+
+  This utility command is used to send type definition files used in [Script API debugger](#running-script-api-debugger).
+
+  Example result of running `/docs dump latest @minecraft/server` command:
+
+  ![Docs dump command result](/assets/posts/jaylybot/docs-dump.png)
+
+### Script API Examples
+
+JaylyBot can retrieve Minecraft script exmaples from the [ScriptAPI](https://github.com/JaylyDev/ScriptAPI/) repository. Through the `/script get` command, users can search for a script listed in scripts directory in the GitHub repository.
+
+Example image of running the `/script get` command:
+
+![Script get search](/assets/posts/jaylybot/script-get-search.png)
+
+Once the bot found a script example you desire, it will output the following message:
+
+![Script get command](/assets/posts/jaylybot/script-cmd.png)
+
+### Utility Commands
+
+- `/issue`
+
+  A command to report any issues with the Discord bot.
+
+  An image preview of issue modal form:
+
+  ![Issue modal](/assets/posts/jaylybot/issue.png)
+
+- `/runtime debug`
+
+  Retrieves engine infomation of the bot for debugging purposes.
+
+- `/uptime`
+
+  Retrieves the period of time the bot has been continuously working and available. This command is for debugging purposes.
