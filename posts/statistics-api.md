@@ -8,7 +8,7 @@ description: This page provides documentation for API endpoints provided by Jayl
 
 This page provides documentation for **API** endpoints provided by Jayly's Bedrock Statistics Add-On which allows user to query player data and make changes programmatically.
 
-In the context of this API, the [Bedrock Statistics Add-On](./statistics.md) is referred to as **Statistics Add-On**.
+In the context of this API, the [Bedrock Statistics Add-On](/posts/statistics) is referred to as **Statistics Add-On**.
 
 ## Dependency
 
