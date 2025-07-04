@@ -2,7 +2,6 @@
 author: Jayly
 title: Enable Experiments on Minecraft Education
 description: Enable experimental features on a Minecraft Education Edition worlds using a resource pack for testing the latest features offered in latest Minecraft Education edition and Minecraft Education Preview.
-date: 3/8/2025
 download: true
 image: /assets/posts/enable-experiments/enable-experiments.png
 ---
@@ -17,7 +16,7 @@ There are two sets of experimental features available, depending on whether you 
 
 ### Retail (Minecraft Education)
 
-**Retail Version**: v1.21.03
+**Retail Version**: v1.21.10
 
 Gameplay - Change the way your world works
 
@@ -36,7 +35,7 @@ Add-On Creators - For creators of game packs and other add-ons
 
 ### Preview (Minecraft Education Preview)
 
-**Preview Version**: v1.21.51.0
+**Preview Version**: v1.21.90.1
 
 Gameplay - Change the way your world works
 
@@ -46,15 +45,13 @@ Gameplay - Change the way your world works
 
 Add-On Creators - For creators of game packs and other add-ons
 
-| Experimental Toggle                       | Description                                                                                                                                   |
-| :---------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| Custom Biomes                             | Create custom biomes and change world generation                                                                                              |
-| Upcoming Creator Features                 | Includes adjustable fog parameters                                                                                                            |
-| Beta APIs                                 | Use "-beta" versions of API modules in add-on packs                                                                                           |
-| Creator Cameras: New Third-Person Presets | Enables an "over the shoulder" camera preset.                                                                                                 |
-| Creator Cameras: Focus Target Camera      | Enables focus target camera preset.                                                                                                           |
-| Data-Driven Jigsaw Structures             | Loads Jigsaw Structures from the behavior pack worldgen folder.                                                                               |
-| Aim Assist                                | Player's aim assist system to interact with elements in the world while using custom cameras. Can be activated through the aimassist command. |
+| Experimental Toggle                   | Description                                                     |
+| :------------------------------------ | :-------------------------------------------------------------- |
+| Custom Biomes                         | Create custom biomes and change world generation                |
+| Upcoming Creator Features             | Includes adjustable fog parameters                              |
+| Beta APIs                             | Use "-beta" versions of API modules in add-on packs             |
+| Experimental Creator Cameras Features | Enables the use of the latest custom camera features.           |
+| Data-Driven Jigsaw Structures         | Loads Jigsaw Structures from the behavior pack worldgen folder. |
 
 ## Applying Enable Experiments Resource Pack
 
@@ -80,6 +77,10 @@ To enable experiments, navigate down to Experiments and select a toggle to enabl
 
 ## Changelog
 
+### 1.0.4
+
+Updated world settings screen UI file to v1.21.90
+
 ### 1.0.3
 
 Updated world settings screen UI file to v1.21.50
@@ -101,3 +102,7 @@ Initial Release for Minecraft Education v1.20.10
 Click the link below and choose a version to download.
 
 - [Download Enable Experiments Resource Pack](/posts/enable-experiments/downloads/)
+
+Downloads of the resource pack for the latest version of Minecraft Education is also available on CurseForge, click the link below to download.
+
+- [Download Enable Experiments Resource Pack on CurseForge](https://www.curseforge.com/minecraft-bedrock/texture-packs/enable-experiments/download)
