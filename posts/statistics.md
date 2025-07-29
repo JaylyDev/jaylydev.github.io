@@ -284,6 +284,7 @@ Manages the updating of general statistics on scoreboard objectives. This comman
   - minecraft:walk_under_water_one_cm
   - minecraft:boat_one_cm
   - minecraft:aviate_one_cm
+  - minecraft:happy_ghast_one_cm
   - minecraft:horse_one_cm
   - minecraft:minecart_one_cm
   - minecraft:pig_one_cm
@@ -333,32 +334,24 @@ Manages the updating of general statistics on scoreboard objectives. This comman
 
 ## Upcoming Releases
 
-**Statistics Plus Add-On - v0.3.0**
-
-> **This is an upcoming Release for Minecraft v1.21.90, release date is unknown.**
-
-- Statistics Plus Add-On v0.3.0 requires Minecraft v1.21.90
-- Following custom commands can execute without cheats enabled: `/jayly:stats`, `/stats`.
-- Add-on now attempts to add custom slash commands without namespace, such as `/stats`, `/itemstats`, `/mobstats`, `/customstats`, `/liststats`. This is only possible if the custom command name is not used by another behavior pack, otherwise those command names will not be created and a content log warning will appear.
-
 ## Changelog
 
-### v1.3.0
+You can find the full changelog for the add-on on [Bedrock Statistics Changelog](/posts/statistics-changelog).
 
-> Release Date: May 9th, 2025
+### v1.3.10
 
-- Texture update: Image icon support for vanilla items, blocks and entities in Item statistics and Mobs statistics selection menu.
-- Custom UI texture for 'Next page' and 'Previous Page' buttons in Item statistics and Mobs statistics selection menu.
+> Release Date: July 2nd, 2025
 
-**Statistics Plus Add-On - v0.2.0**
+- Added Distance by Happy Ghast stat
+- Fixed Dried Ghast texture
+- Added Music Disc Tears
+- Added JaylyStats API v1 support. Dependency: MCBE-IPC (Version [673a99ba74a30fc8745c74f9510e6f57cee86410](https://github.com/OmniacDev/MCBE-IPC/blob/673a99ba74a30fc8745c74f9510e6f57cee86410/src/ipc.ts))
 
-- Renamed 'Statistics Extension pack' behavior pack to 'Statistics Plus Add-On', this doesn't mean it's locked behind a paywall.
-- Add-On now requires Minecraft v1.21.80
-- Added slash command `/jayly:stats` - A replacement for `/function statistics` command to view your gameplay statistics. This command can be run by any players.
-- Added slash command `/jayly:itemstats` - Manages the updating of item related statistics on scoreboard objectives. This command can be run by game directors / operators.
-- Added slash command `/jayly:mobstats` - Manages the updating of mobs related statistics on scoreboard objectives. This command can be run by game directors / operators.
-- Added slash command `/jayly:customstats` - Manages the updating of general statistics on scoreboard objectives. This command can be run by game directors / operators.
-- Added slash command `/jayly:liststats` - List available in-game statistics. This command can be run by game directors / operators.
+**Statistics Plus Add-On - v0.2.3**
+
+- Fixed a bug where overriding statistics to track on an objective causes crashes.
+- Following custom commands can execute without cheats enabled: `/jayly:stats`, `/stats`.
+- Add-on now attempts to add custom slash commands without namespace, such as `/stats`, `/itemstats`, `/mobstats`, `/customstats`, `/liststats`. This is only possible if the custom command name is not used by another behavior pack, otherwise those command names will not be created and a content log warning will appear.
 
 ### Previous Releases
 
@@ -405,6 +398,5 @@ After activating both resource pack and behavior pack, you will see one of the f
 > - If you're on Minecraft Education, 'Beta APIs' experiment is required to use this add-on.
 > - This add-on can only be used in latest version of either Minecraft or Minecraft Education.
 
-- [Download Bedrock Statistics on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/6512391)
-- [Download Statistics Plus on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/6512390)
+- [Download Bedrock Statistics on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/)
 - [All Releases & Downloads](/posts/statistics/downloads/)

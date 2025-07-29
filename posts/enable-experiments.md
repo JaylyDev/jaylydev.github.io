@@ -2,7 +2,6 @@
 author: Jayly
 title: Enable Experiments on Minecraft Education
 description: Enable experimental features on a Minecraft Education Edition worlds using a resource pack for testing the latest features offered in latest Minecraft Education edition and Minecraft Education Preview.
-date: 3/8/2025
 download: true
 image: /assets/posts/enable-experiments/enable-experiments.png
 ---
@@ -17,7 +16,7 @@ There are two sets of experimental features available, depending on whether you 
 
 ### Retail (Minecraft Education)
 
-**Retail Version**: v1.21.03
+**Retail Version**: v1.21.91
 
 Gameplay - Change the way your world works
 
@@ -27,34 +26,23 @@ Gameplay - Change the way your world works
 
 Add-On Creators - For creators of game packs and other add-ons
 
-| Experimental Toggle       | Description                                                                                   |
-| :------------------------ | :-------------------------------------------------------------------------------------------- |
-| Holiday Creator Features  | Add data-driven block and item technology to customize block shape, rotation, damage and more |
-| Custom Biomes             | Create custom biomes and change world generation                                              |
-| Upcoming Creator Features | Includes adjustable fog parameters                                                            |
-| Beta APIs                 | Use "-beta" versions of API modules in add-on packs                                           |
+| Experimental Toggle                   | Description                                                     |
+| :------------------------------------ | :-------------------------------------------------------------- |
+| Custom Biomes                         | Create custom biomes and change world generation                |
+| Upcoming Creator Features             | Includes adjustable fog parameters                              |
+| Beta APIs                             | Use "-beta" versions of API modules in add-on packs             |
+| Experimental Creator Cameras Features | Enables the use of the latest custom camera features.           |
+| Data-Driven Jigsaw Structures         | Loads Jigsaw Structures from the behavior pack worldgen folder. |
 
-### Preview (Minecraft Education Preview)
+## Toggle Experiments on the Web
 
-**Preview Version**: v1.21.51.0
+Due to the release of Chase the Clouds Update v1.21.90.1, the experiments section is not available to be edited through a resource pack in the new UI for Create and Edit World.
 
-Gameplay - Change the way your world works
+Instead, you can enable and disable experiments for a world using the new Minecraft Bedrock Experiments Editor. To get started, visit the [Minecraft Bedrock Experiments Editor](/bedrock-experiments/) page.
 
-| Experimental Toggle        | Description                                                         |
-| :------------------------- | :------------------------------------------------------------------ |
-| Villager Trade Rebalancing | Contains updated trades for villages for the purpose of rebalancing |
+You can toggle which features you want enabled once you have uploaded your world (in `.mcworld` file format) to the editor. You can find the world from your OneDrive folder. After you have selected the features you want enabled, click on the **Download Modified World** button to download the world with the selected experiments enabled.
 
-Add-On Creators - For creators of game packs and other add-ons
-
-| Experimental Toggle                       | Description                                                                                                                                   |
-| :---------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| Custom Biomes                             | Create custom biomes and change world generation                                                                                              |
-| Upcoming Creator Features                 | Includes adjustable fog parameters                                                                                                            |
-| Beta APIs                                 | Use "-beta" versions of API modules in add-on packs                                                                                           |
-| Creator Cameras: New Third-Person Presets | Enables an "over the shoulder" camera preset.                                                                                                 |
-| Creator Cameras: Focus Target Camera      | Enables focus target camera preset.                                                                                                           |
-| Data-Driven Jigsaw Structures             | Loads Jigsaw Structures from the behavior pack worldgen folder.                                                                               |
-| Aim Assist                                | Player's aim assist system to interact with elements in the world while using custom cameras. Can be activated through the aimassist command. |
+[![bedrock experiments editor](/assets/posts/enable-experiments/bedrock-experiments-editor.png)](/bedrock-experiments/)
 
 ## Applying Enable Experiments Resource Pack
 
@@ -70,15 +58,25 @@ Click on the **MY PACKS** dropdown section, then click on Enable Experiments pac
 
 Go back to the main menu screen then the pack should've applied.
 
-## Toggle Experimental Features in a World
+## Checking if Experiments are Enabled
 
-You can toggle which features you want enabled in the World Settings. To access world settings, either create a new world or edit experiments using edit world button.
+To check if the experiments are enabled, after applying the resource pack, go into a world, then open the **Settings** menu, scroll down to the **World Settings** section, and you should see the **Experiments** section with the enabled features listed.
 
-To enable experiments, navigate down to Experiments and select a toggle to enable the feature.
+![experiments enabled](/assets/posts/enable-experiments/experiments-enabled.png)
 
-![enable experiments](/assets/posts/enable-experiments/enable-experiments.png)
+> The screenshot is taken from Minecraft Education v1.21.91
 
 ## Changelog
+
+### 1.0.5
+
+Deprecated the resource pack for Minecraft Education v1.21.91, as the experiments section is not available for edit through a resource pack in the new world settings UI.
+
+Use the [Minecraft Bedrock Experiments Editor](/bedrock-experiments/) to enable and disable experiments for a world.
+
+### 1.0.4
+
+Updated world settings screen UI file to v1.21.90
 
 ### 1.0.3
 
@@ -101,3 +99,7 @@ Initial Release for Minecraft Education v1.20.10
 Click the link below and choose a version to download.
 
 - [Download Enable Experiments Resource Pack](/posts/enable-experiments/downloads/)
+
+Downloads of the resource pack for the latest version of Minecraft Education is also available on CurseForge, click the link below to download.
+
+- [Download Enable Experiments Resource Pack on CurseForge](https://www.curseforge.com/minecraft-bedrock/texture-packs/enable-experiments/download)

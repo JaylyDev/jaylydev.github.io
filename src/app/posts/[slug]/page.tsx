@@ -3,7 +3,7 @@ import "@/styles/highlight.js/github.css";
 import "@/styles/posts.css";
 import fs from "fs";
 import path from "path";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { getPostData } from "@/app/utilities/getPublicPosts";
 import { PostHeader } from "@/components/Post";
@@ -48,8 +48,22 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
   const post = await getPostData(slug);
-  if (post?.redirect) return redirect(post.redirect);
   if (!post) return notFound();
+  if (post.redirect) {
+    return (
+      <main>
+        <meta httpEquiv="refresh" content={`0; url=${post.redirect}`} />
+        <StatsCollection />
+        <SiteHeader />
+        <div className="markdown-header">
+          <p>
+            Redirecting to <a href={post.redirect}>{post.redirect}</a>...
+          </p>
+        </div>
+        <SiteFooter />
+      </main>
+    );
+  }
 
   return (
     <main>

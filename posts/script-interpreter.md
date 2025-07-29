@@ -60,12 +60,6 @@ However you can only run JavaScript code in this add-on, because the scripting e
   ```
   /function statistics
   ```
-- Chat Command
-  ```
-  !javascript
-  ```
-  > [!IMPORTANT]  
-  > This feature is only available behind beta versions of interpreter only.
 
 2. Use the enchantment book with the name `JavaScript Interpreter [Use]` to open the interpreter
 3. Type your javascript code in the form. Best thing is that this form has multi-line supported, meaning you can write multiple lines of code here.
@@ -123,27 +117,19 @@ The add-on also provides function commands to access Script Interpreter.
 
 - `/function repl`: Access Script Interpreter
 - `/function repl/startup`: Access Script Startup settings
-- `/function repl/shutdown`: Access Script Shutdown settings (Beta)
+- `/function repl/shutdown`: Access Script Shutdown settings
 
-## Chat Commands (Beta)
+## Custom Commands
 
-> [!IMPORTANT]
-> This feature is locked behind Script Interpreter beta versions. We need Beta APIs to access chat events.
+The add-on also provides custom slash commands to access Script Interpreter.
 
-The add-on also provides chat commands to access Script Interpreter.
+- `/jayly:interpreter` - Opens Interpreter.
+- `/jayly:javascript` - Opens the JavaScript interpreter.
+- `/jayly:version` - Displays the version of the interpreter.
+- `/jayly:scriptdata` - Manage script data (options: `clear`, `stats`).
+- `/jayly:help` - Displays help information about available commands.
 
-- `!help`: Help Command
-- `!interpreter`: Opens Interpreter
-  > This command requires operator permission.
-- `!javascript`: Opens a javascript Interpreter
-  > This command requires operator permission.
-- `!version`: Displays the version of the interpreter
-  > This command requires operator permission.
-
-## Shutdown Scripts (Beta)
-
-> [!IMPORTANT]
-> This feature is only available to interpreters v1.21.70-beta or above.
+## Shutdown Scripts
 
 ![shutdown script form](/assets/posts/script-interpreter/shutdown-scripts.png)
 
@@ -337,24 +323,5 @@ Full file (`config/default/permissions.json`):
 
 ## Downloads
 
-### Minecraft Bedrock & Preview
-
-- [Download Script Interpreter Add-On (v1.21.70 + Beta APIs Experiment)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6350646)
-- [Download Script Interpreter Add-On (v1.21.70)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6350650)
-
-### Minecraft Education Edition
-
-> [!IMPORTANT]
->
-> To use this add-on in Minecraft Education Edition, experiments may be required to activate the add-on. The resource pack below allows experiments to be enabled in Education Edition.
->
-> - [Download Enable Experiments Resource Pack (for Minecraft Education only)](/posts/enable-experiments/)
-
-- [Download Script Interpreter Add-On (v1.21.0 + Beta APIs Experiment)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6327967)
-- [Download Script Interpreter Add-On (v1.21.0)](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/6327964)
-
-### Other Versions
-
-Click the link below and choose a version of Script Interpreter add-on that is compatible with your Minecraft version to download.
-
-- [Download Script Interpreter Add-On](/posts/script-interpreter/downloads/)
+- [Download on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download/)
+- [Download older versions](/posts/script-interpreter/downloads/)

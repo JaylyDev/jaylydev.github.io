@@ -1,0 +1,51 @@
+{
+    "minecraft_version": "1.21.90",
+    "categories": [
+        {
+            "name": "Gameplay",
+            "description": "Change the way your world works"
+        },
+        {
+            "name": "Add-On Creators",
+            "description": "For creators of game packs and other Add-Ons"
+        }
+    ],
+    "experiments": [
+        {
+            "id": "villager_trades_rebalance",
+            "title": "Villager Trade Rebalancing",
+            "description": "Contains updated trades for villages for the purpose of rebalancing",
+            "category": "Gameplay"
+        },
+        {
+            "id": "data_driven_biomes",
+            "title": "Custom Biomes",
+            "description": "Create custom biomes and change world generation",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "upcoming_creator_features",
+            "title": "Upcoming Creator Features",
+            "description": "Includes adjustable fog parameters",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "gametest",
+            "title": "Beta APIs",
+            "description": "Use \"-beta\" versions of API modules in Add-On packs",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "experimental_creator_cameras",
+            "title": "Experimental Creator Camera Features",
+            "description": "Enables the use of the latest custom camera features",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "jigsaw_structures",
+            "title": "Data-Driven Jigsaw Structures",
+            "description": "Loads Jigsaw Structures from the behavior pack worldgen folder",
+            "category": "Add-On Creators"
+        }
+    ]
+}

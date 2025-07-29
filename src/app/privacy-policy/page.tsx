@@ -4,12 +4,6 @@ import React, { memo, useEffect } from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Link } from "@heroui/react";
 
-declare global {
-  interface Window {
-    adsbygoogle?: unknown[];
-  }
-}
-
 const PrivacyPolicy: React.FC = () => {
   return (
     <div className="content" style={{ marginTop: "50px" }}>
