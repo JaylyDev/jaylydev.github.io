@@ -1,0 +1,23 @@
+{
+  "short_name": "香港隧道收費",
+  "name": "香港實時隧道收費",
+  "start_url": "/hk-tunnels-tolls/",
+  "id": "/hk-tunnels-tolls/",
+  "scope": "/hk-tunnels-tolls/",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "categories": ["utilities", "travel"]
+}

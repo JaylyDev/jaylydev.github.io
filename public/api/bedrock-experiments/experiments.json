@@ -1,0 +1,57 @@
+{
+    "minecraft_version": "1.21.100",
+    "categories": [
+        {
+            "name": "Gameplay",
+            "description": "Change the way your world works"
+        },
+        {
+            "name": "Add-On Creators",
+            "description": "For creators of game packs and other Add-Ons"
+        }
+    ],
+    "experiments": [
+        {
+            "id": "villager_trades_rebalance",
+            "title": "Villager Trade Rebalancing (since 1.20.30)",
+            "description": "Contains updated trades for villages for the purpose of rebalancing",
+            "category": "Gameplay"
+        },
+        {
+            "id": "y_2025_drop_3",
+            "title": "Drop 3 2025 (since 1.21.100)",
+            "description": "Adds copper golems, along with copper tools, armor, chests, and nuggets.",
+            "category": "Gameplay"
+        },
+        {
+            "id": "data_driven_biomes",
+            "title": "Custom Biomes (since 1.16.100)",
+            "description": "Create custom biomes and change world generation",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "upcoming_creator_features",
+            "title": "Upcoming Creator Features (since 1.17.0)",
+            "description": "Includes adjustable fog parameters",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "gametest",
+            "title": "Beta APIs (since 1.16.210)",
+            "description": "Use \"-beta\" versions of API modules in Add-On packs",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "experimental_creator_cameras",
+            "title": "Experimental Creator Camera Features (since 1.21.70)",
+            "description": "Enables the use of the latest custom camera features",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "jigsaw_structures",
+            "title": "Data-Driven Jigsaw Structures (since 1.21.50)",
+            "description": "Loads Jigsaw Structures from the behavior pack worldgen folder",
+            "category": "Add-On Creators"
+        }
+    ]
+}

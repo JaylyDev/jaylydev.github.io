@@ -3,6 +3,7 @@ import "@/styles/articles.css";
 import React, { memo, useEffect } from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Link } from "@heroui/react";
+import { AdUnit } from "@/components/AdUnit";
 
 const PrivacyPolicy: React.FC = () => {
   return (
@@ -570,29 +571,6 @@ const PrivacyPolicy: React.FC = () => {
         <li>By email: jaylyextra@gmail.com</li>
       </ul>
     </div>
-  );
-};
-
-const AdUnit: React.FC = () => {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-  return (
-    <ins
-      className="adsbygoogle"
-      style={{
-        display: "block",
-        textAlign: "center",
-      }}
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client="ca-pub-2533146760921020"
-      data-ad-slot="9602449199"
-    ></ins>
   );
 };
 

@@ -1,0 +1,407 @@
+{
+  "tunnels": {
+    "western": {
+      "name": "西隧",
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": "星期一至六（不包括公眾假期）",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 07:29",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "07:30 - 08:07",
+              "toll": { "range": [22, 58] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "08:08 - 10:14",
+              "toll": 60
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:15 - 10:42",
+              "toll": { "range": [58, 32] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:43 - 16:29",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "16:30 - 16:57",
+              "toll": { "range": [32, 58] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "16:58 - 18:59",
+              "toll": 60
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:00 - 19:37",
+              "toll": { "range": [58, 22] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:38 - 23:59",
+              "toll": 20
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": "星期日和公眾假期",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 10:10",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:11 - 10:14",
+              "toll": { "range": [21, 23] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:15 - 19:14",
+              "toll": 25
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:15 - 19:18",
+              "toll": { "range": [23, 21] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:19 - 23:59",
+              "toll": 20
+            }
+          ]
+        }
+      }
+    },
+    "cross": {
+      "name": "紅隧",
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": "星期一至六（不包括公眾假期）",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 07:29",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "07:30 - 08:07",
+              "toll": { "range": [22, 38] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "08:08 - 10:14",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:15 - 10:42",
+              "toll": { "range": [38, 32] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:43 - 16:29",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "16:30 - 16:57",
+              "toll": { "range": [32, 38] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "16:58 - 18:59",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:00 - 19:37",
+              "toll": { "range": [38, 22] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:38 - 23:59",
+              "toll": 20
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": "星期日和公眾假期",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 10:10",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:11 - 10:14",
+              "toll": { "range": [21, 23] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:15 - 19:14",
+              "toll": 25
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:15 - 19:18",
+              "toll": { "range": [23, 21] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:19 - 23:59",
+              "toll": 20
+            }
+          ]
+        }
+      }
+    },
+    "eastern": {
+      "name": "東隧",
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": "星期一至六（不包括公眾假期）",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 07:29",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "07:30 - 08:07",
+              "toll": { "range": [22, 38] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "08:08 - 10:14",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:15 - 10:42",
+              "toll": { "range": [38, 32] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:43 - 16:29",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "16:30 - 16:57",
+              "toll": { "range": [32, 38] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "16:58 - 18:59",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:00 - 19:37",
+              "toll": { "range": [38, 22] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:38 - 23:59",
+              "toll": 20
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": "星期日和公眾假期",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 10:10",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:11 - 10:14",
+              "toll": { "range": [21, 23] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:15 - 19:14",
+              "toll": 25
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:15 - 19:18",
+              "toll": { "range": [23, 21] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:19 - 23:59",
+              "toll": 20
+            }
+          ]
+        }
+      }
+    },
+    "tai_lam": {
+      "name": "大欖隧道",
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": "星期一至六（不包括公眾假期）",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 07:14",
+              "toll": 18
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "07:15 - 07:40",
+              "toll": { "range": [19, 43] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "07:41 - 09:44",
+              "toll": 45
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "09:45 - 09:58",
+              "toll": { "range": [43, 31] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "09:59 - 17:14",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "17:15 - 17:28",
+              "toll": { "range": [31, 43] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "17:29 - 18:59",
+              "toll": 45
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:00 - 19:25",
+              "toll": { "range": [43, 19] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:26 - 23:59",
+              "toll": 18
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": "星期日和公眾假期",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "全日劃一",
+              "timeRange": "00:00 - 23:59",
+              "toll": 18
+            }
+          ]
+        }
+      }
+    }
+  },
+  "vehicleTypes": {
+    "privateCar": {
+      "name": "私家車",
+      "hasTimeVaryingToll": true
+    },
+    "motorcycle": {
+      "name": "電單車",
+      "hasTimeVaryingToll": true,
+      "multiplier": 0.4
+    },
+    "taxi": {
+      "name": "的士",
+      "hasTimeVaryingToll": false,
+      "fixedToll": 25,
+      "tai_lam_toll": 28
+    },
+    "commercial": {
+      "name": "其他車輛",
+      "description": "包括貨車、小型巴士和巴士",
+      "hasTimeVaryingToll": false,
+      "fixedToll": 50,
+      "tai_lam_toll": 43
+    }
+  },
+  "notes": [
+    "就私家車和電單車（包括機動三輪車）而言，不同時段之間設有過渡收費安排，以有序地銜接各時段之間的收費差距和保障道路安全。",
+    "過海的士乘客如非在過海的士站上車，須支付去程（25元）及回程（25元）隧道費，即共50元。",
+    "電單車在各時段的收費為私家車收費的40%。",
+    "前往大欖隧道的私家車及電單車實施分時段收費，的士收費為28元，其他車輛收費43元。",
+    "「其他車輛」包括貨車、小型巴士和巴士等。"
+  ]
+}

@@ -1,3 +1,4 @@
+import "@/styles/components/card.css";
 import React from "react";
 import { Image, Link } from "@heroui/react";
 
@@ -11,7 +12,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, description, links, image, media }) => {
   return (
-    <div className="max-w-[550px] rounded-lg border border-black dark:border-white dark:bg-[rgb(23,23,23)] p-4 m-2.5">
+    <div className="max-w-[550px] card-base">
       <div className="p-1 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex gap-3">
         {image && (
           <div className="relative shadow-black/5 shadow-none rounded-small" style={{ maxWidth: 40 }}>

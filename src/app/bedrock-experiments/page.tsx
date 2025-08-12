@@ -5,8 +5,8 @@ import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat
 import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroUIProvider } from "@heroui/react";
 import JSZip from "jszip";
 import { Int8, ByteTag, Tag, read, write } from "nbtify";
-import experimentsData from "./data/experiments.json";
 import { ThemeProvider } from "next-themes";
+import { AdUnit } from "@/components/AdUnit";
 
 interface Experiment {
   // The id of the experiment - must match the id in level.dat file
@@ -14,6 +14,11 @@ interface Experiment {
   title: string;
   description: string;
   category: string;
+}
+
+interface ExperimentsData {
+  minecraft_version: string;
+  experiments: Experiment[];
 }
 
 interface ExperimentsState extends Record<string, boolean> {}
@@ -38,14 +43,24 @@ const ExperimentsEditor: React.FC = () => {
   const [zip, setZip] = useState<JSZip | null>(null);
   const [levelDat, setLevelDat] = useState<WorldLevelDat | null>(null);
   const [originalLevelDat, setOriginalLevelDat] = useState<ArrayBuffer | null>(null);
+  const [experimentsData, setExperimentsData] = useState<ExperimentsData | null>(null);
 
-  const groupedExperiments = experimentsData.experiments.reduce((acc, exp) => {
-    if (!acc[exp.category]) {
-      acc[exp.category] = [];
-    }
-    acc[exp.category].push(exp);
-    return acc;
-  }, {} as Record<string, Experiment[]>);
+  // Load experiments data
+  useEffect(() => {
+    fetch("/api/bedrock-experiments/experiments.json")
+      .then((response) => response.json())
+      .then((data) => setExperimentsData(data))
+      .catch((error) => console.error("Failed to load experiments data:", error));
+  }, []);
+
+  const groupedExperiments =
+    experimentsData?.experiments.reduce((acc, exp) => {
+      if (!acc[exp.category]) {
+        acc[exp.category] = [];
+      }
+      acc[exp.category].push(exp);
+      return acc;
+    }, {} as Record<string, Experiment[]>) || {};
 
   // Parse NBT experiments from level.dat
   const parseExperimentsFromNBT = async (buffer: ArrayBuffer): Promise<ExperimentsState> => {
@@ -64,7 +79,7 @@ const ExperimentsEditor: React.FC = () => {
         console.log("Found experiments compound with keys:", Object.keys(experimentsCompound));
 
         // Get individual experiment flags
-        experimentsData.experiments.forEach((exp) => {
+        experimentsData?.experiments.forEach((exp) => {
           if (experimentsCompound[exp.id]) experimentsState[exp.id] = experimentsCompound[exp.id].valueOf() === 1;
           else experimentsState[exp.id] = false;
         });
@@ -104,7 +119,7 @@ const ExperimentsEditor: React.FC = () => {
       levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
 
       // Update individual experiment flags
-      experimentsData.experiments.forEach((exp) => {
+      experimentsData?.experiments.forEach((exp) => {
         const value = newExperiments[exp.id] === true ? 1 : 0;
         levelData.experiments[exp.id] = new Int8(value);
         console.log(`Set experiment ${exp.id} to ${value}`);
@@ -219,7 +234,7 @@ const ExperimentsEditor: React.FC = () => {
   }, [originalLevelDat, zip, experiments, file]);
 
   const enabledCount = Object.values(experiments).filter(Boolean).length;
-  const totalCount = experimentsData.experiments.length;
+  const totalCount = experimentsData?.experiments.length || 0;
 
   return (
     <HeroUIProvider>
@@ -286,7 +301,7 @@ const ExperimentsEditor: React.FC = () => {
               </CardHeader>
               <CardBody className="space-y-6">
                 <p className="text-gray-700 dark:text-gray-300">
-                  Available experimental features for Minecraft {experimentsData.minecraft_version}
+                  Available experimental features for Minecraft {experimentsData?.minecraft_version}
                 </p>
 
                 {Object.entries(groupedExperiments).map(([category, categoryExperiments]) => (
@@ -337,30 +352,6 @@ const ExperimentsEditor: React.FC = () => {
         </div>
       </ThemeProvider>
     </HeroUIProvider>
-  );
-};
-
-const AdUnit: React.FC = () => {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-  return (
-    <ins
-      className="adsbygoogle"
-      style={{
-        display: "block",
-        textAlign: "center",
-        margin: "20px 0",
-      }}
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client="ca-pub-2533146760921020"
-      data-ad-slot="9602449199"
-    ></ins>
   );
 };
 
