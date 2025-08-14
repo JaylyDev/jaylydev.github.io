@@ -143,14 +143,16 @@ export default function Home() {
   const posts: PublicPost[] = getPublicPosts();
 
   return (
-    <main id="home">
-      <StatsCollection />
-      <SiteHeader />
-      <HomeBanner />
-      <CurrentProjects />
-      <PublicPosts posts={posts} />
-      <AboutMe />
-      <SiteFooter />
-    </main>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <StatsCollection />
+        <SiteHeader />
+        <HomeBanner />
+        <CurrentProjects />
+        <PublicPosts posts={posts} />
+        <AboutMe />
+        <SiteFooter />
+      </body>
+    </html>
   );
 }

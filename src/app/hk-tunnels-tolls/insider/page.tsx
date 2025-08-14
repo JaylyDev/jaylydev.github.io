@@ -2,7 +2,7 @@
 
 import "@/styles/components/card.css";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
-import { useEffect, memo, useState } from "react";
+import { useEffect, useState } from "react";
 import { HeroUIProvider, Button } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 
@@ -22,7 +22,7 @@ function HKTunnelsTollsApp(): JSX.Element {
 
   // Load toll data
   useEffect(() => {
-    fetch("/api/hk-tunnels-tolls/tolls.json")
+    fetch("/api/hk-tunnels-tolls/tolls_insider.json")
       .then((response) => response.json())
       .then((data) => setTollData(data))
       .catch((error) => console.error("載入收費資料失敗:", error));
@@ -502,20 +502,20 @@ const AdUnit: React.FC = () => {
   );
 };
 
-const Page: React.FC = () => {
+export default function Page(): JSX.Element {
   return (
-    <main>
-      <StatsCollection />
-      <SiteHeader />
-      <AdUnit />
-      <HeroUIProvider>
-        <ThemeProvider>
-          <HKTunnelsTollsApp />
-        </ThemeProvider>
-      </HeroUIProvider>
-      <SiteFooter />
-    </main>
+    <html lang="zh-HK" suppressHydrationWarning>
+      <body>
+        <StatsCollection />
+        <SiteHeader />
+        <AdUnit />
+        <HeroUIProvider>
+          <ThemeProvider>
+            <HKTunnelsTollsApp />
+          </ThemeProvider>
+        </HeroUIProvider>
+        <SiteFooter />
+      </body>
+    </html>
   );
-};
-
-export default memo(Page);
+}

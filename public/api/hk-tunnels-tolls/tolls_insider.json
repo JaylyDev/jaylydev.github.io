@@ -1,5 +1,5 @@
 {
-  "version": "0.3.7",
+  "version": "0.3.0-insider.1",
   "tunnels": {
     "western": {
       "name": "西隧",
@@ -100,8 +100,107 @@
         }
       }
     },
-    "cross_eastern": {
-      "name": "紅隧 / 東隧",
+    "cross": {
+      "name": "紅隧",
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": "星期一至六（不包括公眾假期）",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 07:29",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "07:30 - 08:07",
+              "toll": { "range": [22, 38] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "08:08 - 10:14",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:15 - 10:42",
+              "toll": { "range": [38, 32] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:43 - 16:29",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "16:30 - 16:57",
+              "toll": { "range": [32, 38] }
+            },
+            {
+              "type": "peak",
+              "name": "繁忙時段",
+              "timeRange": "16:58 - 18:59",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:00 - 19:37",
+              "toll": { "range": [38, 22] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:38 - 23:59",
+              "toll": 20
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": "星期日和公眾假期",
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "00:00 - 10:10",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "10:11 - 10:14",
+              "toll": { "range": [21, 23] }
+            },
+            {
+              "type": "regular",
+              "name": "一般時段",
+              "timeRange": "10:15 - 19:14",
+              "toll": 25
+            },
+            {
+              "type": "transition",
+              "name": "過渡時段",
+              "timeRange": "19:15 - 19:18",
+              "toll": { "range": [23, 21] }
+            },
+            {
+              "type": "offPeak",
+              "name": "非繁忙時段",
+              "timeRange": "19:19 - 23:59",
+              "toll": 20
+            }
+          ]
+        }
+      }
+    },
+    "eastern": {
+      "name": "東隧",
       "timeVaryingTolls": {
         "weekdays": {
           "name": "星期一至六（不包括公眾假期）",
@@ -292,19 +391,11 @@
       "tai_lam_toll": 28
     },
     "commercial": {
-      "name": "商用車輛",
-      "description": "貨車、小型巴士和巴士等",
+      "name": "其他車輛",
+      "description": "包括貨車、小型巴士和巴士",
       "hasTimeVaryingToll": false,
       "fixedToll": 50,
       "tai_lam_toll": 43
     }
-  },
-  "notes": [
-    "這個程式暫時只提供三條過海隧道（西隧、紅隧、東隧）和大欖隧道的實時收費資訊。",
-    "就私家車和電單車（包括機動三輪車）而言，不同時段之間設有過渡收費安排，以有序地銜接各時段之間的收費差距和保障道路安全。",
-    "過海的士乘客如非在過海的士站上車，須支付去程（25元）及回程（25元）隧道費，即共50元。",
-    "電單車在各時段的收費為私家車收費的40%。",
-    "前往大欖隧道的私家車及電單車實施分時段收費，的士收費為28元，商用車輛收費43元。",
-    "「商用車輛」包括貨車、小型巴士和巴士等。"
-  ]
+  }
 }

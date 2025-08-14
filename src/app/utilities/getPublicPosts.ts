@@ -32,6 +32,7 @@ export interface PostMeta {
   download: boolean;
   visible: boolean;
   redirect: string | null;
+  lang: string;
 }
 
 export interface PostProps extends PostMeta {
@@ -145,6 +146,7 @@ export async function getPostData(slug: string): Promise<PostProps | null> {
     visible: matterData.visible ?? true,
     redirect: matterData.redirect ?? null,
     content: contentHtml,
+    lang: matterData.lang ?? "en",
     lastModified,
     card: matterData.image ? "summary_large_image" : "summary",
   };
@@ -156,7 +158,7 @@ export function getDownloadData(slug: string): DownloadItem[] | null {
     return null;
   }
   const metadata: DownloadProps = JSON.parse(
-    fs.readFileSync(downloadMetaPath, "utf8"),
+    fs.readFileSync(downloadMetaPath, "utf8")
   );
   return metadata.downloads;
 }

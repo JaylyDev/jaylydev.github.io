@@ -4,8 +4,15 @@
   padding: 0.75rem;
 }
 
+.card-base-min {
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid black; /* border border-black */
+  padding: 0.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
-  .card-base {
+  .card-base,
+  .card-base-min {
     border-color: white; /* dark:border-white */
     background-color: rgb(23, 23, 23); /* dark:bg-[rgb(23,23,23)] */
   }

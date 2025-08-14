@@ -64,13 +64,15 @@ export default async function PostPage({ params }: PageProps) {
   if (!post || !downloads) return notFound();
 
   return (
-    <main>
-      <StatsCollection />
-      <SiteHeader />
-      <PostHeader post={post} downloadButtonVisible={false} />
-      <DownloadSection downloads={downloads} />
-      <div className="markdown-body" dangerouslySetInnerHTML={{ __html: adsenseCode + post.content }} />
-      <SiteFooter />
-    </main>
+    <html lang={post.lang} suppressHydrationWarning>
+      <body>
+        <StatsCollection />
+        <SiteHeader />
+        <PostHeader post={post} downloadButtonVisible={false} />
+        <DownloadSection downloads={downloads} />
+        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: adsenseCode + post.content }} />
+        <SiteFooter />
+      </body>
+    </html>
   );
 }

@@ -2,6 +2,7 @@
 author: Staff
 title: 查看香港實時隧道收費
 description: 推出即時查詢三條過海隧道和大欖隧道的分時段收費替代網上App
+lang: zh-HK
 ---
 
 # 查看香港實時隧道收費

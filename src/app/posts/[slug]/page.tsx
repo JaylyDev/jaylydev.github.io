@@ -45,13 +45,13 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default async function PostPage({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const post = await getPostData(slug);
   if (!post) return notFound();
   if (post.redirect) {
     return (
-      <main>
+      <html lang="en" suppressHydrationWarning>
         <meta httpEquiv="refresh" content={`0; url=${post.redirect}`} />
         <StatsCollection />
         <SiteHeader />
@@ -61,17 +61,19 @@ export default async function PostPage({ params }: PageProps) {
           </p>
         </div>
         <SiteFooter />
-      </main>
+      </html>
     );
   }
 
   return (
-    <main>
-      <StatsCollection />
-      <SiteHeader />
-      <PostHeader post={post} />
-      <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }} />
-      <SiteFooter />
-    </main>
+    <html lang={post.lang} suppressHydrationWarning>
+      <body>
+        <StatsCollection />
+        <SiteHeader />
+        <PostHeader post={post} />
+        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }} />
+        <SiteFooter />
+      </body>
+    </html>
   );
 }

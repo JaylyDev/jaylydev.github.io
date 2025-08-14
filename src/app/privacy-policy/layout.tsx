@@ -15,6 +15,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://jaylydev.github.io"),
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <section>{children}</section>;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }

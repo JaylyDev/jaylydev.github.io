@@ -355,16 +355,16 @@ const ExperimentsEditor: React.FC = () => {
   );
 };
 
-const Post: React.FC = () => {
+export default function Post(): JSX.Element {
   return (
-    <main>
-      <StatsCollection />
-      <SiteHeader />
-      <AdUnit />
-      <ExperimentsEditor />
-      <SiteFooter />
-    </main>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <StatsCollection />
+        <SiteHeader />
+        <AdUnit />
+        <ExperimentsEditor />
+        <SiteFooter />
+      </body>
+    </html>
   );
-};
-
-export default memo(Post);
+}

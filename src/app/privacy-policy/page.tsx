@@ -1,6 +1,6 @@
 "use client";
 import "@/styles/articles.css";
-import React, { memo, useEffect } from "react";
+import React from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Link } from "@heroui/react";
 import { AdUnit } from "@/components/AdUnit";
@@ -574,16 +574,16 @@ const PrivacyPolicy: React.FC = () => {
   );
 };
 
-const Post: React.FC = () => {
+export default function Post(): JSX.Element {
   return (
-    <main>
-      <StatsCollection />
-      <SiteHeader />
-      <AdUnit />
-      <PrivacyPolicy />
-      <SiteFooter />
-    </main>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <StatsCollection />
+        <SiteHeader />
+        <AdUnit />
+        <PrivacyPolicy />
+        <SiteFooter />
+      </body>
+    </html>
   );
-};
-
-export default memo(Post);
+}
