@@ -36,3 +36,6 @@ next-env.d.ts
 
 # jaylydev.github.io
 public/api/sitemap.xml
+
+# temporary files
+/tmp/
