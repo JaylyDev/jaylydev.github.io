@@ -23,9 +23,9 @@ ol {
 }
 
 .markdown-body > iframe {
-  aspect-ratio: 16 / 9;
-  width: 100%; /* change this to a fixed width, or create a container with a width. */
-  height: 100%;
+  aspect-ratio: 16 / 9 !important;
+  width: 100% !important;
+  height: auto !important;
   margin-bottom: 16px;
 }
 
