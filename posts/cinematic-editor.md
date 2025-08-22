@@ -64,7 +64,13 @@ When the '**Play Scene**' button is clicked, the editor extension controls your 
 > [!NOTE]
 > The extension will only take control of the camera to run a scene given by there are data in the stored keyframes dropdown.
 
-## Camera Transition (Easing)
+## Camera Transition
+
+The camera can move between keyframes with easing snd interpolation.
+
+### Easing
+
+Easing is a specific method of controlling the rate and curve of that interpolation, typically to create natural-looking motion between 2 keyframes.
 
 ![easing](/assets/posts/cinematic-editor/jayly-cinematic-editor_4.png)
 
@@ -84,6 +90,22 @@ The '**Ease Time**' adjust the time duration from one key frame to another.
 These two options are automatically saved to world, so data will not be deleted when leaving and joining the world.
 
 And finally, the **Export Keyframes** button will transfer the data from Cinematic Editor extension to Cinematic Runtime, meaning you can play a scene outside of editor mode.
+
+### Interpolation
+
+Interpolation is the general process of generating values between two points or keyframes. This can create natural-looking motion between multiple keyframes.
+
+Currently, the editor supports these interpolation methods:
+
+- **Linear / Line**: The simplest method of getting values at positions in between the data points.
+
+- **Hermite**: Creates subdivision between multiple positions to create smooth, controlled camera paths.
+
+## Keyframe Effects
+
+In Cinematic Editor V2, you can find, apply, adjust fade effects, and run commands using the Effects panel.
+
+Multiple effects can be added to a keyframe by pressing the add button, and remove it by pressing the delete button.
 
 ## Modifying Existing Keyframes
 
