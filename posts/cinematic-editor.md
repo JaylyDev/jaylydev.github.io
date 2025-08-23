@@ -23,6 +23,12 @@ The editor controls your camera perspective with Minecraft Editor to allow playe
 
 The Cinematic Editor Extension allows you to control your camera perspective without the use of commands. Which uses Minecraft: Bedrock Editor and the `/camera` command to allow players to make a Minecraft scene.
 
+**Examples of Minecraft scenes made with the Cinematic Editor**
+
+By: [Jayly (me)](https://www.youtube.com/channel/UCguD3-nPXTVY6CHw3F1HWvw?source_ve_path=MzY5MjU)
+
+<iframe width="1083" height="609" src="https://www.youtube.com/embed/bHNK6a_1Kh0?list=UULFguD3-nPXTVY6CHw3F1HWvw" title="BEDROCK EDITION BOAT RACING CINEMATIC" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## Supported features
 
 The following is a brief overview of the features supported by the Cinematic Editor:
@@ -32,7 +38,7 @@ The following is a brief overview of the features supported by the Cinematic Edi
 - Control camera transitions (easing)
 - Control camera interpolation (linear and hermite)
 - Add keyframe effects (fade in/out)
-- Export keyframes for use in the Cinematic Runtime Add-On (Currently not supported for Cinematic Editor V2)
+- Export scene for use in the Cinematic Runtime Add-On (Currently not supported for Cinematic Editor V2)
 
 ## What's Next
 
@@ -40,12 +46,12 @@ Looking ahead, here's a list of features I wanted to include in future releases.
 
 - Play multiple sequences one after the other until the scene is finished
 - Change camera FOV support
-- Export keyframes for use in the Cinematic Runtime Add-On
+- Export scene for use in the Cinematic Runtime Add-On
 - Manage scene using Custom Commands API
 
 ## Creating a Scene
 
-![Create a scene with extension](/assets/posts/cinematic-editor/create-a-scene.png)
+![Create a scene with editor v2](/assets/posts/cinematic-editor/editor-v2.png)
 
 To create a scene with the editor extension, first click on the camera icon on the left. The cinematic editor panel will pop up on the right, scroll down to the **Stored Keyframes** section. This is where you will create a keyframe and a scene.
 
@@ -59,7 +65,7 @@ When the button is clicked, the keyframes dropdown will have an item with the lo
 
 When the '**Play Scene**' button is clicked, the editor extension controls your camera and gets all the keyframes saved to generate a path for the camera to transit from one location to another.
 
-![keyframes dropdown](/assets/posts/cinematic-editor/scene-running.png)
+![keyframes dropdown](/assets/posts/cinematic-editor/scene-running-v2.png)
 
 > [!NOTE]
 > The extension will only take control of the camera to run a scene given by there are data in the stored keyframes dropdown.
@@ -70,9 +76,9 @@ The camera can move between keyframes with easing snd interpolation.
 
 ### Easing
 
-Easing is a specific method of controlling the rate and curve of that interpolation, typically to create natural-looking motion between 2 keyframes.
+Easing is a specific method of controlling the rate and curve of that interpolation, typically to create natural-looking motion between 2 keyframes. If you wish, you can also use instant easing for 'teleporting' the camera.
 
-![easing](/assets/posts/cinematic-editor/jayly-cinematic-editor_4.png)
+![easing](/assets/posts/cinematic-editor/easing-dropdown-v2.png)
 
 The '**Ease Type**' button adjust the ease of a keyframe, different ease type allows the camera can move from one place to another with different motion. Which different ease types allows us to make the transition more natural in some scenes.
 
@@ -83,13 +89,16 @@ The following easing types are supported in the cinematic editor extension:
 > [!TIP]
 > The image above is taken from [Easing Functions Cheat Sheet](https://easings.net) (easings.net). Check out the website to learn more about different methods of easing.
 
-![easing selection](/assets/posts/cinematic-editor/jayly-cinematic-editor_5.png)
+![ease time editor stable](/assets/posts/cinematic-editor/ease-time-v2.gif)
 
 The '**Ease Time**' adjust the time duration from one key frame to another.
 
 These two options are automatically saved to world, so data will not be deleted when leaving and joining the world.
 
-And finally, the **Export Keyframes** button will transfer the data from Cinematic Editor extension to Cinematic Runtime, meaning you can play a scene outside of editor mode.
+And finally, the **Export Scene to Clipboard** and **Export Raw Scene to Clipboard** buttons copy the scene data to clipboard, which you can play the scene outside of editor mode.
+
+> [!NOTE]
+> Currently, the exported scene data can't be imported or used in Cinematic Runtime Add-On. This feature is planned for future updates.
 
 ### Interpolation
 
@@ -99,13 +108,35 @@ Currently, the editor supports these interpolation methods:
 
 - **Linear / Line**: The simplest method of getting values at positions in between the data points.
 
+  ![interpolation methods](/assets/posts/cinematic-editor/interpolation-methods.png)
+
 - **Hermite**: Creates subdivision between multiple positions to create smooth, controlled camera paths.
+
+  ![interpolation hermite](/assets/posts/cinematic-editor/interpolation-hermite.png)
+
+  > [!NOTE]
+  >
+  > - Hermite interpolation requires to be set on at least 3 consecutive keyframes to work.
+  > - Use 7-9 subdivisions for smoother camera movements and better client performance.
 
 ## Keyframe Effects
 
 In Cinematic Editor V2, you can find, apply, adjust fade effects, and run commands using the Effects panel.
 
 Multiple effects can be added to a keyframe by pressing the add button, and remove it by pressing the delete button.
+
+![effects panel](/assets/posts/cinematic-editor/keyframe-effects.png)
+
+The keyframe effects panel is shown when you add and select an effect of a keyframe.
+
+Each effect has a set of 5 parameters that can be adjusted to customize the effect.
+
+- **Frame Time**: Set's the time when the effect starts, once the keyframe is reached.
+- **Add Command**: Runs a command when the effect is triggered.
+- **Fade In Time**: The duration it takes for the effect to fade in, in seconds.
+- **Fade Hold Time**: The duration it takes for the effect to hold its final value, in seconds.
+- **Fade Out Time**: The duration it takes for the effect to fade out, in seconds.
+- **Fade Color**: The color the effect fades to.
 
 ## Modifying Existing Keyframes
 
@@ -125,12 +156,30 @@ This will play the scene which is stored in the Cinematic Editor Extension Add-O
 
 ### Export Scene
 
-Pressing this button will transfer the scene details from Cinematic Editor Extension to Cinematic Runtime Add-On. This means you can play the scene with the Scene Player item available from Cinematic Runtime Add-On without the Minecraft Editor or the extension.
+> [!IMPORTANT]
+> The import feature will be available in a future update.
 
-> [!IMPORTANT]  
-> Exporting Scene from extension to the runtime add-on requires both behavior packs activated in the Editor project.
->
-> ![loaded packs](/assets/posts/cinematic-editor/cinematic-addons-loaded.png)
+Scene export allows you to transfer the scene details from the Cinematic Editor Extension to the Cinematic Runtime Add-On. This means you can play the scene with the Scene Player item available from the Cinematic Runtime Add-On without the Minecraft Editor or the extension.
+
+The scene export feature currently supports multiple formats.
+
+**Year 2025 format (Recommended)**
+
+The new scene format which stores all keyframe data for the scene in a structured format. This format is designed to be more efficient and easier to work with in the Cinematic Editor V2 engine.
+
+![Year 2025 format](/assets/posts/cinematic-editor/export-scene-v2.png)
+
+**Year 2025 raw format**
+
+The new scene format which stores all keyframe data for the scene in a raw format. This format is the completely unmodified uncompressed original scene data that was loaded into the Cinematic Editor V2 engine.
+
+![Year 2025 raw format](/assets/posts/cinematic-editor/export-scene-raw-v2.png)
+
+**Year 2023 format (legacy)**
+
+The legacy scene format used in Cinematic Editor V1. This format stores simple keyframe data for the scene. At the moment, it's only available in Cinematic Editor V1, and the format supports the import feature in Cinematic Runtime Add-On.
+
+![V1 Export panel](/assets/posts/cinematic-editor/scene-action.png)
 
 ### Reset Scene
 
