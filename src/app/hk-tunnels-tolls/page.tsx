@@ -27,7 +27,7 @@ interface HKTunnel {
   name: HKTunnelIdentifier;
   timeVaryingTolls: {
     weekdays: TimeVaryingToll;
-    sundays: TimeVaryingToll;
+    sundays_and_holidays: TimeVaryingToll;
   } | null;
 }
 
@@ -70,16 +70,16 @@ interface TollCardProps {
   isPublicHoliday: boolean;
 }
 
-type VehicleTypeIdentifier = "privateCar" | "motorcycle" | "taxi" | "lightGoods" | "goods";
+type VehicleTypeIdentifier = "privateCar" | "motorcycle" | "taxi" | "commercial";
 
-type HKTunnelIdentifier = "western" | "cross_eastern" | "tai_lam" | "tates_cairn";
+type HKTunnelIdentifier = "western" | "cross_eastern" | "tai_lam";
 
 function isValidVehicle(vehicle: string): vehicle is VehicleTypeIdentifier {
-  return ["privateCar", "motorcycle", "taxi", "lightGoods", "goods"].includes(vehicle);
+  return ["privateCar", "motorcycle", "taxi", "commercial"].includes(vehicle);
 }
 
 function isValidTunnel(tunnel: string): tunnel is HKTunnelIdentifier {
-  return ["western", "cross_eastern", "tai_lam", "tates_cairn"].includes(tunnel);
+  return ["western", "cross_eastern", "tai_lam"].includes(tunnel);
 }
 
 function isTimeInRange(time: string, start: string, end: string): boolean {
@@ -127,7 +127,7 @@ function getCurrentTollForTunnel(
     return "無法計算";
   }
 
-  const timeSlots = isHolidaySchedule ? tunnel.timeVaryingTolls.sundays : tunnel.timeVaryingTolls.weekdays;
+  const timeSlots = isHolidaySchedule ? tunnel.timeVaryingTolls.sundays_and_holidays : tunnel.timeVaryingTolls.weekdays;
 
   const currentTimeStr = hkTime.toTimeString().slice(0, 5); // HH:MM format
 
@@ -265,7 +265,9 @@ function HKTunnelsTollsApp(): JSX.Element {
       return "";
     }
 
-    const timeSlots = isHolidaySchedule ? tunnel.timeVaryingTolls.sundays : tunnel.timeVaryingTolls.weekdays;
+    const timeSlots = isHolidaySchedule
+      ? tunnel.timeVaryingTolls.sundays_and_holidays
+      : tunnel.timeVaryingTolls.weekdays;
     const currentTimeStr = hkTime.toTimeString().slice(0, 5); // HH:MM format
 
     // Find current period
@@ -404,7 +406,7 @@ function HKTunnelsTollsApp(): JSX.Element {
                 if (!referenceTunnel || !referenceTunnel.timeVaryingTolls) return [];
 
                 const timeSlots = isHolidaySchedule
-                  ? referenceTunnel.timeVaryingTolls.sundays
+                  ? referenceTunnel.timeVaryingTolls.sundays_and_holidays
                   : referenceTunnel.timeVaryingTolls.weekdays;
 
                 const formatToll = (tunnelKey: HKTunnelIdentifier, period: TollPeriod, multiplier?: number) => {
@@ -412,7 +414,7 @@ function HKTunnelsTollsApp(): JSX.Element {
                   if (!tunnelData || !tunnelData.timeVaryingTolls) return "N/A";
 
                   const tunnelTimeSlots = isHolidaySchedule
-                    ? tunnelData.timeVaryingTolls.sundays
+                    ? tunnelData.timeVaryingTolls.sundays_and_holidays
                     : tunnelData.timeVaryingTolls.weekdays;
 
                   // Find matching period by time range
@@ -494,7 +496,7 @@ function HKTunnelsTollsApp(): JSX.Element {
                 if (!taiLamTunnel || !taiLamTunnel.timeVaryingTolls) return [];
 
                 const timeSlots = isHolidaySchedule
-                  ? taiLamTunnel.timeVaryingTolls.sundays
+                  ? taiLamTunnel.timeVaryingTolls.sundays_and_holidays
                   : taiLamTunnel.timeVaryingTolls.weekdays;
 
                 const formatToll = (period: TollPeriod, multiplier?: number) => {
@@ -548,10 +550,9 @@ function HKTunnelsTollsApp(): JSX.Element {
       {/* Notes */}
       <h3 className="text-2xl font-bold py-2">關於這個網站</h3>
       <p className="py-2">
-        「香港實時隧道收費」—
-        香港駕駛人士的好幫手！透過本網站，即可查詢「隧道收費」。我們即時同步運輸署最新政策變更，涵蓋三條過海隧道自 2023
-        年 12 月啟用的時段收費機制，以及自 2025 年 5 月 31
-        日起實施分時段收費的大欖隧道。操作簡單、資訊清晰，幫你輕鬆規劃出行時間，避免不必要的費用支出。
+        「香港實時隧道收費」— 香港駕駛人士的好幫手！透過本網站，即可查詢「隧道收費」。
+        我們即時提供香港實時三條過海隧道（西隧、紅隧、東隧）、大欖隧道及大老山隧道的收費資訊。
+        操作簡單、資訊清晰，幫你輕鬆規劃出行時間，避免不必要的費用支出。
       </p>
       <div className="bg-blue-100 dark:bg-blue-900 border border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-200 p-3 rounded">
         <h3 className="font-bold">重要說明</h3>
