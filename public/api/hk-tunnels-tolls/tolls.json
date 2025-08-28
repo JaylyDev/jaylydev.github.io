@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.3.7",
   "tunnels": {
     "western": {
       "name": "西隧",
@@ -278,12 +278,18 @@
   "vehicleTypes": {
     "privateCar": {
       "name": "私家車",
-      "hasTimeVaryingToll": true
+      "hasTimeVaryingToll": true,
+      "fixedTolls": {
+        "tates_cairn": 20
+      }
     },
     "motorcycle": {
       "name": "電單車",
       "hasTimeVaryingToll": true,
-      "multiplier": 0.4
+      "multiplier": 0.4,
+      "fixedTolls": {
+        "tates_cairn": 15
+      }
     },
     "taxi": {
       "name": "的士",
@@ -291,7 +297,8 @@
       "fixedTolls": {
         "western": 25,
         "cross_eastern": 25,
-        "tai_lam": 28
+        "tai_lam": 28,
+        "tates_cairn": 20
       }
     },
     "commercial": {
