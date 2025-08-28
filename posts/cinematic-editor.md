@@ -2,43 +2,56 @@
 author: Jayly
 title: Minecraft Cinematic Editor
 description: Control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the /camera command.
-date: 12/3/2024
-image: /assets/posts/cinematic-editor/thumbnail.png
+image: /assets/posts/cinematic-editor/MCPEDL_Preview.png
 download: true
 ---
 
 # Minecraft Cinematic Editor Extension
 
 > [!IMPORTANT]
-> This article is about the Minecraft Editor extension that is currently exclusive to the Windows version of Bedrock Edition Preview.
+> This article is about the Minecraft Editor extension that is currently exclusive to the Windows version of Minecraft Bedrock.
+>
 > For the Cinematic add-on with cross-platform support, see [Cinematic Runtime](/posts/cinematic-runtime).
 
-<iframe width="930" height="523" src="https://www.youtube.com/embed/nHYLVo_IvKA" title="I Made An Editor For Minecraft Camera Command" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+![Cinematic Editor v2 Thumbnail](/assets/posts/cinematic-editor/thumbnail-2025-v2-preview-mcpedl.png)
 
-> Download links for the add-on is located at the bottom of the page.
+> Vibrant Visuals Pack used: [Prizma Visuals](https://mcpedl.com/prizma-pbr-deferred-pack/)
 
-The Cinematic Editor is a Minecraft editor extension that utilizing the `/camera` command for changing perspectives and designing cinematic scenes. The editor has the capability to control your camera perspective with Minecraft Bedrock Editor to allow players to make a Minecraft scene, without knowledge to use the `/camera` command.
+Cinematic Editor is a Bedrock editor extension that utilizing the `/camera` command for changing perspectives and designing cinematic scenes.
 
-![Cinematic Editor v1.4 Thumbnail](/assets/posts/cinematic-editor/cinematic-editor-thumbnail-2.png)
-
-> Deferred Lighting Pack used: [Poggy's Luminous Dreams](https://mcpedl.com/poggy-s-luminous-dreams-deferred-renderer-shader-pack-beta/)
+The editor controls your camera perspective with Minecraft Editor to allow players to make a Minecraft scene, without knowledge to use the `/camera` command.
 
 The Cinematic Editor Extension allows you to control your camera perspective without the use of commands. Which uses Minecraft: Bedrock Editor and the `/camera` command to allow players to make a Minecraft scene.
 
-## Similarities between ReplayMod
+**Examples of Minecraft scenes made with the Cinematic Editor**
 
-This cinematic editor has a similar concept to ReplayMod from Minecraft: Java Edition.
+By: [Jayly (me)](https://www.youtube.com/channel/UCguD3-nPXTVY6CHw3F1HWvw?source_ve_path=MzY5MjU)
 
-- You can create multiple keyframes in a scene. With it's simple user interface provided by the Mojang's Minecraft Editor to create camera paths, which the editor can utilize a player's camera to move from one place to another with different transition and time duration.
-- cThe editor allows you to adjust the time duration and ease of a keyframe. There are more ease options than the actual ReplayMod!
+<iframe width="1083" height="609" src="https://www.youtube.com/embed/bHNK6a_1Kh0?list=UULFguD3-nPXTVY6CHw3F1HWvw" title="BEDROCK EDITION BOAT RACING CINEMATIC" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## Major Differences
+## Supported features
 
-However, a major difference between this extension and ReplayMod is that the scene are played in real time since you cannot rewind Minecraft's gameplay footage within the game.
+The following is a brief overview of the features supported by the Cinematic Editor:
+
+- Create and manage keyframes
+- Adjust camera position and rotation
+- Control camera transitions (easing)
+- Control camera interpolation (linear and hermite)
+- Add keyframe effects (fade in/out)
+- Export scene for use in the Cinematic Runtime Add-On (Currently not supported for Cinematic Editor V2)
+
+## What's Next
+
+Looking ahead, here's a list of features I wanted to include in future releases.
+
+- Play multiple sequences one after the other until the scene is finished
+- Change camera FOV support
+- Export scene for use in the Cinematic Runtime Add-On
+- Manage scene using Custom Commands API
 
 ## Creating a Scene
 
-![Create a scene with extension](/assets/posts/cinematic-editor/create-a-scene.png)
+![Create a scene with editor v2](/assets/posts/cinematic-editor/editor-v2.png)
 
 To create a scene with the editor extension, first click on the camera icon on the left. The cinematic editor panel will pop up on the right, scroll down to the **Stored Keyframes** section. This is where you will create a keyframe and a scene.
 
@@ -52,14 +65,20 @@ When the button is clicked, the keyframes dropdown will have an item with the lo
 
 When the '**Play Scene**' button is clicked, the editor extension controls your camera and gets all the keyframes saved to generate a path for the camera to transit from one location to another.
 
-![keyframes dropdown](/assets/posts/cinematic-editor/scene-running.png)
+![keyframes dropdown](/assets/posts/cinematic-editor/scene-running-v2.png)
 
 > [!NOTE]
 > The extension will only take control of the camera to run a scene given by there are data in the stored keyframes dropdown.
 
-## Camera Transition (Easing)
+## Camera Transition
 
-![easing](/assets/posts/cinematic-editor/jayly-cinematic-editor_4.png)
+The camera can move between keyframes with easing snd interpolation.
+
+### Easing
+
+Easing is a specific method of controlling the rate and curve of that interpolation, typically to create natural-looking motion between 2 keyframes. If you wish, you can also use instant easing for 'teleporting' the camera.
+
+![easing](/assets/posts/cinematic-editor/easing-dropdown-v2.png)
 
 The '**Ease Type**' button adjust the ease of a keyframe, different ease type allows the camera can move from one place to another with different motion. Which different ease types allows us to make the transition more natural in some scenes.
 
@@ -70,13 +89,54 @@ The following easing types are supported in the cinematic editor extension:
 > [!TIP]
 > The image above is taken from [Easing Functions Cheat Sheet](https://easings.net) (easings.net). Check out the website to learn more about different methods of easing.
 
-![easing selection](/assets/posts/cinematic-editor/jayly-cinematic-editor_5.png)
+![ease time editor stable](/assets/posts/cinematic-editor/ease-time-v2.gif)
 
 The '**Ease Time**' adjust the time duration from one key frame to another.
 
 These two options are automatically saved to world, so data will not be deleted when leaving and joining the world.
 
-And finally, the **Export Keyframes** button will transfer the data from Cinematic Editor extension to Cinematic Runtime, meaning you can play a scene outside of editor mode.
+And finally, the **Export Scene to Clipboard** and **Export Raw Scene to Clipboard** buttons copy the scene data to clipboard, which you can play the scene outside of editor mode.
+
+> [!NOTE]
+> Currently, the exported scene data can't be imported or used in Cinematic Runtime Add-On. This feature is planned for future updates.
+
+### Interpolation
+
+Interpolation is the general process of generating values between two points or keyframes. This can create natural-looking motion between multiple keyframes.
+
+Currently, the editor supports these interpolation methods:
+
+- **Linear / Line**: The simplest method of getting values at positions in between the data points.
+
+  ![interpolation methods](/assets/posts/cinematic-editor/interpolation-methods.png)
+
+- **Hermite**: Creates subdivision between multiple positions to create smooth, controlled camera paths.
+
+  ![interpolation hermite](/assets/posts/cinematic-editor/interpolation-hermite.png)
+
+  > [!NOTE]
+  >
+  > - Hermite interpolation requires to be set on at least 3 consecutive keyframes to work.
+  > - Use 7-9 subdivisions for smoother camera movements and better client performance.
+
+## Keyframe Effects
+
+In Cinematic Editor V2, you can find, apply, adjust fade effects, and run commands using the Effects panel.
+
+Multiple effects can be added to a keyframe by pressing the add button, and remove it by pressing the delete button.
+
+![effects panel](/assets/posts/cinematic-editor/keyframe-effects.png)
+
+The keyframe effects panel is shown when you add and select an effect of a keyframe.
+
+Each effect has a set of 5 parameters that can be adjusted to customize the effect.
+
+- **Frame Time**: Set's the time when the effect starts, once the keyframe is reached.
+- **Add Command**: Runs a command when the effect is triggered.
+- **Fade In Time**: The duration it takes for the effect to fade in, in seconds.
+- **Fade Hold Time**: The duration it takes for the effect to hold its final value, in seconds.
+- **Fade Out Time**: The duration it takes for the effect to fade out, in seconds.
+- **Fade Color**: The color the effect fades to.
 
 ## Modifying Existing Keyframes
 
@@ -96,12 +156,30 @@ This will play the scene which is stored in the Cinematic Editor Extension Add-O
 
 ### Export Scene
 
-Pressing this button will transfer the scene details from Cinematic Editor Extension to Cinematic Runtime Add-On. This means you can play the scene with the Scene Player item available from Cinematic Runtime Add-On without the Minecraft Editor or the extension.
+> [!IMPORTANT]
+> The import feature will be available in a future update.
 
-> [!IMPORTANT]  
-> Exporting Scene from extension to the runtime add-on requires both behavior packs activated in the Editor project.
->
-> ![loaded packs](/assets/posts/cinematic-editor/cinematic-addons-loaded.png)
+Scene export allows you to transfer the scene details from the Cinematic Editor Extension to the Cinematic Runtime Add-On. This means you can play the scene with the Scene Player item available from the Cinematic Runtime Add-On without the Minecraft Editor or the extension.
+
+The scene export feature currently supports multiple formats.
+
+**Year 2025 format (Recommended)**
+
+The new scene format which stores all keyframe data for the scene in a structured format. This format is designed to be more efficient and easier to work with in the Cinematic Editor V2 engine.
+
+![Year 2025 format](/assets/posts/cinematic-editor/export-scene-v2.png)
+
+**Year 2025 raw format**
+
+The new scene format which stores all keyframe data for the scene in a raw format. This format is the completely unmodified uncompressed original scene data that was loaded into the Cinematic Editor V2 engine.
+
+![Year 2025 raw format](/assets/posts/cinematic-editor/export-scene-raw-v2.png)
+
+**Year 2023 format (legacy)**
+
+The legacy scene format used in Cinematic Editor V1. This format stores simple keyframe data for the scene. At the moment, it's only available in Cinematic Editor V1, and the format supports the import feature in Cinematic Runtime Add-On.
+
+![V1 Export panel](/assets/posts/cinematic-editor/scene-action.png)
 
 ### Reset Scene
 
@@ -124,107 +202,6 @@ The toggles controls the HUD visibility when playing a scene using the extension
 - `Show Horse Health` - Shows visual representation of the players' ride element of the HUD.
 - `Show Status Effects` - Shows status effects element of the HUD.
 - `Show Item Text` - Shows item text element.
-
-# Changelog
-
-Changelog for Cinematic Editor Extension.
-
-### 1.4.1
-
-- Cinematic Editor now only works on Minecraft v1.21.50
-- Refracted codebase to not use deprecated Editor APIs
-- Fixed a bug where coordinates wasn't serialize to string
-- Renamed `extensionName` field to 'CameraEditor'
-
-### 1.4.0
-
-- Editor extension now requires Minecraft Preview 1.21.30
-- Added ability to edit camera location and rotation on existing keyframes.
-- Player location and player rotation now shows selected keyframe's data instead of current player's data.
-- Vector3 fields now disables when there isn't a scene.
-- Editor can now export HUD visibility settings to cinematic runtime add-on.
-
-### 1.3.2
-
-- Fix an issue with HUD elements not displaying when toggled on.
-- When playing the scene the following HUD elements can be shown if toggled on: ProgressBar, Hunger, AirBubbles, HorseHealth, StatusEffects, ItemText
-- Updated manifest
-- Resource pack now requires the same minimum engine version as behavior pack.
-
-### 1.3.1
-
-- Cinematic Editor extension is compatible with Minecraft Preview 1.21.20
-- Fix an issue with missing strings caused by editor API change
-- [Experimental] Add toggles for showing specific HUD elements
-
-### 1.3.0
-
-- Editor extension now requires Minecraft v1.21.10 Previews to run
-- Renamed 'Run Timeline' to 'Play Scene' - Plays the scene which is stored in editor extension storage.
-- Renamed 'Export Keyframes' to 'Export Scene' - Export the scene from editor extension storage to Cinematic Editor Runtime Add-On, which can be played through Scene Player item.
-- Group Export Scene and Play Scene button into 'Scene Action' pane
-- Added 'Reset Scene' button - Reset editor extension camera scene.
-- Updated Add-On Manifest metadata, changing license from MIT to All Rights Reserved.
-
-### 1.2.0
-
-- Module version property is now the same as `header.version`
-- Editor extension is now compatible with 1.20.80-preview.21 or above.
-- Fix Vector class not exported from '@minecraft/server' module in 1.20.80-preview.21.
-- Output files are now bundled.
-
-### 1.1.1
-
-- Editor extension is now compatible with 1.20.80 previews.
-- HUD is now hidden when 'Run Timeline' is pressed
-- When pressing 'Export Keyframes', the keyframe data will automatically transfer to Cinematic Runtime add-on. This requires cinematic runtime add-on to be loaded on editor world.
-
-### 1.0.5
-
-- Fix a critical bug where world hangs when 'Run Timeline' is pressed.
-
-### 1.0.4
-
-- Editor extension is now compatible with 1.20.70 previews
-
-### 1.0.3
-
-- Exported data from Export Keyframes can now be used in Cinematic Runtime Add-On
-- Behavior packs and resource packs are now dependent, so when one of the resource or behavior pack is applied to world the other pack is also applied automatically.
-
-### 1.0.2
-
-- Update pack name and description
-- Add-on is now compatible with 1.20.60 previews.
-
-### 1.0.1
-
-- Export keyframes now converts keyframes into /camera commands
-
-### 1.0.0
-
-- Added extension icon (icon by Mojang)
-
-### 0.3.0-beta
-
-- Refactor storage system to make it compatible for latest Dynamic Properties changes.
-- Fix a bug where Ease Type and Ease Time aren't sync when changing keyframe selection.
-- Fix Ease Time not being able to input float numbers.
-- Export Content field is now hidden unless 'Export Keyframes' button is pushed.
-- Easing values are now saved automatically when changed.
-
-### 0.2.0-beta
-
-- Increase maximum stored keyframes from 9 to 600
-- Fix the delay caused by running timeline
-- Text pane now disallow user from modifying the export content
-- Add easing into cinematic editor
-
-### 0.1.0-beta
-
-- Add tool and pane with no functionality.
-- Add export content
-- Add player location, rotation
 
 # Installation
 

@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v2.0.0",
+      "supports": "Windows 1.21.100",
+      "changelog_url": "/posts/cinematic-editor-changelog/#200",
+      "url": "https://www.mediafire.com/file/nz8p70qo86v8hkw/CinematicEditor_v2.0.0.mceditoraddon/file"
+    },
+    {
       "title": "v1.4.2",
       "supports": "Windows 1.21.70",
       "url": "https://www.mediafire.com/file/mbx2127njzw1dlb/CinematicEditor_v1.4.2.mceditoraddon/file"
@@ -8,55 +14,55 @@
     {
       "title": "v1.4.1",
       "supports": "Windows 1.21.50",
-      "changelog_url": "/posts/cinematic-editor/#141",
+      "changelog_url": "/posts/cinematic-editor-changelog/#141",
       "url": "https://www.mediafire.com/file/r8eszjpqyqxcd79/CinematicEditor_v1.4.1.mceditoraddon/file"
     },
     {
       "title": "v1.4.0",
       "supports": "Windows Preview 1.21.30",
-      "changelog_url": "/posts/cinematic-editor/#140",
+      "changelog_url": "/posts/cinematic-editor-changelog/#140",
       "url": "https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.30/CinematicEditor_v1.4.0.mceditoraddon"
     },
     {
       "title": "v1.3.2",
       "supports": "Windows Preview 1.21.20",
-      "changelog_url": "/posts/cinematic-editor/#132",
+      "changelog_url": "/posts/cinematic-editor-changelog/#132",
       "url": "https://github.com/jayly-bot/addons/releases/download/cinematic_v1.21.20.22/CinematicEditor_v1.3.2.mceditoraddon"
     },
     {
       "title": "v1.3.1",
       "supports": "Windows Preview 1.21.20",
-      "changelog_url": "/posts/cinematic-editor/#131",
+      "changelog_url": "/posts/cinematic-editor-changelog/#131",
       "url": "https://github.com/jayly-bot/addons/releases/download/cinematic%2B1.21.20/CinematicEditor_v1.3.1.mceditoraddon"
     },
     {
       "title": "v1.3.0",
       "supports": "Windows Preview 1.21.10",
-      "changelog_url": "/posts/cinematic-editor/#130",
+      "changelog_url": "/posts/cinematic-editor-changelog/#130",
       "url": "https://github.com/jayly-bot/addons/releases/download/cinematic-editor_v1.3.0/CinematicEditor_v1.3.0.mceditoraddon"
     },
     {
       "title": "v1.2.0",
       "supports": "Windows Preview 1.20.80",
-      "changelog_url": "/posts/cinematic-editor/#120",
+      "changelog_url": "/posts/cinematic-editor-changelog/#120",
       "url": "https://www.mediafire.com/file/2legkm7hbwcbcpf/CinematicEditor_v1.1.2.mceditoraddon/file"
     },
     {
       "title": "v1.1.1",
       "supports": "Windows Preview 1.20.80",
-      "changelog_url": "/posts/cinematic-editor/#111",
+      "changelog_url": "/posts/cinematic-editor-changelog/#111",
       "url": "https://www.mediafire.com/file/z9mmjfqd57j3iul/CinematicEditor_v1.1.1.mceditoraddon/file"
     },
     {
       "title": "v1.0.4",
       "supports": "Windows Preview 1.20.70",
-      "changelog_url": "/posts/cinematic-editor/#104",
+      "changelog_url": "/posts/cinematic-editor-changelog/#104",
       "url": "https://www.mediafire.com/file/suc0fomtot3p1hc/CinematicEditor_v1.0.4.mceditoraddon/file"
     },
     {
       "title": "v1.0.3",
       "supports": "Windows Preview 1.21.10",
-      "changelog_url": "/posts/cinematic-editor/#103",
+      "changelog_url": "/posts/cinematic-editor-changelog/#103",
       "url": "https://www.mediafire.com/file/uxot5a0potkbheb/CinematicEditor_v1.0.3.mceditoraddon/file"
     }
   ]
