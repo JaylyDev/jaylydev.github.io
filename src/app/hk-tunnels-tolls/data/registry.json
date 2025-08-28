@@ -1,0 +1,38 @@
+{
+  "vehicleTypes": {
+    "privateCar": {
+      "name": "私家車",
+      "hasTimeVaryingToll": true,
+      "description": null
+    },
+    "motorcycle": {
+      "name": "電單車",
+      "hasTimeVaryingToll": true,
+      "multiplier": 0.4,
+      "description": null
+    },
+    "taxi": {
+      "name": "的士",
+      "hasTimeVaryingToll": false,
+      "description": null
+    },
+    "commercial": {
+      "name": "其他車",
+      "hasTimeVaryingToll": false,
+      "description": "貨車、小巴及巴士等"
+    }
+  },
+  "tunnels": {
+    "western": { "name": "西隧" },
+    "cross_eastern": { "name": "紅隧 / 東隧" },
+    "tai_lam": { "name": "大欖隧道" }
+  },
+  "notes": [
+    "這個程式提供三條過海隧道（西隧、紅隧、東隧）及大欖隧道的收費資訊。",
+    "就私家車和電單車（包括機動三輪車）而言，不同時段之間設有過渡收費安排，以有序地銜接各時段之間的收費差距和保障道路安全。",
+    "過海的士乘客如非在過海的士站上車，須支付去程（25元）及回程（25元）隧道費，即共50元。",
+    "電單車在各時段的收費為私家車收費的40%。",
+    "前往大欖隧道的私家車及電單車實施分時段收費，的士收費為28元，商用車輛收費43元。",
+    "「其他車」包括貨車、小巴及巴士等。"
+  ]
+}

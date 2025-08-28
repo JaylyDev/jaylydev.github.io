@@ -2,7 +2,6 @@
   "version": "0.3.7",
   "tunnels": {
     "western": {
-      "name": "西隧",
       "timeVaryingTolls": {
         "weekdays": {
           "name": "星期一至六（不包括公眾假期）",
@@ -101,7 +100,6 @@
       }
     },
     "cross_eastern": {
-      "name": "紅隧 / 東隧",
       "timeVaryingTolls": {
         "weekdays": {
           "name": "星期一至六（不包括公眾假期）",
@@ -200,7 +198,6 @@
       }
     },
     "tai_lam": {
-      "name": "大欖隧道",
       "timeVaryingTolls": {
         "weekdays": {
           "name": "星期一至六（不包括公眾假期）",
@@ -277,14 +274,12 @@
   },
   "vehicleTypes": {
     "privateCar": {
-      "name": "私家車",
       "hasTimeVaryingToll": true,
       "fixedTolls": {
         "tates_cairn": 20
       }
     },
     "motorcycle": {
-      "name": "電單車",
       "hasTimeVaryingToll": true,
       "multiplier": 0.4,
       "fixedTolls": {
@@ -292,7 +287,6 @@
       }
     },
     "taxi": {
-      "name": "的士",
       "hasTimeVaryingToll": false,
       "fixedTolls": {
         "western": 25,
@@ -302,8 +296,6 @@
       }
     },
     "commercial": {
-      "name": "其他車",
-      "description": "貨車、小巴及巴士等",
       "hasTimeVaryingToll": false,
       "fixedTolls": {
         "western": 50,
@@ -311,13 +303,5 @@
         "tai_lam": 43
       }
     }
-  },
-  "notes": [
-    "這個程式提供三條過海隧道（西隧、紅隧、東隧）及大欖隧道的收費資訊。",
-    "就私家車和電單車（包括機動三輪車）而言，不同時段之間設有過渡收費安排，以有序地銜接各時段之間的收費差距和保障道路安全。",
-    "過海的士乘客如非在過海的士站上車，須支付去程（25元）及回程（25元）隧道費，即共50元。",
-    "電單車在各時段的收費為私家車收費的40%。",
-    "前往大欖隧道的私家車及電單車實施分時段收費，的士收費為28元，商用車輛收費43元。",
-    "「其他車」包括貨車、小巴及巴士等。"
-  ]
+  }
 }
