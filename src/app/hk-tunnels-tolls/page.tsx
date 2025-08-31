@@ -766,7 +766,9 @@ export default function Page(): JSX.Element {
         <AdUnit />
         <HeroUIProvider>
           <ThemeProvider>
-            <HKTunnelsTollsApp />
+            <Suspense>
+              <HKTunnelsTollsApp />
+            </Suspense>
           </ThemeProvider>
         </HeroUIProvider>
         <SiteFooter />
