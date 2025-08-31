@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes";
 import { useSearchParams } from "next/navigation";
 import registryInfo from "./data/registry.json";
 import tollData from "./data/tolls.json";
+import publicHolidayData from "./data/public_holidays.json";
 
 interface NumberRange {
   range: number[];
@@ -63,8 +64,9 @@ interface TollCardProps {
   tunnelKey: HKTunnelIdentifier;
   vehicle: VehicleTypeIdentifier;
   priceAlert?: string;
-  currentDate: Date;
+  currentDate: Date | null;
   isPublicHoliday: boolean;
+  isClient: boolean;
 }
 
 type VehicleTypeIdentifier = "privateCar" | "motorcycle" | "taxi" | "commercial";
@@ -101,9 +103,13 @@ function timeToMinutes(time: string): number {
 function getCurrentTollForTunnel(
   selectedVehicle: VehicleTypeIdentifier,
   tunnelKey: HKTunnelIdentifier,
-  currentTime: Date,
-  isPublicHoliday: boolean
+  currentTime: Date | null,
+  isPublicHoliday: boolean,
+  isClient: boolean
 ): string {
+  // Show loading until everything is properly loaded
+  if (!currentTime || !isClient) return "載入中...";
+
   const vehicle = tollData.vehicleTypes[selectedVehicle];
   const tunnel = tollData.tunnels[tunnelKey];
 
@@ -122,7 +128,6 @@ function getCurrentTollForTunnel(
   }
 
   const timeSlots = isHolidaySchedule ? tunnel.timeVaryingTolls.sundays_and_holidays : tunnel.timeVaryingTolls.weekdays;
-
   const currentTimeStr = hkTime.toTimeString().slice(0, 5); // HH:MM format
 
   // Find current period
@@ -155,7 +160,7 @@ function getCurrentTollForTunnel(
 }
 
 function HKTollCard(props: TollCardProps): JSX.Element {
-  const { tunnelKey, priceAlert, vehicle, currentDate, isPublicHoliday } = props;
+  const { tunnelKey, priceAlert, vehicle, currentDate, isPublicHoliday, isClient } = props;
 
   return (
     <div key={tunnelKey} className="border-b border-black dark:border-white pb-1 last:border-b-0">
@@ -165,7 +170,7 @@ function HKTollCard(props: TollCardProps): JSX.Element {
         </span>
         <div className="text-center sm:text-right">
           <p className="text-5xl py-1 md:py-2 font-bold text-green-600">
-            {getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday)}
+            {getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday, isClient)}
           </p>
           {priceAlert && (
             <span className="text-[1.45rem] md:text-lg bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-3 rounded-md font-medium inline-block text-center">
@@ -178,12 +183,35 @@ function HKTollCard(props: TollCardProps): JSX.Element {
   );
 }
 
-function FetchVehicleSelector({
-  setSelectedVehicle,
-}: {
-  setSelectedVehicle: (vehicle: VehicleTypeIdentifier) => void;
-}): JSX.Element {
+function HKTunnelsTollsApp(): JSX.Element {
   const searchParams = useSearchParams();
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    setCurrentTime(new Date());
+  }, []);
+
+  // Check if current date is a public holiday
+  useEffect(() => {
+    const holidays = new Set<string>();
+    if (publicHolidayData.vcalendar && publicHolidayData.vcalendar[0] && publicHolidayData.vcalendar[0].vevent) {
+      publicHolidayData.vcalendar[0].vevent.forEach((event) => {
+        // Extract date from dtstart format "20240101"
+        const dateStr = event.dtstart[0] as string;
+        holidays.add(dateStr);
+      });
+    }
+
+    if (currentTime) {
+      const hkTime = new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
+      const dateStr = hkTime.toISOString().slice(0, 10).replace(/-/g, ""); // Format: YYYYMMDD
+      setIsPublicHoliday(holidays.has(dateStr));
+    }
+  }, [currentTime]);
 
   useEffect(() => {
     const selectedVehicle = searchParams.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
@@ -191,40 +219,6 @@ function FetchVehicleSelector({
       setSelectedVehicle(selectedVehicle);
     }
   }, [searchParams, setSelectedVehicle]);
-
-  return <></>;
-}
-
-function HKTunnelsTollsApp(): JSX.Element {
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
-  const [publicHolidays, setPublicHolidays] = useState<Set<string>>(new Set());
-  const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
-
-  // Load public holidays data
-  useEffect(() => {
-    fetch("/api/hk-tunnels-tolls/public_holidays.json")
-      .then((response) => response.json())
-      .then((data: PublicHolidayData) => {
-        const holidays = new Set<string>();
-        if (data.vcalendar && data.vcalendar[0] && data.vcalendar[0].vevent) {
-          data.vcalendar[0].vevent.forEach((event) => {
-            // Extract date from dtstart format "20240101"
-            const dateStr = event.dtstart[0];
-            holidays.add(dateStr);
-          });
-        }
-        setPublicHolidays(holidays);
-      })
-      .catch((error) => console.error("載入公眾假期資料失敗:", error));
-  }, []);
-
-  // Check if current date is a public holiday
-  useEffect(() => {
-    const hkTime = new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
-    const dateStr = hkTime.toISOString().slice(0, 10).replace(/-/g, ""); // Format: YYYYMMDD
-    setIsPublicHoliday(publicHolidays.has(dateStr));
-  }, [currentTime, publicHolidays]);
 
   // Update current time every minute
   useEffect(() => {
@@ -242,7 +236,7 @@ function HKTunnelsTollsApp(): JSX.Element {
 
   // Function to get price change alert for a specific tunnel
   const getPriceChangeAlertForTunnel = (tunnelKey: HKTunnelIdentifier): string => {
-    if (!tollData) return "";
+    if (!tollData || !currentTime) return "";
 
     const vehicle = tollData.vehicleTypes[selectedVehicle];
     const tunnel = tollData.tunnels[tunnelKey];
@@ -313,15 +307,12 @@ function HKTunnelsTollsApp(): JSX.Element {
     return "";
   };
 
-  const hkTime = new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
+  const hkTime = currentTime ? new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" })) : null;
   const vehicleType = tollData?.vehicleTypes[selectedVehicle] || registryInfo.vehicleTypes[selectedVehicle];
   const vehicleName = registryInfo.vehicleTypes[selectedVehicle].name;
 
   return (
     <div className="max-w-4xl mx-auto px-2">
-      <Suspense>
-        <FetchVehicleSelector setSelectedVehicle={setSelectedVehicle} />
-      </Suspense>
       {/* Header */}
       <h1 className="text-center m-2 md:m-4 text-3xl md:text-4xl font-bold md:p-2">香港實時隧道收費</h1>
       {/* Current Toll Display */}
@@ -349,6 +340,7 @@ function HKTunnelsTollsApp(): JSX.Element {
                   vehicle={selectedVehicle}
                   currentDate={hkTime}
                   isPublicHoliday={isPublicHoliday}
+                  isClient={isClient}
                 />
               );
             })}
@@ -486,13 +478,13 @@ function HKTunnelsTollsApp(): JSX.Element {
                 {(() => {
                   // Get periods from the cross harbour tunnels (they should all have the same structure)
                   const referenceTunnel = tollData.tunnels["cross_eastern"];
-                  const timeSlots = referenceTunnel.timeVaryingTolls.weekdays;
+                  const timeSlots = referenceTunnel.timeVaryingTolls.sundays_and_holidays;
 
                   const formatToll = (tunnelKey: HKTunnelIdentifier, period: TollPeriod, multiplier?: number) => {
                     const tunnelData = tollData.tunnels[tunnelKey];
                     if (!tunnelData || !tunnelData.timeVaryingTolls) return "N/A";
 
-                    const tunnelTimeSlots = tunnelData.timeVaryingTolls.weekdays;
+                    const tunnelTimeSlots = tunnelData.timeVaryingTolls.sundays_and_holidays;
 
                     // Find matching period by time range
                     const matchingPeriod = tunnelTimeSlots.periods.find((p) => p.timeRange === period.timeRange);
@@ -728,15 +720,17 @@ function HKTunnelsTollsApp(): JSX.Element {
         <p>
           最後更新：
           <span suppressHydrationWarning>
-            {hkTime.toLocaleString("zh-HK", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-              hour12: false,
-            })}
+            {hkTime
+              ? hkTime.toLocaleString("zh-HK", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: false,
+                })
+              : "載入中..."}
           </span>
         </p>
       </div>
