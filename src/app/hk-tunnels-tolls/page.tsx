@@ -61,10 +61,8 @@ interface TollData {
 
 interface TollCardProps {
   tunnelKey: HKTunnelIdentifier;
-  tunnel: HKTunnel;
   vehicle: VehicleTypeIdentifier;
   priceAlert?: string;
-  tollData: TollData | null;
   currentDate: Date;
   isPublicHoliday: boolean;
 }
@@ -101,20 +99,17 @@ function timeToMinutes(time: string): number {
 
 // Function to get current toll for a specific tunnel
 function getCurrentTollForTunnel(
-  tollData: TollData | null,
   selectedVehicle: VehicleTypeIdentifier,
   tunnelKey: HKTunnelIdentifier,
   currentTime: Date,
   isPublicHoliday: boolean
 ): string {
-  if (!tollData) return "載入中...";
-
   const vehicle = tollData.vehicleTypes[selectedVehicle];
   const tunnel = tollData.tunnels[tunnelKey];
 
   // Fixed toll vehicles
   if (vehicle.fixedTolls && tunnelKey in vehicle.fixedTolls) {
-    return `$${vehicle.fixedTolls[tunnelKey]}`;
+    return `$${vehicle.fixedTolls[tunnelKey as keyof typeof vehicle.fixedTolls]}`;
   }
 
   // Time-varying toll vehicles
@@ -139,7 +134,7 @@ function getCurrentTollForTunnel(
       if (typeof tollForTunnel === "object" && "range" in tollForTunnel) {
         // Transition period - show range
         const [min, max] = tollForTunnel.range;
-        if (vehicle.multiplier) {
+        if ("multiplier" in vehicle) {
           const minMoto = Math.round(min * vehicle.multiplier * 10) / 10;
           const maxMoto = Math.round(max * vehicle.multiplier * 10) / 10;
           return `$${minMoto} - $${maxMoto}`;
@@ -147,7 +142,7 @@ function getCurrentTollForTunnel(
         return `$${min} - $${max}`;
       } else {
         // Apply multiplier for motorcycles
-        if (vehicle.multiplier) {
+        if ("multiplier" in vehicle) {
           const motorcycleToll = Math.round(tollForTunnel * vehicle.multiplier * 10) / 10;
           return `$${motorcycleToll}`;
         }
@@ -160,7 +155,7 @@ function getCurrentTollForTunnel(
 }
 
 function HKTollCard(props: TollCardProps): JSX.Element {
-  const { tunnelKey, tunnel, priceAlert, vehicle, tollData, currentDate, isPublicHoliday } = props;
+  const { tunnelKey, priceAlert, vehicle, currentDate, isPublicHoliday } = props;
 
   return (
     <div key={tunnelKey} className="border-b border-black dark:border-white pb-1 last:border-b-0">
@@ -170,7 +165,7 @@ function HKTollCard(props: TollCardProps): JSX.Element {
         </span>
         <div className="text-center sm:text-right">
           <p className="text-5xl py-1 md:py-2 font-bold text-green-600">
-            {getCurrentTollForTunnel(tollData, vehicle, tunnelKey, currentDate, isPublicHoliday)}
+            {getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday)}
           </p>
           {priceAlert && (
             <span className="text-[1.45rem] md:text-lg bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-3 rounded-md font-medium inline-block text-center">
@@ -183,20 +178,28 @@ function HKTollCard(props: TollCardProps): JSX.Element {
   );
 }
 
-function HKTunnelsTollsApp(): JSX.Element {
+function FetchVehicleSelector({
+  setSelectedVehicle,
+}: {
+  setSelectedVehicle: (vehicle: VehicleTypeIdentifier) => void;
+}): JSX.Element {
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const selectedVehicle = searchParams.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
+    if (selectedVehicle && isValidVehicle(selectedVehicle)) {
+      setSelectedVehicle(selectedVehicle);
+    }
+  }, [searchParams, setSelectedVehicle]);
+
+  return <></>;
+}
+
+function HKTunnelsTollsApp(): JSX.Element {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const [publicHolidays, setPublicHolidays] = useState<Set<string>>(new Set());
   const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
-
-  // Handle search params and localStorage loading on client side
-  useEffect(() => {
-    const vehicleParam = searchParams?.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
-    if (vehicleParam && isValidVehicle(vehicleParam)) {
-      setSelectedVehicle(vehicleParam);
-    }
-  }, [searchParams]);
 
   // Load public holidays data
   useEffect(() => {
@@ -311,12 +314,14 @@ function HKTunnelsTollsApp(): JSX.Element {
   };
 
   const hkTime = new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Hong_Kong" }));
-
   const vehicleType = tollData?.vehicleTypes[selectedVehicle] || registryInfo.vehicleTypes[selectedVehicle];
   const vehicleName = registryInfo.vehicleTypes[selectedVehicle].name;
 
   return (
     <div className="max-w-4xl mx-auto px-2">
+      <Suspense>
+        <FetchVehicleSelector setSelectedVehicle={setSelectedVehicle} />
+      </Suspense>
       {/* Header */}
       <h1 className="text-center m-2 md:m-4 text-3xl md:text-4xl font-bold md:p-2">香港實時隧道收費</h1>
       {/* Current Toll Display */}
@@ -327,40 +332,26 @@ function HKTunnelsTollsApp(): JSX.Element {
         </h3>
         <div>
           <div className="space-y-2">
-            {tollData
-              ? Object.entries(tollData.tunnels).map(([key, tunnel]) => {
-                  if (!isValidTunnel(key)) {
-                    console.error(`Invalid tunnel identifier: ${key}`);
-                    return null;
-                  }
+            {Object.keys(tollData.tunnels).map((key) => {
+              if (!isValidTunnel(key)) {
+                console.error(`Invalid tunnel identifier: ${key}`);
+                return null;
+              }
 
-                  const priceAlert = getPriceChangeAlertForTunnel(key);
-                  // const priceAlert = `20:00 變為 $12.8 - $15.2`;
+              const priceAlert = getPriceChangeAlertForTunnel(key);
+              // const priceAlert = `20:00 變為 $12.8 - $15.2`;
 
-                  return (
-                    <HKTollCard
-                      key={key}
-                      tunnelKey={key}
-                      tunnel={tunnel}
-                      priceAlert={priceAlert}
-                      vehicle={selectedVehicle}
-                      tollData={tollData as unknown as TollData}
-                      currentDate={hkTime}
-                      isPublicHoliday={isPublicHoliday}
-                    />
-                  );
-                })
-              : // Static loading cards for SEO
-                Object.entries(registryInfo.tunnels).map(([key, tunnel]) => (
-                  <div key={key} className="border-b border-black dark:border-white pb-1 last:border-b-0">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:gap-2">
-                      <span className="text-3xl md:text-2xl font-medium text-center sm:text-left">{tunnel.name}</span>
-                      <div className="text-center sm:text-right">
-                        <p className="text-5xl py-1 md:py-2 font-bold text-green-600">載入中...</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              return (
+                <HKTollCard
+                  key={key}
+                  tunnelKey={key}
+                  priceAlert={priceAlert}
+                  vehicle={selectedVehicle}
+                  currentDate={hkTime}
+                  isPublicHoliday={isPublicHoliday}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
@@ -369,37 +360,22 @@ function HKTunnelsTollsApp(): JSX.Element {
         {/* Vehicle Type Selection */}
         <h3 className="text-xl md:text-lg font-semibold mb-2">選擇車輛類型</h3>
         <div className="grid grid-cols-2 gap-4">
-          {tollData
-            ? Object.entries(tollData.vehicleTypes).map(([key], index, array) => {
-                if (!isValidVehicle(key)) return null;
-                return (
-                  <Button
-                    key={key}
-                    color={selectedVehicle === key ? "primary" : "default"}
-                    size="lg"
-                    className={`text-xl md:text-lg ${
-                      array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
-                    }`}
-                    onPress={() => setSelectedVehicle(key)}
-                  >
-                    {registryInfo.vehicleTypes[key].name}
-                  </Button>
-                );
-              })
-            : // Static buttons for SEO
-              Object.entries(registryInfo.vehicleTypes).map(([key, vehicle], index, array) => (
-                <Button
-                  key={key}
-                  color={selectedVehicle === key ? "primary" : "default"}
-                  size="lg"
-                  className={`text-xl md:text-lg ${
-                    array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
-                  }`}
-                  onPress={() => setSelectedVehicle(key as VehicleTypeIdentifier)}
-                >
-                  {vehicle.name}
-                </Button>
-              ))}
+          {Object.entries(tollData.vehicleTypes).map(([key], index, array) => {
+            if (!isValidVehicle(key)) return null;
+            return (
+              <Button
+                key={key}
+                color={selectedVehicle === key ? "primary" : "default"}
+                size="lg"
+                className={`text-xl md:text-lg ${
+                  array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
+                }`}
+                onPress={() => setSelectedVehicle(key)}
+              >
+                {registryInfo.vehicleTypes[key].name}
+              </Button>
+            );
+          })}
         </div>
       </div>
       {/* Cross-Harbour Tunnels Time Periods Tables */}
@@ -420,83 +396,74 @@ function HKTunnelsTollsApp(): JSX.Element {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {tollData ? (
-                  (() => {
-                    // Get periods from the cross harbour tunnels (they should all have the same structure)
-                    const referenceTunnel = tollData.tunnels["cross_eastern"];
-                    if (!referenceTunnel || !referenceTunnel.timeVaryingTolls) return [];
+                {(() => {
+                  // Get periods from the cross harbour tunnels (they should all have the same structure)
+                  const referenceTunnel = tollData.tunnels["cross_eastern"];
+                  if (!referenceTunnel || !referenceTunnel.timeVaryingTolls) return [];
 
-                    const timeSlots = referenceTunnel.timeVaryingTolls.weekdays;
+                  const timeSlots = referenceTunnel.timeVaryingTolls.weekdays;
 
-                    const formatToll = (tunnelKey: HKTunnelIdentifier, period: TollPeriod, multiplier?: number) => {
-                      const tunnelData = tollData.tunnels[tunnelKey];
-                      if (!tunnelData || !tunnelData.timeVaryingTolls) return "N/A";
+                  const formatToll = (tunnelKey: HKTunnelIdentifier, period: TollPeriod, multiplier?: number) => {
+                    const tunnelData = tollData.tunnels[tunnelKey];
+                    if (!tunnelData || !tunnelData.timeVaryingTolls) return "N/A";
 
-                      const tunnelTimeSlots = tunnelData.timeVaryingTolls.weekdays;
+                    const tunnelTimeSlots = tunnelData.timeVaryingTolls.weekdays;
 
-                      // Find matching period by time range
-                      const matchingPeriod = tunnelTimeSlots.periods.find((p) => p.timeRange === period.timeRange);
-                      if (!matchingPeriod) return "N/A";
+                    // Find matching period by time range
+                    const matchingPeriod = tunnelTimeSlots.periods.find((p) => p.timeRange === period.timeRange);
+                    if (!matchingPeriod) return "N/A";
 
-                      const toll = matchingPeriod.toll;
+                    const toll = matchingPeriod.toll;
 
-                      if (typeof toll === "object" && "range" in toll) {
-                        const [min, max] = toll.range;
-                        if (multiplier) {
-                          return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
-                        }
-                        return `$${min} - $${max}`;
-                      }
+                    if (typeof toll === "object" && "range" in toll) {
+                      const [min, max] = toll.range;
                       if (multiplier) {
-                        return `$${(toll * multiplier).toFixed(1)}`;
+                        return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
                       }
-                      return `$${toll}`;
-                    };
+                      return `$${min} - $${max}`;
+                    }
+                    if (multiplier) {
+                      return `$${(toll * multiplier).toFixed(1)}`;
+                    }
+                    return `$${toll}`;
+                  };
 
-                    const getFixedToll = (tunnelKey: HKTunnelIdentifier, vehicle: VehicleType) => {
-                      return `$${vehicle.fixedTolls?.[tunnelKey] || 0}`;
-                    };
+                  const getFixedToll = (tunnelKey: HKTunnelIdentifier, vehicle: VehicleType) => {
+                    return `$${vehicle.fixedTolls?.[tunnelKey] || 0}`;
+                  };
 
-                    const vehicle = tollData.vehicleTypes[selectedVehicle];
+                  const vehicle = tollData.vehicleTypes[selectedVehicle];
 
-                    return timeSlots.periods.map((period: TollPeriod, index: number) => (
-                      <tr
-                        key={index}
-                        className={
-                          period.type === "peak"
-                            ? "bg-red-50 text-black"
-                            : period.type === "transition"
-                            ? "bg-yellow-50 text-black"
-                            : ""
-                        }
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {vehicle.hasTimeVaryingToll
-                            ? formatToll("western", period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
-                            : getFixedToll("western", vehicle as VehicleType)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {vehicle.hasTimeVaryingToll
-                            ? formatToll(
-                                "cross_eastern",
-                                period,
-                                "multiplier" in vehicle ? vehicle.multiplier : undefined
-                              )
-                            : getFixedToll("cross_eastern", vehicle as VehicleType)}
-                        </td>
-                      </tr>
-                    ));
-                  })()
-                ) : (
-                  // Loading state for table
-                  <tr>
-                    <td colSpan={4} className="px-6 py-4 text-center text-gray-500">
-                      載入中...
-                    </td>
-                  </tr>
-                )}
+                  return timeSlots.periods.map((period: TollPeriod, index: number) => (
+                    <tr
+                      key={index}
+                      className={
+                        period.type === "peak"
+                          ? "bg-red-50 text-black"
+                          : period.type === "transition"
+                          ? "bg-yellow-50 text-black"
+                          : ""
+                      }
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {vehicle.hasTimeVaryingToll
+                          ? formatToll("western", period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
+                          : getFixedToll("western", vehicle as VehicleType)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {vehicle.hasTimeVaryingToll
+                          ? formatToll(
+                              "cross_eastern",
+                              period,
+                              "multiplier" in vehicle ? vehicle.multiplier : undefined
+                            )
+                          : getFixedToll("cross_eastern", vehicle as VehicleType)}
+                      </td>
+                    </tr>
+                  ));
+                })()}
               </tbody>
             </table>
           </div>
@@ -516,83 +483,71 @@ function HKTunnelsTollsApp(): JSX.Element {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {tollData ? (
-                  (() => {
-                    // Get periods from the cross harbour tunnels (they should all have the same structure)
-                    const referenceTunnel = tollData.tunnels["cross_eastern"];
-                    if (!referenceTunnel || !referenceTunnel.timeVaryingTolls) return [];
+                {(() => {
+                  // Get periods from the cross harbour tunnels (they should all have the same structure)
+                  const referenceTunnel = tollData.tunnels["cross_eastern"];
+                  const timeSlots = referenceTunnel.timeVaryingTolls.weekdays;
 
-                    const timeSlots = referenceTunnel.timeVaryingTolls.sundays_and_holidays;
+                  const formatToll = (tunnelKey: HKTunnelIdentifier, period: TollPeriod, multiplier?: number) => {
+                    const tunnelData = tollData.tunnels[tunnelKey];
+                    if (!tunnelData || !tunnelData.timeVaryingTolls) return "N/A";
 
-                    const formatToll = (tunnelKey: HKTunnelIdentifier, period: TollPeriod, multiplier?: number) => {
-                      const tunnelData = tollData.tunnels[tunnelKey];
-                      if (!tunnelData || !tunnelData.timeVaryingTolls) return "N/A";
+                    const tunnelTimeSlots = tunnelData.timeVaryingTolls.weekdays;
 
-                      const tunnelTimeSlots = tunnelData.timeVaryingTolls.sundays_and_holidays;
+                    // Find matching period by time range
+                    const matchingPeriod = tunnelTimeSlots.periods.find((p) => p.timeRange === period.timeRange);
+                    if (!matchingPeriod) return "N/A";
 
-                      // Find matching period by time range
-                      const matchingPeriod = tunnelTimeSlots.periods.find((p) => p.timeRange === period.timeRange);
-                      if (!matchingPeriod) return "N/A";
+                    const toll = matchingPeriod.toll;
 
-                      const toll = matchingPeriod.toll;
-
-                      if (typeof toll === "object" && "range" in toll) {
-                        const [min, max] = toll.range;
-                        if (multiplier) {
-                          return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
-                        }
-                        return `$${min} - $${max}`;
-                      }
+                    if (typeof toll === "object" && "range" in toll) {
+                      const [min, max] = toll.range;
                       if (multiplier) {
-                        return `$${(toll * multiplier).toFixed(1)}`;
+                        return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
                       }
-                      return `$${toll}`;
-                    };
+                      return `$${min} - $${max}`;
+                    }
+                    if (multiplier) {
+                      return `$${(toll * multiplier).toFixed(1)}`;
+                    }
+                    return `$${toll}`;
+                  };
 
-                    const getFixedToll = (tunnelKey: HKTunnelIdentifier, vehicle: VehicleType) => {
-                      return `$${vehicle.fixedTolls?.[tunnelKey] || 0}`;
-                    };
+                  const getFixedToll = (tunnelKey: HKTunnelIdentifier, vehicle: VehicleType) => {
+                    return `$${vehicle.fixedTolls?.[tunnelKey] || 0}`;
+                  };
 
-                    const vehicle = tollData.vehicleTypes[selectedVehicle];
-
-                    return timeSlots.periods.map((period: TollPeriod, index: number) => (
-                      <tr
-                        key={index}
-                        className={
-                          period.type === "peak"
-                            ? "bg-red-50 text-black"
-                            : period.type === "transition"
-                            ? "bg-yellow-50 text-black"
-                            : ""
-                        }
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {vehicle.hasTimeVaryingToll
-                            ? formatToll("western", period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
-                            : getFixedToll("western", vehicle as VehicleType)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {vehicle.hasTimeVaryingToll
-                            ? formatToll(
-                                "cross_eastern",
-                                period,
-                                "multiplier" in vehicle ? vehicle.multiplier : undefined
-                              )
-                            : getFixedToll("cross_eastern", vehicle as VehicleType)}
-                        </td>
-                      </tr>
-                    ));
-                  })()
-                ) : (
-                  // Loading state for table
-                  <tr>
-                    <td colSpan={4} className="px-6 py-4 text-center text-gray-500">
-                      載入中...
-                    </td>
-                  </tr>
-                )}
+                  const vehicle = tollData.vehicleTypes[selectedVehicle];
+                  return timeSlots.periods.map((period: TollPeriod, index: number) => (
+                    <tr
+                      key={index}
+                      className={
+                        period.type === "peak"
+                          ? "bg-red-50 text-black"
+                          : period.type === "transition"
+                          ? "bg-yellow-50 text-black"
+                          : ""
+                      }
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {vehicle.hasTimeVaryingToll
+                          ? formatToll("western", period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
+                          : getFixedToll("western", vehicle as VehicleType)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {vehicle.hasTimeVaryingToll
+                          ? formatToll(
+                              "cross_eastern",
+                              period,
+                              "multiplier" in vehicle ? vehicle.multiplier : undefined
+                            )
+                          : getFixedToll("cross_eastern", vehicle as VehicleType)}
+                      </td>
+                    </tr>
+                  ));
+                })()}
               </tbody>
             </table>
           </div>
@@ -615,68 +570,59 @@ function HKTunnelsTollsApp(): JSX.Element {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {tollData ? (
-                  (() => {
-                    // Get periods from Tai Lam tunnel
-                    const taiLamTunnel = tollData.tunnels["tai_lam"];
-                    if (!taiLamTunnel || !taiLamTunnel.timeVaryingTolls) return [];
+                {(() => {
+                  // Get periods from Tai Lam tunnel
+                  const taiLamTunnel = tollData.tunnels["tai_lam"];
+                  if (!taiLamTunnel || !taiLamTunnel.timeVaryingTolls) return [];
 
-                    const timeSlots = taiLamTunnel.timeVaryingTolls.weekdays;
+                  const timeSlots = taiLamTunnel.timeVaryingTolls.weekdays;
 
-                    const formatToll = (period: TollPeriod, multiplier?: number) => {
-                      const toll = period.toll;
+                  const formatToll = (period: TollPeriod, multiplier?: number) => {
+                    const toll = period.toll;
 
-                      if (typeof toll === "object" && "range" in toll) {
-                        const [min, max] = toll.range;
-                        if (multiplier) {
-                          return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
-                        }
-                        return `$${min} - $${max}`;
-                      }
+                    if (typeof toll === "object" && "range" in toll) {
+                      const [min, max] = toll.range;
                       if (multiplier) {
-                        return `$${(toll * multiplier).toFixed(1)}`;
+                        return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
                       }
-                      return `$${toll}`;
-                    };
+                      return `$${min} - $${max}`;
+                    }
+                    if (multiplier) {
+                      return `$${(toll * multiplier).toFixed(1)}`;
+                    }
+                    return `$${toll}`;
+                  };
 
-                    const getFixedToll = (vehicle: VehicleType) => {
-                      if (vehicle.fixedTolls?.tai_lam) {
-                        return `$${vehicle.fixedTolls.tai_lam}`;
+                  const getFixedToll = (vehicle: VehicleType) => {
+                    if (vehicle.fixedTolls?.tai_lam) {
+                      return `$${vehicle.fixedTolls.tai_lam}`;
+                    }
+                    return `$${vehicle.fixedTolls || 0}`;
+                  };
+
+                  const vehicle = tollData.vehicleTypes[selectedVehicle];
+
+                  return timeSlots.periods.map((period: TollPeriod, index: number) => (
+                    <tr
+                      key={index}
+                      className={
+                        period.type === "peak"
+                          ? "bg-red-50 text-black"
+                          : period.type === "transition"
+                          ? "bg-yellow-50 text-black"
+                          : ""
                       }
-                      return `$${vehicle.fixedTolls || 0}`;
-                    };
-
-                    const vehicle = tollData.vehicleTypes[selectedVehicle];
-
-                    return timeSlots.periods.map((period: TollPeriod, index: number) => (
-                      <tr
-                        key={index}
-                        className={
-                          period.type === "peak"
-                            ? "bg-red-50 text-black"
-                            : period.type === "transition"
-                            ? "bg-yellow-50 text-black"
-                            : ""
-                        }
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {vehicle.hasTimeVaryingToll
-                            ? formatToll(period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
-                            : getFixedToll(vehicle as VehicleType)}
-                        </td>
-                      </tr>
-                    ));
-                  })()
-                ) : (
-                  // Loading state for table
-                  <tr>
-                    <td colSpan={3} className="px-6 py-4 text-center text-gray-500">
-                      載入中...
-                    </td>
-                  </tr>
-                )}
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {vehicle.hasTimeVaryingToll
+                          ? formatToll(period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
+                          : getFixedToll(vehicle as VehicleType)}
+                      </td>
+                    </tr>
+                  ));
+                })()}
               </tbody>
             </table>
           </div>
@@ -695,68 +641,59 @@ function HKTunnelsTollsApp(): JSX.Element {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {tollData ? (
-                  (() => {
-                    // Get periods from Tai Lam tunnel
-                    const taiLamTunnel = tollData.tunnels["tai_lam"];
-                    if (!taiLamTunnel || !taiLamTunnel.timeVaryingTolls) return [];
+                {(() => {
+                  // Get periods from Tai Lam tunnel
+                  const taiLamTunnel = tollData.tunnels["tai_lam"];
+                  if (!taiLamTunnel || !taiLamTunnel.timeVaryingTolls) return [];
 
-                    const timeSlots = taiLamTunnel.timeVaryingTolls.sundays_and_holidays;
+                  const timeSlots = taiLamTunnel.timeVaryingTolls.sundays_and_holidays;
 
-                    const formatToll = (period: TollPeriod, multiplier?: number) => {
-                      const toll = period.toll;
+                  const formatToll = (period: TollPeriod, multiplier?: number) => {
+                    const toll = period.toll;
 
-                      if (typeof toll === "object" && "range" in toll) {
-                        const [min, max] = toll.range;
-                        if (multiplier) {
-                          return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
-                        }
-                        return `$${min} - $${max}`;
-                      }
+                    if (typeof toll === "object" && "range" in toll) {
+                      const [min, max] = toll.range;
                       if (multiplier) {
-                        return `$${(toll * multiplier).toFixed(1)}`;
+                        return `$${(min * multiplier).toFixed(1)} - $${(max * multiplier).toFixed(1)}`;
                       }
-                      return `$${toll}`;
-                    };
+                      return `$${min} - $${max}`;
+                    }
+                    if (multiplier) {
+                      return `$${(toll * multiplier).toFixed(1)}`;
+                    }
+                    return `$${toll}`;
+                  };
 
-                    const getFixedToll = (vehicle: VehicleType) => {
-                      if (vehicle.fixedTolls?.tai_lam) {
-                        return `$${vehicle.fixedTolls.tai_lam}`;
+                  const getFixedToll = (vehicle: VehicleType) => {
+                    if (vehicle.fixedTolls?.tai_lam) {
+                      return `$${vehicle.fixedTolls.tai_lam}`;
+                    }
+                    return `$${vehicle.fixedTolls || 0}`;
+                  };
+
+                  const vehicle = tollData.vehicleTypes[selectedVehicle];
+
+                  return timeSlots.periods.map((period: TollPeriod, index: number) => (
+                    <tr
+                      key={index}
+                      className={
+                        period.type === "peak"
+                          ? "bg-red-50 text-black"
+                          : period.type === "transition"
+                          ? "bg-yellow-50 text-black"
+                          : ""
                       }
-                      return `$${vehicle.fixedTolls || 0}`;
-                    };
-
-                    const vehicle = tollData.vehicleTypes[selectedVehicle];
-
-                    return timeSlots.periods.map((period: TollPeriod, index: number) => (
-                      <tr
-                        key={index}
-                        className={
-                          period.type === "peak"
-                            ? "bg-red-50 text-black"
-                            : period.type === "transition"
-                            ? "bg-yellow-50 text-black"
-                            : ""
-                        }
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {vehicle.hasTimeVaryingToll
-                            ? formatToll(period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
-                            : getFixedToll(vehicle as VehicleType)}
-                        </td>
-                      </tr>
-                    ));
-                  })()
-                ) : (
-                  // Loading state for table
-                  <tr>
-                    <td colSpan={3} className="px-6 py-4 text-center text-gray-500">
-                      載入中...
-                    </td>
-                  </tr>
-                )}
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap font-medium">{period.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {vehicle.hasTimeVaryingToll
+                          ? formatToll(period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
+                          : getFixedToll(vehicle as VehicleType)}
+                      </td>
+                    </tr>
+                  ));
+                })()}
               </tbody>
             </table>
           </div>
@@ -791,17 +728,15 @@ function HKTunnelsTollsApp(): JSX.Element {
         <p>
           最後更新：
           <span suppressHydrationWarning>
-            {hkTime
-              ? hkTime.toLocaleString("zh-HK", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                  hour12: false,
-                })
-              : "載入中..."}
+            {hkTime.toLocaleString("zh-HK", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: false,
+            })}
           </span>
         </p>
       </div>
@@ -837,9 +772,7 @@ export default function Page(): JSX.Element {
         <AdUnit />
         <HeroUIProvider>
           <ThemeProvider>
-            <Suspense>
-              <HKTunnelsTollsApp />;
-            </Suspense>
+            <HKTunnelsTollsApp />
           </ThemeProvider>
         </HeroUIProvider>
         <SiteFooter />
