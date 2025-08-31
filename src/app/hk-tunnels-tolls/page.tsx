@@ -2,10 +2,9 @@
 
 import "@/styles/components/card.css";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { Button, HeroUIProvider } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
-import { useSearchParams } from "next/navigation";
 import registryInfo from "./data/registry.json";
 import tollData from "./data/tolls.json";
 import publicHolidayData from "./data/public_holidays.json";
@@ -183,27 +182,8 @@ function HKTollCard(props: TollCardProps): JSX.Element {
   );
 }
 
-// Component that handles search params
-function SearchParamsHandler({ onVehicleChange }: { onVehicleChange: (vehicle: VehicleTypeIdentifier) => void }): null {
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const selectedVehicle = searchParams.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
-    if (selectedVehicle && isValidVehicle(selectedVehicle)) {
-      onVehicleChange(selectedVehicle);
-    }
-  }, [searchParams, onVehicleChange]);
-
-  return null;
-}
-
-function HKTunnelsTollsApp({
-  selectedVehicle,
-  setSelectedVehicle,
-}: {
-  selectedVehicle: VehicleTypeIdentifier;
-  setSelectedVehicle: React.Dispatch<React.SetStateAction<VehicleTypeIdentifier>>;
-}): JSX.Element {
+function HKTunnelsTollsApp(): JSX.Element {
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -239,6 +219,14 @@ function HKTunnelsTollsApp({
 
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const selectedVehicle = searchParams.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
+    if (selectedVehicle && isValidVehicle(selectedVehicle)) {
+      setSelectedVehicle(selectedVehicle);
+    }
+  }, [setSelectedVehicle]);
 
   // Save preferences to localStorage
   useEffect(() => {
@@ -769,7 +757,6 @@ const AdUnit: React.FC = () => {
 };
 
 export default function Page(): JSX.Element {
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   return (
     <html lang="zh-HK" suppressHydrationWarning>
       <body>
@@ -778,10 +765,7 @@ export default function Page(): JSX.Element {
         <AdUnit />
         <HeroUIProvider>
           <ThemeProvider>
-            <HKTunnelsTollsApp selectedVehicle={selectedVehicle} setSelectedVehicle={setSelectedVehicle} />
-            <Suspense>
-              <SearchParamsHandler onVehicleChange={setSelectedVehicle} />
-            </Suspense>
+            <HKTunnelsTollsApp />
           </ThemeProvider>
         </HeroUIProvider>
         <SiteFooter />
