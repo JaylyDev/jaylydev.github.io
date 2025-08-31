@@ -183,9 +183,27 @@ function HKTollCard(props: TollCardProps): JSX.Element {
   );
 }
 
-function HKTunnelsTollsApp(): JSX.Element {
+// Component that handles search params
+function SearchParamsHandler({ onVehicleChange }: { onVehicleChange: (vehicle: VehicleTypeIdentifier) => void }): null {
   const searchParams = useSearchParams();
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
+
+  useEffect(() => {
+    const selectedVehicle = searchParams.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
+    if (selectedVehicle && isValidVehicle(selectedVehicle)) {
+      onVehicleChange(selectedVehicle);
+    }
+  }, [searchParams, onVehicleChange]);
+
+  return null;
+}
+
+function HKTunnelsTollsApp({
+  selectedVehicle,
+  setSelectedVehicle,
+}: {
+  selectedVehicle: VehicleTypeIdentifier;
+  setSelectedVehicle: React.Dispatch<React.SetStateAction<VehicleTypeIdentifier>>;
+}): JSX.Element {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -212,13 +230,6 @@ function HKTunnelsTollsApp(): JSX.Element {
       setIsPublicHoliday(holidays.has(dateStr));
     }
   }, [currentTime]);
-
-  useEffect(() => {
-    const selectedVehicle = searchParams.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
-    if (selectedVehicle && isValidVehicle(selectedVehicle)) {
-      setSelectedVehicle(selectedVehicle);
-    }
-  }, [searchParams, setSelectedVehicle]);
 
   // Update current time every minute
   useEffect(() => {
@@ -758,6 +769,7 @@ const AdUnit: React.FC = () => {
 };
 
 export default function Page(): JSX.Element {
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   return (
     <html lang="zh-HK" suppressHydrationWarning>
       <body>
@@ -766,8 +778,9 @@ export default function Page(): JSX.Element {
         <AdUnit />
         <HeroUIProvider>
           <ThemeProvider>
+            <HKTunnelsTollsApp selectedVehicle={selectedVehicle} setSelectedVehicle={setSelectedVehicle} />
             <Suspense>
-              <HKTunnelsTollsApp />
+              <SearchParamsHandler onVehicleChange={setSelectedVehicle} />
             </Suspense>
           </ThemeProvider>
         </HeroUIProvider>
