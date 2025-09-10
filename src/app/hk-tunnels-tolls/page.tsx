@@ -20,43 +20,11 @@ interface TollPeriod {
   toll: number | NumberRange;
 }
 
-interface TimeVaryingToll {
-  name: string;
-  periods: TollPeriod[];
-}
-
-interface HKTunnel {
-  timeVaryingTolls: {
-    weekdays: TimeVaryingToll;
-    sundays_and_holidays: TimeVaryingToll;
-  } | null;
-}
-
 interface VehicleType {
   hasTimeVaryingToll: boolean;
   fixedTolls?: Record<HKTunnelIdentifier, number | undefined>;
   multiplier?: number;
   description?: string;
-}
-
-interface PublicHoliday {
-  dtstart: [string, { value: string }];
-  dtend: [string, { value: string }];
-  summary: string;
-  uid: string;
-}
-
-interface PublicHolidayData {
-  vcalendar: [
-    {
-      vevent: PublicHoliday[];
-    }
-  ];
-}
-
-interface TollData {
-  tunnels: Record<HKTunnelIdentifier, HKTunnel>;
-  vehicleTypes: Record<VehicleTypeIdentifier, VehicleType>;
 }
 
 interface TollCardProps {
@@ -66,6 +34,11 @@ interface TollCardProps {
   currentDate: Date | null;
   isPublicHoliday: boolean;
   isClient: boolean;
+}
+
+interface CurrentTollResult {
+  message: string;
+  isTransitionTime?: true;
 }
 
 type VehicleTypeIdentifier = "privateCar" | "motorcycle" | "taxi" | "commercial";
@@ -105,16 +78,16 @@ function getCurrentTollForTunnel(
   currentTime: Date | null,
   isPublicHoliday: boolean,
   isClient: boolean
-): string {
+): CurrentTollResult {
   // Show loading until everything is properly loaded
-  if (!currentTime || !isClient) return "載入中...";
+  if (!currentTime || !isClient) return { message: "載入中..." };
 
   const vehicle = tollData.vehicleTypes[selectedVehicle];
   const tunnel = tollData.tunnels[tunnelKey];
 
   // Fixed toll vehicles
   if (vehicle.fixedTolls && tunnelKey in vehicle.fixedTolls) {
-    return `$${vehicle.fixedTolls[tunnelKey as keyof typeof vehicle.fixedTolls]}`;
+    return { message: `$${vehicle.fixedTolls[tunnelKey as keyof typeof vehicle.fixedTolls]}` };
   }
 
   // Time-varying toll vehicles
@@ -123,7 +96,7 @@ function getCurrentTollForTunnel(
   const isHolidaySchedule = isWeekend || isPublicHoliday; // Use Sunday schedule for public holidays
 
   if (!tunnel || !tunnel.timeVaryingTolls) {
-    return "無法計算";
+    return { message: "無法計算" };
   }
 
   const timeSlots = isHolidaySchedule ? tunnel.timeVaryingTolls.sundays_and_holidays : tunnel.timeVaryingTolls.weekdays;
@@ -137,47 +110,51 @@ function getCurrentTollForTunnel(
 
       if (typeof tollForTunnel === "object" && "range" in tollForTunnel) {
         // Transition period - show range
-        const [min, max] = tollForTunnel.range;
+        const [min] = tollForTunnel.range;
+        const timePeriod = Math.trunc((timeToMinutes(currentTimeStr) - timeToMinutes(startTime)) / 2);
+        const currentToll = min + timePeriod * 2;
         if ("multiplier" in vehicle) {
-          const minMoto = Math.round(min * vehicle.multiplier * 10) / 10;
-          const maxMoto = Math.round(max * vehicle.multiplier * 10) / 10;
-          return `$${minMoto} - $${maxMoto}`;
+          return { message: `$${(currentToll * vehicle.multiplier).toFixed(1)}`, isTransitionTime: true };
         }
-        return `$${min} - $${max}`;
+        return { message: `$${currentToll}`, isTransitionTime: true };
       } else {
         // Apply multiplier for motorcycles
         if ("multiplier" in vehicle) {
           const motorcycleToll = Math.round(tollForTunnel * vehicle.multiplier * 10) / 10;
-          return `$${motorcycleToll}`;
+          return { message: `$${motorcycleToll}` };
         }
-        return `$${tollForTunnel}`;
+        return { message: `$${tollForTunnel}` };
       }
     }
   }
 
-  return "無法計算";
+  return { message: "無法計算" };
 }
 
 function HKTollCard(props: TollCardProps): JSX.Element {
   const { tunnelKey, priceAlert, vehicle, currentDate, isPublicHoliday, isClient } = props;
+  const tollResult = getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday, isClient);
 
   return (
     <div key={tunnelKey} className="border-b border-black dark:border-white pb-1 last:border-b-0">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:gap-2">
-        <span className="text-3xl md:text-2xl font-medium text-center sm:text-left">
-          {registryInfo.tunnels[tunnelKey].name}
-        </span>
-        <div className="text-center sm:text-right">
-          <p className="text-5xl py-1 md:py-2 font-bold text-green-600">
-            {getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday, isClient)}
-          </p>
-          {priceAlert && (
-            <span className="text-[1.45rem] md:text-lg bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-3 rounded-md font-medium inline-block text-center">
-              {priceAlert}
-            </span>
-          )}
-        </div>
+      <div className="flex flex-row justify-between items-start gap-2">
+        <span className="text-3xl md:text-2xl font-medium text-left">{registryInfo.tunnels[tunnelKey].name}</span>
+        <p className="text-right text-5xl py-1 md:py-2 font-bold text-green-600">{tollResult.message}</p>
       </div>
+      {tollResult.isTransitionTime && (
+        <div className="text-right py-1">
+          <span className="text-[1.45rem] md:text-lg bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-3 rounded-md font-medium inline-block text-center">
+            目前為過渡時段
+          </span>
+        </div>
+      )}
+      {priceAlert && (
+        <div className="text-right">
+          <span className="text-[1.45rem] md:text-lg bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-3 rounded-md font-medium inline-block text-center">
+            {priceAlert}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
@@ -329,7 +306,6 @@ function HKTunnelsTollsApp(): JSX.Element {
               }
 
               const priceAlert = getPriceChangeAlertForTunnel(key);
-              // const priceAlert = `20:00 變為 $12.8 - $15.2`;
 
               return (
                 <HKTollCard
