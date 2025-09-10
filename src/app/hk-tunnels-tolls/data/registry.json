@@ -16,8 +16,13 @@
       "hasTimeVaryingToll": false,
       "description": null
     },
+    "light_commercial": {
+      "name": "輕型貨車",
+      "hasTimeVaryingToll": false,
+      "description": "貨車、小巴及巴士等"
+    },
     "commercial": {
-      "name": "其他車",
+      "name": "中型 / 重型貨車",
       "hasTimeVaryingToll": false,
       "description": "貨車、小巴及巴士等"
     }
@@ -25,7 +30,14 @@
   "tunnels": {
     "western": { "name": "西隧" },
     "cross_eastern": { "name": "紅隧 / 東隧" },
-    "tai_lam": { "name": "大欖隧道" }
+    "tai_lam": { "name": "大欖隧道" },
+    "tates_cairn": { "name": "大老山隧道" },
+    "aberdeen": { "name": "香港仔隧道" },
+    "shing_mun": { "name": "城門隧道" },
+    "lion_rock": { "name": "獅子山隧道" },
+    "sha_tin_heights": { "name": "沙田嶺隧道" },
+    "eagles_nest": { "name": "尖山隧道" },
+    "tai_wai": { "name": "大圍隧道" }
   },
   "notes": [
     "這個程式提供三條過海隧道（西隧、紅隧、東隧）及大欖隧道的收費資訊。",

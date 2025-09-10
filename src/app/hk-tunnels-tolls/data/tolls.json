@@ -270,20 +270,39 @@
           ]
         }
       }
-    }
+    },
+    "tates_cairn": {},
+    "aberdeen": {},
+    "shing_mun": {},
+    "lion_rock": {},
+    "sha_tin_heights": {},
+    "eagles_nest": {},
+    "tai_wai": {}
   },
   "vehicleTypes": {
     "privateCar": {
       "hasTimeVaryingToll": true,
       "fixedTolls": {
-        "tates_cairn": 20
+        "tates_cairn": 20,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "sha_tin_heights": 8,
+        "eagles_nest": 8,
+        "tai_wai": 8
       }
     },
     "motorcycle": {
       "hasTimeVaryingToll": true,
       "multiplier": 0.4,
       "fixedTolls": {
-        "tates_cairn": 15
+        "tates_cairn": 15,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "sha_tin_heights": 8,
+        "eagles_nest": 8,
+        "tai_wai": 8
       }
     },
     "taxi": {
@@ -292,7 +311,28 @@
         "western": 25,
         "cross_eastern": 25,
         "tai_lam": 28,
-        "tates_cairn": 20
+        "tates_cairn": 20,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "sha_tin_heights": 8,
+        "eagles_nest": 8,
+        "tai_wai": 8
+      }
+    },
+    "light_commercial": {
+      "hasTimeVaryingToll": false,
+      "fixedTolls": {
+        "western": 50,
+        "cross_eastern": 50,
+        "tai_lam": 43,
+        "tates_cairn": 24,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "sha_tin_heights": 8,
+        "eagles_nest": 8,
+        "tai_wai": 8
       }
     },
     "commercial": {
@@ -300,7 +340,14 @@
       "fixedTolls": {
         "western": 50,
         "cross_eastern": 50,
-        "tai_lam": 43
+        "tai_lam": 43,
+        "tates_cairn": 28,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "sha_tin_heights": 8,
+        "eagles_nest": 8,
+        "tai_wai": 8
       }
     }
   }
