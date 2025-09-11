@@ -95,7 +95,7 @@ function getCurrentTollForTunnel(
   const isWeekend = hkTime.getDay() === 0; // Sunday
   const isHolidaySchedule = isWeekend || isPublicHoliday; // Use Sunday schedule for public holidays
 
-  if (!tunnel || "timeVaryingTolls" in tunnel === false) {
+  if (!tunnel || !("timeVaryingTolls" in tunnel)) {
     return { message: "無法計算" };
   }
 
@@ -169,7 +169,7 @@ function TunnelTable({ tunnelKey, selectedVehicle }: TunnelTableProps): JSX.Elem
   const vehicle = tollData.vehicleTypes[selectedVehicle];
   const tunnelName = registryInfo.tunnels[tunnelKey].name;
 
-  if (!tunnel || "timeVaryingTolls" in tunnel === false) {
+  if (!tunnel || !("timeVaryingTolls" in tunnel)) {
     return <></>;
   }
 
@@ -347,7 +347,7 @@ function HKTunnelsTollsApp(): JSX.Element {
     const isWeekend = hkTime.getDay() === 0; // Sunday
     const isHolidaySchedule = isWeekend || isPublicHoliday; // Use Sunday schedule for public holidays
 
-    if (!tunnel || "timeVaryingTolls" in tunnel === false) {
+    if (!tunnel || !("timeVaryingTolls" in tunnel)) {
       return "";
     }
 
