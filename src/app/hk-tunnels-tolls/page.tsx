@@ -110,9 +110,9 @@ function getCurrentTollForTunnel(
 
       if (typeof tollForTunnel === "object" && "range" in tollForTunnel) {
         // Transition period - show range
-        const [min] = tollForTunnel.range;
+        const [min, max] = tollForTunnel.range;
         const timePeriod = Math.trunc((timeToMinutes(currentTimeStr) - timeToMinutes(startTime)) / 2);
-        const currentToll = min + timePeriod * 2;
+        const currentToll = min > max ? min - timePeriod * 2 : min + timePeriod * 2;
         if ("multiplier" in vehicle) {
           return { message: `$${(currentToll * vehicle.multiplier).toFixed(1)}`, isTransitionTime: true };
         }
