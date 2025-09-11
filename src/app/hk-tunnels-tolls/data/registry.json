@@ -35,9 +35,7 @@
     "aberdeen": { "name": "香港仔隧道" },
     "shing_mun": { "name": "城門隧道" },
     "lion_rock": { "name": "獅子山隧道" },
-    "sha_tin_heights": { "name": "沙田嶺隧道" },
-    "eagles_nest": { "name": "尖山隧道" },
-    "tai_wai": { "name": "大圍隧道" }
+    "eagles_nest": { "name": "尖山隧道" }
   },
   "notes": [
     "就私家車和電單車（包括機動三輪車）而言，不同時段之間過海隧道和大欖隧道設有過渡收費安排，以有序地銜接各時段之間的收費差距和保障道路安全。",

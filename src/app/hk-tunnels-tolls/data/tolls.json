@@ -275,9 +275,7 @@
     "aberdeen": {},
     "shing_mun": {},
     "lion_rock": {},
-    "sha_tin_heights": {},
-    "eagles_nest": {},
-    "tai_wai": {}
+    "eagles_nest": {}
   },
   "vehicleTypes": {
     "privateCar": {
@@ -287,9 +285,7 @@
         "aberdeen": 5,
         "shing_mun": 5,
         "lion_rock": 8,
-        "sha_tin_heights": 8,
-        "eagles_nest": 8,
-        "tai_wai": 8
+        "eagles_nest": 8
       }
     },
     "motorcycle": {
@@ -300,9 +296,7 @@
         "aberdeen": 5,
         "shing_mun": 5,
         "lion_rock": 8,
-        "sha_tin_heights": 8,
-        "eagles_nest": 8,
-        "tai_wai": 8
+        "eagles_nest": 8
       }
     },
     "taxi": {
@@ -315,9 +309,7 @@
         "aberdeen": 5,
         "shing_mun": 5,
         "lion_rock": 8,
-        "sha_tin_heights": 8,
-        "eagles_nest": 8,
-        "tai_wai": 8
+        "eagles_nest": 8
       }
     },
     "light_commercial": {
@@ -330,9 +322,7 @@
         "aberdeen": 5,
         "shing_mun": 5,
         "lion_rock": 8,
-        "sha_tin_heights": 8,
-        "eagles_nest": 8,
-        "tai_wai": 8
+        "eagles_nest": 8
       }
     },
     "commercial": {
@@ -345,9 +335,7 @@
         "aberdeen": 5,
         "shing_mun": 5,
         "lion_rock": 8,
-        "sha_tin_heights": 8,
-        "eagles_nest": 8,
-        "tai_wai": 8
+        "eagles_nest": 8
       }
     }
   }
