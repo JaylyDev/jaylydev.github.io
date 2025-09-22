@@ -113,49 +113,49 @@
             {
               "type": "transition",
               "name": "過渡時段",
-              "timeRange": "07:30 - 08:07",
+              "timeRange": "07:30 - 07:47",
               "toll": { "range": [22, 38] }
             },
             {
               "type": "peak",
               "name": "繁忙時段",
-              "timeRange": "08:08 - 10:14",
+              "timeRange": "07:48 - 10:14",
               "toll": 40
             },
             {
               "type": "transition",
               "name": "過渡時段",
-              "timeRange": "10:15 - 10:42",
+              "timeRange": "10:15 - 10:22",
               "toll": { "range": [38, 32] }
             },
             {
               "type": "regular",
               "name": "一般時段",
-              "timeRange": "10:43 - 16:29",
+              "timeRange": "10:23 - 16:29",
               "toll": 30
             },
             {
               "type": "transition",
               "name": "過渡時段",
-              "timeRange": "16:30 - 16:57",
+              "timeRange": "16:30 - 16:37",
               "toll": { "range": [32, 38] }
             },
             {
               "type": "peak",
               "name": "繁忙時段",
-              "timeRange": "16:58 - 18:59",
+              "timeRange": "16:38 - 18:59",
               "toll": 40
             },
             {
               "type": "transition",
               "name": "過渡時段",
-              "timeRange": "19:00 - 19:37",
+              "timeRange": "19:00 - 19:17",
               "toll": { "range": [38, 22] }
             },
             {
               "type": "offPeak",
               "name": "非繁忙時段",
-              "timeRange": "19:38 - 23:59",
+              "timeRange": "19:18 - 23:59",
               "toll": 20
             }
           ]
@@ -270,20 +270,33 @@
           ]
         }
       }
-    }
+    },
+    "tates_cairn": {},
+    "aberdeen": {},
+    "shing_mun": {},
+    "lion_rock": {},
+    "eagles_nest": {}
   },
   "vehicleTypes": {
     "privateCar": {
       "hasTimeVaryingToll": true,
       "fixedTolls": {
-        "tates_cairn": 20
+        "tates_cairn": 20,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "eagles_nest": 8
       }
     },
     "motorcycle": {
       "hasTimeVaryingToll": true,
       "multiplier": 0.4,
       "fixedTolls": {
-        "tates_cairn": 15
+        "tates_cairn": 15,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "eagles_nest": 8
       }
     },
     "taxi": {
@@ -292,7 +305,24 @@
         "western": 25,
         "cross_eastern": 25,
         "tai_lam": 28,
-        "tates_cairn": 20
+        "tates_cairn": 20,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "eagles_nest": 8
+      }
+    },
+    "light_commercial": {
+      "hasTimeVaryingToll": false,
+      "fixedTolls": {
+        "western": 50,
+        "cross_eastern": 50,
+        "tai_lam": 43,
+        "tates_cairn": 24,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "eagles_nest": 8
       }
     },
     "commercial": {
@@ -300,7 +330,12 @@
       "fixedTolls": {
         "western": 50,
         "cross_eastern": 50,
-        "tai_lam": 43
+        "tai_lam": 43,
+        "tates_cairn": 28,
+        "aberdeen": 5,
+        "shing_mun": 5,
+        "lion_rock": 8,
+        "eagles_nest": 8
       }
     }
   }

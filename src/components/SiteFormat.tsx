@@ -7,7 +7,27 @@ export interface ISubheadingParams {
   title: string;
 }
 
-export function SiteHeader() {
+export interface ISiteGlobalParams {
+  lang?: "en" | "zh-HK";
+}
+
+export function SiteHeader({ lang }: ISiteGlobalParams) {
+  let texts: Record<string, string>;
+  if (lang === "zh-HK") {
+    texts = {
+      home: "首頁",
+      projects: "項目",
+      posts: "文章",
+      about: "關於我",
+    };
+  } else {
+    texts = {
+      home: "Home",
+      projects: "Projects",
+      posts: "Posts",
+      about: "About Mes",
+    };
+  }
   return (
     <header className="header">
       <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
@@ -32,16 +52,16 @@ export function SiteHeader() {
           {/* Subheadings */}
           <div className="md:ml-4 md:block order-3">
             <Link href="/#home" className="header-subheading">
-              Home
+              {texts.home}
             </Link>
             <Link href="/#projects" className="header-subheading">
-              Projects
+              {texts.projects}
             </Link>
             <Link href="/#posts" className="header-subheading">
-              Posts
+              {texts.posts}
             </Link>
             <Link href="/#about" className="header-subheading">
-              About Me
+              {texts.about}
             </Link>
           </div>
         </div>
@@ -50,13 +70,23 @@ export function SiteHeader() {
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ lang }: ISiteGlobalParams) {
   const year = new Date().getFullYear(); // Static at build time
+  let texts: Record<string, string>;
+  if (lang === "zh-HK") {
+    texts = {
+      privacyPolicy: "私隱政策",
+    };
+  } else {
+    texts = {
+      privacyPolicy: "Privacy Policy",
+    };
+  }
 
   return (
     <footer className="flex flex-row justify-center items-centerp-4 text-sm text-gray-500 p-4 gap-2">
       <span>{"© JaylyMC " + (year || "2025") /* Default fallback (e.g., 2025) for server-rendered HTML */}</span>
-      <Link href="/privacy-policy/">Privacy Policy</Link>
+      <Link href="/privacy-policy/">{texts.privacyPolicy}</Link>
     </footer>
   );
 }

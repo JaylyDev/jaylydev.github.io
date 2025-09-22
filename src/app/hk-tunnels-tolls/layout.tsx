@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "香港實時隧道收費 | JaylyDev",
   description:
-    "「香港實時隧道收費」— 香港駕駛人士的好幫手！透過本網站，即可查詢「隧道收費」。我們即時提供香港實時三條過海隧道（西隧、紅隧、東隧）、大欖隧道及大老山隧道的收費資訊。操作簡單、資訊清晰，幫你輕鬆規劃出行時間，避免不必要的費用支出。",
+    "「香港實時隧道收費」— 香港駕駛人士的好幫手！透過本網站，即可查詢「隧道收費」。我們即時提供香港實時三條過海隧道（西隧、紅隧、東隧）、大欖隧道、大老山隧道、香港仔隧道、城門隧道、獅子山隧道和尖山隧道的收費資訊。操作簡單、資訊清晰，幫你輕鬆規劃出行時間，避免不必要的費用支出。",
   openGraph: {
     type: "article",
     images: "https://jaylydev.github.io/hk-tunnels-tolls/icon.png",
