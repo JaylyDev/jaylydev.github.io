@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.5.1",
   "tunnels": {
     "western": {
       "timeVaryingTolls": {
@@ -283,7 +283,7 @@
       "fixedTolls": {
         "tates_cairn": 20,
         "aberdeen": 5,
-        "shing_mun": 5,
+        "shing_mun": 8,
         "lion_rock": 8,
         "eagles_nest": 8
       }
@@ -294,7 +294,7 @@
       "fixedTolls": {
         "tates_cairn": 15,
         "aberdeen": 5,
-        "shing_mun": 5,
+        "shing_mun": 8,
         "lion_rock": 8,
         "eagles_nest": 8
       }
@@ -307,7 +307,7 @@
         "tai_lam": 28,
         "tates_cairn": 20,
         "aberdeen": 5,
-        "shing_mun": 5,
+        "shing_mun": 8,
         "lion_rock": 8,
         "eagles_nest": 8
       }
@@ -320,7 +320,7 @@
         "tai_lam": 43,
         "tates_cairn": 24,
         "aberdeen": 5,
-        "shing_mun": 5,
+        "shing_mun": 8,
         "lion_rock": 8,
         "eagles_nest": 8
       }
@@ -333,7 +333,7 @@
         "tai_lam": 43,
         "tates_cairn": 28,
         "aberdeen": 5,
-        "shing_mun": 5,
+        "shing_mun": 8,
         "lion_rock": 8,
         "eagles_nest": 8
       }
