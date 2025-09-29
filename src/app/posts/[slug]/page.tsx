@@ -69,7 +69,7 @@ export default async function Page({ params }: PageProps) {
     <html lang={post.lang} suppressHydrationWarning>
       <body>
         <StatsCollection />
-        <SiteHeader />
+        <SiteHeader lang={post.lang === "zh-HK" ? "zh-HK" : "en"} />
         <PostHeader post={post} />
         <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.content }} />
         <SiteFooter />
