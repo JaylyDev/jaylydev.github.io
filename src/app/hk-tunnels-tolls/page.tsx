@@ -577,7 +577,7 @@ export default function Page(): JSX.Element {
     <html lang="zh-HK" suppressHydrationWarning>
       <body>
         <StatsCollection />
-        <SiteHeader lang="zh-HK" />
+        <SiteHeader lang="zh-HK" icon="/hk-tunnels-tolls/icon.png" />
         <AdUnit />
         <HeroUIProvider>
           <ThemeProvider>
