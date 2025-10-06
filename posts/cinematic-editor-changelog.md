@@ -11,6 +11,14 @@ image: /assets/posts/cinematic-editor/MCPEDL_Preview.png
 
 Changelog for [Cinematic Editor Extension](/posts/cinematic-editor.md). Available at [MCPEDL](https://mcpedl.com/jayly-cinematic-editor/), [CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/jayly-cinematic-editor) and [Modbay](https://modbay.org/mods/2822-jayly-cinematic-editor.html).
 
+### 2.0.2
+
+- Scene data are now minified when exported to clipboard.
+
+### 2.0.1
+
+- Cinematic Editor now requires Minecraft v1.21.110
+
 ### 2.0.0
 
 - Cinematic Editor now requires Minecraft v1.21.100
