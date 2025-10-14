@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes";
 import registryInfo from "./data/registry.json";
 import tollData from "./data/tolls.json";
 import publicHolidayData from "./data/public_holidays.json";
+import { InArticleAdUnit } from "@/components/AdUnit";
 
 // Utility functions for Hong Kong timezone handling
 function getHongKongDate(utcDate: Date): { date: Date; dateString: string; timeString: string; dayOfWeek: number } {
@@ -497,6 +498,8 @@ function HKTunnelsTollsApp(): JSX.Element {
           })}
         </div>
       </div>
+      {/* Advertisement */}
+      <InArticleAdUnit />
       {/* Individual Tunnel Tables */}
       {Object.keys(tollData.tunnels).map((key) => {
         if (!isValidTunnel(key)) {
@@ -553,32 +556,12 @@ function HKTunnelsTollsApp(): JSX.Element {
   );
 }
 
-const AdUnit: React.FC = () => {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-  return (
-    <ins
-      className="adsbygoogle"
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client="ca-pub-2533146760921020"
-      data-ad-slot="9602449199"
-    ></ins>
-  );
-};
-
 export default function Page(): JSX.Element {
   return (
     <html lang="zh-HK" suppressHydrationWarning>
       <body>
         <StatsCollection />
         <SiteHeader lang="zh-HK" icon="/hk-tunnels-tolls/icon.png" />
-        <AdUnit />
         <HeroUIProvider>
           <ThemeProvider>
             <HKTunnelsTollsApp />

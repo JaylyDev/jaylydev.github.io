@@ -3,7 +3,7 @@ import "@/styles/articles.css";
 import React from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Link } from "@heroui/react";
-import { AdUnit } from "@/components/AdUnit";
+import { InArticleAdUnit } from "@/components/AdUnit";
 
 const PrivacyPolicy: React.FC = () => {
   return (
@@ -580,7 +580,7 @@ export default function Post(): JSX.Element {
       <body>
         <StatsCollection />
         <SiteHeader />
-        <AdUnit />
+        <InArticleAdUnit />
         <PrivacyPolicy />
         <SiteFooter />
       </body>

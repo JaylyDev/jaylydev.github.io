@@ -5,6 +5,7 @@ import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat
 import { useEffect, useState } from "react";
 import { HeroUIProvider, Button } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
+import { InArticleAdUnit } from "@/components/AdUnit";
 
 interface TollData {
   tunnels: Record<string, any>;
@@ -483,32 +484,13 @@ function HKTunnelsTollsApp(): JSX.Element {
   return <div></div>;
 }
 
-const AdUnit: React.FC = () => {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-  return (
-    <ins
-      className="adsbygoogle"
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client="ca-pub-2533146760921020"
-      data-ad-slot="9602449199"
-    ></ins>
-  );
-};
-
 export default function Page(): JSX.Element {
   return (
     <html lang="zh-HK" suppressHydrationWarning>
       <body>
         <StatsCollection />
         <SiteHeader />
-        <AdUnit />
+        <InArticleAdUnit />
         <HeroUIProvider>
           <ThemeProvider>
             <HKTunnelsTollsApp />

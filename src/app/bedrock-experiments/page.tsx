@@ -6,7 +6,7 @@ import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroU
 import JSZip from "jszip";
 import { Int8, ByteTag, Tag, read, write } from "nbtify";
 import { ThemeProvider } from "next-themes";
-import { AdUnit } from "@/components/AdUnit";
+import { InArticleAdUnit } from "@/components/AdUnit";
 
 interface Experiment {
   // The id of the experiment - must match the id in level.dat file
@@ -361,7 +361,7 @@ export default function Post(): JSX.Element {
       <body>
         <StatsCollection />
         <SiteHeader />
-        <AdUnit />
+        <InArticleAdUnit />
         <ExperimentsEditor />
         <SiteFooter />
       </body>

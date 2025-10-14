@@ -20,7 +20,7 @@ const adsenseCode = `<ins class="adsbygoogle"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>
-  (adsbygoogle = window.adsbygoogle || []).push({});f
+  (adsbygoogle = window.adsbygoogle || []).push({});
 </script>`;
 
 // Generate static parameters for all posts
