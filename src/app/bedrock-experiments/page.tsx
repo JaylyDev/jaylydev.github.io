@@ -3,6 +3,7 @@ import "@/styles/articles.css";
 import React, { memo, useEffect, useState, useCallback } from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroUIProvider } from "@heroui/react";
+import Link from "next/link";
 import JSZip from "jszip";
 import { Int8, ByteTag, Tag, read, write } from "nbtify";
 import { ThemeProvider } from "next-themes";
@@ -64,81 +65,84 @@ const ExperimentsEditor: React.FC = () => {
     }, {} as Record<string, Experiment[]>) || {};
 
   // Parse NBT experiments from level.dat
-  const parseExperimentsFromNBT = async (buffer: ArrayBuffer): Promise<ExperimentsState> => {
-    try {
-      console.log("Parsing NBT data, buffer size:", buffer.byteLength);
-      const parsed = await read<WorldLevelDat>(buffer);
-      const levelData = parsed.data;
+  const parseExperimentsFromNBT = useCallback(
+    async (buffer: ArrayBuffer): Promise<ExperimentsState> => {
+      try {
+        console.log("Parsing NBT data, buffer size:", buffer.byteLength);
+        const parsed = await read<WorldLevelDat>(buffer);
+        const levelData = parsed.data;
 
-      console.log("NBT parsed successfully, root keys:", Object.keys(levelData));
+        console.log("NBT parsed successfully, root keys:", Object.keys(levelData));
 
-      const experimentsState: ExperimentsState = {};
+        const experimentsState: ExperimentsState = {};
 
-      // Extract experiments from NBT data
-      if (levelData.experiments) {
-        const experimentsCompound = levelData.experiments;
-        console.log("Found experiments compound with keys:", Object.keys(experimentsCompound));
+        // Extract experiments from NBT data
+        if (levelData.experiments) {
+          const experimentsCompound = levelData.experiments;
+          console.log("Found experiments compound with keys:", Object.keys(experimentsCompound));
 
-        // Get individual experiment flags
-        experimentsData?.experiments.forEach((exp) => {
-          if (experimentsCompound[exp.id]) experimentsState[exp.id] = experimentsCompound[exp.id].valueOf() === 1;
-          else experimentsState[exp.id] = false;
-        });
-      } else {
-        console.log("No experiments compound found in NBT data, initializing empty experiments");
+          // Get individual experiment flags
+          experimentsData?.experiments.forEach((exp) => {
+            if (experimentsCompound[exp.id]) experimentsState[exp.id] = experimentsCompound[exp.id].valueOf() === 1;
+            else experimentsState[exp.id] = false;
+          });
+        } else {
+          console.log("No experiments compound found in NBT data, initializing empty experiments");
+        }
+
+        console.log("Parsed experiments state:", experimentsState);
+        return experimentsState;
+      } catch (error) {
+        console.error("Error parsing NBT:", error);
+        return {};
       }
-
-      console.log("Parsed experiments state:", experimentsState);
-      return experimentsState;
-    } catch (error) {
-      console.error("Error parsing NBT:", error);
-      return {};
-    }
-  };
+    },
+    [experimentsData]
+  );
 
   // Create a modified NBT buffer with new experiments
-  const createModifiedNBT = async (
-    originalBuffer: ArrayBuffer,
-    newExperiments: ExperimentsState
-  ): Promise<ArrayBuffer> => {
-    try {
-      console.log("Creating modified NBT with experiments:", newExperiments);
-      const parsed = await read<WorldLevelDat>(originalBuffer);
-      const levelData = parsed.data;
+  const createModifiedNBT = useCallback(
+    async (originalBuffer: ArrayBuffer, newExperiments: ExperimentsState): Promise<ArrayBuffer> => {
+      try {
+        console.log("Creating modified NBT with experiments:", newExperiments);
+        const parsed = await read<WorldLevelDat>(originalBuffer);
+        const levelData = parsed.data;
 
-      // Ensure experiments compound exists
-      if (!levelData.experiments) {
-        console.log("Creating new experiments compound");
-        levelData.experiments = {
-          experiments_ever_used: new Int8(0),
-          saved_with_toggled_experiments: new Int8(0),
-        };
+        // Ensure experiments compound exists
+        if (!levelData.experiments) {
+          console.log("Creating new experiments compound");
+          levelData.experiments = {
+            experiments_ever_used: new Int8(0),
+            saved_with_toggled_experiments: new Int8(0),
+          };
+        }
+
+        // Calculate enabled experiments count
+        const enabledCount = Object.values(newExperiments).filter(Boolean).length;
+
+        // Update experiment flags
+        levelData.experiments.experiments_ever_used = new Int8(enabledCount > 0 ? 1 : 0);
+        levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
+
+        // Update individual experiment flags
+        experimentsData?.experiments.forEach((exp) => {
+          const value = newExperiments[exp.id] === true ? 1 : 0;
+          levelData.experiments[exp.id] = new Int8(value);
+          console.log(`Set experiment ${exp.id} to ${value}`);
+        });
+
+        console.log("Writing modified NBT data");
+        // Write modified NBT back to buffer
+        const modifiedBuffer = await write(parsed, { endian: "little" });
+        console.log("NBT modification complete, new buffer size:", modifiedBuffer.length);
+        return modifiedBuffer.buffer as ArrayBuffer;
+      } catch (error) {
+        console.error("Error creating modified NBT:", error);
+        throw new Error("Failed to create modified NBT data");
       }
-
-      // Calculate enabled experiments count
-      const enabledCount = Object.values(newExperiments).filter(Boolean).length;
-
-      // Update experiment flags
-      levelData.experiments.experiments_ever_used = new Int8(enabledCount > 0 ? 1 : 0);
-      levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
-
-      // Update individual experiment flags
-      experimentsData?.experiments.forEach((exp) => {
-        const value = newExperiments[exp.id] === true ? 1 : 0;
-        levelData.experiments[exp.id] = new Int8(value);
-        console.log(`Set experiment ${exp.id} to ${value}`);
-      });
-
-      console.log("Writing modified NBT data");
-      // Write modified NBT back to buffer
-      const modifiedBuffer = await write(parsed, { endian: "little" });
-      console.log("NBT modification complete, new buffer size:", modifiedBuffer.length);
-      return modifiedBuffer.buffer as ArrayBuffer;
-    } catch (error) {
-      console.error("Error creating modified NBT:", error);
-      throw new Error("Failed to create modified NBT data");
-    }
-  };
+    },
+    [experimentsData]
+  );
 
   const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -342,6 +346,19 @@ const ExperimentsEditor: React.FC = () => {
                 className="dark:text-white"
               />
 
+              <Divider />
+
+              <div className="text-center">
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Don&apos;t have a world file? Start with a template!
+                </p>
+                <Link href="/bedrock-experiments/start-from-template">
+                  <Button className="text-lg" color="secondary" variant="flat" size="lg" disabled={isProcessing}>
+                    Start from Template
+                  </Button>
+                </Link>
+              </div>
+
               {error && (
                 <div className="p-3 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 rounded">
                   {error}
@@ -426,7 +443,7 @@ const ExperimentsEditor: React.FC = () => {
   );
 };
 
-export default function Post(): JSX.Element {
+export default function Page(): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
