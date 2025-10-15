@@ -44,6 +44,7 @@ const ExperimentsEditor: React.FC = () => {
   const [levelDat, setLevelDat] = useState<WorldLevelDat | null>(null);
   const [originalLevelDat, setOriginalLevelDat] = useState<ArrayBuffer | null>(null);
   const [experimentsData, setExperimentsData] = useState<ExperimentsData | null>(null);
+  const [worldPath, setWorldPath] = useState<string>(""); // Path to world folder (empty for root)
 
   // Load experiments data
   useEffect(() => {
@@ -114,6 +115,9 @@ const ExperimentsEditor: React.FC = () => {
         };
       }
 
+      // Calculate enabled experiments count
+      const enabledCount = Object.values(newExperiments).filter(Boolean).length;
+
       // Update experiment flags
       levelData.experiments.experiments_ever_used = new Int8(enabledCount > 0 ? 1 : 0);
       levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
@@ -140,9 +144,10 @@ const ExperimentsEditor: React.FC = () => {
     const selectedFile = event.target.files?.[0];
     if (!selectedFile) return;
 
-    // Check file extension
-    if (!selectedFile.name.toLowerCase().endsWith(".mcworld")) {
-      setError("Please upload a .mcworld file only.");
+    // Check file extension - support both .mcworld and .zip files
+    const fileName = selectedFile.name.toLowerCase();
+    if (!fileName.endsWith(".mcworld") && !fileName.endsWith(".zip")) {
+      setError("Please upload a .mcworld or .zip file only.");
       return;
     }
 
@@ -160,11 +165,67 @@ const ExperimentsEditor: React.FC = () => {
       const loadedZip = await zipFile.loadAsync(arrayBuffer);
       setZip(loadedZip);
 
-      // Look for level.dat file
-      const levelDatFile = loadedZip.file("level.dat");
+      // Look for level.dat file - first in root, then in the first folder
+      let levelDatFile = loadedZip.file("level.dat");
+      let worldPath = ""; // Empty for root, or "folder/" for subfolder
+
+      console.log("Checking for level.dat in root:", levelDatFile ? "found" : "not found");
+
       if (!levelDatFile) {
-        throw new Error("No level.dat file found in the .mcworld file");
+        // If not in root, look for level.dat in folders
+        const allEntries = Object.keys(loadedZip.files);
+        console.log("All zip entries:", allEntries);
+
+        // Method 1: Look for any level.dat file in the zip
+        const levelDatEntries = allEntries.filter((name) => name.endsWith("level.dat"));
+        console.log("Found level.dat files:", levelDatEntries);
+
+        if (levelDatEntries.length > 0) {
+          const levelDatPath = levelDatEntries[0];
+          const pathParts = levelDatPath.split("/");
+
+          if (pathParts.length > 1) {
+            // level.dat is in a subfolder
+            worldPath = pathParts.slice(0, -1).join("/") + "/";
+            levelDatFile = loadedZip.file(levelDatPath);
+            console.log(`Found level.dat at: ${levelDatPath}, using world path: ${worldPath}`);
+          }
+        }
+
+        // Method 2: If still not found, look for top-level folders and check each one
+        if (!levelDatFile) {
+          const topLevelFolders = allEntries.filter((name) => {
+            const file = loadedZip.files[name];
+            return file.dir && !name.includes("/", name.length - 1); // Folder at root level
+          });
+
+          console.log("Top-level folders found:", topLevelFolders);
+
+          for (const folder of topLevelFolders) {
+            const testPath = `${folder}level.dat`;
+            const testFile = loadedZip.file(testPath);
+            if (testFile) {
+              worldPath = folder;
+              levelDatFile = testFile;
+              console.log(`Found level.dat in folder: ${folder}`);
+              break;
+            }
+          }
+        }
+
+        console.log(
+          "Final result - Using world path:",
+          worldPath,
+          levelDatFile ? "level.dat found" : "level.dat not found"
+        );
+
+        if (!levelDatFile) {
+          throw new Error("No level.dat file found in the .mcworld file");
+        }
       }
+
+      // Store the world path for later use
+      setWorldPath(worldPath);
 
       // Read level.dat as ArrayBuffer
       const levelDatBuffer = await levelDatFile.async("arraybuffer");
@@ -174,14 +235,17 @@ const ExperimentsEditor: React.FC = () => {
       const parsedExperiments = await parseExperimentsFromNBT(levelDatBuffer);
       setExperiments(parsedExperiments);
 
+      // Calculate enabled experiments count for initial state
+      const initialEnabledCount = Object.values(parsedExperiments).filter(Boolean).length;
+
       setLevelDat({
         experiments: {
           ...parsedExperiments,
-          experiments_ever_used: new Int8(enabledCount > 0 ? 1 : 0),
-          saved_with_toggled_experiments: new Int8(enabledCount > 0 ? 1 : 0),
+          experiments_ever_used: new Int8(initialEnabledCount > 0 ? 1 : 0),
+          saved_with_toggled_experiments: new Int8(initialEnabledCount > 0 ? 1 : 0),
         },
       });
-      setSuccess("Successfully loaded .mcworld file and extracted level.dat");
+      setSuccess("Successfully loaded world and extracted level.dat");
     } catch (err) {
       setError(`Error processing file: ${err instanceof Error ? err.message : "Unknown error"}`);
     } finally {
@@ -210,7 +274,7 @@ const ExperimentsEditor: React.FC = () => {
       const modifiedNBT = await createModifiedNBT(originalLevelDat, experiments);
 
       // Update the zip file with new level.dat
-      zip.file("level.dat", modifiedNBT);
+      zip.file(`${worldPath}level.dat`, modifiedNBT);
 
       // Generate new zip file
       const updatedZipBlob = await zip.generateAsync({ type: "blob" });
@@ -219,7 +283,14 @@ const ExperimentsEditor: React.FC = () => {
       const url = URL.createObjectURL(updatedZipBlob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = file?.name?.replace(".mcworld", "_modified.mcworld") || "modified_world.mcworld";
+
+      // Always save as .mcworld regardless of input file type
+      let downloadName = "modified_world.mcworld";
+      if (file?.name) {
+        const baseName = file.name.replace(/\.(mcworld|zip)$/i, "");
+        downloadName = `${baseName}_modified.mcworld`;
+      }
+      link.download = downloadName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -231,7 +302,7 @@ const ExperimentsEditor: React.FC = () => {
     } finally {
       setIsProcessing(false);
     }
-  }, [originalLevelDat, zip, experiments, file]);
+  }, [originalLevelDat, zip, experiments, file, worldPath]);
 
   const enabledCount = Object.values(experiments).filter(Boolean).length;
   const totalCount = experimentsData?.experiments.length || 0;
@@ -251,22 +322,22 @@ const ExperimentsEditor: React.FC = () => {
                 This tool allows you to modify experimental features in your Minecraft Bedrock world.
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                Upload a .mcworld file to enable or disable experimental features in your Minecraft Bedrock world. This
-                tool will parse the level.dat file using NBT format and modify the experiments compound tag.
+                Upload a .mcworld or .zip file to enable or disable experimental features in your Minecraft Bedrock
+                world. This tool will parse the level.dat file using NBT format and modify the experiments compound tag.
               </p>
 
               <div className="bg-blue-100 dark:bg-blue-900 border border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-200 p-3 rounded">
-                <strong>How it works:</strong> This tool extracts the level.dat file from your .mcworld file, parses the
-                NBT data structure, modifies the experiments compound tag, and creates a new world file with your
-                selected experimental features enabled or disabled.
+                <strong>How it works:</strong> This tool extracts the level.dat file from your world file (.mcworld or
+                .zip), parses the NBT data structure, modifies the experiments compound tag, and creates a new .mcworld
+                file with your selected experimental features enabled or disabled.
               </div>
 
               <Input
                 type="file"
-                accept=".mcworld"
+                accept=".mcworld,.zip"
                 onChange={handleFileUpload}
                 disabled={isProcessing}
-                label="Select .mcworld file"
+                label="Select .mcworld or .zip file"
                 placeholder="Choose your world file..."
                 className="dark:text-white"
               />
