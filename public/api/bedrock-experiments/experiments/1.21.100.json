@@ -1,5 +1,5 @@
 {
-    "minecraft_version": "1.21.120",
+    "minecraft_version": "1.21.100",
     "categories": [
         {
             "name": "Gameplay",
@@ -25,7 +25,7 @@
         },
         {
             "id": "data_driven_biomes",
-            "title": "Custom Biomes (1.16.100 - 1.21.100)",
+            "title": "Custom Biomes (since 1.16.100)",
             "description": "Create custom biomes and change world generation",
             "category": "Add-On Creators"
         },
@@ -49,14 +49,8 @@
         },
         {
             "id": "jigsaw_structures",
-            "title": "Data-Driven Jigsaw Structures (1.21.50 - 1.21.111)",
+            "title": "Data-Driven Jigsaw Structures (since 1.21.50)",
             "description": "Loads Jigsaw Structures from the behavior pack worldgen folder",
-            "category": "Add-On Creators"
-        },
-        {
-            "id": "deferred_technical_preview",
-            "title": "Render Dragon Features for Creators (since 1.20.30, Preview only)",
-            "description": "Enable the deferred rendering pipeline. Requires a PBR-enabled resource pack and compatible hardware.",
             "category": "Add-On Creators"
         }
     ]
