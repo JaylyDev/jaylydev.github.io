@@ -108,6 +108,12 @@ This screen controls the HUD visibility when playing a scene using the Runtime A
 
 Changelog for Cinematic Runtime Add-On
 
+### 1.0.0
+
+- Scenes exported from Cinematic Editor extension V2 are now compatible with this add-on.
+- New "Interpolation" dropdown with Line and Hermite options
+- Spline Subdivisions setting (2-20) for controlling smoothness vs performance
+
 ### 0.5.1
 
 - Better error handling

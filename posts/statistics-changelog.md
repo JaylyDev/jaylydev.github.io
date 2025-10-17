@@ -8,6 +8,25 @@ description: This is the complete release history for Bedrock Statistics Add-On.
 
 This is the complete release history for [Bedrock Statistics](/posts/statistics/) Add-On.
 
+### v1.4.2
+
+- Critical bug fixes.
+
+### v1.4.1
+
+- Added jayly:stats command support for Minecraft v1.21.100.
+
+### v1.4.0 - Copper Stats Update
+
+This is a good update with a very original update name. Changes are the following:
+
+- Added textures for all the things related to copper: Copper tools and armor, copper golems and more, so the icons are displayed properly when viewing item statistics.
+- Added general statistics: Xp collected. You can view these new statistics in general statistics screen.
+- Added general statistics: Highest Xp level achieved, so that you can track how many experiences gained from mining copper ores (and more). You can view these new statistics in general statistics screen.
+- Added **jayly:stats** command in the core statistics pack.
+- Removed **jayly:stats** command from statistics plus pack.
+- Both Statistics and Statistics Plus Add-On requires Minecraft v1.21.100 or above.
+
 ### v1.3.10
 
 > Release Date: July 2nd, 2025

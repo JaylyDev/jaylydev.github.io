@@ -338,25 +338,6 @@ Manages the updating of general statistics on scoreboard objectives. This comman
 
 You can find the full changelog for the add-on on [Bedrock Statistics Changelog](/posts/statistics-changelog).
 
-### v1.3.10
-
-> Release Date: July 2nd, 2025
-
-- Added Distance by Happy Ghast stat
-- Fixed Dried Ghast texture
-- Added Music Disc Tears
-- Added JaylyStats API v1 support. Dependency: MCBE-IPC (Version [673a99ba74a30fc8745c74f9510e6f57cee86410](https://github.com/OmniacDev/MCBE-IPC/blob/673a99ba74a30fc8745c74f9510e6f57cee86410/src/ipc.ts))
-
-**Statistics Plus Add-On - v0.2.3**
-
-- Fixed a bug where overriding statistics to track on an objective causes crashes.
-- Following custom commands can execute without cheats enabled: `/jayly:stats`, `/stats`.
-- Add-on now attempts to add custom slash commands without namespace, such as `/stats`, `/itemstats`, `/mobstats`, `/customstats`, `/liststats`. This is only possible if the custom command name is not used by another behavior pack, otherwise those command names will not be created and a content log warning will appear.
-
-### Previous Releases
-
-Changelog for previous releases are available [here](/posts/statistics-changelog/).
-
 ## Installation
 
 1. Download the add-on from the link below.

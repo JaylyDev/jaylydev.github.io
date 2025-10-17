@@ -44,6 +44,14 @@ You can toggle which features you want enabled once you have uploaded your world
 
 [![bedrock experiments editor](/assets/posts/enable-experiments/bedrock-experiments-editor.png)](/bedrock-experiments/)
 
+### Start from Template
+
+If you want to enable experiments on a new world, no worries! You can use the [Start from Template](/bedrock-experiments/start-from-template/) page to choose a world template including flat worlds, to start enabling experiments.
+
+![image](/assets/posts/bedrock-experiments-editor/start-from-template.png)
+
+**Note: Sample world templates will be available for download in MCPEDL and CurseForge soon.**
+
 ## Applying Enable Experiments Resource Pack
 
 Below there is a download link to Enable Experiments Resource Pack. After downloading it, double click on the file to import the resource pack to Minecraft Education or Education Preview.
