@@ -1,6 +1,6 @@
 "use client";
 import "@/styles/articles.css";
-import React, { memo, useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroUIProvider } from "@heroui/react";
 import Link from "next/link";
@@ -82,12 +82,20 @@ const ExperimentsEditor: React.FC = () => {
           console.log("Found experiments compound with keys:", Object.keys(experimentsCompound));
 
           // Get individual experiment flags
-          experimentsData?.experiments.forEach((exp) => {
-            if (experimentsCompound[exp.id]) experimentsState[exp.id] = experimentsCompound[exp.id].valueOf() === 1;
-            else experimentsState[exp.id] = false;
-          });
+          if (experimentsData?.experiments) {
+            experimentsData.experiments.forEach((exp) => {
+              const tag = experimentsCompound[exp.id];
+              if (tag) {
+                experimentsState[exp.id] = tag.valueOf() === 1;
+              } else {
+                experimentsState[exp.id] = false;
+              }
+            });
+          }
         } else {
-          console.log("No experiments compound found in NBT data, initializing empty experiments");
+          experimentsData?.experiments.forEach((exp) => {
+            experimentsState[exp.id] = false;
+          });
         }
 
         console.log("Parsed experiments state:", experimentsState);
@@ -124,11 +132,12 @@ const ExperimentsEditor: React.FC = () => {
         levelData.experiments.experiments_ever_used = new Int8(enabledCount > 0 ? 1 : 0);
         levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
 
-        // Update individual experiment flags
         experimentsData?.experiments.forEach((exp) => {
-          const value = newExperiments[exp.id] === true ? 1 : 0;
-          levelData.experiments[exp.id] = new Int8(value);
-          console.log(`Set experiment ${exp.id} to ${value}`);
+          if (newExperiments[exp.id] === true) {
+            levelData.experiments[exp.id] = new Int8(1);
+          } else if (levelData.experiments[exp.id]) {
+            delete levelData.experiments[exp.id];
+          }
         });
 
         console.log("Writing modified NBT data");
@@ -144,118 +153,121 @@ const ExperimentsEditor: React.FC = () => {
     [experimentsData]
   );
 
-  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (!selectedFile) return;
+  const handleFileUpload = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = event.target.files?.[0];
+      if (!selectedFile) return;
 
-    // Check file extension - support both .mcworld and .zip files
-    const fileName = selectedFile.name.toLowerCase();
-    if (!fileName.endsWith(".mcworld") && !fileName.endsWith(".zip")) {
-      setError("Please upload a .mcworld or .zip file only.");
-      return;
-    }
-
-    setError(null);
-    setSuccess(null);
-    setFile(selectedFile);
-    setIsProcessing(true);
-
-    try {
-      // Read file as ArrayBuffer
-      const arrayBuffer = await selectedFile.arrayBuffer();
-
-      // Check if it's a valid zip file
-      const zipFile = new JSZip();
-      const loadedZip = await zipFile.loadAsync(arrayBuffer);
-      setZip(loadedZip);
-
-      // Look for level.dat file - first in root, then in the first folder
-      let levelDatFile = loadedZip.file("level.dat");
-      let worldPath = ""; // Empty for root, or "folder/" for subfolder
-
-      console.log("Checking for level.dat in root:", levelDatFile ? "found" : "not found");
-
-      if (!levelDatFile) {
-        // If not in root, look for level.dat in folders
-        const allEntries = Object.keys(loadedZip.files);
-        console.log("All zip entries:", allEntries);
-
-        // Method 1: Look for any level.dat file in the zip
-        const levelDatEntries = allEntries.filter((name) => name.endsWith("level.dat"));
-        console.log("Found level.dat files:", levelDatEntries);
-
-        if (levelDatEntries.length > 0) {
-          const levelDatPath = levelDatEntries[0];
-          const pathParts = levelDatPath.split("/");
-
-          if (pathParts.length > 1) {
-            // level.dat is in a subfolder
-            worldPath = pathParts.slice(0, -1).join("/") + "/";
-            levelDatFile = loadedZip.file(levelDatPath);
-            console.log(`Found level.dat at: ${levelDatPath}, using world path: ${worldPath}`);
-          }
-        }
-
-        // Method 2: If still not found, look for top-level folders and check each one
-        if (!levelDatFile) {
-          const topLevelFolders = allEntries.filter((name) => {
-            const file = loadedZip.files[name];
-            return file.dir && !name.includes("/", name.length - 1); // Folder at root level
-          });
-
-          console.log("Top-level folders found:", topLevelFolders);
-
-          for (const folder of topLevelFolders) {
-            const testPath = `${folder}level.dat`;
-            const testFile = loadedZip.file(testPath);
-            if (testFile) {
-              worldPath = folder;
-              levelDatFile = testFile;
-              console.log(`Found level.dat in folder: ${folder}`);
-              break;
-            }
-          }
-        }
-
-        console.log(
-          "Final result - Using world path:",
-          worldPath,
-          levelDatFile ? "level.dat found" : "level.dat not found"
-        );
-
-        if (!levelDatFile) {
-          throw new Error("No level.dat file found in the .mcworld file");
-        }
+      // Check file extension - support both .mcworld and .zip files
+      const fileName = selectedFile.name.toLowerCase();
+      if (!fileName.endsWith(".mcworld") && !fileName.endsWith(".zip")) {
+        setError("Please upload a .mcworld or .zip file only.");
+        return;
       }
 
-      // Store the world path for later use
-      setWorldPath(worldPath);
+      setError(null);
+      setSuccess(null);
+      setFile(selectedFile);
+      setIsProcessing(true);
 
-      // Read level.dat as ArrayBuffer
-      const levelDatBuffer = await levelDatFile.async("arraybuffer");
-      setOriginalLevelDat(levelDatBuffer);
+      try {
+        // Read file as ArrayBuffer
+        const arrayBuffer = await selectedFile.arrayBuffer();
 
-      // Parse experiments (simplified approach)
-      const parsedExperiments = await parseExperimentsFromNBT(levelDatBuffer);
-      setExperiments(parsedExperiments);
+        // Check if it's a valid zip file
+        const zipFile = new JSZip();
+        const loadedZip = await zipFile.loadAsync(arrayBuffer);
+        setZip(loadedZip);
 
-      // Calculate enabled experiments count for initial state
-      const initialEnabledCount = Object.values(parsedExperiments).filter(Boolean).length;
+        // Look for level.dat file - first in root, then in the first folder
+        let levelDatFile = loadedZip.file("level.dat");
+        let worldPath = ""; // Empty for root, or "folder/" for subfolder
 
-      setLevelDat({
-        experiments: {
-          ...parsedExperiments,
-          experiments_ever_used: new Int8(initialEnabledCount > 0 ? 1 : 0),
-          saved_with_toggled_experiments: new Int8(initialEnabledCount > 0 ? 1 : 0),
-        },
-      });
-      setSuccess("Successfully loaded world and extracted level.dat");
-    } catch (err) {
-      setError(`Error processing file: ${err instanceof Error ? err.message : "Unknown error"}`);
-    } finally {
-      setIsProcessing(false);
-    }
-  }, []);
+        console.log("Checking for level.dat in root:", levelDatFile ? "found" : "not found");
+
+        if (!levelDatFile) {
+          // If not in root, look for level.dat in folders
+          const allEntries = Object.keys(loadedZip.files);
+          console.log("All zip entries:", allEntries);
+
+          // Method 1: Look for any level.dat file in the zip
+          const levelDatEntries = allEntries.filter((name) => name.endsWith("level.dat"));
+          console.log("Found level.dat files:", levelDatEntries);
+
+          if (levelDatEntries.length > 0) {
+            const levelDatPath = levelDatEntries[0];
+            const pathParts = levelDatPath.split("/");
+
+            if (pathParts.length > 1) {
+              // level.dat is in a subfolder
+              worldPath = pathParts.slice(0, -1).join("/") + "/";
+              levelDatFile = loadedZip.file(levelDatPath);
+              console.log(`Found level.dat at: ${levelDatPath}, using world path: ${worldPath}`);
+            }
+          }
+
+          // Method 2: If still not found, look for top-level folders and check each one
+          if (!levelDatFile) {
+            const topLevelFolders = allEntries.filter((name) => {
+              const file = loadedZip.files[name];
+              return file.dir && !name.includes("/", name.length - 1); // Folder at root level
+            });
+
+            console.log("Top-level folders found:", topLevelFolders);
+
+            for (const folder of topLevelFolders) {
+              const testPath = `${folder}level.dat`;
+              const testFile = loadedZip.file(testPath);
+              if (testFile) {
+                worldPath = folder;
+                levelDatFile = testFile;
+                console.log(`Found level.dat in folder: ${folder}`);
+                break;
+              }
+            }
+          }
+
+          console.log(
+            "Final result - Using world path:",
+            worldPath,
+            levelDatFile ? "level.dat found" : "level.dat not found"
+          );
+
+          if (!levelDatFile) {
+            throw new Error("No level.dat file found in the .mcworld file");
+          }
+        }
+
+        // Store the world path for later use
+        setWorldPath(worldPath);
+
+        // Read level.dat as ArrayBuffer
+        const levelDatBuffer = await levelDatFile.async("arraybuffer");
+        setOriginalLevelDat(levelDatBuffer);
+
+        // Parse experiments (simplified approach)
+        const parsedExperiments = await parseExperimentsFromNBT(levelDatBuffer);
+        setExperiments(parsedExperiments);
+
+        // Calculate enabled experiments count for initial state
+        const initialEnabledCount = Object.values(parsedExperiments).filter(Boolean).length;
+
+        setLevelDat({
+          experiments: {
+            ...parsedExperiments,
+            experiments_ever_used: new Int8(initialEnabledCount > 0 ? 1 : 0),
+            saved_with_toggled_experiments: new Int8(initialEnabledCount > 0 ? 1 : 0),
+          },
+        });
+        setSuccess("Successfully loaded world and extracted level.dat");
+      } catch (err) {
+        setError(`Error processing file: ${err instanceof Error ? err.message : "Unknown error"}`);
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    [experimentsData, parseExperimentsFromNBT]
+  );
 
   const handleExperimentToggle = useCallback((experimentId: string, enabled: boolean) => {
     setExperiments((prev) => ({

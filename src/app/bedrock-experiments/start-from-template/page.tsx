@@ -113,32 +113,6 @@ const StartFromTemplate: React.FC = () => {
     loadTemplates();
   }, []);
 
-  // Parse NBT experiments from level.dat
-  const parseExperimentsFromNBT = async (buffer: ArrayBuffer): Promise<ExperimentsState> => {
-    try {
-      const parsed = await read<WorldLevelDat>(buffer);
-      const levelData = parsed.data;
-
-      const experimentsState: ExperimentsState = {};
-
-      if (levelData.experiments) {
-        const experimentsCompound = levelData.experiments;
-        experimentsData?.experiments.forEach((exp) => {
-          if (experimentsCompound[exp.id]) {
-            experimentsState[exp.id] = experimentsCompound[exp.id].valueOf() === 1;
-          } else {
-            experimentsState[exp.id] = false;
-          }
-        });
-      }
-
-      return experimentsState;
-    } catch (error) {
-      console.error("Error parsing NBT:", error);
-      return {};
-    }
-  };
-
   // Create a modified NBT buffer with new experiments
   const createModifiedNBT = useCallback(
     async (originalBuffer: ArrayBuffer, newExperiments: ExperimentsState): Promise<ArrayBuffer> => {
@@ -157,9 +131,18 @@ const StartFromTemplate: React.FC = () => {
         levelData.experiments.experiments_ever_used = new Int8(enabledCount > 0 ? 1 : 0);
         levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
 
+        // Update individual experiment flags - only include enabled experiments
         experimentsData?.experiments.forEach((exp) => {
-          const value = newExperiments[exp.id] === true ? 1 : 0;
-          levelData.experiments[exp.id] = new Int8(value);
+          if (newExperiments[exp.id] === true) {
+            levelData.experiments[exp.id] = new Int8(1);
+            console.log(`Set experiment ${exp.id} to 1 (enabled)`);
+          } else {
+            // Remove disabled experiments from the NBT data
+            if (levelData.experiments[exp.id]) {
+              delete levelData.experiments[exp.id];
+              console.log(`Removed experiment ${exp.id} (disabled)`);
+            }
+          }
         });
 
         levelData.RandomSeed = BigInt.asIntN(
@@ -201,10 +184,6 @@ const StartFromTemplate: React.FC = () => {
 
       const levelDatBuffer = await levelDatResponse.arrayBuffer();
       setOriginalLevelDat(levelDatBuffer);
-
-      // Parse experiments from the template
-      const parsedExperiments = await parseExperimentsFromNBT(levelDatBuffer);
-      setExperiments(parsedExperiments);
 
       // Create a zip with the template data
       const zip = new JSZip();
