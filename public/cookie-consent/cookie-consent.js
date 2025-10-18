@@ -214,7 +214,7 @@
                 border-radius: 2px;
                 cursor: pointer;
                 font-size: 14px;
-            ">OK, got it</button>
+            ">Accept Cookies</button>
         </div>
     `;
     
