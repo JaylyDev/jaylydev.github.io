@@ -1,8 +1,9 @@
 "use client";
 import "@/styles/articles.css";
-import React, { memo, useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroUIProvider } from "@heroui/react";
+import Link from "next/link";
 import JSZip from "jszip";
 import { Int8, ByteTag, Tag, read, write } from "nbtify";
 import { ThemeProvider } from "next-themes";
@@ -44,6 +45,7 @@ const ExperimentsEditor: React.FC = () => {
   const [levelDat, setLevelDat] = useState<WorldLevelDat | null>(null);
   const [originalLevelDat, setOriginalLevelDat] = useState<ArrayBuffer | null>(null);
   const [experimentsData, setExperimentsData] = useState<ExperimentsData | null>(null);
+  const [worldPath, setWorldPath] = useState<string>(""); // Path to world folder (empty for root)
 
   // Load experiments data
   useEffect(() => {
@@ -63,131 +65,209 @@ const ExperimentsEditor: React.FC = () => {
     }, {} as Record<string, Experiment[]>) || {};
 
   // Parse NBT experiments from level.dat
-  const parseExperimentsFromNBT = async (buffer: ArrayBuffer): Promise<ExperimentsState> => {
-    try {
-      console.log("Parsing NBT data, buffer size:", buffer.byteLength);
-      const parsed = await read<WorldLevelDat>(buffer);
-      const levelData = parsed.data;
+  const parseExperimentsFromNBT = useCallback(
+    async (buffer: ArrayBuffer): Promise<ExperimentsState> => {
+      try {
+        console.log("Parsing NBT data, buffer size:", buffer.byteLength);
+        const parsed = await read<WorldLevelDat>(buffer);
+        const levelData = parsed.data;
 
-      console.log("NBT parsed successfully, root keys:", Object.keys(levelData));
+        console.log("NBT parsed successfully, root keys:", Object.keys(levelData));
 
-      const experimentsState: ExperimentsState = {};
+        const experimentsState: ExperimentsState = {};
 
-      // Extract experiments from NBT data
-      if (levelData.experiments) {
-        const experimentsCompound = levelData.experiments;
-        console.log("Found experiments compound with keys:", Object.keys(experimentsCompound));
+        // Extract experiments from NBT data
+        if (levelData.experiments) {
+          const experimentsCompound = levelData.experiments;
+          console.log("Found experiments compound with keys:", Object.keys(experimentsCompound));
 
-        // Get individual experiment flags
-        experimentsData?.experiments.forEach((exp) => {
-          if (experimentsCompound[exp.id]) experimentsState[exp.id] = experimentsCompound[exp.id].valueOf() === 1;
-          else experimentsState[exp.id] = false;
-        });
-      } else {
-        console.log("No experiments compound found in NBT data, initializing empty experiments");
+          // Get individual experiment flags
+          if (experimentsData?.experiments) {
+            experimentsData.experiments.forEach((exp) => {
+              const tag = experimentsCompound[exp.id];
+              if (tag) {
+                experimentsState[exp.id] = tag.valueOf() === 1;
+              } else {
+                experimentsState[exp.id] = false;
+              }
+            });
+          }
+        } else {
+          experimentsData?.experiments.forEach((exp) => {
+            experimentsState[exp.id] = false;
+          });
+        }
+
+        console.log("Parsed experiments state:", experimentsState);
+        return experimentsState;
+      } catch (error) {
+        console.error("Error parsing NBT:", error);
+        return {};
       }
-
-      console.log("Parsed experiments state:", experimentsState);
-      return experimentsState;
-    } catch (error) {
-      console.error("Error parsing NBT:", error);
-      return {};
-    }
-  };
+    },
+    [experimentsData]
+  );
 
   // Create a modified NBT buffer with new experiments
-  const createModifiedNBT = async (
-    originalBuffer: ArrayBuffer,
-    newExperiments: ExperimentsState
-  ): Promise<ArrayBuffer> => {
-    try {
-      console.log("Creating modified NBT with experiments:", newExperiments);
-      const parsed = await read<WorldLevelDat>(originalBuffer);
-      const levelData = parsed.data;
+  const createModifiedNBT = useCallback(
+    async (originalBuffer: ArrayBuffer, newExperiments: ExperimentsState): Promise<ArrayBuffer> => {
+      try {
+        console.log("Creating modified NBT with experiments:", newExperiments);
+        const parsed = await read<WorldLevelDat>(originalBuffer);
+        const levelData = parsed.data;
 
-      // Ensure experiments compound exists
-      if (!levelData.experiments) {
-        console.log("Creating new experiments compound");
-        levelData.experiments = {
-          experiments_ever_used: new Int8(0),
-          saved_with_toggled_experiments: new Int8(0),
-        };
+        // Ensure experiments compound exists
+        if (!levelData.experiments) {
+          console.log("Creating new experiments compound");
+          levelData.experiments = {
+            experiments_ever_used: new Int8(0),
+            saved_with_toggled_experiments: new Int8(0),
+          };
+        }
+
+        // Calculate enabled experiments count
+        const enabledCount = Object.values(newExperiments).filter(Boolean).length;
+
+        // Update experiment flags
+        levelData.experiments.experiments_ever_used = new Int8(enabledCount > 0 ? 1 : 0);
+        levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
+
+        experimentsData?.experiments.forEach((exp) => {
+          if (newExperiments[exp.id] === true) {
+            levelData.experiments[exp.id] = new Int8(1);
+          } else if (levelData.experiments[exp.id]) {
+            delete levelData.experiments[exp.id];
+          }
+        });
+
+        console.log("Writing modified NBT data");
+        // Write modified NBT back to buffer
+        const modifiedBuffer = await write(parsed, { endian: "little" });
+        console.log("NBT modification complete, new buffer size:", modifiedBuffer.length);
+        return modifiedBuffer.buffer as ArrayBuffer;
+      } catch (error) {
+        console.error("Error creating modified NBT:", error);
+        throw new Error("Failed to create modified NBT data");
+      }
+    },
+    [experimentsData]
+  );
+
+  const handleFileUpload = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = event.target.files?.[0];
+      if (!selectedFile) return;
+
+      // Check file extension - support both .mcworld and .zip files
+      const fileName = selectedFile.name.toLowerCase();
+      if (!fileName.endsWith(".mcworld") && !fileName.endsWith(".zip")) {
+        setError("Please upload a .mcworld or .zip file only.");
+        return;
       }
 
-      // Update experiment flags
-      levelData.experiments.experiments_ever_used = new Int8(enabledCount > 0 ? 1 : 0);
-      levelData.experiments.saved_with_toggled_experiments = new Int8(enabledCount > 0 ? 1 : 0);
+      setError(null);
+      setSuccess(null);
+      setFile(selectedFile);
+      setIsProcessing(true);
 
-      // Update individual experiment flags
-      experimentsData?.experiments.forEach((exp) => {
-        const value = newExperiments[exp.id] === true ? 1 : 0;
-        levelData.experiments[exp.id] = new Int8(value);
-        console.log(`Set experiment ${exp.id} to ${value}`);
-      });
+      try {
+        // Read file as ArrayBuffer
+        const arrayBuffer = await selectedFile.arrayBuffer();
 
-      console.log("Writing modified NBT data");
-      // Write modified NBT back to buffer
-      const modifiedBuffer = await write(parsed, { endian: "little" });
-      console.log("NBT modification complete, new buffer size:", modifiedBuffer.length);
-      return modifiedBuffer.buffer as ArrayBuffer;
-    } catch (error) {
-      console.error("Error creating modified NBT:", error);
-      throw new Error("Failed to create modified NBT data");
-    }
-  };
+        // Check if it's a valid zip file
+        const zipFile = new JSZip();
+        const loadedZip = await zipFile.loadAsync(arrayBuffer);
+        setZip(loadedZip);
 
-  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (!selectedFile) return;
+        // Look for level.dat file - first in root, then in the first folder
+        let levelDatFile = loadedZip.file("level.dat");
+        let worldPath = ""; // Empty for root, or "folder/" for subfolder
 
-    // Check file extension
-    if (!selectedFile.name.toLowerCase().endsWith(".mcworld")) {
-      setError("Please upload a .mcworld file only.");
-      return;
-    }
+        console.log("Checking for level.dat in root:", levelDatFile ? "found" : "not found");
 
-    setError(null);
-    setSuccess(null);
-    setFile(selectedFile);
-    setIsProcessing(true);
+        if (!levelDatFile) {
+          // If not in root, look for level.dat in folders
+          const allEntries = Object.keys(loadedZip.files);
+          console.log("All zip entries:", allEntries);
 
-    try {
-      // Read file as ArrayBuffer
-      const arrayBuffer = await selectedFile.arrayBuffer();
+          // Method 1: Look for any level.dat file in the zip
+          const levelDatEntries = allEntries.filter((name) => name.endsWith("level.dat"));
+          console.log("Found level.dat files:", levelDatEntries);
 
-      // Check if it's a valid zip file
-      const zipFile = new JSZip();
-      const loadedZip = await zipFile.loadAsync(arrayBuffer);
-      setZip(loadedZip);
+          if (levelDatEntries.length > 0) {
+            const levelDatPath = levelDatEntries[0];
+            const pathParts = levelDatPath.split("/");
 
-      // Look for level.dat file
-      const levelDatFile = loadedZip.file("level.dat");
-      if (!levelDatFile) {
-        throw new Error("No level.dat file found in the .mcworld file");
+            if (pathParts.length > 1) {
+              // level.dat is in a subfolder
+              worldPath = pathParts.slice(0, -1).join("/") + "/";
+              levelDatFile = loadedZip.file(levelDatPath);
+              console.log(`Found level.dat at: ${levelDatPath}, using world path: ${worldPath}`);
+            }
+          }
+
+          // Method 2: If still not found, look for top-level folders and check each one
+          if (!levelDatFile) {
+            const topLevelFolders = allEntries.filter((name) => {
+              const file = loadedZip.files[name];
+              return file.dir && !name.includes("/", name.length - 1); // Folder at root level
+            });
+
+            console.log("Top-level folders found:", topLevelFolders);
+
+            for (const folder of topLevelFolders) {
+              const testPath = `${folder}level.dat`;
+              const testFile = loadedZip.file(testPath);
+              if (testFile) {
+                worldPath = folder;
+                levelDatFile = testFile;
+                console.log(`Found level.dat in folder: ${folder}`);
+                break;
+              }
+            }
+          }
+
+          console.log(
+            "Final result - Using world path:",
+            worldPath,
+            levelDatFile ? "level.dat found" : "level.dat not found"
+          );
+
+          if (!levelDatFile) {
+            throw new Error("No level.dat file found in the .mcworld file");
+          }
+        }
+
+        // Store the world path for later use
+        setWorldPath(worldPath);
+
+        // Read level.dat as ArrayBuffer
+        const levelDatBuffer = await levelDatFile.async("arraybuffer");
+        setOriginalLevelDat(levelDatBuffer);
+
+        // Parse experiments (simplified approach)
+        const parsedExperiments = await parseExperimentsFromNBT(levelDatBuffer);
+        setExperiments(parsedExperiments);
+
+        // Calculate enabled experiments count for initial state
+        const initialEnabledCount = Object.values(parsedExperiments).filter(Boolean).length;
+
+        setLevelDat({
+          experiments: {
+            ...parsedExperiments,
+            experiments_ever_used: new Int8(initialEnabledCount > 0 ? 1 : 0),
+            saved_with_toggled_experiments: new Int8(initialEnabledCount > 0 ? 1 : 0),
+          },
+        });
+        setSuccess("Successfully loaded world and extracted level.dat");
+      } catch (err) {
+        setError(`Error processing file: ${err instanceof Error ? err.message : "Unknown error"}`);
+      } finally {
+        setIsProcessing(false);
       }
-
-      // Read level.dat as ArrayBuffer
-      const levelDatBuffer = await levelDatFile.async("arraybuffer");
-      setOriginalLevelDat(levelDatBuffer);
-
-      // Parse experiments (simplified approach)
-      const parsedExperiments = await parseExperimentsFromNBT(levelDatBuffer);
-      setExperiments(parsedExperiments);
-
-      setLevelDat({
-        experiments: {
-          ...parsedExperiments,
-          experiments_ever_used: new Int8(enabledCount > 0 ? 1 : 0),
-          saved_with_toggled_experiments: new Int8(enabledCount > 0 ? 1 : 0),
-        },
-      });
-      setSuccess("Successfully loaded .mcworld file and extracted level.dat");
-    } catch (err) {
-      setError(`Error processing file: ${err instanceof Error ? err.message : "Unknown error"}`);
-    } finally {
-      setIsProcessing(false);
-    }
-  }, []);
+    },
+    [experimentsData, parseExperimentsFromNBT]
+  );
 
   const handleExperimentToggle = useCallback((experimentId: string, enabled: boolean) => {
     setExperiments((prev) => ({
@@ -210,7 +290,7 @@ const ExperimentsEditor: React.FC = () => {
       const modifiedNBT = await createModifiedNBT(originalLevelDat, experiments);
 
       // Update the zip file with new level.dat
-      zip.file("level.dat", modifiedNBT);
+      zip.file(`${worldPath}level.dat`, modifiedNBT);
 
       // Generate new zip file
       const updatedZipBlob = await zip.generateAsync({ type: "blob" });
@@ -219,7 +299,14 @@ const ExperimentsEditor: React.FC = () => {
       const url = URL.createObjectURL(updatedZipBlob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = file?.name?.replace(".mcworld", "_modified.mcworld") || "modified_world.mcworld";
+
+      // Always save as .mcworld regardless of input file type
+      let downloadName = "modified_world.mcworld";
+      if (file?.name) {
+        const baseName = file.name.replace(/\.(mcworld|zip)$/i, "");
+        downloadName = `${baseName}_modified.mcworld`;
+      }
+      link.download = downloadName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -231,7 +318,7 @@ const ExperimentsEditor: React.FC = () => {
     } finally {
       setIsProcessing(false);
     }
-  }, [originalLevelDat, zip, experiments, file]);
+  }, [originalLevelDat, zip, experiments, file, worldPath]);
 
   const enabledCount = Object.values(experiments).filter(Boolean).length;
   const totalCount = experimentsData?.experiments.length || 0;
@@ -251,25 +338,38 @@ const ExperimentsEditor: React.FC = () => {
                 This tool allows you to modify experimental features in your Minecraft Bedrock world.
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                Upload a .mcworld file to enable or disable experimental features in your Minecraft Bedrock world. This
-                tool will parse the level.dat file using NBT format and modify the experiments compound tag.
+                Upload a .mcworld or .zip file to enable or disable experimental features in your Minecraft Bedrock
+                world. This tool will parse the level.dat file using NBT format and modify the experiments compound tag.
               </p>
 
               <div className="bg-blue-100 dark:bg-blue-900 border border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-200 p-3 rounded">
-                <strong>How it works:</strong> This tool extracts the level.dat file from your .mcworld file, parses the
-                NBT data structure, modifies the experiments compound tag, and creates a new world file with your
-                selected experimental features enabled or disabled.
+                <strong>How it works:</strong> This tool extracts the level.dat file from your world file (.mcworld or
+                .zip), parses the NBT data structure, modifies the experiments compound tag, and creates a new .mcworld
+                file with your selected experimental features enabled or disabled.
               </div>
 
               <Input
                 type="file"
-                accept=".mcworld"
+                accept=".mcworld,.zip"
                 onChange={handleFileUpload}
                 disabled={isProcessing}
-                label="Select .mcworld file"
+                label="Select .mcworld or .zip file"
                 placeholder="Choose your world file..."
                 className="dark:text-white"
               />
+
+              <Divider />
+
+              <div className="text-center">
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Don&apos;t have a world file? Start with a template!
+                </p>
+                <Link href="/bedrock-experiments/start-from-template">
+                  <Button className="text-lg" color="secondary" variant="flat" size="lg" disabled={isProcessing}>
+                    Start from Template
+                  </Button>
+                </Link>
+              </div>
 
               {error && (
                 <div className="p-3 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 rounded">
@@ -355,7 +455,7 @@ const ExperimentsEditor: React.FC = () => {
   );
 };
 
-export default function Post(): JSX.Element {
+export default function Page(): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
