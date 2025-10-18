@@ -3,22 +3,8 @@
     const GA_MEASUREMENT_ID = 'G-Q3X0X9VRB2';
     let notice;
     
-    // Initialize Google Analytics and AdSense with consent
+    // Initialize Google Analytics and AdSense with full consent
     function initializeGoogleAnalytics() {
-        // Load gtag script
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-        document.head.appendChild(script);
-        
-        // Initialize gtag
-        globalThis.dataLayer = globalThis.dataLayer || [];
-        function gtag(){globalThis.dataLayer.push(arguments);}
-        globalThis.gtag = gtag;
-        
-        gtag('js', new Date());
-        
-        // Set consent for AdSense and Analytics
         gtag('consent', 'update', {
             'ad_storage': 'granted',
             'analytics_storage': 'granted',
@@ -26,7 +12,13 @@
             'ad_personalization': 'granted'
         });
         
-        gtag('config', GA_MEASUREMENT_ID);
+        gtag('config', GA_MEASUREMENT_ID, {
+            'anonymize_ip': false,
+            'allow_google_signals': true,
+            'allow_ad_personalization_signals': true,
+            'client_storage': 'localStorage',
+            'send_page_view': true
+        });
     }
     
     // Check if visitor is a known web crawler and return details
@@ -112,7 +104,6 @@
     
     // Send crawler information to Google Analytics
     function trackCrawlerVisit(crawlerInfo) {
-        // Wait for gtag to be ready
         setTimeout(() => {
             if (typeof globalThis.gtag === 'function') {
                 globalThis.gtag('event', 'crawler_visit', {
@@ -123,7 +114,7 @@
                     'page_title': document.title
                 });
             }
-        }, 1000);
+        }, 500);
     }
     
     // Function to accept cookies and initialize GA
@@ -151,20 +142,38 @@
         return;
     }
     
-    // Initialize gtag with default consent settings (denied)
+    // Initialize gtag with default consent settings for basic analytics
     globalThis.dataLayer = globalThis.dataLayer || [];
     function gtag(){globalThis.dataLayer.push(arguments);}
     globalThis.gtag = gtag;
     
-    // Set default consent to denied for AdSense and Analytics
+    // Load gtag script for basic analytics
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    if (!document.head) {
+        document.head = document.createElement('head');
+    }
+    document.head.appendChild(script);
+    
+    gtag('js', new Date());
+    
     gtag('consent', 'default', {
         'ad_storage': 'denied',
-        'analytics_storage': 'denied',
+        'analytics_storage': 'granted',
         'ad_user_data': 'denied',
         'ad_personalization': 'denied'
     });
 
-    // Create and show the cookie notice
+    gtag('config', GA_MEASUREMENT_ID, {
+        'anonymize_ip': true,
+        'allow_google_signals': false,
+        'allow_ad_personalization_signals': false,
+        'client_storage': 'none',
+        'send_page_view': true
+    });
+
+    // Show the cookie notice
     notice = document.createElement('div');
     notice.innerHTML = `
         <div style="
@@ -182,7 +191,7 @@
             font-weight: bold;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
         ">
-            This site uses cookies from Google to deliver and enhance the quality of its services and to analyze traffic.
+            This site collects basic analytics. Click "Accept" to allow cookies from Google to improve your experience.
             <button onclick="window.location.href='/privacy-policy/'" style="
                 margin-left: 5px;
                 padding: 4px 8px;
