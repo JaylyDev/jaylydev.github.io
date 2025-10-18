@@ -144,6 +144,26 @@
         // Initialize Google Analytics after consent
         initializeGoogleAnalytics();
     }
+
+    function appendNotice() {
+        if (document.body) {
+            document.body.appendChild(notice);
+        } else {
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.body.appendChild(notice);
+                });
+            } else {
+                // DOM is ready but body might not exist yet, wait a bit
+                setTimeout(() => {
+                    if (document.body) {
+                        document.body.appendChild(notice);
+                    }
+                }, 10);
+            }
+        }
+    }
     
     // Check if visitor is a crawler - if so, assume consent and track
     const crawlerInfo = getCrawlerInfo();
@@ -239,5 +259,5 @@
     const button = notice.querySelector('#cookie-accept-btn');
     button.addEventListener('click', acceptCookies);
     
-    document.body.appendChild(notice);
+    appendNotice();
 })();
