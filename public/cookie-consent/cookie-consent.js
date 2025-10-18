@@ -5,6 +5,23 @@
     
     // Initialize Google Analytics and AdSense with full consent
     function initializeGoogleAnalytics() {
+        // Always ensure gtag is properly initialized
+        globalThis.dataLayer = globalThis.dataLayer || [];
+        if (!globalThis.gtag) {
+            function gtag(){globalThis.dataLayer.push(arguments);}
+            globalThis.gtag = gtag;
+        }
+        
+        // Load gtag script if not already loaded
+        if (!document.querySelector(`script[src*="${GA_MEASUREMENT_ID}"]`)) {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+            document.head.appendChild(script);
+            
+            globalThis.gtag('js', new Date());
+        }
+        
         gtag('consent', 'update', {
             'ad_storage': 'granted',
             'analytics_storage': 'granted',
