@@ -30,7 +30,7 @@
         });
         
         gtag('config', GA_MEASUREMENT_ID, {
-            'anonymize_ip': false,
+            'anonymize_ip': true,
             'allow_google_signals': true,
             'allow_ad_personalization_signals': true,
             'client_storage': 'localStorage',
@@ -203,7 +203,7 @@
     });
 
     gtag('config', GA_MEASUREMENT_ID, {
-        'anonymize_ip': false,
+        'anonymize_ip': true,
         'allow_google_signals': false,
         'allow_ad_personalization_signals': false,
         'client_storage': 'none',
