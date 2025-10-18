@@ -203,7 +203,7 @@
     });
 
     gtag('config', GA_MEASUREMENT_ID, {
-        'anonymize_ip': true,
+        'anonymize_ip': false,
         'allow_google_signals': false,
         'allow_ad_personalization_signals': false,
         'client_storage': 'none',
