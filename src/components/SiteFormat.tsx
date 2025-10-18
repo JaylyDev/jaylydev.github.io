@@ -94,23 +94,14 @@ export function SiteFooter({ lang }: ISiteGlobalParams) {
 
 export function StatsCollection() {
   return (
-    <div className="container">
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-Q3X0X9VRB2" />
-      <Script id="google-analytics">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
- 
-          gtag('config', 'G-Q3X0X9VRB2');
-        `}
-      </Script>
+    <>
+      <Script src="/cookie-consent/cookie-consent.js"></Script>
       <Script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2533146760921020"
         crossOrigin="anonymous"
       ></Script>
-    </div>
+    </>
   );
 }
 
