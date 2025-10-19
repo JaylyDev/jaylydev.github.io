@@ -134,15 +134,27 @@
         }, 500);
     }
     
-    // Function to accept cookies and initialize GA
     function acceptCookies() {
         localStorage.setItem('cookieConsent', 'accepted');
         if (notice && notice.parentNode) {
             notice.parentNode.removeChild(notice);
         }
         
-        // Initialize Google Analytics after consent
         initializeGoogleAnalytics();
+    }
+
+    function rejectCookies() {
+        localStorage.setItem('cookieConsent', 'rejected');
+        if (notice && notice.parentNode) {
+            notice.parentNode.removeChild(notice);
+        }
+        
+        // Update to denied for ad/personalization, but keep anonymous analytics
+        window.gtag('consent', 'update', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied'
+        });
     }
 
     function appendNotice() {
@@ -197,7 +209,7 @@
     
     window.gtag('consent', 'default', {
         'ad_storage': 'denied',
-        'analytics_storage': 'granted',
+        'analytics_storage': 'denied',
         'ad_user_data': 'denied',
         'ad_personalization': 'denied'
     });
@@ -212,6 +224,7 @@
 
     // Show the cookie notice
     notice = document.createElement('div');
+    notice.id = 'cookie-consent-notice';
     notice.innerHTML = `
         <div style="
             position: fixed;
@@ -219,45 +232,64 @@
             left: 0;
             right: 0;
             background: #333;
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
             z-index: 10000;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         ">
-            This site collects basic analytics. Click "Accept" to allow cookies from Google to improve your experience.
-            <button onclick="window.location.href='/privacy-policy/'" style="
-                margin-left: 5px;
-                padding: 6px 8px;
-                cursor: pointer;
-                background: #0077CC;
+            <div style="
                 color: white;
-                border: 1px solid #0077CC;
-                border-radius: 2px;
-                cursor: pointer;
+                padding: 10px 15px;
+                font-family: Arial, sans-serif;
                 font-size: 14px;
-                text-decoration: underline;
-            ">Privacy Policy</button>
-            <button id="cookie-accept-btn" style="
-                margin-left: 5px;
-                padding: 6px 8px;
-                cursor: pointer;
-                background: #4CAF50;
-                color: white;
-                border: 1px solid #4CAF50;
-                border-radius: 2px;
-                cursor: pointer;
-                font-size: 14px;
-            ">Accept Cookies</button>
+                font-weight: bold;
+                text-align: left;
+            ">
+                <p>This site uses analytics to understand how you use it and ads to help support it.</p>
+                <span style="display: inline-block; margin-top: 5px;">By accepting, you help us improve your experience.</span>
+                <button onclick="window.location.href='/privacy-policy/'" style="
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    padding: 6px 8px;
+                    cursor: pointer;
+                    background: #666;
+                    color: white;
+                    border: 1px solid #666;
+                    border-radius: 2px;
+                    font-size: 14px;
+                    text-decoration: underline;
+                ">Privacy Policy</button>
+                <button id="cookie-reject-btn" style="
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    padding: 6px 8px;
+                    cursor: pointer;
+                    background: #777;
+                    color: white;
+                    border: 1px solid #777;
+                    border-radius: 2px;
+                    font-size: 14px;
+                ">Reject</button>
+                <button id="cookie-accept-btn" style="
+                    margin-left: 5px;
+                    margin-top: 5px;
+                    padding: 6px 8px;
+                    cursor: pointer;
+                    background: #4CAF50;
+                    color: white;
+                    border: 1px solid #4CAF50;
+                    border-radius: 2px;
+                    font-size: 14px;
+                ">Accept</button>
+            </div>
         </div>
     `;
     
-    // Add event listener to button
-    const button = notice.querySelector('#cookie-accept-btn');
-    button.addEventListener('click', acceptCookies);
+    // Add event listeners to buttons
+    const acceptBtn = notice.querySelector('#cookie-accept-btn');
+    const rejectBtn = notice.querySelector('#cookie-reject-btn');
+    acceptBtn.addEventListener('click', acceptCookies);
+    rejectBtn.addEventListener('click', rejectCookies);
     
     appendNotice();
 })();
