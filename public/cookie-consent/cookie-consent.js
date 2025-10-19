@@ -220,7 +220,7 @@
             right: 0;
             background: #333;
             color: white;
-            padding: 15px;
+            padding: 10px 15px;
             text-align: center;
             z-index: 10000;
             font-family: Arial, sans-serif;
