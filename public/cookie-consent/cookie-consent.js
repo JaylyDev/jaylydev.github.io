@@ -193,16 +193,16 @@
     }
     document.head.appendChild(script);
     
-    gtag('js', new Date());
+    window.gtag('js', new Date());
     
-    gtag('consent', 'default', {
+    window.gtag('consent', 'default', {
         'ad_storage': 'denied',
         'analytics_storage': 'granted',
         'ad_user_data': 'denied',
         'ad_personalization': 'denied'
     });
 
-    gtag('config', GA_MEASUREMENT_ID, {
+    window.gtag('config', GA_MEASUREMENT_ID, {
         'anonymize_ip': true,
         'allow_google_signals': false,
         'allow_ad_personalization_signals': false,
