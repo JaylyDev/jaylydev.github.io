@@ -245,7 +245,7 @@
                 font-weight: bold;
                 text-align: left;
             ">
-                <p>This site uses analytics to understand how you use it and ads to help support it.</p>
+                <span style="display: block;">This site uses analytics to understand how you use it and ads to help support it.</span>
                 <span style="display: inline-block; margin-top: 5px;">By accepting, you help us improve your experience.</span>
                 <button onclick="window.location.href='/privacy-policy/'" style="
                     margin-left: 5px;
@@ -257,6 +257,7 @@
                     border: 1px solid #666;
                     border-radius: 2px;
                     font-size: 14px;
+                    font-weight: bold;
                     text-decoration: underline;
                 ">Privacy Policy</button>
                 <button id="cookie-reject-btn" style="
@@ -269,6 +270,7 @@
                     border: 1px solid #777;
                     border-radius: 2px;
                     font-size: 14px;
+                    font-weight: bold;
                 ">Reject</button>
                 <button id="cookie-accept-btn" style="
                     margin-left: 5px;
@@ -280,6 +282,7 @@
                     border: 1px solid #4CAF50;
                     border-radius: 2px;
                     font-size: 14px;
+                    font-weight: bold;
                 ">Accept</button>
             </div>
         </div>
