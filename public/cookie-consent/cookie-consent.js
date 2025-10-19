@@ -6,10 +6,10 @@
     // Initialize Google Analytics and AdSense with full consent
     function initializeGoogleAnalytics() {
         // Always ensure gtag is properly initialized
-        globalThis.dataLayer = globalThis.dataLayer || [];
-        if (!globalThis.gtag) {
-            function gtag(){globalThis.dataLayer.push(arguments);}
-            globalThis.gtag = gtag;
+        window.dataLayer = window.dataLayer || [];
+        if (!window.gtag) {
+            function gtag(){window.dataLayer.push(arguments);}
+            window.gtag = gtag;
         }
         
         // Load gtag script if not already loaded
@@ -19,17 +19,17 @@
             script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
             document.head.appendChild(script);
             
-            globalThis.gtag('js', new Date());
+            window.gtag('js', new Date());
         }
         
-        gtag('consent', 'update', {
+        window.gtag('consent', 'update', {
             'ad_storage': 'granted',
             'analytics_storage': 'granted',
             'ad_user_data': 'granted',
             'ad_personalization': 'granted'
         });
         
-        gtag('config', GA_MEASUREMENT_ID, {
+        window.gtag('config', GA_MEASUREMENT_ID, {
             'anonymize_ip': true,
             'allow_google_signals': true,
             'allow_ad_personalization_signals': true,
@@ -122,8 +122,8 @@
     // Send crawler information to Google Analytics
     function trackCrawlerVisit(crawlerInfo) {
         setTimeout(() => {
-            if (typeof globalThis.gtag === 'function') {
-                globalThis.gtag('event', 'crawler_visit', {
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'crawler_visit', {
                     'crawler_name': crawlerInfo.name,
                     'crawler_pattern': crawlerInfo.pattern,
                     'user_agent': crawlerInfo.userAgent,
@@ -180,9 +180,9 @@
     }
     
     // Initialize gtag with default consent settings for basic analytics
-    globalThis.dataLayer = globalThis.dataLayer || [];
-    function gtag(){globalThis.dataLayer.push(arguments);}
-    globalThis.gtag = gtag;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    window.gtag = gtag;
     
     // Load gtag script for basic analytics
     const script = document.createElement('script');
@@ -220,7 +220,7 @@
             right: 0;
             background: #333;
             color: white;
-            padding: 10px 15px;
+            padding: 15px;
             text-align: center;
             z-index: 10000;
             font-family: Arial, sans-serif;
@@ -231,7 +231,7 @@
             This site collects basic analytics. Click "Accept" to allow cookies from Google to improve your experience.
             <button onclick="window.location.href='/privacy-policy/'" style="
                 margin-left: 5px;
-                padding: 4px 8px;
+                padding: 6px 8px;
                 cursor: pointer;
                 background: #0077CC;
                 color: white;
@@ -243,7 +243,7 @@
             ">Privacy Policy</button>
             <button id="cookie-accept-btn" style="
                 margin-left: 5px;
-                padding: 4px 8px;
+                padding: 6px 8px;
                 cursor: pointer;
                 background: #4CAF50;
                 color: white;
