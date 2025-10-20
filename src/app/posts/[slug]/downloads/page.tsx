@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps) {
 
   return {
     title: `${post.title} - Downloads | JaylyMC`,
-    description: post.description,
+    description: "Downloads for " + post.title + ". " + post.description,
     authors: [{ name: post.author }],
     openGraph: {
       type: "article",
