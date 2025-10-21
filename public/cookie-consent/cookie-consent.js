@@ -75,14 +75,13 @@
         left:0;
         width:100%;
         padding:1rem;
-        font-family:sans-serif;
         z-index:9999;
         /* Dark theme (default) */
         background:#111;
         color:#fff;
         box-shadow:0 -2px 10px rgba(0,0,0,0.3);
         border-top:2px solid #333;
-        font-family:"Inter","Inter Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+        font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
       }
       
       /* Light theme */
