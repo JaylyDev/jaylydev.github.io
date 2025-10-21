@@ -82,6 +82,7 @@
         color:#fff;
         box-shadow:0 -2px 10px rgba(0,0,0,0.3);
         border-top:2px solid #333;
+        line-height:1.5;
         font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
       }
       
