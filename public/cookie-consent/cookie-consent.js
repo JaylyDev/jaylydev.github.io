@@ -61,6 +61,14 @@
   const bar = document.createElement("div");
   bar.innerHTML = `
     <style>
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(/fonts/Inter-VariableFont_opsz,wght.ttf);
+      }
+        
       .cookie-banner {
         position:fixed;
         bottom:0;
@@ -72,6 +80,7 @@
         color:#fff;
         box-shadow:0 -2px 10px rgba(0,0,0,0.3);
         border-top:2px solid #333;
+        font-family:"Inter","Inter Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
       }
       
       /* Light theme */
