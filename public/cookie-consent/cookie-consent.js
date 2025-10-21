@@ -75,6 +75,7 @@
         left:0;
         width:100%;
         padding:1rem;
+        box-sizing:border-box;
         z-index:9999;
         /* Dark theme (default) */
         background:#111;
@@ -176,7 +177,14 @@
       </div>
     </div>
   `;
-  document.body.appendChild(bar);
+  if (!document.body) {
+    document.addEventListener("DOMContentLoaded", function () {
+      document.body.appendChild(bar);
+    });
+  }
+  else {
+    document.body.appendChild(bar);
+  };
 
   // Button Logic
   document.getElementById("cookie-accept").addEventListener("click", function () {
