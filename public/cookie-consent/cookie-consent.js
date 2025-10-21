@@ -1,1 +1,185 @@
-!function(){const e="G-Q3X0X9VRB2";let t;function o(){if(window.dataLayer=window.dataLayer||[],!window.gtag){function t(){window.dataLayer.push(arguments)}window.gtag=t}if(!document.querySelector(`script[src*="${e}"]`)){const o=document.createElement("script");o.async=!0,o.src=`https://www.googletagmanager.com/gtag/js?id=${e}`,document.head.appendChild(o),window.gtag("js",new Date)}window.gtag("consent","update",{ad_storage:"granted",analytics_storage:"granted",ad_user_data:"granted",ad_personalization:"granted"}),window.gtag("config",e,{anonymize_ip:!0,allow_google_signals:!0,allow_ad_personalization_signals:!0,client_storage:"localStorage",send_page_view:!0})}const a=function(){const e=navigator.userAgent.toLowerCase(),t={googlebot:"Googlebot","googlebot-image":"Googlebot-Image","googlebot-news":"Googlebot-News","googlebot-video":"Googlebot-Video","google-inspectiontool":"Google-InspectionTool",googleother:"GoogleOther","google-extended":"Google-Extended","storebot-google":"Storebot-Google",bingbot:"BingBot",bingpreview:"BingPreview",msnbot:"msnbot",adidxbot:"AdIdxBot",slurp:"Yahoo-Slurp",duckduckbot:"DuckDuckBot",baiduspider:"BaiduSpider",yandexbot:"YandexBot",sogou:"Sogou",exabot:"Exabot",facebookexternalhit:"FacebookExternalHit",facebookbot:"FacebookBot",twitterbot:"Twitterbot",linkedinbot:"LinkedInBot",pinterestbot:"Pinterestbot",slackbot:"Slackbot",whatsapp:"WhatsApp",telegrambot:"TelegramBot",discordbot:"Discordbot",tiktokspider:"TikTokSpider",redditbot:"RedditBot",claudebot:"ClaudeBot","chatgpt-user":"ChatGPT-User",gptbot:"GPTBot","anthropic-ai":"Anthropic-AI","claude-web":"Claude-Web","oai-searchbot":"OAI-SearchBot",perplexitybot:"PerplexityBot","perplexity-user":"Perplexity-User","meta-externalagent":"Meta-ExternalAgent","meta-externalfetcher":"Meta-ExternalFetcher",amazonbot:"Amazonbot",applebot:"Applebot",bytespider:"Bytespider",ai2bot:"AI2Bot",ccbot:"CCBot",diffbot:"Diffbot",youbot:"YouBot",ahrefsbot:"AhrefsBot",semrushbot:"SemrushBot",mj12bot:"MJ12bot",rogerbot:"rogerbot",dotbot:"dotbot","screaming frog":"Screaming-Frog",seokicks:"SEOkicks",dataforseobot:"DataForSeoBot",petalbot:"PetalBot",ia_archiver:"ia_archiver","archive.org_bot":"archive.org_bot",uptimerobot:"UptimeRobot",pingdom:"Pingdom",statuscake:"StatusCake",lighthouse:"Lighthouse",timpubot:"Timpubot",imgproxy:"ImgProxy",iaskspider:"iAskSpider",sidetrade:"Sidetrade",pangubot:"PanguBot",omgili:"Omgili","cohere-ai":"Cohere-AI",isscyberriskcrawler:"ISSCyberRiskCrawler",novaact:"NovaAct",friendlycrawler:"FriendlyCrawler",img2dataset:"img2dataset",aihitbot:"aiHitBot",digitaloceangenaicrawler:"DigitalOceanGenAICrawler",cotoyogi:"Cotoyogi","google-cloudvertexbot":"Google-CloudVertexBot","mistralai-user":"MistralAI-User",archivebot:"ArchiveBot",crawler:"Generic Crawler",spider:"Generic Spider",bot:"Generic Bot",scraper:"Generic Scraper"};for(const[o,a]of Object.entries(t))if(e.includes(o))return{isCrawler:!0,name:a,pattern:o,userAgent:navigator.userAgent};return{isCrawler:!1}}();if(a.isCrawler)return o(),void function(e){setTimeout(()=>{"function"==typeof window.gtag&&window.gtag("event","crawler_visit",{crawler_name:e.name,crawler_pattern:e.pattern,user_agent:e.userAgent,page_location:location.href,page_title:document.title})},500)}(a);if("accepted"===localStorage.getItem("cookieConsent"))return void o();window.dataLayer=window.dataLayer||[],window.gtag=function(){window.dataLayer.push(arguments)};const i=document.createElement("script");i.async=!0,i.src=`https://www.googletagmanager.com/gtag/js?id=${e}`,document.head||(document.head=document.createElement("head")),document.head.appendChild(i),window.gtag("js",new Date),window.gtag("consent","default",{ad_storage:"denied",analytics_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"}),window.gtag("config",e,{anonymize_ip:!0,allow_google_signals:!1,allow_ad_personalization_signals:!1,client_storage:"none",send_page_view:!0}),t=document.createElement("div"),t.id="cookie-consent-notice",t.innerHTML='<div style="position: fixed; bottom: 0; left: 0; right: 0; background: #333; z-index: 10000; display: flex; justify-content: center; align-items: center;">\n        <div style="color: white; padding: 10px 15px; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-align: left; ">\n            <span style="display: block;">This site uses analytics to understand how you use it and ads to help support it.</span>\n            <span style="display: inline-block; margin-top: 5px;">By accepting, you help us improve your experience.</span>\n            <button onclick="window.location.href=\'/privacy-policy/\'" style="margin-left: 5px; margin-top: 5px; padding: 6px 8px; cursor: pointer; background: #666; color: white; border: 1px solid #666; border-radius: 2px; font-size: 14px; font-weight: bold; text-decoration: underline; ">Privacy Policy</button>\n            <button id="cookie-reject-btn" style=" margin-left: 5px; margin-top: 5px; padding: 6px 8px; cursor: pointer; background: #777; color: white; border: 1px solid #777; border-radius: 2px; font-size: 14px; font-weight: bold; ">Reject</button>\n            <button id="cookie-accept-btn" style=" margin-left: 5px; margin-top: 5px; padding: 6px 8px; cursor: pointer; background: #4CAF50; color: white; border: 1px solid #4CAF50; border-radius: 2px; font-size: 14px; font-weight: bold; ">Accept</button>\n        </div>\n    </div>';const n=t.querySelector("#cookie-accept-btn"),r=t.querySelector("#cookie-reject-btn");n.addEventListener("click",function(){localStorage.setItem("cookieConsent","accepted"),t&&t.parentNode&&t.parentNode.removeChild(t),o()}),r.addEventListener("click",function(){localStorage.setItem("cookieConsent","rejected"),t&&t.parentNode&&t.parentNode.removeChild(t),window.gtag("consent","update",{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"})}),document.body?document.body.appendChild(t):"loading"===document.readyState?document.addEventListener("DOMContentLoaded",()=>{document.body.appendChild(t)}):setTimeout(()=>{document.body&&document.body.appendChild(t)},10)}();
+(function () {
+  const GA_ID = "G-Q3X0X9VRB2";
+
+  const addGAScript = () => {
+    if (window.gtag) return; // already loaded
+
+    const gtagScript = document.createElement("script");
+    gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    gtagScript.async = true;
+    document.head.appendChild(gtagScript);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+
+    gtag("js", new Date());
+
+    // Default: all denied until consent
+    gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+    });
+
+    gtag("config", GA_ID, { anonymize_ip: true });
+  };
+
+  addGAScript();
+
+  // Helper: Update Consent
+  function updateConsent(granted) {
+    if (!window.gtag) return;
+    if (granted) {
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        analytics_storage: "granted",
+      });
+    } else {
+      window.gtag("consent", "update", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+      });
+    }
+  }
+
+  // Check Stored Consent
+  const storedConsent = localStorage.getItem("cookieConsent");
+  if (storedConsent) {
+    updateConsent(storedConsent === "accepted");
+    return;
+  }
+
+  // Create Banner
+  const bar = document.createElement("div");
+  bar.innerHTML = `
+    <style>
+      .cookie-banner {
+        position:fixed;
+        bottom:0;
+        left:0;
+        width:100%;
+        padding:1rem;
+        font-family:sans-serif;
+        z-index:9999;
+        /* Dark theme (default) */
+        background:#111;
+        color:#fff;
+        box-shadow:0 -2px 10px rgba(0,0,0,0.3);
+        border-top:2px solid #333;
+      }
+      
+      /* Light theme */
+      @media (prefers-color-scheme: light) {
+        .cookie-banner {
+          background:#f5f5f5;
+          color:#1a1a1a;
+          box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+          border-top:2px solid #ddd;
+        }
+        .cookie-banner a {
+          color:#0056b3 !important;
+        }
+        .cookie-banner #cookie-reject {
+          color:#666 !important;
+          border-color:#ccc !important;
+        }
+      }
+      
+      .cookie-banner-title {
+        font-size:1.1rem;
+        font-weight:700;
+        margin:0 0 0.5rem 0;
+      }
+      
+      .cookie-banner-container {
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        gap:1rem;
+        width:100%;
+      }
+      .cookie-banner-buttons {
+        display:flex;
+        gap:0.75rem;
+        flex-shrink:0;
+      }
+      @media (max-width: 768px) {
+        .cookie-banner-container {
+          flex-direction:column;
+          align-items:stretch;
+        }
+        .cookie-banner-buttons {
+          flex-direction:column;
+          width:100%;
+        }
+        .cookie-banner-buttons button {
+          width:100%;
+        }
+      }
+    </style>
+    <div class="cookie-banner">
+      <div style="
+        display:flex;
+        flex-direction:column;
+        gap:1rem;
+        max-width:1050px;
+        margin:0 auto;
+      ">
+        <h2 class="cookie-banner-title">🍪 Cookies!</h2>
+        <div class="cookie-banner-container">
+          <p style="
+            font-size:0.95rem;
+            margin:0;
+            flex:1;
+          ">
+            We use optional cookies from Google to improve your experience and support our site, such as analyzing traffic and keeping our content free through ads. By clicking Reject, only cookies necessary for the basic functioning of the site will be used.
+            <a href="/privacy-policy/" style="color:#4ea3ff;text-decoration:underline;">Learn more</a>.
+          </p>
+          <div class="cookie-banner-buttons">
+            <button id="cookie-accept" style="
+              background:#0070f3;
+              color:white;
+              border:none;
+              padding:0.5rem 4rem;
+              border-radius:4px;
+              cursor:pointer;
+              font-weight:600;
+              white-space:nowrap;
+            ">Accept</button>
+            <button id="cookie-reject" style="
+              background:transparent;
+              color:#bbb;
+              border:1px solid #555;
+              padding:0.5rem 4rem;
+              border-radius:4px;
+              cursor:pointer;
+              white-space:nowrap;
+            ">Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(bar);
+
+  // Button Logic
+  document.getElementById("cookie-accept").addEventListener("click", function () {
+    localStorage.setItem("cookieConsent", "accepted");
+    updateConsent(true);
+    bar.remove();
+  });
+
+  document.getElementById("cookie-reject").addEventListener("click", function () {
+    localStorage.setItem("cookieConsent", "rejected");
+    updateConsent(false);
+    bar.remove();
+  });
+})();
