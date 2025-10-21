@@ -30,7 +30,7 @@
 
   addGAScript();
 
-  // Helper: Update Consent
+  // Update consent
   function updateConsent(granted) {
     if (!window.gtag) return;
     if (granted) {
@@ -50,14 +50,14 @@
     }
   }
 
-  // Check Stored Consent
+  // Check stored consent
   const storedConsent = localStorage.getItem("cookieConsent");
   if (storedConsent) {
     updateConsent(storedConsent === "accepted");
     return;
   }
 
-  // Create Banner
+  // Create banner
   const bar = document.createElement("div");
   bar.innerHTML = `
     <style>
@@ -65,9 +65,7 @@
         position:fixed;
         bottom:0;
         left:0;
-        width:100%;
         padding:1rem;
-        font-family:sans-serif;
         z-index:9999;
         /* Dark theme (default) */
         background:#111;
@@ -104,7 +102,6 @@
         flex-direction:row;
         align-items:center;
         gap:1rem;
-        width:100%;
       }
       .cookie-banner-buttons {
         display:flex;
@@ -118,10 +115,8 @@
         }
         .cookie-banner-buttons {
           flex-direction:column;
-          width:100%;
         }
         .cookie-banner-buttons button {
-          width:100%;
         }
       }
     </style>
@@ -168,9 +163,15 @@
       </div>
     </div>
   `;
-  document.body.appendChild(bar);
+  if (!document.body) {
+    window.addEventListener("DOMContentLoaded", function () {
+      document.body.appendChild(bar);
+    });
+  } else {
+    document.body.appendChild(bar);
+  }
 
-  // Button Logic
+  // Button logic
   document.getElementById("cookie-accept").addEventListener("click", function () {
     localStorage.setItem("cookieConsent", "accepted");
     updateConsent(true);
