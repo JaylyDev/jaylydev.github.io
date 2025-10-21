@@ -94,7 +94,7 @@ export function SiteFooter({ lang }: ISiteGlobalParams) {
 
 export function StatsCollection() {
   return (
-    <div className="container">
+    <>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-Q3X0X9VRB2" />
       <Script id="google-analytics">
         {`
@@ -110,7 +110,7 @@ export function StatsCollection() {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2533146760921020"
         crossOrigin="anonymous"
       ></Script>
-    </div>
+    </>
   );
 }
 
