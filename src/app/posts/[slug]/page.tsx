@@ -6,7 +6,7 @@ import path from "path";
 import { notFound } from "next/navigation";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { getPostData } from "@/app/utilities/getPublicPosts";
-import { PostPageHeadElement, PostHeader } from "@/components/Post";
+import { PostHeadMetadata, PostHeader } from "@/components/Post";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -31,7 +31,7 @@ export default async function Page({ params }: PageProps) {
   if (post.redirect) {
     return (
       <html lang="en" suppressHydrationWarning>
-        <PostPageHeadElement post={post} />
+        <PostHeadMetadata post={post} />
         <StatsCollection />
         <SiteHeader />
         <div className="markdown-header">
@@ -46,7 +46,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <html lang={post.lang} suppressHydrationWarning>
-      <PostPageHeadElement post={post} />
+      <PostHeadMetadata post={post} />
       <body>
         <StatsCollection />
         <SiteHeader lang={post.lang === "zh-HK" ? "zh-HK" : "en"} />

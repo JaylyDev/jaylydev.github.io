@@ -67,21 +67,27 @@ interface PageHeadElementProps {
 }
 
 // Head component for SEO and redirection
-export function PostPageHeadElement({ post, isDownloadPage = false }: PageHeadElementProps) {
+export function PostHeadMetadata({ post, isDownloadPage = false }: PageHeadElementProps) {
   const pageTitle = isDownloadPage ? `${post.title} - Downloads | JaylyMC` : `${post.title} | JaylyMC`;
   const pageDescription = isDownloadPage ? `Downloads for ${post.title}. ` + post.description : post.description;
+  let postImage = "";
+  if (post.image && post.image.startsWith("/")) {
+    postImage = "https://jaylydev.github.io" + post.image;
+  } else if (post.image) {
+    postImage = post.image;
+  }
   return (
     <head>
       <title>{pageTitle}</title>
       <meta name="description" content={pageDescription} />
-      <meta name="author" content={post.author} />
+      {post.author && <meta name="author" content={post.author} />}
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
-      <meta property="og:image" content={post.image} />
+      {postImage && <meta property="og:image" content={postImage} />}
       <meta property="twitter:card" content={post.card} />
       <meta property="twitter:title" content={pageTitle} />
       <meta property="twitter:description" content={pageDescription} />
-      <meta property="twitter:image" content={post.image} />
+      {postImage && <meta property="twitter:image" content={postImage} />}
       {post.redirect && <meta httpEquiv="refresh" content={`0; url=${post.redirect}`} />}
     </head>
   );

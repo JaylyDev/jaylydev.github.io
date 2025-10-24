@@ -139,11 +139,41 @@ function HomeBanner() {
   );
 }
 
+function PageHeadMetadata() {
+  return (
+    <head>
+      <title>JaylyMC | A website for Jayly</title>
+      <meta
+        name="description"
+        content="JaylyMC makes Minecraft animations on YouTube and Minecraft Add-Ons for Bedrock Edition. There are couple of articles about Minecraft and coding."
+      />
+      <meta name="author" content="JaylyMC" />
+      <link rel="author" href="https://youtube.com/jaylymc/"></link>
+      <meta property="og:title" content="JaylyMC | A website for Jayly" />
+      <meta
+        property="og:description"
+        content="JaylyMC makes Minecraft animations on YouTube and Minecraft Add-Ons for Bedrock Edition. There are couple of articles about Minecraft and coding."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://jaylydev.github.io/icon.png" />
+      <meta property="twitter:title" content="JaylyMC | A website for Jayly" />
+      <meta
+        property="twitter:description"
+        content="JaylyMC makes Minecraft animations on YouTube and Minecraft Add-Ons for Bedrock Edition. There are couple of articles about Minecraft and coding."
+      />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:image" content="https://jaylydev.github.io/icon.png" />
+      <link rel="canonical" href="https://jaylydev.github.io/" />
+    </head>
+  );
+}
+
 export default function Home() {
   const posts: PublicPost[] = getPublicPosts();
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <PageHeadMetadata />
       <body>
         <StatsCollection />
         <SiteHeader />

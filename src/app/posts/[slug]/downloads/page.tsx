@@ -6,7 +6,7 @@ import path from "path";
 import { notFound, redirect } from "next/navigation";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { getDownloadData, getPostData } from "@/app/utilities/getPublicPosts";
-import { PostPageHeadElement, PostHeader } from "@/components/Post";
+import { PostHeadMetadata, PostHeader } from "@/components/Post";
 import { DownloadSection } from "@/components/Downloads";
 
 interface PageProps {
@@ -44,7 +44,7 @@ export default async function PostPage({ params }: PageProps) {
 
   return (
     <html lang={post.lang} suppressHydrationWarning>
-      <PostPageHeadElement post={post} isDownloadPage={true} />
+      <PostHeadMetadata post={post} isDownloadPage={true} />
       <body>
         <StatsCollection />
         <SiteHeader />
