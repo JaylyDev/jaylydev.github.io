@@ -6,7 +6,7 @@ import path from "path";
 import { notFound } from "next/navigation";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { getPostData } from "@/app/utilities/getPublicPosts";
-import { PostHeader } from "@/components/Post";
+import { PostPageHeadElement, PostHeader } from "@/components/Post";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -24,27 +24,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
-  const post = await getPostData(slug);
-  if (!post) return notFound();
-
-  return {
-    title: `${post.title} | JaylyMC`,
-    description: post.description,
-    authors: [{ name: post.author }],
-    openGraph: {
-      type: "article",
-      images: [post.image],
-    },
-    twitter: {
-      card: post.card,
-      image: post.image,
-    },
-  };
-}
-
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const post = await getPostData(slug);
@@ -52,7 +31,7 @@ export default async function Page({ params }: PageProps) {
   if (post.redirect) {
     return (
       <html lang="en" suppressHydrationWarning>
-        <meta httpEquiv="refresh" content={`0; url=${post.redirect}`} />
+        <PostPageHeadElement post={post} />
         <StatsCollection />
         <SiteHeader />
         <div className="markdown-header">
@@ -67,6 +46,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <html lang={post.lang} suppressHydrationWarning>
+      <PostPageHeadElement post={post} />
       <body>
         <StatsCollection />
         <SiteHeader lang={post.lang === "zh-HK" ? "zh-HK" : "en"} />

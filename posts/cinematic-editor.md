@@ -203,7 +203,7 @@ The toggles controls the HUD visibility when playing a scene using the extension
 - `Show Status Effects` - Shows status effects element of the HUD.
 - `Show Item Text` - Shows item text element.
 
-# Installation
+## Installation
 
 <iframe width="930" height="523" src="https://www.youtube.com/embed/x3hAOwJrwyk" title="How to install a Minecraft Editor Extension" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -215,7 +215,7 @@ This video has infomations of installing this editor extension, and behind the s
 >
 > - You are allowed to repost this add-on to other websites or make a YouTube video for commercial purposes, provided that you must put the link this post https://jaylydev.github.io/posts/cinematic-editor/ in the description of the video or a webpage and must not have any other direct-download links.
 
-# Downloads
+## Downloads
 
 Click the link below and choose a version to download.
 

@@ -6,7 +6,7 @@ import path from "path";
 import { notFound, redirect } from "next/navigation";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { getDownloadData, getPostData } from "@/app/utilities/getPublicPosts";
-import { PostHeader } from "@/components/Post";
+import { PostPageHeadElement, PostHeader } from "@/components/Post";
 import { DownloadSection } from "@/components/Downloads";
 
 interface PageProps {
@@ -35,27 +35,6 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate metadata for SEO
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
-  const post = await getPostData(slug);
-  if (!post) return notFound();
-
-  return {
-    title: `${post.title} - Downloads | JaylyMC`,
-    description: "Downloads for " + post.title + ". " + post.description,
-    authors: [{ name: post.author }],
-    openGraph: {
-      type: "article",
-      images: [post.image],
-    },
-    twitter: {
-      card: post.card,
-      image: post.image,
-    },
-  };
-}
-
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
   const post = await getPostData(slug);
@@ -65,6 +44,7 @@ export default async function PostPage({ params }: PageProps) {
 
   return (
     <html lang={post.lang} suppressHydrationWarning>
+      <PostPageHeadElement post={post} isDownloadPage={true} />
       <body>
         <StatsCollection />
         <SiteHeader />

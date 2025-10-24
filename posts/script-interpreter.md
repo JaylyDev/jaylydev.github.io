@@ -1,8 +1,7 @@
 ---
 author: Jayly
 title: Minecraft Script Interpreter
-description: Script Interpreter is a debugging tool for Minecraft Scripting. It is a Bedrock add-on allows user to run JavaScript code within Minecraft Bedrock.
-date: 3/26/2025
+description: Script Interpreter is a debugging tool for Minecraft Scripting. It lets players to run JavaScript code within Minecraft Bedrock.
 image: /assets/posts/script-repl-minecraft/thumbnail.png
 download: true
 ---
@@ -11,7 +10,7 @@ download: true
 
 ![Thumbnail](/assets/posts/script-repl-minecraft/thumbnail.png)
 
-Script Interpreter is a debugging tool for Minecraft Scripting. It is a Bedrock add-on allows user to run JavaScript code within Minecraft Bedrock. This is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
+Script Interpreter is a debugging tool for Minecraft Scripting. It lets players to run JavaScript code within Minecraft Bedrock. This is great to use for debugging, prototyping, and learning JavaScript and Minecraft's scripting API.
 
 ## What is Scripting / Script API
 
@@ -70,7 +69,7 @@ In case you want to disable your code, you have to run `/reload` command which r
 ## Script Block
 
 <div align="center">
-<image src="/assets/posts/script-repl-minecraft/script-interpreter-v12050_8.png"/>
+<image src="/assets/posts/script-repl-minecraft/script-interpreter-v12050_8.png" alt="Script Block"/>
 </div>
 
 The Script Block can store and execute JavaScript code in a Minecraft world. It cannot be obtained or used in Survival mode without cheats.

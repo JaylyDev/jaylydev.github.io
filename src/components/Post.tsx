@@ -60,3 +60,29 @@ export function PostHeader({ post, downloadButtonVisible = true }: PostHeaderPro
     </div>
   );
 }
+
+interface PageHeadElementProps {
+  post: PostProps;
+  isDownloadPage?: boolean;
+}
+
+// Head component for SEO and redirection
+export function PostPageHeadElement({ post, isDownloadPage = false }: PageHeadElementProps) {
+  const pageTitle = isDownloadPage ? `${post.title} - Downloads | JaylyMC` : `${post.title} | JaylyMC`;
+  const pageDescription = isDownloadPage ? `Downloads for ${post.title}. ` + post.description : post.description;
+  return (
+    <head>
+      <title>{pageTitle}</title>
+      <meta name="description" content={pageDescription} />
+      <meta name="author" content={post.author} />
+      <meta property="og:title" content={pageTitle} />
+      <meta property="og:description" content={pageDescription} />
+      <meta property="og:image" content={post.image} />
+      <meta property="twitter:card" content={post.card} />
+      <meta property="twitter:title" content={pageTitle} />
+      <meta property="twitter:description" content={pageDescription} />
+      <meta property="twitter:image" content={post.image} />
+      {post.redirect && <meta httpEquiv="refresh" content={`0; url=${post.redirect}`} />}
+    </head>
+  );
+}
