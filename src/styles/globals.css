@@ -57,9 +57,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   min-height: calc(100vh);
-  font-family: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji";
+  font-family: "Inter", -apple-system, "Segoe UI", "Roboto", "Helvetica",
+    "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji";
   font-style: normal;
 }
 
@@ -111,4 +110,5 @@ a.header-subheading:hover {
   z-index: 30;
   color: black;
   background-color: white;
+  box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
 }

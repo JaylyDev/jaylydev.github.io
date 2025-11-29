@@ -203,6 +203,18 @@ The toggles controls the HUD visibility when playing a scene using the extension
 - `Show Status Effects` - Shows status effects element of the HUD.
 - `Show Item Text` - Shows item text element.
 
+## Vibrant Visuals Settings
+
+We brought the Vibrant Visuals toggle from the [Vibrant Visuals Panel](https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockeditor/editorvibrantvisuals) into the Cinematic Editor panel. The Vibrant Visuals Settings panel lets you preview the creation of your own custom scenes in real-time when enabled, just like in the main editor.
+
+![vibrant visuals toggle](/assets/posts/cinematic-editor/deferred-toggle-v2-1-beta.png)
+
+> [!NOTE]
+> This setting is not saved when reloading a Project or a custom scene.
+
+> [!IMPORTANT]
+> Toggling Vibrant Visuals seems to be broken natively in Minecraft Editor and may not work as expected.
+
 ## Installation
 
 <iframe width="930" height="523" src="https://www.youtube.com/embed/x3hAOwJrwyk" title="How to install a Minecraft Editor Extension" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

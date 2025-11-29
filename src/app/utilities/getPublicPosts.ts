@@ -3,11 +3,11 @@ import path from "path";
 import matter from "gray-matter";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
-import remarkAlert from "@/remark-alert";
-import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
+import remarkRehype from "remark-rehype";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
+import remarkGithubAlerts from "@/remark-github-alerts";
 import rehypeSlug from "rehype-slug";
 import rehypeToc from "@jsdevtools/rehype-toc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -102,7 +102,7 @@ export async function getPostData(slug: string): Promise<PostProps | null> {
   const processedContent = await unified()
     .use(remarkParse, { fragment: true })
     .use(remarkGfm)
-    .use(remarkAlert)
+    .use(remarkGithubAlerts)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeHighlight)

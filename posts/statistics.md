@@ -3,13 +3,13 @@ author: Jayly
 title: Bedrock Statistics Add-On
 description: The Bedrock Statistics Add-On tracks player statistics in a Minecraft Bedrock world.
 date: 3/25/2025
-image: /assets/posts/statistics/thumbnail.png
+image: /assets/posts/statistics/thumbnail-nov25.png
 download: true
 ---
 
 # Bedrock Statistics Add-On
 
-![stats_promo_art](/assets/posts/statistics/thumbnail.png)
+![stats_promo_art](/assets/posts/statistics/thumbnail-nov25-mcpedl.png)
 
 The Bedrock Statistics Add-On tracks player statistics in a Minecraft Bedrock world. This is similar to the Statistics in-game feature presented in Java Edition, where statistics in the form of numerical data, such as time played, number of blocks mined are tracked per world.
 

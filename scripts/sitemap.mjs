@@ -20,6 +20,15 @@ function getGitLastModifiedDate(filePath) {
 // Fetch data from external API
 const postsFiles = fs.readdirSync(path.join(process.cwd(), "posts")).filter((file) => path.extname(file) === ".md");
 const posts = [];
+const links = ['/', '/math-symbols/', '/bedrock-experiments/', '/hk-tunnels-tolls/'];
+for (const app of links) {
+  const filepath = path.join(process.cwd(), "src/app", app.replace(/\//g, ""), "page.tsx");
+  const lastModifiedDate = getGitLastModifiedDate(filepath);
+  posts.push(`  <url>
+    <loc>https://jaylydev.github.io${app}</loc>
+    <lastmod>${new Date(lastModifiedDate).toISOString().split('T')[0]}</lastmod>
+  </url>`);
+}
 for (const file of postsFiles) {
   const filepath = path.join(process.cwd(), "posts", file);
   const postData = fs.readFileSync(filepath, "utf8");

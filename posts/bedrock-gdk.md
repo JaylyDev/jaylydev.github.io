@@ -10,7 +10,15 @@ image: /assets/posts/bedrock-gdk/21_u12-gdk-retail-release.png
 > [!NOTE]
 > This change is currently only for the Windows version of Minecraft Bedrock.
 
-Starting from Minecraft Bedrock version 1.21.120, the game switches from UWP the old Universal Windows Platform (UWP) to the Game Development Kit (GDK) on Windows devices. As a result, players will need to reinstall the game from the Microsoft Store to continue playing newer versions.
+> [!IMPORTANT]
+> Please read this guide to learn back up your worlds and settings before updating the game, as the automatic updates may cause files to be moved to the wrong location, or **deleted permanently**.
+
+> [!WARNING]
+> If Minecraft is already updated automatically, please follow the "[Restore Your Data](#restore-your-data)" section below to move your worlds and settings back to the correct location **before launching the game**, or worlds or addons may not work properly.
+>
+> If the files aren't moved to the new location, follow the instructions below to backup your data from the old location.
+
+Starting from Minecraft Bedrock version [1.21.120](https://feedback.minecraft.net/hc/en-us/articles/40566672351885-Minecraft-1-21-120-Bedrock#gdk-update-on-windows), the game switches from UWP the old Universal Windows Platform (UWP) to the Game Development Kit (GDK) on Windows devices. As a result, players will need to reinstall the game from the Microsoft Store to continue playing newer versions.
 
 Here's what you need to know about Minecraft's GDK update, and how to reinstall the game while preserving your worlds and settings.
 
@@ -38,9 +46,9 @@ To reinstall Minecraft Bedrock with GDK support, follow these steps:
 
 1. Open the Microsoft Store app on your Windows device.
 2. Search for "Minecraft" and select "Minecraft for Windows". The download link is available at the following links, or you can use the Minecraft Launcher to install it.
-   - [Microsoft Store](https://apps.microsoft.com/detail/9NBLGGH2JHXJ?hl=en-us&gl=US&ocid=pdpshare)
-   - Open Minecraft in Xbox App: **msxbox://game/?productId=9NBLGGH2JHXJ**
-   - Open Minecraft in Microsoft Store: **ms-windows-store://pdp/?productid=9NBLGGH2JHXJ**
+   - [Microsoft Store (Online)](https://apps.microsoft.com/detail/9NBLGGH2JHXJ?hl=en-us&gl=US&ocid=pdpshare)
+   - Open Minecraft in Xbox App: <a href="msxbox://game/?productId=9NBLGGH2JHXJ">msxbox://game/?productId=9NBLGGH2JHXJ</a>
+   - Open Minecraft in Microsoft Store: <a href="ms-windows-store://pdp/?productid=9NBLGGH2JHXJ">ms-windows-store://pdp/?productid=9NBLGGH2JHXJ</a>
 3. Click the "Install" button to download and install the latest version of the game.
 
 ![Install Minecraft from Microsoft Store](/assets/posts/bedrock-gdk/install-minecraft.png)
@@ -82,9 +90,13 @@ Once you've restored your data, you can launch Minecraft Bedrock GDK Update and 
 
 ## Additional Information / References
 
-> [!NOTE]
-> For Minecraft Preview players, your addons, worlds and settings files are stored in `%APPDATA%\Minecraft Bedrock Preview\` instead of `%APPDATA%\Minecraft Bedrock\`.
+### Game File Location Changes
 
-- [GDK Migration on Windows (from Minecraft 1.21.120)](https://learn.microsoft.com/en-us/minecraft/creator/documents/gdkpcprojectfolder)
-- [Minecraft - 1.21.120 (Bedrock) Changelog](https://feedback.minecraft.net/hc/en-us/articles/40566672351885-Minecraft-1-21-120-Bedrock#gdk-update-on-windows)
-- [Minecraft Beta Preview - 1.21.120.21 Changelog](https://feedback.minecraft.net/hc/en-us/articles/39436905010189-Minecraft-Beta-Preview-1-21-120-21#h_01K4QGFPPN7B4JSXPRH6MMJQAE)
+For Minecraft Bedrock:
+
+- Internal game files for Minecraft Bedrock are now stored in either `C:\XboxGames\Minecraft for Windows\Content` or `C:\XboxGames\7792D9CE-355A-493C-AFBD-768F4A77C3B0\Content`, instead of the old UWP location.
+
+For Minecraft Bedrock Preview:
+
+- Your addons, worlds and settings files are stored in `%APPDATA%\Minecraft Bedrock Preview\` instead of `%APPDATA%\Minecraft Bedrock\`.
+- Internal game files for Minecraft Bedrock Preview are now stored in either `C:\XboxGames\Minecraft Preview for Windows\Content` or `C:\XboxGames\98BD2335-9B01-4E4C-BD05-CCC01614078B\Content`, instead of the old UWP location.
