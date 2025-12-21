@@ -1,39 +1,57 @@
 {
   "downloads": [
     {
+      "title": "Latest",
+      "supports": "1.21.50+",
+      "changelog_url": "/posts/statistics-changelog/",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download"
+    },
+    {
+      "title": "Latest (StatisticPlus)",
+      "supports":"1.21.120+ (Beta APIs)",
+      "changelog_url": "/posts/statistics-changelog/",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/minecraft-statistics/download/7042597"
+    },
+    {
       "title": "v1.3.10",
       "supports": "1.21.50+",
+      "changelog_url": "/posts/statistics-changelog/",
       "url": "https://www.mediafire.com/file/jeksl584qwtsyh2/statistics_v1.3.10.mcaddon/file"
     },
     {
       "title": "v0.2.3 (StatisticPlus)",
       "supports":"1.21.90+ (Beta APIs)",
+      "changelog_url": "/posts/statistics-changelog/",
       "url": "https://www.mediafire.com/file/fwz0gq8ilualpev/statistics-plus_v0.2.3.mcpack/file"
     },
     {
       "title": "v1.3.1",
       "supports": "1.21.50+",
+      "changelog_url": "/posts/statistics-changelog/",
       "url": "https://www.mediafire.com/file/sb5p7rqnehzg6tu/statistics_v1.3.1.mcaddon/file"
     },
     {
       "title": "v1.3.0",
       "supports": "1.21.50+",
+      "changelog_url": "/posts/statistics-changelog/",
       "url": "https://www.mediafire.com/file/v79pz0srtxpsj0a/statistics_v1.3.0.mcaddon/file"
     },
     {
       "title": "v1.2.2",
       "supports": "1.21.50+",
+      "changelog_url": "/posts/statistics-changelog/#v122",
       "url": "https://www.mediafire.com/file/4t0kjwqfmnfyejv/statistics_v1.2.2.mcaddon/file"
     },
     {
       "title": "v0.2.0 (StatisticPlus)",
       "supports": "1.21.80+ (Beta APIs)",
+      "changelog_url": "/posts/statistics-changelog/",
       "url": "https://www.mediafire.com/file/xcmxvqoqu0wp63b/statistics-plus_v0.2.0.mcpack/file"
     },
     {
       "title": "v0.1.0 Extension",
       "supports": "1.21.70+ (Beta APIs)",
-      "changelog_url": "/posts/statistics/#v120",
+      "changelog_url": "/posts/statistics-changelog/",
       "url": "https://www.mediafire.com/file/brb6v4xc69dx8vg/statistics_extension_pack_v0.1.0.mcpack/file"
     }
   ]

@@ -108,6 +108,10 @@ This screen controls the HUD visibility when playing a scene using the Runtime A
 
 Changelog for Cinematic Runtime Add-On
 
+### 1.0.1
+
+- Added support for using Cinematic Editor extension in Minecraft v1.21.130 or above.
+
 ### 1.0.0
 
 - Scenes exported from Cinematic Editor extension V2 are now compatible with this add-on.

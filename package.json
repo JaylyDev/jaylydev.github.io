@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run scripts && next build",
+    "build": "next build",
+    "postbuild": "tsx scripts/generateSitemap.ts",
     "start": "npx serve@latest out",
-    "lint": "next lint",
-    "scripts": "node scripts/fetch_all.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "@heroui/react": "^2.7.8",
@@ -44,6 +44,7 @@
     "eslint-config-next": "^15.3.4",
     "postcss": "8.4.49",
     "tailwindcss": "3.4.0",
+    "tsx": "^4.19.2",
     "typescript": "5.1.6"
   }
 }

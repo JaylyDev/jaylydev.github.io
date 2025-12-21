@@ -112,3 +112,18 @@ a.header-subheading:hover {
   background-color: white;
   box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
 }
+
+.language-notice {
+  background-color: lightskyblue;
+  color: black;
+  columns: 2;
+}
+
+.language-notice button {
+  padding: 0.5em;
+  border: none;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}

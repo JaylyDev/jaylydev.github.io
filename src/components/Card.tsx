@@ -1,4 +1,3 @@
-import "@/styles/components/card.css";
 import React from "react";
 import { Image, Link } from "@heroui/react";
 

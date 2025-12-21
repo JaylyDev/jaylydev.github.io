@@ -1,6 +1,11 @@
 {
   "downloads": [
     {
+      "title": "Latest (Beta APIs)",
+      "supports": "1.21.110+",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/gametest-interpreter/download"
+    },
+    {
       "title": "v1.21.70 (Beta APIs)",
       "supports": "1.21.70",
       "url": "https://github.com/JaylyDev/interpreter/releases/download/v21.70.0/interpreter_v21.70.0-beta.mcaddon"

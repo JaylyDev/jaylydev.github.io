@@ -1,0 +1,31 @@
+{
+    "routes": [
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-TW", "path": "/zh/" },
+                { "lang": "en", "path": "/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "en", "path": "/bedrock-experiments/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "en", "path": "/privacy-policy/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "en", "path": "/math-symbols/" }
+            ]
+        }
+    ]
+}

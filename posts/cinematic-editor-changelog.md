@@ -11,7 +11,7 @@ image: /assets/posts/cinematic-editor/MCPEDL_Preview.png
 
 Changelog for [Cinematic Editor Extension](/posts/cinematic-editor/). Available at [MCPEDL](https://mcpedl.com/jayly-cinematic-editor/), [CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/jayly-cinematic-editor) and [Modbay](https://modbay.org/mods/2822-jayly-cinematic-editor.html).
 
-### 2.1.0-beta
+### 2.1.0
 
 - Added Vibrant Visuals toggle in Cinematic Editor panel.
 
@@ -22,7 +22,7 @@ Changelog for [Cinematic Editor Extension](/posts/cinematic-editor/). Available 
     **Note**: It seems like this feature is broken natively in Minecraft Editor at the moment, so it may not work as expected.
 
 - Added image in the Cinematic Editor tooltip for better visibility.
-- Editor Add-on is now compatible with Minecraft v1.21.120 or above, rather than just Minecraft v1.21.120.
+- Editor Add-on is now compatible with Minecraft v1.21.130 or above, rather than just Minecraft v1.21.130.
 
 ### 2.0.2
 

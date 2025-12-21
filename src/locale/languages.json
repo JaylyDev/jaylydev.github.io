@@ -1,0 +1,31 @@
+{
+  "language_names": {
+    "en": "English",
+    "zh": "中文"
+  },
+  "mappings": {
+    "en":    "en",
+    "en-au": "en",
+    "en-bz": "en",
+    "en-ca": "en",
+    "en-ie": "en",
+    "en-jm": "en",
+    "en-nz": "en",
+    "en-ph": "en",
+    "en-za": "en",
+    "en-tt": "en",
+    "en-gb": "en",
+    "en-us": "en",
+    "en-zw": "en",
+    "zh":    "zh",
+    "zh-tw": "zh",
+    "zh-hk": "zh",
+    "zh-cn": "zh"
+  },
+  "texts": {
+    "i18n.notice.zh": "您想觀看中文版的網站嗎？",
+    "i18n.switchButton.zh": "是的",
+    "i18n.notice.en": "Would you like to view the website in English?",
+    "i18n.switchButton.en": "Yes"
+  }
+}

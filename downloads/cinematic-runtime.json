@@ -1,6 +1,12 @@
 {
   "downloads": [
     {
+      "title": "v1.0.1",
+      "supports": "1.21.50+",
+      "changelog_url": "/posts/cinematic-runtime/#101",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/jayly-cinematic-editor/download/7359554"
+    },
+    {
       "title": "v0.5.3",
       "supports": "1.21.100+",
       "url": "https://www.mediafire.com/file/1walvcs27tugr0m/CinematicRuntime_v0.5.3.mcaddon/file"

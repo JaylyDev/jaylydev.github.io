@@ -10,7 +10,7 @@
 			},
 			"problemMatcher": [],
 			"label": "npm: build",
-			"detail": "npm run scripts && next build",
+			"detail": "next build",
 		}
 	]
 }

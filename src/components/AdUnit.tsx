@@ -10,7 +10,7 @@ export function InArticleAdUnit(): JSX.Element {
   }, []);
   return (
     <ins
-      className="adsbygoogle min-w-96 min-h-48"
+      className="adsbygoogle w-full min-h-48"
       style={{ display: "block", textAlign: "center", margin: "20px 0" }}
       data-ad-layout="in-article"
       data-ad-format="fluid"

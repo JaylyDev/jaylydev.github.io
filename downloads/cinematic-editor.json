@@ -1,6 +1,18 @@
 {
   "downloads": [
     {
+      "title": "v2.1.0 (RP)",
+      "supports": "Windows 1.21.130",
+      "changelog_url": "/posts/cinematic-editor-changelog/#210",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/jayly-cinematic-editor/download/7359560"
+    },
+    {
+      "title": "v2.1.0 (BP)",
+      "supports": "Windows 1.21.130",
+      "changelog_url": "/posts/cinematic-editor-changelog/#210",
+      "url": "https://www.curseforge.com/minecraft-bedrock/addons/jayly-cinematic-editor/download/7359559"
+    },
+    {
       "title": "v2.0.0",
       "supports": "Windows 1.21.100",
       "changelog_url": "/posts/cinematic-editor-changelog/#200",

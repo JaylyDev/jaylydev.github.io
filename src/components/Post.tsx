@@ -1,21 +1,24 @@
 "use client";
 import React from "react";
+import Head from "next/head";
 import { Link, Button } from "@heroui/react";
-import { displayDate } from "@/app/utilities/dateDisplay";
-import { PostProps, PublicPost } from "@/app/utilities/getPublicPosts";
+import { displayDate } from "@/utilities/dateDisplay";
+import { PostProps, PublicPost } from "@/utilities/getPublicPosts";
 import { Subheading } from "./SiteFormat";
 import { DownloadButton } from "./Downloads";
+import { TranslateProps } from "@/locale/i18n";
 
-export interface PublicPostsProps {
+export interface PublicPostsProps extends TranslateProps {
   posts: PublicPost[];
 }
 
-interface PostHeaderProps {
+interface PostHeaderProps extends TranslateProps {
   post: PostProps;
   downloadButtonVisible?: boolean;
+  lang?: string;
 }
 
-export function PublicPosts({ posts }: PublicPostsProps) {
+export function PublicPosts({ posts, t }: PublicPostsProps) {
   const displayedPosts = posts.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime());
   const [postsToShow, setPostsToShow] = React.useState(3);
   const handleLoadMore = () => {
@@ -23,7 +26,7 @@ export function PublicPosts({ posts }: PublicPostsProps) {
   };
   return (
     <div>
-      <Subheading id="posts" title="Posts" />
+      <Subheading id="posts" title={t("postsHeading")} />
       {displayedPosts.slice(0, postsToShow).map((post) => (
         <div key={post.slug} className="post-content m-8">
           <Link href={`/posts/${post.slug}/`} className="hyperlink text-2xl font-bold mb-2 block">
@@ -35,7 +38,7 @@ export function PublicPosts({ posts }: PublicPostsProps) {
       ))}
       {posts.length > postsToShow && ( // Check if there are more posts to load
         <center>
-          <Button color="primary" onClick={handleLoadMore}>
+          <Button color="primary" onPress={handleLoadMore}>
             Load More Posts
           </Button>
         </center>
@@ -44,11 +47,13 @@ export function PublicPosts({ posts }: PublicPostsProps) {
   );
 }
 
-export function PostHeader({ post, downloadButtonVisible = true }: PostHeaderProps) {
+export function PostHeader({ post, downloadButtonVisible = true, t, lang = "en" }: PostHeaderProps) {
+  const localePrefix = lang && lang !== "en" ? `/${lang}` : "";
+
   return (
     <div className="markdown-header">
       <span>
-        <Link href="/#posts">Posts</Link>
+        <Link href={`${localePrefix}/#posts`}>{t("header.posts")}</Link>
         {` > ${post.title}`}
       </span>
       <br />
@@ -77,7 +82,7 @@ export function PostHeadMetadata({ post, isDownloadPage = false }: PageHeadEleme
     postImage = post.image;
   }
   return (
-    <head>
+    <Head>
       <title>{pageTitle}</title>
       <meta name="description" content={pageDescription} />
       {post.author && <meta name="author" content={post.author} />}
@@ -89,6 +94,6 @@ export function PostHeadMetadata({ post, isDownloadPage = false }: PageHeadEleme
       <meta property="twitter:description" content={pageDescription} />
       {postImage && <meta property="twitter:image" content={postImage} />}
       {post.redirect && <meta httpEquiv="refresh" content={`0; url=${post.redirect}`} />}
-    </head>
+    </Head>
   );
 }

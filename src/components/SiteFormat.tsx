@@ -1,6 +1,9 @@
+import { TranslateFunction, RouteLanguageInfo as LocalizedRouteInfo } from "@/locale/i18n";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import { LanguageSelector } from "./LanguageSelector";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export interface ISubheadingParams {
   id: string;
@@ -8,86 +11,77 @@ export interface ISubheadingParams {
 }
 
 export interface ISiteGlobalParams {
-  lang?: "en" | "zh-HK";
   icon?: string;
+  t: TranslateFunction;
+  localizedRoutes?: LocalizedRouteInfo[];
+  lang?: string;
 }
 
-export function SiteHeader({ lang, icon }: ISiteGlobalParams) {
-  let texts: Record<string, string>;
-  if (lang === "zh-HK") {
-    texts = {
-      home: "首頁",
-      projects: "項目",
-      posts: "文章",
-      about: "關於我",
-    };
-  } else {
-    texts = {
-      home: "Home",
-      projects: "Projects",
-      posts: "Posts",
-      about: "About Me",
-    };
-  }
+export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGlobalParams) {
+  const localePrefix = lang && lang !== "en" ? `/${lang}` : "";
+
   return (
-    <header className="header">
-      <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
-        <Link rel="apple-touch-icon" href="/">
-          <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
-        </Link>
-      </div>
-      <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
-        <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">
-          <div
-            aria-label="Logo"
-            className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          ></div>
-          <div className="hidden md:ml-4 md:block order-2">
-            <Link rel="apple-touch-icon" href="/" className="flex flex-none select-none items-center h-12 w-12">
-              <div className="relative m-auto inline-block">
-                <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={150} height={50}></Image>
-                <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
-              </div>
-            </Link>
-          </div>
-          {/* Subheadings */}
-          <div className="md:ml-4 md:block order-3">
-            <Link href="/#home" className="header-subheading">
-              {texts.home}
-            </Link>
-            <Link href="/#projects" className="header-subheading">
-              {texts.projects}
-            </Link>
-            <Link href="/#posts" className="header-subheading">
-              {texts.posts}
-            </Link>
-            <Link href="/#about" className="header-subheading">
-              {texts.about}
-            </Link>
+    <>
+      <header className="header">
+        <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
+          <Link rel="apple-touch-icon" href={`${localePrefix}/`}>
+            <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
+          </Link>
+        </div>
+        <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
+          <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">
+            <div
+              aria-label="Logo"
+              className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            ></div>
+            <div className="hidden md:ml-4 md:block order-2">
+              <Link
+                rel="apple-touch-icon"
+                href={`${localePrefix}/`}
+                className="flex flex-none select-none items-center h-12 w-12"
+              >
+                <div className="relative m-auto inline-block">
+                  <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={150} height={50}></Image>
+                  <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
+                </div>
+              </Link>
+            </div>
+            {/* Subheadings */}
+            <div className="md:ml-4 md:block order-3">
+              <Link href={`${localePrefix}/#home`} className="header-subheading">
+                {t("header.home")}
+              </Link>
+              <Link href={`${localePrefix}/#projects`} className="header-subheading">
+                {t("header.projects")}
+              </Link>
+              <Link href={`${localePrefix}/#posts`} className="header-subheading">
+                {t("header.posts")}
+              </Link>
+              <Link href={`${localePrefix}/#about`} className="header-subheading">
+                {t("header.about")}
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+      {/* non-sticky elements below */}
+      <LanguageSwitcher localizedRoutes={localizedRoutes} currentLocale={lang} />
+    </>
   );
 }
 
-export function SiteFooter({ lang }: ISiteGlobalParams) {
+export function SiteFooter({ t, lang = "en", localizedRoutes }: ISiteGlobalParams) {
   const year = new Date().getFullYear(); // Static at build time
-  let texts: Record<string, string>;
-  if (lang === "zh-HK") {
-    texts = {
-      privacyPolicy: "私隱政策",
-    };
-  } else {
-    texts = {
-      privacyPolicy: "Privacy Policy",
-    };
-  }
+  // Uncomment when privacy policy is localized
+  // const localePrefix = locale && locale !== "en" ? `/${locale}` : "";
 
   return (
-    <footer className="flex flex-row justify-center items-centerp-4 text-sm text-gray-500 p-4 gap-2">
+    <footer className="flex flex-row justify-center items-center text-sm text-gray-500 p-4 gap-2">
       <span>{"© JaylyMC " + (year || "2025") /* Default fallback (e.g., 2025) for server-rendered HTML */}</span>
-      <Link href="/privacy-policy/">{texts.privacyPolicy}</Link>
+      <Link href={`/privacy-policy/`}>{t("footer.privacyPolicy")}</Link>
+      {localizedRoutes && localizedRoutes.length > 1 && (
+        <LanguageSelector localizedRoutes={localizedRoutes} currentLocale={lang} />
+      )}
     </footer>
   );
 }

@@ -1,0 +1,49 @@
+{
+  "vehicleTypes": {
+    "privateCar": {
+      "name": { "id": "vehicle.privateCar" },
+      "hasTimeVaryingToll": true,
+      "description": null
+    },
+    "motorcycle": {
+      "name": { "id": "vehicle.motorcycle" },
+      "hasTimeVaryingToll": true,
+      "multiplier": 0.4,
+      "description": null
+    },
+    "taxi": {
+      "name": { "id": "vehicle.taxi" },
+      "hasTimeVaryingToll": false,
+      "description": null
+    },
+    "light_commercial": {
+      "name": { "id": "vehicle.lightCommercial" },
+      "hasTimeVaryingToll": false,
+      "description": { "id": "vehicle.lightCommercialDescription" }
+    },
+    "commercial": {
+      "name": { "id": "vehicle.commercial" },
+      "hasTimeVaryingToll": false,
+      "description": { "id": "vehicle.commercialDescription" }
+    }
+  },
+  "tunnels": {
+    "whc": { "name": { "id": "tunnel.whc" } },
+    "cht": { "name": { "id": "tunnel.cht" } },
+    "ehc": { "name": { "id": "tunnel.ehc" } },
+    "tai_lam": { "name": { "id": "tunnel.taiLam" } },
+    "tates_cairn": { "name": { "id": "tunnel.tatesCairn" } },
+    "aberdeen": { "name": { "id": "tunnel.aberdeen" } },
+    "shing_mun": { "name": { "id": "tunnel.shingMun" } },
+    "lion_rock": { "name": { "id": "tunnel.lionRock" } },
+    "eagles_nest": { "name": { "id": "tunnel.eaglesNest" } }
+  },
+  "notes": [
+    { "id": "note.0" },
+    { "id": "note.1" },
+    { "id": "note.2" },
+    { "id": "note.3" },
+    { "id": "note.4" },
+    { "id": "note.5" }
+  ]
+}

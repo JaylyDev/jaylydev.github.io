@@ -1,0 +1,443 @@
+{
+  "version": "0.5.1",
+  "tunnels": {
+    "whc": {
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": { "id": "period.weekdays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "00:00 - 07:29",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "07:30 - 08:07",
+              "toll": { "range": [22, 58] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "08:08 - 10:14",
+              "toll": 60
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "10:15 - 10:42",
+              "toll": { "range": [58, 32] }
+            },
+            {
+              "type": "regular",
+              "name": { "id": "period.regular" },
+              "timeRange": "10:43 - 16:29",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "16:30 - 16:57",
+              "toll": { "range": [32, 58] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "16:58 - 18:59",
+              "toll": 60
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "19:00 - 19:37",
+              "toll": { "range": [58, 22] }
+            },
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "19:38 - 23:59",
+              "toll": 20
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": { "id": "period.sundaysAndHolidays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "00:00 - 10:10",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "10:11 - 10:14",
+              "toll": { "range": [21, 23] }
+            },
+            {
+              "type": "regular",
+              "name": { "id": "period.regular" },
+              "timeRange": "10:15 - 19:14",
+              "toll": 25
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "19:15 - 19:18",
+              "toll": { "range": [23, 21] }
+            },
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "19:19 - 23:59",
+              "toll": 20
+            }
+          ]
+        }
+      }
+    },
+    "cht": {
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": { "id": "period.weekdays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "00:00 - 07:29",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "07:30 - 07:47",
+              "toll": { "range": [22, 38] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "07:48 - 10:14",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "10:15 - 10:22",
+              "toll": { "range": [38, 32] }
+            },
+            {
+              "type": "regular",
+              "name": { "id": "period.regular" },
+              "timeRange": "10:23 - 16:29",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "16:30 - 16:37",
+              "toll": { "range": [32, 38] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "16:38 - 18:59",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "19:00 - 19:17",
+              "toll": { "range": [38, 22] }
+            },
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "19:18 - 23:59",
+              "toll": 20
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": { "id": "period.sundaysAndHolidays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "00:00 - 10:10",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "10:11 - 10:14",
+              "toll": { "range": [21, 23] }
+            },
+            {
+              "type": "regular",
+              "name": { "id": "period.regular" },
+              "timeRange": "10:15 - 19:14",
+              "toll": 25
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "19:15 - 19:18",
+              "toll": { "range": [23, 21] }
+            },
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "19:19 - 23:59",
+              "toll": 20
+            }
+          ]
+        }
+      }
+    },
+    "ehc": {
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": { "id": "period.weekdays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "00:00 - 07:29",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "07:30 - 07:47",
+              "toll": { "range": [22, 38] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "07:48 - 10:14",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "10:15 - 10:22",
+              "toll": { "range": [38, 32] }
+            },
+            {
+              "type": "regular",
+              "name": { "id": "period.regular" },
+              "timeRange": "10:23 - 16:29",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "16:30 - 16:37",
+              "toll": { "range": [32, 38] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "16:38 - 18:59",
+              "toll": 40
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "19:00 - 19:17",
+              "toll": { "range": [38, 22] }
+            },
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "19:18 - 23:59",
+              "toll": 20
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": { "id": "period.sundaysAndHolidays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "00:00 - 10:10",
+              "toll": 20
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "10:11 - 10:14",
+              "toll": { "range": [21, 23] }
+            },
+            {
+              "type": "regular",
+              "name": { "id": "period.regular" },
+              "timeRange": "10:15 - 19:14",
+              "toll": 25
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "19:15 - 19:18",
+              "toll": { "range": [23, 21] }
+            },
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "19:19 - 23:59",
+              "toll": 20
+            }
+          ]
+        }
+      }
+    },
+    "tai_lam": {
+      "timeVaryingTolls": {
+        "weekdays": {
+          "name": { "id": "period.weekdays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "00:00 - 07:14",
+              "toll": 18
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "07:15 - 07:40",
+              "toll": { "range": [19, 43] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "07:41 - 09:44",
+              "toll": 45
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "09:45 - 09:58",
+              "toll": { "range": [43, 31] }
+            },
+            {
+              "type": "regular",
+              "name": { "id": "period.regular" },
+              "timeRange": "09:59 - 17:14",
+              "toll": 30
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "17:15 - 17:28",
+              "toll": { "range": [31, 43] }
+            },
+            {
+              "type": "peak",
+              "name": { "id": "period.peak" },
+              "timeRange": "17:29 - 18:59",
+              "toll": 45
+            },
+            {
+              "type": "transition",
+              "name": { "id": "period.transition" },
+              "timeRange": "19:00 - 19:25",
+              "toll": { "range": [43, 19] }
+            },
+            {
+              "type": "offPeak",
+              "name": { "id": "period.offPeak" },
+              "timeRange": "19:26 - 23:59",
+              "toll": 18
+            }
+          ]
+        },
+        "sundays_and_holidays": {
+          "name": { "id": "period.sundaysAndHolidays" },
+          "periods": [
+            {
+              "type": "offPeak",
+              "name": { "id": "period.allDay" },
+              "timeRange": "00:00 - 23:59",
+              "toll": 18
+            }
+          ]
+        }
+      }
+    },
+    "tates_cairn": {},
+    "aberdeen": {},
+    "shing_mun": {},
+    "lion_rock": {},
+    "eagles_nest": {}
+  },
+  "vehicleTypes": {
+    "privateCar": {
+      "hasTimeVaryingToll": true,
+      "fixedTolls": {
+        "tates_cairn": 20,
+        "aberdeen": 8,
+        "shing_mun": 8,
+        "lion_rock": 8,
+        "eagles_nest": 8
+      }
+    },
+    "motorcycle": {
+      "hasTimeVaryingToll": true,
+      "multiplier": 0.4,
+      "fixedTolls": {
+        "tates_cairn": 15,
+        "aberdeen": 8,
+        "shing_mun": 8,
+        "lion_rock": 8,
+        "eagles_nest": 8
+      }
+    },
+    "taxi": {
+      "hasTimeVaryingToll": false,
+      "fixedTolls": {
+        "whc": 25,
+        "cht": 25,
+        "ehc": 25,
+        "tai_lam": 28,
+        "tates_cairn": 20,
+        "aberdeen": 8,
+        "shing_mun": 8,
+        "lion_rock": 8,
+        "eagles_nest": 8
+      }
+    },
+    "light_commercial": {
+      "hasTimeVaryingToll": false,
+      "fixedTolls": {
+        "whc": 50,
+        "cht": 50,
+        "ehc": 50,
+        "tai_lam": 43,
+        "tates_cairn": 24,
+        "aberdeen": 8,
+        "shing_mun": 8,
+        "lion_rock": 8,
+        "eagles_nest": 8
+      }
+    },
+    "commercial": {
+      "hasTimeVaryingToll": false,
+      "fixedTolls": {
+        "whc": 50,
+        "cht": 50,
+        "ehc": 50,
+        "tai_lam": 43,
+        "tates_cairn": 28,
+        "aberdeen": 8,
+        "shing_mun": 8,
+        "lion_rock": 8,
+        "eagles_nest": 8
+      }
+    }
+  }
+}
