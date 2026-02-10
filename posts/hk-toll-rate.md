@@ -58,3 +58,11 @@ Try it now!
 We also have a Chinese version available:
 
 - [HK Tunnel Tolls App (Chinese / 中文)](/zh/hk-tunnels-tolls/)
+
+## Sources
+
+- [Transport Department - Toll Rates of Road Tunnels](https://www.td.gov.hk/en/transport_in_hong_kong/tunnels_and_bridges_n/toll_matters/toll_rates_of_road_tunnels_and_lantau_link/index.html)
+- [Hong Kong Public Holidays Data | DATA.GOV.HK](https://data.gov.hk/en-data/dataset/hk-dpo-statistic-cal)
+- [Transport Department - Toll Plans for Road Harbour Crossings](https://www.td.gov.hk/en/transport_in_hong_kong/tunnels_and_bridges_n/tvt/index.html)
+- [Toll Schedule for Time-varying Toll](https://www.td.gov.hk/filemanager/en/content_5014/Toll%20Schedule%20for%20Time-varying%20Toll.pdf)
+- [Transport Department - Toll Plans for Tai Lam Tunnel](https://www.td.gov.hk/en/transport_in_hong_kong/tunnels_and_bridges_n/tlt/index.html)

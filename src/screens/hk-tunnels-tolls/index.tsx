@@ -12,6 +12,49 @@ import { createTranslateFunction, getHreflang, ScreenLocaleProps, TranslateFunct
 // Type for localized strings that can be either a plain string or a translation reference
 type LocalizedString = string | { id: string };
 
+type VehicleTypeIdentifier = keyof typeof registryInfo.vehicleTypes;
+
+type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
+
+interface NumberRange {
+  range: number[];
+}
+
+interface TollPeriod {
+  type: string;
+  name: LocalizedString;
+  timeRange: string;
+  toll: number | NumberRange;
+}
+
+interface VehicleType {
+  hasTimeVaryingToll: boolean;
+  fixedTolls?: Record<HKTunnelIdentifier, number | undefined>;
+  multiplier?: number;
+  description?: LocalizedString;
+}
+
+interface TollCardProps {
+  tunnelKey: HKTunnelIdentifier;
+  vehicle: VehicleTypeIdentifier;
+  priceAlert?: string;
+  currentDate: Date | null;
+  isPublicHoliday: boolean;
+  isClient: boolean;
+  t: TranslateFunction;
+}
+
+interface CurrentTollResult {
+  message: string;
+  isTransitionTime?: true;
+}
+
+interface TunnelTableProps {
+  tunnelKey: HKTunnelIdentifier;
+  selectedVehicle: VehicleTypeIdentifier;
+  t: TranslateFunction;
+}
+
 // Helper function to resolve LocalizedString to actual text
 function resolveLocalizedString(value: LocalizedString, t: TranslateFunction): string {
   if (typeof value === "string") {
@@ -52,43 +95,6 @@ function getHongKongDate(utcDate: Date): { date: Date; dateString: string; timeS
     dayOfWeek: hkDate.getDay(), // 0 = Sunday, 1 = Monday, etc.
   };
 }
-
-interface NumberRange {
-  range: number[];
-}
-
-interface TollPeriod {
-  type: string;
-  name: LocalizedString;
-  timeRange: string;
-  toll: number | NumberRange;
-}
-
-interface VehicleType {
-  hasTimeVaryingToll: boolean;
-  fixedTolls?: Record<HKTunnelIdentifier, number | undefined>;
-  multiplier?: number;
-  description?: LocalizedString;
-}
-
-interface TollCardProps {
-  tunnelKey: HKTunnelIdentifier;
-  vehicle: VehicleTypeIdentifier;
-  priceAlert?: string;
-  currentDate: Date | null;
-  isPublicHoliday: boolean;
-  isClient: boolean;
-  t: TranslateFunction;
-}
-
-interface CurrentTollResult {
-  message: string;
-  isTransitionTime?: true;
-}
-
-type VehicleTypeIdentifier = keyof typeof registryInfo.vehicleTypes;
-
-type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
 
 function isValidVehicle(vehicle: string): vehicle is VehicleTypeIdentifier {
   return Object.keys(registryInfo.vehicleTypes).includes(vehicle);
@@ -205,12 +211,6 @@ function HKTollCard(props: TollCardProps): JSX.Element {
       )}
     </div>
   );
-}
-
-interface TunnelTableProps {
-  tunnelKey: HKTunnelIdentifier;
-  selectedVehicle: VehicleTypeIdentifier;
-  t: TranslateFunction;
 }
 
 function TunnelTable({ tunnelKey, selectedVehicle, t }: TunnelTableProps): JSX.Element {
@@ -569,6 +569,12 @@ function HKTunnelsTollsApp({ t }: { t: TranslateFunction }): JSX.Element {
                 })
               : t("loading")}
           </span>
+        </p>
+        <p>
+          {t("references")}
+          <a href={t("references.url")} target="_blank" rel="noopener noreferrer">
+            {t("references.url").replace(/^https?:\/\//, "")}
+          </a>
         </p>
       </div>
     </div>

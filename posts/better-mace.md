@@ -16,6 +16,12 @@ This Minecraft add-on makes the mace smashing attack more dramatic via cutscene 
 
 Download the add-on and apply the resource and behavior pack into the world. Trigger the better mace effect by performing a smash attack (which triggers when it is used after the player has fallen 1.5 blocks or more and hits an entity).
 
+Here are some demo gifs of the add-on in action:
+
+![Better Mace In Action](/assets/posts/better-mace/mace-smash-demo.gif)
+
+![Better Mace In Action with Vibrant Visuals](/assets/posts/better-mace/mace-smash-demo-vv.gif)
+
 ## Techincal Documentation
 
 I highly recommend check out that video before looking at this section, otherwise it may not make sense.
@@ -68,7 +74,7 @@ In case you (or me in the future) want a local coordinates to absolute coordinat
 function getAbsoluteLocationFromViewAnchor(
   anchor: Vector3,
   location: Vector3,
-  viewDirection: Vector3,
+  viewDirection: Vector3
 ) {
   const dirz = new Vector3Builder(viewDirection);
   const dirx = new Vector3Builder(dirz.z, 0, -dirz.x);
@@ -98,3 +104,4 @@ I then used Snowstorm to export the particle infomation and its assets into Mine
 ## Downloads
 
 - [Download Better Mace Add-On](https://github.com/jayly-bot/addons/releases/download/mace/jayly_mace.mcaddon)
+- [CurseForge Link](https://curseforge.com/minecraft-bedrock/addons/jaylys-better-mace)
