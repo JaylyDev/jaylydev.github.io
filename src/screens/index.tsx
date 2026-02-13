@@ -60,14 +60,14 @@ function CurrentProjects({ t }: TranslateProps): JSX.Element {
       description: t("scriptApiExamples.description"),
       links: [{ url: "https://github.com/JaylyDev/ScriptAPI", text: "GitHub" }],
     },
-    {
-      title: t("scriptApiDocs.title"),
-      description: t("scriptApiDocs.description"),
-      links: [
-        { url: "/scriptapi-docs/", text: t("scriptApiDocs.linkHomepage") },
-        { url: "/scriptapi-docs/latest/", text: t("scriptApiDocs.linkStableDocs") },
-      ],
-    },
+    // {
+    //   title: t("scriptApiDocs.title"),
+    //   description: t("scriptApiDocs.description"),
+    //   links: [
+    //     { url: "/scriptapi-docs/", text: t("scriptApiDocs.linkHomepage") },
+    //     { url: "/scriptapi-docs/latest/", text: t("scriptApiDocs.linkStableDocs") },
+    //   ],
+    // },
     {
       title: t("jaylyBot.title"),
       description: t("jaylyBot.description"),
@@ -79,10 +79,11 @@ function CurrentProjects({ t }: TranslateProps): JSX.Element {
       ],
     },
     {
-      title: t("scriptInterpreter.title"),
-      description: t("scriptInterpreter.description"),
-      links: [{ url: "/posts/script-interpreter/", text: t("scriptInterpreter.linkDownload") }],
-      image: { src: "/assets/script-interpreter.png", alt: t("scriptInterpreter.title") },
+      title: t("cinematicEditor.title"),
+      description: t("cinematicEditor.description"),
+      links: [{ url: "/posts/cinematic-editor/", text: t("cinematicEditor.getStarted") }],
+      image: { src: "/assets/cinematic-editor.png", alt: t("cinematicEditor.title") },
+      media: "/assets/posts/cinematic-editor/thumbnail-2025-v2-preview-mcpedl.png",
     },
     {
       title: t("structureConverter.title"),

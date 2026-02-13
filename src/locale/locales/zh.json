@@ -20,9 +20,9 @@
     "jaylyBot.title": "JaylyBot 機器人",
     "jaylyBot.description": "這是我自己的 Discord 機器人。它主要用於調試 Minecraft 腳本，支援 Minecraft 穩定版和預覽版。 \n> “這可能是我在 Discord 上見過的為數不多的真正值得投入時間和精力的機器人之一。” - Visual1mpact",
     "jaylyBot.linkInvite": "邀請機器人",
-    "scriptInterpreter.title": "腳本直譯器",
-    "scriptInterpreter.description": "腳本直譯器是一個用於調試 Minecraft 腳本的工具，允許使用者在 Minecraft 基岩版中執行 JavaScript 程式碼來測試 API 功能。 \n> “哇，這真的太有用了！真的非常有用！” - BlueIcezen",
-    "scriptInterpreter.linkDownload": "下載腳本直譯器",
+    "cinematicEditor.title": "電影剪輯模組",
+    "cinematicEditor.description": "一款用於控制相機並在 Minecraft 中設計電影化場景的工具。",
+    "cinematicEditor.getStarted": "入門指南（文件）",
     "structureConverter.title": "結構轉換器",
     "structureConverter.description": "一個將 Minecraft 結構從 Java 版 (.nbt) 轉換為基岩版 (.mcstructure) 的工具。",
     "structureConverter.linkDownload": "從 GitHub 下載"

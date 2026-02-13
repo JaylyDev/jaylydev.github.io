@@ -20,9 +20,9 @@
     "jaylyBot.title": "JaylyBot",
     "jaylyBot.description": "This is my own Discord bot. It mainly debug your Minecraft scripts, for both Stable and Preview version of Minecraft.\n> \"Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time.\" - Visual1mpact",
     "jaylyBot.linkInvite": "Invite the Bot",
-    "scriptInterpreter.title": "Script Interpreter",
-    "scriptInterpreter.description": "Script Interpreter is a debugging tool for Minecraft Scripting, that allows user to run JavaScript code in Minecraft Bedrock for testing the API features.\n> \"Woah this really helps a lot! Like a LOT!\" - BlueIcezen",
-    "scriptInterpreter.linkDownload": "Download Script Interpreter",
+    "cinematicEditor.title": "Cinematic Editor",
+    "cinematicEditor.description": "A tool to control your camera and design cinematic scenes within Minecraft.",
+    "cinematicEditor.getStarted": "Get Started (Documentation)",
     "structureConverter.title": "Structure Converter",
     "structureConverter.description": "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure).",
     "structureConverter.linkDownload": "Download from GitHub"
