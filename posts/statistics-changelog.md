@@ -8,6 +8,26 @@ description: This is the complete release history for Bedrock Statistics Add-On.
 
 This is the complete release history for [Bedrock Statistics](/posts/statistics/) Add-On.
 
+### v1.6.1
+
+- Added localization for new vanilla items added in Minecraft v26.10 update.
+- Added new textures for new vanilla items added in Minecraft v26.10 update.
+- Removed the ability to open statistics through vanilla Minecraft book item.
+- Added new APIs for opening specific statistics screen for Statistics Plus Add-On
+
+### v1.6.0
+
+- Added Statistics Book item, which can be obtained by using the command: `/give @s jayly:stats_book` or the following recipe:
+
+  ![Statistics Book Recipe](/assets/posts/statistics/stats-book-recipe.png)
+
+- Added icons for statistics menu
+
+## v1.5.0 - Statistics Events API update
+
+- Fixed a bug related to time statistics not displayed correctly.
+- Added events API on Statistics add-on for Statistics Plus Add-On.
+
 ### v1.4.2
 
 - Critical bug fixes.

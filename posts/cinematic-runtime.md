@@ -68,6 +68,8 @@ It will also asks you to set values of ease type and ease time, which you can ch
 
 ![Scene editor mode create keyframe](/assets/posts/cinematic-editor/addon-create-keyframe.png)
 
+![Scene editor mode with easing and hermite support](/assets/posts/cinematic-editor/addon-create-keyframe-v2.png)
+
 ### Saving Scene
 
 Using the **Confirm** item will save the scene to the world.
@@ -82,7 +84,9 @@ Select a keyframe then select **Edit Keyframe**, which brings you back to the fo
 
 You can also delete a keyframe from existing scene.
 
-![edit keyframe](/assets/posts/cinematic-editor/addon-edit-keyframe.png)
+![A list of stored keyframes](/assets/posts/cinematic-editor/edit-scene-v2.png)
+
+![Keyframe settings with choose actions label](/assets/posts/cinematic-editor/addon-edit-keyframe-v2.png)
 
 ### Scene Settings
 
@@ -104,9 +108,45 @@ This screen controls the HUD visibility when playing a scene using the Runtime A
 - `Show Status Effects` - Shows status effects element of the HUD.
 - `Show Item Text` - Shows item text element.
 
+### Keyframe Effects
+
+![Keyframe Effects UI (Add-On version)](/assets/posts/cinematic-editor/keyframe-effects-addon-version.png)
+
+![Keyframe Effects UI (Add-On version, part 2)](/assets/posts/cinematic-editor/keyframe-effects-addon-2.png)
+
+Effects that can be added to a keyframe in the runtime add-on are:
+
+- **Fade Properties**: This feature allows you to control the screen fade effect, similar to what a player sees when sleeping in a bed. Since the mechanic already exists in the game, the panel provides a way to customize it specifically for that keyframe. You can adjust:
+
+  - **Fade In:** How long the fade takes to appear.
+  - **Fade Hold:** How long the screen stays faded.
+  - **Fade Out Time:** How long it takes for the fade to clear.
+  - **Fade Color:** The specific color used for the fade effect.
+
+    - **Fade Color Red:** The red component of the fade color.
+    - **Fade Color Green:** The green component of the fade color.
+    - **Fade Color Blue:** The blue component of the fade color.
+
+- **Frame Time / Command Execution**: This allows you to set specific timestamps (Frame Time) to trigger in-game commands. When the camera timeline reaches that specific point, the assigned command will automatically execute.
+
+- **Enable Fade Effect**: Toggles the fade effect on or off for that keyframe.
+
 ## Changelog
 
 Changelog for Cinematic Runtime Add-On
+
+## 1.0.5
+
+- Minimum required Minecraft version is now v1.21.130.
+- Fixed an issue with inconsistency on scene playback between Cinematic Editor Extension and Cinematic Runtime Add-On.
+
+## 1.0.4
+
+- Fixed an issue where playing a scene would cause the game to freeze when hosted on powerful devices.
+
+## 1.0.2
+
+- Fixed an issue with Vibrant Visuals not working in Minecraft Editor.
 
 ### 1.0.1
 

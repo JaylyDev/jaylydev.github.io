@@ -11,11 +11,9 @@ download: true
 > [!IMPORTANT]
 > This article is about the Minecraft Editor extension that is currently exclusive to the Windows version of Minecraft Bedrock.
 >
-> For the Cinematic add-on with cross-platform support, see [Cinematic Runtime](/posts/cinematic-runtime).
+> For the Cinematic add-on with cross-platform support, see [Cinematic Runtime Add-On](/posts/cinematic-runtime).
 
-![Cinematic Editor v2 Thumbnail](/assets/posts/cinematic-editor/thumbnail-2025-v2-preview-mcpedl.png)
-
-> Vibrant Visuals Pack used: [Prizma Visuals](https://mcpedl.com/prizma-pbr-deferred-pack/)
+<iframe width="1141" height="642" src="https://www.youtube.com/embed/ZMEbcN0YTL4" title="I Built Replay Mod in Minecraft | First 1 Minute" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 Cinematic Editor is a Bedrock editor extension that utilizing the `/camera` command for changing perspectives and designing cinematic scenes.
 
@@ -212,14 +210,27 @@ We brought the Vibrant Visuals toggle from the [Vibrant Visuals Panel](https://l
 > [!NOTE]
 > This setting is not saved when reloading a Project or a custom scene.
 
-> [!IMPORTANT]
-> Toggling Vibrant Visuals seems to be broken natively in Minecraft Editor and may not work as expected.
+## Export and import scene
+
+![Export Scene](/assets/posts/cinematic-editor/export-scene-v2-2.png)
+
+Export the scene by going into Editor settings panel, which can be accessed on the top of the editor.
+
+![Editor settings button](/assets/posts/cinematic-editor/editor-settings-button.png)
+
+Then press **Export Scene to Clipboard** or **Export Raw Scene to Clipboard**.
+
+Import the scene by clicking on the **Import Scene** button.
 
 ## Installation
 
-<iframe width="930" height="523" src="https://www.youtube.com/embed/x3hAOwJrwyk" title="How to install a Minecraft Editor Extension" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+1.  Download files **CinematicEditor_v2.x.x.mcaddon** to access Cinematic Editor new V2 features.
+2.  Close Minecraft if you have it open. Double click on the MCADDON file to launch Minecraft and import the add-on to Minecraft.
+3.  Close Minecraft, then launch Minecraft Editor mode from either the Minecraft Launcher or a shortcut.
 
-This video has infomations of installing this editor extension, and behind the scenes of development of the cinematic editor.
+You can launch it either directly from the Creator Tools tab in the Minecraft Launcher or by creating a custom desktop shortcut that uses the command **minecraft:?Editor=true**.
+
+![image](https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockeditor/media/editor_launcher_install.png?view=minecraft-bedrock-stable)
 
 > [!IMPORTANT]
 >
@@ -229,6 +240,7 @@ This video has infomations of installing this editor extension, and behind the s
 
 ## Downloads
 
-Click the link below and choose a version to download.
+Cinematic Editor is available for download in the following websites:
 
-- [Download Cinematic Editor Extension](/posts/cinematic-editor/downloads/)
+- [CurseForge (Recommended)](https://www.curseforge.com/minecraft-bedrock/addons/jayly-cinematic-editor)
+- [MCPEDL](https://mcpedl.com/jayly-cinematic-editor/#downloads)
