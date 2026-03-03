@@ -135,16 +135,16 @@ Effects that can be added to a keyframe in the runtime add-on are:
 
 Changelog for Cinematic Runtime Add-On
 
-## 1.0.5
+### 1.0.5
 
 - Minimum required Minecraft version is now v1.21.130.
 - Fixed an issue with inconsistency on scene playback between Cinematic Editor Extension and Cinematic Runtime Add-On.
 
-## 1.0.4
+### 1.0.4
 
 - Fixed an issue where playing a scene would cause the game to freeze when hosted on powerful devices.
 
-## 1.0.2
+### 1.0.2
 
 - Fixed an issue with Vibrant Visuals not working in Minecraft Editor.
 

@@ -5,7 +5,7 @@ import { Button, Card, CardBody, CardHeader, HeroUIProvider } from "@heroui/reac
 import { ThemeProvider } from "next-themes";
 import { useRouter } from "next/router";
 import { TemplateGrid } from "@/components/TemplateGrid";
-import { ExperimentsDisplay } from "@/components/ExperimentsDisplay";
+import { ExperimentsData, ExperimentsDisplay, ExperimentsState } from "@/components/ExperimentsDisplay";
 import JSZip from "jszip";
 import { Int8, LongTag, ByteTag, Tag, read, write } from "nbtify";
 import { InArticleAdUnit } from "@/components/AdUnit";
@@ -16,20 +16,6 @@ interface Template {
   name: string;
   iconPath: string;
 }
-
-interface Experiment {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-}
-
-interface ExperimentsData {
-  minecraft_version: string;
-  experiments: Experiment[];
-}
-
-interface ExperimentsState extends Record<string, boolean> {}
 
 interface Experiments {
   [key: string]: ByteTag;
