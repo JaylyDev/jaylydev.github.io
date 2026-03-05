@@ -95,8 +95,18 @@ export function StatsCollection() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
- 
-          gtag('config', 'G-Q3X0X9VRB2');
+
+          document.addEventListener("DOMContentLoaded", function() {
+            var screenRes = window.screen.width + "x" + window.screen.height;
+            var isKnownBotRes = /^(1280x1200|3840x2160|1024x1024|1600x1600|2000x2000|1024x10000)$/.test(screenRes);
+            var isSquareRes = /^(\\d+)x\\1$/.test(screenRes);
+            
+            if (!isKnownBotRes && !isSquareRes) {
+              gtag('config', 'G-Q3X0X9VRB2', {
+                'traffic_type': 'external'
+              });
+            }
+          });
         `}
       </Script>
       <Script
