@@ -14,6 +14,7 @@ const screenResolution = window.screen.width + "x" + window.screen.height;
 const blockedResolutions = new Set([
   "1280x1200",
   "800x600",
+  "1600x1600",
   "3840x2160",
   "0x0",
   "1024x1024",
