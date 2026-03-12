@@ -19,6 +19,7 @@ const blockedResolutions = new Set([
   "0x0",
   "1024x1024",
 ]);
-if (!blockedResolutions.has(screenResolution)) {
-  gtag("config", GA_MEASUREMENT_ID);
-}
+const trafficType = !blockedResolutions.has(screenResolution) ? "internal" : "external";
+gtag("config", GA_MEASUREMENT_ID, {
+  traffic_type: trafficType,
+});
