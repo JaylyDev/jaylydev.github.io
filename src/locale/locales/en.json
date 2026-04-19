@@ -25,13 +25,16 @@
     "cinematicEditor.getStarted": "Get Started (Documentation)",
     "structureConverter.title": "Structure Converter",
     "structureConverter.description": "A tool to convert Minecraft structures from Java (.nbt) to Bedrock (.mcstructure).",
-    "structureConverter.linkDownload": "Download from GitHub"
+    "structureConverter.linkDownload": "Download from GitHub",
+    "bedrockExperiments.title": "Bedrock Experiments",
+    "bedrockExperiments.description": "An online tool to enable and disable experimental features in your Minecraft Bedrock world outside of the game.\nMojang refused to add this in Education Edition, so I made it myself.",
+    "bedrockExperiments.linkHomepage": "Bedrock Experiments Editor"
   },
   "bedrockExperiments": {},
   "mathSymbols": {},
   "hkTunnelsTolls": {
-    "pageTitle": "Hong Kong Tunnel Tolls - real time, any tunnels | JaylyDev",
-    "pageDescription": "\"Hong Kong Tunnel Tolls\" — A helpful tool for Hong Kong drivers! Check tunnel toll rates instantly. We provide real-time toll information for Hong Kong's three cross-harbour tunnels (Western Harbour Tunnel, Cross-Harbour Tunnel, Eastern Harbour Crossing), Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnels, Lion Rock Tunnel and Eagle's Nest Tunnel. Simple to use with clear information, helping you plan your travel time and avoid unnecessary expenses.",
+    "pageTitle": "Hong Kong Tunnel Tolls | Real-Time Rates at a Glance",
+    "pageDescription": "Instantly check real-time toll rates for all HK tunnels (Cross-Harbour, Tai Lam, etc.). Designed for drivers: open, view immediately, and plan your trip fast!",
     "appTitle": "HK Tunnel Tolls",
     "insiderPageTitle": "Hong Kong Real-Time Tunnel Tolls (Beta) | JaylyDev",
     "insiderPageDescription": "Provides real-time toll information for Hong Kong's three cross-harbour tunnels (Western Harbour Tunnel, Eastern Harbour Crossing, Cross-Harbour Tunnel) and Tai Lam Tunnel. Beta version app, may have errors or instability.",
@@ -79,7 +82,7 @@
     "currentToll": "Current Toll",
     "vehicleTypeSelection": "Select Vehicle Type",
     "aboutHeading": "About This Website",
-    "aboutDescription": "\"Hong Kong Real-Time Tunnel Tolls\" — A helpful tool for Hong Kong drivers! Check tunnel toll rates instantly. We provide real-time toll information for Hong Kong's three cross-harbour tunnels (Western Harbour Tunnel, Cross-Harbour Tunnel, Eastern Harbour Crossing), Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnels, Lion Rock Tunnel and Eagle's Nest Tunnel. Simple to use with clear information, helping you plan your travel time and avoid unnecessary expenses.",
+    "aboutDescription": "\"Hong Kong Real-Time Tunnel Tolls\" — A great helper designed specifically for Hong Kong drivers! Through this website, you can instantly check tunnel toll rates. We provide real-time information for Hong Kong's three cross-harbour tunnels (Western Harbour Tunnel, Cross-Harbour Tunnel, Eastern Harbour Crossing), Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnels, Lion Rock Tunnel, and Eagle's Nest Tunnel. Open it and view it instantly; simple to operate with clear info. Helping you instantly master the latest toll prices and easily plan all your trips!",
     "notesHeading": "Important Notes",
     "lastUpdated": "Last Updated: ",
     "tollRates": "$1 Toll Schedule"

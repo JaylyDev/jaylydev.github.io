@@ -25,11 +25,14 @@
     "cinematicEditor.getStarted": "入門指南（文件）",
     "structureConverter.title": "結構轉換器",
     "structureConverter.description": "一個將 Minecraft 結構從 Java 版 (.nbt) 轉換為基岩版 (.mcstructure) 的工具。",
-    "structureConverter.linkDownload": "從 GitHub 下載"
+    "structureConverter.linkDownload": "從 GitHub 下載",
+    "bedrockExperiments.title": "基岩版實驗性玩法",
+    "bedrockExperiments.description": "一款可以在遊戲外啟用和停用 Minecraft 基岩版世界中實驗性功能的線上工具。 \nMojang 拒絕在教育版中添加此功能，所以我自己製作了它。",
+    "bedrockExperiments.linkHomepage": "基岩版實驗性玩法編輯工具"
   },
   "hkTunnelsTolls": {
-    "pageTitle": "香港隧道收費（即時更新）| JaylyDev",
-    "pageDescription": "「香港隧道收費」- 香港駕駛人士的好幫手！透過本網站，即可查詢「隧道收費」。我們即時提供香港實時三條過海隧道（西隧、紅隧、東隧）、大欖隧道、大老山隧道、香港仔隧道、城門隧道、獅子山隧道和尖山隧道的收費資訊。操作簡單、資訊清晰，幫你輕鬆規劃出行時間，避免不必要的費用支出。",
+    "pageTitle": "香港實時隧道收費 | 極速掌握全港過海隧道",
+    "pageDescription": "即時盡覽西隧、紅隧、東隧及大欖隧道等實時收費，專為香港駕駛人士而設。即開即睇、操作簡單、資訊清晰。幫你極速掌握最新路費，輕鬆規劃所有行程！",
     "appTitle": "香港隧道收費",
     "insiderPageTitle": "香港實時隧道收費（測試版） | JaylyDev",
     "insiderPageDescription": "即時提供香港實時三條過海隧道（西隧、東隧、紅隧）和大欖隧道收費資訊。測試版App，可能會有錯誤或不穩定。",
@@ -78,7 +81,7 @@
     "currentToll": "目前收費",
     "vehicleTypeSelection": "選擇車輛類型",
     "aboutHeading": "關於這個網站",
-    "aboutDescription": "「香港實時隧道收費」— 香港駕駛人士的好幫手！透過本網站，即可查詢「隧道收費」。我們即時提供香港實時三條過海隧道（西隧、紅隧、東隧）、大欖隧道、大老山隧道、香港仔隧道、城門隧道、獅子山隧道和尖山隧道的收費資訊。操作簡單、資訊清晰，幫你輕鬆規劃出行時間，避免不必要的費用支出。",
+    "aboutDescription": "「香港實時隧道收費」— 專為香港駕駛人士而設的好幫手！透過本網站，即可查詢「隧道收費」。我們即時提供香港實時三條過海隧道（西隧、紅隧、東隧）、大欖隧道、大老山隧道、香港仔隧道、城門隧道、獅子山隧道和尖山隧道的收費資訊。即開即睇、操作簡單、資訊清晰。幫你極速掌握最新路費，輕鬆規劃所有行程！",
     "notesHeading": "重要說明",
     "lastUpdated": "最後更新：",
     "tollRates": "$1 收費時段表"

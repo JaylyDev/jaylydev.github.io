@@ -327,13 +327,12 @@ const ExperimentsEditor: React.FC = () => {
     <div className="max-w-4xl mx-auto px-6">
       <Card className="dark:bg-gray-900">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Minecraft Bedrock Experiments Editor (Beta)
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Minecraft Bedrock Experiments Editor</h1>
         </CardHeader>
         <CardBody className="space-y-4">
           <p className="text-gray-700 dark:text-gray-300">
-            This tool allows you to modify experimental features in your Minecraft Bedrock world.
+            An online tool to enable and disable experimental features to test work-in-progress features in your
+            Minecraft Bedrock world outside of the game.
           </p>
           <p className="text-gray-700 dark:text-gray-300">
             Upload a .mcworld or .zip file to enable or disable experimental features in your Minecraft Bedrock world.
