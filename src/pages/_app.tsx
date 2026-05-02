@@ -5,6 +5,7 @@ import "@/styles/components/card.css";
 import "@/styles/github-markdown.css";
 import "@/styles/highlight.js/github.css";
 import "@/styles/posts.css";
+import "@/styles/beforge/index.css";
 import "@/styles/markdown-alert/github-base.css";
 import "@/styles/markdown-alert/github-colors-dark-class.css";
 import "@/styles/markdown-alert/github-colors-dark-media.css";
