@@ -93,10 +93,10 @@ const SORT_OPTIONS: BedrockForgeSortOption[] = [
 const numberFormatter = new Intl.NumberFormat("en-US");
 
 const defaultFilters: BedrockForgeFilters = {
-  minDownloads: 0,
+  minDownloads: 1000,
   maxDownloads: 0,
-  minRating: 0,
-  commentsOnly: false,
+  minRating: 3.5,
+  commentsOnly: true,
   legacySubmissions: false,
   selectedTags: [],
 };
@@ -786,10 +786,13 @@ export default function Page({ texts, lang }: ScreenLocaleProps): JSX.Element {
     <>
       <Head>
         <title>Bedrock Forge | JaylyMC</title>
-        <meta name="description" content="Find the best mods for Minecraft Bedrock Edition here!" />
+        <meta
+          name="description"
+          content="Find the best addons, maps, and resource packs for Minecraft Bedrock Edition."
+        />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://jaylydev.github.io/bedrock-forge/icon.png" />
-        <meta name="apple-mobile-web-app-title" content={t("appTitle")} />
+        <meta name="apple-mobile-web-app-title" content="Bedrock Forge" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="apple-touch-icon" href="/bedrock-forge/apple-touch-icon.png" />
