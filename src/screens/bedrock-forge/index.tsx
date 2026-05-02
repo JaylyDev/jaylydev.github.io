@@ -786,12 +786,13 @@ export default function Page({ texts, lang }: ScreenLocaleProps): JSX.Element {
     <>
       <Head>
         <title>Bedrock Forge | JaylyMC</title>
-        <meta
-          name="description"
-          content="An alternative to MCPEDL and CurseForge for Bedrock Edition addons, maps, and resource packs. Find the best mods for Minecraft Bedrock Edition here!"
-        />
+        <meta name="description" content="Find the best mods for Minecraft Bedrock Edition here!" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://jaylydev.github.io/icon.png" />
+        <meta property="og:image" content="https://jaylydev.github.io/bedrock-forge/icon.png" />
+        <meta name="apple-mobile-web-app-title" content={t("appTitle")} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <link rel="apple-touch-icon" href="/bedrock-forge/apple-touch-icon.png" />
         <meta property="twitter:card" content="summary" />
       </Head>
       <StatsCollection />
