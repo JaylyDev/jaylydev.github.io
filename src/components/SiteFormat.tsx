@@ -4,6 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { LanguageSelector } from "./LanguageSelector";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { KofiWidget } from "./Kofi";
 
 export interface ISubheadingParams {
   id: string;
@@ -15,6 +16,15 @@ export interface ISiteGlobalParams {
   t: TranslateFunction;
   localizedRoutes?: LocalizedRouteInfo[];
   lang?: string;
+}
+
+export interface ISiteFooterParams extends ISiteGlobalParams {
+  showKofi?: boolean;
+}
+
+export interface IStatsCollectionParams {
+  disableGoogleAds?: boolean;
+  disableAnalytics?: boolean;
 }
 
 export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGlobalParams) {
@@ -70,31 +80,38 @@ export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGloba
   );
 }
 
-export function SiteFooter({ t, lang = "en", localizedRoutes }: ISiteGlobalParams) {
+export function SiteFooter({ t, lang = "en", localizedRoutes, showKofi = true }: ISiteFooterParams) {
   const year = new Date().getFullYear(); // Static at build time
   // Uncomment when privacy policy is localized
   // const localePrefix = locale && locale !== "en" ? `/${locale}` : "";
 
   return (
-    <footer className="flex flex-row justify-center items-center text-sm text-gray-500 p-4 gap-2">
-      <span>{"© JaylyMC " + (year || "2025") /* Default fallback (e.g., 2025) for server-rendered HTML */}</span>
-      <Link href={`/privacy-policy/`}>{t("footer.privacyPolicy")}</Link>
-      {localizedRoutes && localizedRoutes.length > 1 && (
-        <LanguageSelector localizedRoutes={localizedRoutes} currentLocale={lang} />
+    <>
+      {showKofi && (
+        <KofiWidget donationText={t("donation.title")} supportText={t("donation.description")} lang={lang} />
       )}
-    </footer>
+      <footer className="flex flex-row justify-center items-center text-sm text-gray-500 p-4 gap-2">
+        <span>{"© JaylyMC " + (year || "2025") /* Default fallback (e.g., 2025) for server-rendered HTML */}</span>
+        <Link href={`/privacy-policy/`}>{t("footer.privacyPolicy")}</Link>
+        {localizedRoutes && localizedRoutes.length > 1 && (
+          <LanguageSelector localizedRoutes={localizedRoutes} currentLocale={lang} />
+        )}
+      </footer>
+    </>
   );
 }
 
-export function StatsCollection() {
+export function StatsCollection({ disableGoogleAds, disableAnalytics }: IStatsCollectionParams) {
   return (
     <>
-      <Script src="/analytics.js" strategy="afterInteractive" />
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2533146760921020"
-        crossOrigin="anonymous"
-      ></Script>
+      {!disableAnalytics && <Script src="/analytics.js" strategy="afterInteractive" />}
+      {!disableGoogleAds && (
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2533146760921020"
+          crossOrigin="anonymous"
+        ></Script>
+      )}
     </>
   );
 }

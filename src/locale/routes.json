@@ -14,6 +14,12 @@
         },
         {
             "paths": [
+                { "lang": "zh", "hreflang": "zh-TW", "path": "/zh/donate/" },
+                { "lang": "en", "path": "/donate/" }
+            ]
+        },
+        {
+            "paths": [
                 { "lang": "en", "path": "/bedrock-experiments/" }
             ]
         },

@@ -28,11 +28,19 @@
     "structureConverter.linkDownload": "從 GitHub 下載",
     "bedrockExperiments.title": "基岩版實驗性玩法",
     "bedrockExperiments.description": "一款可以在遊戲外啟用和停用 Minecraft 基岩版世界中實驗性功能的線上工具。 \nMojang 拒絕在教育版中添加此功能，所以我自己製作了它。",
-    "bedrockExperiments.linkHomepage": "基岩版實驗性玩法編輯工具"
+    "bedrockExperiments.linkHomepage": "基岩版實驗性玩法編輯工具",
+    "donation.title": "請我喝杯咖啡",
+    "donation.description": "支持我以資助我的項目"
   },
   "hkTunnelsTolls": {
-    "pageTitle": "香港實時隧道收費 | 極速掌握全港過海隧道",
-    "pageDescription": "即時盡覽西隧、紅隧、東隧及大欖隧道等實時收費，專為香港駕駛人士而設。即開即睇、操作簡單、資訊清晰。幫你極速掌握最新路費，輕鬆規劃所有行程！",
+    "pageTitle": "香港隧道收費表 2026 | 即時查詢西隧、紅隧、東隧等現時收費",
+    "pageDescription": "即時顯示過海隧道（西隧、紅隧、東隧）、大欖、大老山隧道等現時收費。根據你的時間自動更新，唔使計時段！私家車、的士、貨車均適用。唔使下載 App，一按即睇！",
+    "faq.whc.question": "西隧依家幾錢？",
+    "faq.whc.answer": "西隧實行分時段收費，私家車收費由 $20 至 $60 不等，視乎時段。請瀏覽本頁以查看根據現時時間自動顯示的最新收費。",
+    "faq.cht.question": "紅隧收費幾多？",
+    "faq.cht.answer": "紅隧私家車收費由 $20 至 $40 不等，視乎時段。本頁會根據你的裝置時間自動顯示當前收費。",
+    "faq.all.question": "香港隧道收費幾多錢？",
+    "faq.all.answer": "香港各條收費隧道（西隧、紅隧、東隧、大欖隧道等）均實行分時段收費。本頁即時顯示各隧道現時收費，並支援私家車、的士、電單車、貨車等多種車輛類型。",
     "appTitle": "香港隧道收費",
     "insiderPageTitle": "香港實時隧道收費（測試版） | JaylyDev",
     "insiderPageDescription": "即時提供香港實時三條過海隧道（西隧、東隧、紅隧）和大欖隧道收費資訊。測試版App，可能會有錯誤或不穩定。",
@@ -66,8 +74,6 @@
     "note.3": "前往大欖隧道的私家車及電單車實施分時段收費，的士收費為28元，商用車輛收費43元。",
     "note.4": "「輕型貨車」包括不超逾5.5公噸的貨車和特別用途車輛。",
     "note.5": "「中型 / 重型貨車」包括超逾5.5公噸的貨車和特別用途車輛 (掛接車輛除外 )。",
-    "references": "參見：",
-    "references.url": "https://jaylydev.github.io/posts/查看香港實時隧道收費/#資料來源",
     "loading": "載入中...",
     "unableToCalculate": "無法計算",
     "transitionPeriod": "目前為過渡時段",
@@ -77,20 +83,39 @@
     "weekdaySchedule": "平日收費時段",
     "weekendSchedule": "星期日及公眾假期收費時段",
     "priceChangeAlert": "$1 變為 $2",
-    "pageHeading": "香港實時隧道收費",
+    "pageHeading": "香港實時隧道收費表",
     "currentToll": "目前收費",
     "vehicleTypeSelection": "選擇車輛類型",
     "aboutHeading": "關於這個網站",
-    "aboutDescription": "「香港實時隧道收費」— 專為香港駕駛人士而設的好幫手！透過本網站，即可查詢「隧道收費」。我們即時提供香港實時三條過海隧道（西隧、紅隧、東隧）、大欖隧道、大老山隧道、香港仔隧道、城門隧道、獅子山隧道和尖山隧道的收費資訊。即開即睇、操作簡單、資訊清晰。幫你極速掌握最新路費，輕鬆規劃所有行程！",
+    "aboutDescription": "查詢香港各條過海隧道（西隧、紅隧、東隧）及大欖隧道等實時收費與分時段收費表。本網站提供 2026 年最新即時過海價錢，並根據你的裝置時間自動顯示當前收費，助駕駛人士輕鬆比較路線。",
     "notesHeading": "重要說明",
     "lastUpdated": "最後更新：",
-    "tollRates": "$1 收費時段表"
+    "tollRates": "$1 收費時段表",
+    "linksHeading": "相關連結",
+    "references.title": "資料來源",
+    "references.url": "https://jaylydev.github.io/posts/查看香港實時隧道收費/#資料來源",
+    "iosAppGuide.title": "加至 iPhone 主畫面",
+    "iosAppGuide.0": "點擊螢幕底部的「分享」按鈕。",
+    "iosAppGuide.1": "在分享選單中選擇「加至主畫面」。",
+    "iosAppGuide.image": "/hk-tunnels-tolls/assets/ios-share-zh.png",
+    "pwa.url": "/hk-tunnels-tolls/manifest_zh.json"
+  },
+  "donate": {
+    "title": "捐款支持 Jayly",
+    "description": "喜歡我的服務嗎？歡迎捐款支持我的項目！",
+    "pageTitle": "捐款支持 Jayly",
+    "pageDescription": "喜歡我的服務嗎？歡迎捐款支持我的項目！",
+    "whatIsKoFi": "Ko-fi 是一個創作者支持平台，你可以一次性贊助 Jayly 或成為每月支持者。",
+    "donateText": "通過 Ko-fi 捐款",
+    "paymentMethodsMessage": "打開此 Ko-fi 頁面去查看更多付款方式，例如 Apple Pay、Google Pay 及銀行應用程式。"
   },
   "global": {
     "header.home": "主頁",
     "header.posts": "文章",
     "header.projects": "項目",
     "header.about": "關於我",
-    "footer.privacyPolicy": "私隱政策"
+    "footer.privacyPolicy": "私隱政策",
+    "donation.title": "請我喝杯咖啡",
+    "donation.description": "支持我以資助我的項目"
   }
 }

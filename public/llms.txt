@@ -1,0 +1,45 @@
+# JaylyDev
+
+> JaylyDev is a personal portfolio website and resource hub maintained by Jayly. It is focused on Minecraft Bedrock scripting, development tooling, and community-driven projects. The site provides in-depth technical documentation, guides, and tools for the Minecraft Script API, Bedrock experiments, and Hong Kong tunnel toll data.
+
+Minecraft Bedrock Script API documentation is available at https://jaylydev.github.io/scriptapi-docs/. It covers up-to-date API references, guides, and code examples for the Minecraft Script API.
+
+## Minecraft Script API
+
+> Technical guides and reference documentation for writing scripts and add-ons for Minecraft Bedrock using the Script API.
+
+- [Minecraft Script API Reference](https://jaylydev.github.io/scriptapi-docs/): Full API reference for the Minecraft Bedrock Script API, covering stable and preview modules such as `@minecraft/server` and `@minecraft/server-ui`, with code examples and feature guides.
+- [LLM Index for Script API](https://jaylydev.github.io/scriptapi-docs/llms.txt): Machine-readable index of the Script API documentation site, intended for LLMs and automated tools, with usage notes on stable vs. beta API references.
+- [Configure Command Permissions on a Bedrock Dedicated Server](https://jaylydev.github.io/posts/bds-commands-config/): Guide to using the `permissions.json` file on Minecraft Bedrock Dedicated Server (BDS) to control which permission levels can run specific commands, including examples for locking down high-risk commands.
+- [Bedrock Switches to GDK for Windows](https://jaylydev.github.io/posts/bedrock-gdk/): Explains the migration of Minecraft Bedrock on Windows to the GDK (Game Development Kit) platform, including how to back up data, reinstall the game, and restore worlds after the transition.
+- [Bundle Minecraft Scripts with ESBuild](https://jaylydev.github.io/posts/bundle-minecraft-scripts-esbuild/): Step-by-step guide to using esbuild to bundle JavaScript and TypeScript files for use in Minecraft Bedrock add-ons, covering project setup, external npm packages, and Regolith integration.
+- [Bundle Minecraft Scripts with Webpack](https://jaylydev.github.io/posts/scripts-bundle-minecraft/): Guide to using Webpack to bundle JavaScript and TypeScript scripts for Minecraft Bedrock, covering project setup, configuration, and external package support.
+
+## Bedrock Experiments
+
+> Tools and guides for enabling and managing experimental features in Minecraft Bedrock worlds, including the web-based Experiments Editor.
+
+- [Bedrock Experiments Editor](https://jaylydev.github.io/bedrock-experiments/): Web-based tool to enable or disable experimental features in a Minecraft Bedrock world without opening the game. Upload a `.mcworld` or `.zip` file to modify the `level.dat` experiments tag and download the updated world file.
+- [Start from Template](https://jaylydev.github.io/bedrock-experiments/start-from-template/): A page within the Bedrock Experiments Editor that lets users choose a preconfigured world template as a starting point for editing experiment settings.
+- [Enable Experiments on Minecraft Education](https://jaylydev.github.io/posts/enable-experiments/): Guide for enabling experimental features in Minecraft Education Edition, including how to use the web-based Experiments Editor and apply the Enable Experiments resource pack.
+- [Introducing the Bedrock Experiments Editor](https://jaylydev.github.io/posts/bedrock-experiments-editor/): Announcement and overview post for the Bedrock Experiments Editor tool, explaining how it works and how to toggle experimental features outside of the game.
+
+## Hong Kong Tunnel Tolls
+
+> A real-time tunnel toll tracker and related guides for Hong Kong road tunnels, available in English and Traditional Chinese.
+
+- [Hong Kong Tunnel Tolls (App)](https://jaylydev.github.io/hk-tunnels-tolls/): Real-time toll price tracker for all major Hong Kong road tunnels (WHC, CHT, EHC, Tai Lam, Tate's Cairn, and more), showing current rates for private cars by time-of-day pricing.
+- [Check Hong Kong Tunnel Tolls in Real Time](https://jaylydev.github.io/posts/hk-toll-rate/): Post introducing the HK Tunnel Tolls app, explaining how to use it, with screenshots for desktop and mobile views, and information on iOS Shortcut support.
+- [查看香港實時隧道收費（中文）](https://jaylydev.github.io/posts/查看香港實時隧道收費/): Traditional Chinese version of the HK Tunnel Tolls introduction post, covering the same real-time toll checker for Hong Kong road tunnels.
+
+## Translations
+
+- [Chinese (中文)](https://jaylydev.github.io/zh/)
+
+## More Pages
+
+- [JaylyBot – Script Debugger Discord Bot](https://jaylydev.github.io/posts/jaylybot/): Overview of JaylyBot, a Discord bot used in over 350 servers that provides a Script API debugger, TypeScript-based code evaluation, type definition lookups, and utility commands for Minecraft Bedrock add-on developers.
+- [Minecraft Cinematic Editor](https://jaylydev.github.io/posts/cinematic-editor/): Documentation for the Minecraft Editor extension that enables keyframe-based cinematic camera sequences in Minecraft Bedrock on Windows, covering scene creation, camera transitions, easing, interpolation, keyframe effects, and Vibrant Visuals settings.
+- [Cinematic Runtime Add-On](https://jaylydev.github.io/posts/cinematic-runtime/): Documentation for the cross-platform Cinematic Runtime add-on, which allows players to create and play back cinematic camera scenes directly in a Minecraft Bedrock world without the Editor, including support for importing scenes from the Cinematic Editor.
+- [Minecraft Manhunt](https://jaylydev.github.io/posts/minecraft-manhunt/): Download page and feature guide for the Minecraft Manhunt add-on for Bedrock, featuring multiple game modes (Manhunt, Hitmen, Juggernaut, Item Randomizer, Assassin, Terminator) with multi-speedrunner support and a tracking compass.
+- [Support Jayly](https://jaylydev.github.io/donate/): Donation page where users can support Jayly's projects via Ko-fi, with one-time or monthly options and support for Apple Pay, Google Pay, and banking apps.

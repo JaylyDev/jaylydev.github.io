@@ -3,11 +3,11 @@ import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat
 import { useState, useEffect, JSX } from "react";
 import { Button, HeroUIProvider } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
+import { createTranslateFunction, getHreflang, LocaleProps, ScreenLocaleProps, TranslateFunction } from "@/locale/i18n";
+import publicHolidayData from "./data/public_holidays.json";
 import registryInfo from "./data/registry.json";
 import tollData from "./data/tolls.json";
-import publicHolidayData from "./data/public_holidays.json";
 import { InArticleAdUnit } from "@/components/AdUnit";
-import { createTranslateFunction, getHreflang, ScreenLocaleProps, TranslateFunction } from "@/locale/i18n";
 
 // Type for localized strings that can be either a plain string or a translation reference
 type LocalizedString = string | { id: string };
@@ -53,6 +53,13 @@ interface TunnelTableProps {
   tunnelKey: HKTunnelIdentifier;
   selectedVehicle: VehicleTypeIdentifier;
   t: TranslateFunction;
+}
+
+interface HKTunnelsTollsAppProps {
+  t: TranslateFunction;
+  lang?: string;
+  isAppleDevice?: boolean;
+  isPWA?: boolean;
 }
 
 // Helper function to resolve LocalizedString to actual text
@@ -340,7 +347,29 @@ function TunnelTable({ tunnelKey, selectedVehicle, t }: TunnelTableProps): JSX.E
   );
 }
 
-function HKTunnelsTollsApp({ t }: { t: TranslateFunction }): JSX.Element {
+interface IosHomeScreenGuideProps {
+  t: TranslateFunction;
+}
+
+function IosHomeScreenGuide({ t }: IosHomeScreenGuideProps): JSX.Element {
+  return (
+    <>
+      <h2 id="ios-app-guide" className="text-2xl font-bold py-2">
+        {t("iosAppGuide.title")}
+      </h2>
+      <ol className="px-4">
+        <li>
+          {t("iosAppGuide.0")}
+          <img src="/hk-tunnels-tolls/assets/ios-share-button.png" alt="iOS Share Button" />
+        </li>
+        <li>{t("iosAppGuide.1")}</li>
+        <img src={t("iosAppGuide.image")} alt="iOS Home Screen Guide" className="w-full max-w-md" />
+      </ol>
+    </>
+  );
+}
+
+function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HKTunnelsTollsAppProps): JSX.Element {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
@@ -368,13 +397,25 @@ function HKTunnelsTollsApp({ t }: { t: TranslateFunction }): JSX.Element {
     }
   }, [currentTime]);
 
-  // Update current time every minute
+  // Update current time every minute on the minute
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000);
+    let timeoutId: NodeJS.Timeout;
+    let intervalId: NodeJS.Timeout;
 
-    return () => clearInterval(timer);
+    const now = new Date();
+    const delay = 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+
+    timeoutId = setTimeout(() => {
+      setCurrentTime(new Date());
+      intervalId = setInterval(() => {
+        setCurrentTime(new Date());
+      }, 60000);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
+    };
   }, []);
 
   useEffect(() => {
@@ -431,30 +472,28 @@ function HKTunnelsTollsApp({ t }: { t: TranslateFunction }): JSX.Element {
 
     if (!currentPeriod) return "";
 
-    // Display announcement if toll changes later
-    const nextPeriodIndex = (currentPeriodIndex + 1) % timeSlots.periods.length;
-    const nextPeriod = timeSlots.periods[nextPeriodIndex];
+    // Find the next period that isn't a transition (where toll is not an object)
+    let nextPeriodIndex = (currentPeriodIndex + 1) % timeSlots.periods.length;
+    let nextPeriod = timeSlots.periods[nextPeriodIndex];
 
-    if (nextPeriod && nextPeriod.toll !== currentPeriod.toll) {
+    // Skip transition periods to find the target price
+    while (nextPeriod && typeof nextPeriod.toll === "object") {
+      nextPeriodIndex = (nextPeriodIndex + 1) % timeSlots.periods.length;
+      nextPeriod = timeSlots.periods[nextPeriodIndex];
+
+      // Prevent infinite loops if all periods are somehow objects
+      if (nextPeriodIndex === currentPeriodIndex) break;
+    }
+
+    if (nextPeriod && nextPeriod.toll !== currentPeriod.toll && typeof nextPeriod.toll !== "object") {
       const nextToll = nextPeriod.toll;
       let nextTollDisplay = "";
 
-      if (typeof nextToll === "object" && "range" in nextToll) {
-        const [min, max] = nextToll.range;
-        if ("multiplier" in vehicle && vehicle.multiplier) {
-          const minMoto = Math.round(min * vehicle.multiplier * 10) / 10;
-          const maxMoto = Math.round(max * vehicle.multiplier * 10) / 10;
-          nextTollDisplay = `$${minMoto} - $${maxMoto}`;
-        } else {
-          nextTollDisplay = `$${min} - $${max}`;
-        }
+      if ("multiplier" in vehicle && vehicle.multiplier) {
+        const motorcycleToll = Math.round(nextToll * vehicle.multiplier * 10) / 10;
+        nextTollDisplay = `$${motorcycleToll}`;
       } else {
-        if ("multiplier" in vehicle && vehicle.multiplier) {
-          const motorcycleToll = Math.round(nextToll * vehicle.multiplier * 10) / 10;
-          nextTollDisplay = `$${motorcycleToll}`;
-        } else {
-          nextTollDisplay = `$${nextToll}`;
-        }
+        nextTollDisplay = `$${nextToll}`;
       }
 
       return t("priceChangeAlert", nextPeriod.timeRange.split(" - ")[0], nextTollDisplay);
@@ -471,6 +510,18 @@ function HKTunnelsTollsApp({ t }: { t: TranslateFunction }): JSX.Element {
     <div className="max-w-4xl mx-auto px-2">
       {/* Header */}
       <h1 className="text-center m-2 md:m-4 text-3xl md:text-4xl font-bold md:p-2">{t("pageHeading")}</h1>
+      {isAppleDevice && !isPWA && (
+        <a href={"#ios-app-guide"}>
+          <div className="mx-2 mb-4 p-2 rounded-md border bg-blue-50 border-blue-100 text-blue-800 font-bold text-lg text-center">
+            <img
+              src="/assets/posts/hk-toll-rate/ios-share-button.png"
+              alt="iOS Share Button"
+              className="h-6 inline-block mr-2"
+            />
+            <span>{t("iosAppGuide.title")}</span>
+          </div>
+        </a>
+      )}
       {/* Current Toll Display */}
       <div className="card-base-min mb-4">
         <h3 className="text-xl md:text-lg font-semibold">
@@ -527,6 +578,8 @@ function HKTunnelsTollsApp({ t }: { t: TranslateFunction }): JSX.Element {
           })}
         </div>
       </div>
+      {/* Ko-fi */}
+      {/* <KofiWidget donationText={t("donation.title")} supportText={t("donation.description")} lang={lang} /> */}
       {/* Advertisement */}
       <InArticleAdUnit />
       {/* Individual Tunnel Tables */}
@@ -537,61 +590,116 @@ function HKTunnelsTollsApp({ t }: { t: TranslateFunction }): JSX.Element {
         }
         return <TunnelTable key={key} tunnelKey={key} selectedVehicle={selectedVehicle} t={t} />;
       })}
-      {/* Notes */}
-      <h3 className="text-2xl font-bold py-2">{t("aboutHeading")}</h3>
-      <p className="py-2">{t("aboutDescription")}</p>
-      <div className="bg-blue-100 dark:bg-blue-900 border border-blue-400 dark:border-blue-600 text-blue-700 dark:text-blue-200 p-3 rounded">
-        <h3 className="font-bold">{t("notesHeading")}</h3>
+      {/* About, Notes and Links */}
+      <div className="px-3">
+        {isAppleDevice && !isPWA && <IosHomeScreenGuide t={t} />}
+        <h2 className="text-2xl font-bold py-2 mt-4">{t("aboutHeading")}</h2>
+        <p>{t("aboutDescription")}</p>
+        <h3 className="text-xl font-bold py-2">{t("notesHeading")}</h3>
         <ul>
           {registryInfo.notes.map((note, index) => (
             <li key={index} className="flex items-start">
-              <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+              <span className="w-2 h-2 bg-black dark:bg-white rounded-full mt-2 mr-3 flex-shrink-0"></span>
               {resolveLocalizedString(note, t)}
+            </li>
+          ))}
+        </ul>
+        <h3 className="text-xl font-bold py-2">{t("linksHeading")}</h3>
+        <ul>
+          {registryInfo.links.map((link, index) => (
+            <li key={index} className="flex items-start">
+              <span className="w-2 h-2 bg-black dark:bg-white rounded-full mt-2 mr-3 flex-shrink-0"></span>
+              <a href={t(link.url)} target="_blank" rel="noopener noreferrer">
+                {t(link.id)}
+              </a>
             </li>
           ))}
         </ul>
       </div>
       {/* Footer */}
-      <div className="text-center text-sm text-gray-500 p-4">
-        <p>
-          {t("lastUpdated")}
-          <span suppressHydrationWarning>
-            {hkTime
-              ? hkTime.toLocaleString("zh-HK", {
-                  timeZone: "Asia/Hong_Kong",
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                  hour12: false,
-                })
-              : t("loading")}
-          </span>
-        </p>
-        <p>
-          {t("references")}
-          <a href={t("references.url")} target="_blank" rel="noopener noreferrer">
-            {t("references.url").replace(/^https?:\/\//, "")}
-          </a>
-        </p>
-      </div>
+      <p className="text-center text-sm text-gray-500 p-4">
+        {t("lastUpdated")}
+        <span suppressHydrationWarning>
+          {hkTime
+            ? hkTime.toLocaleString("zh-HK", {
+                timeZone: "Asia/Hong_Kong",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false,
+              })
+            : t("loading")}
+        </span>
+      </p>
     </div>
   );
 }
 
-export default function Page({ texts, lang, localizedRoutes }: ScreenLocaleProps): JSX.Element {
+export default function Page({ texts, lang, localizedRoutes }: LocaleProps): JSX.Element {
   const t = createTranslateFunction(texts);
   const hreflang = getHreflang(lang, localizedRoutes, true);
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: t("faq.whc.question"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t("faq.whc.answer"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: t("faq.cht.question"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t("faq.cht.answer"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: t("faq.all.question"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t("faq.all.answer"),
+        },
+      },
+    ],
+  };
+
+  const [isAppleDevice, setIsAppleDevice] = useState<boolean>(false);
+  const [isPWA, setIsPWA] = useState<boolean>(false);
+
+  useEffect(() => {
+    // @ts-ignore
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    // @ts-ignore
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+    const isMac = /Mac/.test(userAgent);
+    setIsAppleDevice(isIOS || isMac);
+  }, []);
+
+  useEffect(() => {
+    // @ts-ignore
+    setIsPWA(!!window.navigator.standalone);
+  }, []);
+
   return (
     <>
       <Head>
         <title>{t("pageTitle")}</title>
         <meta name="description" content={t("pageDescription")} />
-        <meta property="og:type" content="article" />
+        <meta property="og:title" content={t("pageTitle")} />
+        <meta property="og:description" content={t("pageDescription")} />
+        <meta property="og:type" content="website" />
         <meta property="og:image" content="https://jaylydev.github.io/hk-tunnels-tolls/icon.png" />
         <meta property="og:locale" content={hreflang} />
+        <link rel="manifest" href={t("pwa.url")} crossOrigin="use-credentials" />
         <meta name="apple-mobile-web-app-title" content={t("appTitle")} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -599,12 +707,16 @@ export default function Page({ texts, lang, localizedRoutes }: ScreenLocaleProps
         <link rel="alternate" hrefLang="en" href="https://jaylydev.github.io/hk-tunnels-tolls/" />
         <link rel="alternate" hrefLang="zh" href="https://jaylydev.github.io/zh/hk-tunnels-tolls/" />
         <meta property="twitter:card" content="summary" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+        />
       </Head>
       <StatsCollection />
       <SiteHeader t={t} icon="/hk-tunnels-tolls/icon.png" lang={lang} localizedRoutes={localizedRoutes} />
       <HeroUIProvider>
         <ThemeProvider>
-          <HKTunnelsTollsApp t={t} />
+          <HKTunnelsTollsApp t={t} lang={lang} isAppleDevice={isAppleDevice} isPWA={isPWA} />
         </ThemeProvider>
       </HeroUIProvider>
       <SiteFooter t={t} lang={lang} localizedRoutes={localizedRoutes} />

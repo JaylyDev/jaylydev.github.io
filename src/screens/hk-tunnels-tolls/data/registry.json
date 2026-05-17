@@ -45,5 +45,11 @@
     { "id": "note.3" },
     { "id": "note.4" },
     { "id": "note.5" }
+  ],
+  "links": [
+    {
+      "id": "references.title",
+      "url": "references.url"
+    }
   ]
 }

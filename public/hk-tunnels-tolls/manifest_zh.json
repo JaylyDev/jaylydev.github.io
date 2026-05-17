@@ -1,0 +1,22 @@
+{
+  "name": "香港隧道收費",
+  "short_name": "香港隧道收費",
+  "description": "查詢香港各條隧道實時收費與分時段收費表",
+  "start_url": "/zh/hk-tunnels-tolls/",
+  "scope": "/zh/hk-tunnels-tolls/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

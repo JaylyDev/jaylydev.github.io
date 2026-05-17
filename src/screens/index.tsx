@@ -7,6 +7,7 @@ import { StatsCollection } from "../components/SiteFormat";
 import { PublicPost } from "@/utilities/getPublicPosts";
 import { PublicPosts } from "@/components/Post";
 import { ScreenLocaleProps, createTranslateFunction, TranslateProps } from "@/locale/i18n";
+import { KofiWidget } from "@/components/Kofi";
 
 export interface HomeProps {
   posts: PublicPost[];
@@ -127,7 +128,7 @@ function CurrentProjects({ t }: TranslateProps): JSX.Element {
 
 function AboutMe({ t }: TranslateProps) {
   return (
-    <div className="pb-48">
+    <div>
       <Subheading id="about" title={t("aboutHeading")} />
       <div className="flex min-h-0 flex-col items-center p-4 text-lg">
         <span>
@@ -171,6 +172,8 @@ function PageHeadMetadata({ t }: TranslateProps) {
       <meta property="twitter:description" content={t("pageDescription")} />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:image" content="https://jaylydev.github.io/icon.png" />
+      {/* @ts-ignore */}
+      <meta name="impact-site-verification" value="c1ee3987-d10a-4d14-83c6-60fb85f29abd" />
       <link rel="canonical" href="https://jaylydev.github.io/" />
       <link rel="alternate" hrefLang="zh" href="https://jaylydev.github.io/zh/" />
       <link rel="alternate" hrefLang="en" href="https://jaylydev.github.io" />

@@ -45,6 +45,8 @@ export default function Custom404() {
       "header.posts": "Posts",
       "header.about": "About",
       "footer.privacyPolicy": "Privacy Policy",
+      "donation.title": "Buy me a coffee",
+      "donation.description": "Support me to fund my projects",
     };
     return translations[key] || key;
   };

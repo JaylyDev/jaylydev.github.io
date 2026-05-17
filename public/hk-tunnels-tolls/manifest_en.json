@@ -1,0 +1,22 @@
+{
+  "name": "HK Tunnel Tolls",
+  "short_name": "HK Tunnel Tolls",
+  "description": "Query real-time and time-based toll rates for Hong Kong tunnels",
+  "start_url": "/hk-tunnels-tolls/",
+  "scope": "/hk-tunnels-tolls/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
