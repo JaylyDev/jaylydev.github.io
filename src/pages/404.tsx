@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { SiteFooter, SiteHeader, StatsCollection } from "@/components/SiteFormat";
+import * as translations from "@/locale/locales/en.json";
 
 const styles: Record<string, React.CSSProperties> = {
   error: {
@@ -38,17 +39,13 @@ export default function Custom404() {
   const title = "This page could not be found";
 
   // Minimal translate function for the 404 page
-  const t = (key: string) => {
-    const translations: Record<string, string> = {
-      "header.home": "Home",
-      "header.projects": "Projects",
-      "header.posts": "Posts",
-      "header.about": "About",
-      "footer.privacyPolicy": "Privacy Policy",
-      "donation.title": "Buy me a coffee",
-      "donation.description": "Support me to fund my projects",
-    };
-    return translations[key] || key;
+  const t = (key: string): string => {
+    const translation = translations["global"];
+    const value = translation[key as keyof typeof translation];
+    if (typeof value === "string") {
+      return value;
+    }
+    return key;
   };
 
   return (

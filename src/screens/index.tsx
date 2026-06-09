@@ -7,7 +7,6 @@ import { StatsCollection } from "../components/SiteFormat";
 import { PublicPost } from "@/utilities/getPublicPosts";
 import { PublicPosts } from "@/components/Post";
 import { ScreenLocaleProps, createTranslateFunction, TranslateProps } from "@/locale/i18n";
-import { KofiWidget } from "@/components/Kofi";
 
 export interface HomeProps {
   posts: PublicPost[];

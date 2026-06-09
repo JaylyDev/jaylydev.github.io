@@ -28,9 +28,7 @@
     "structureConverter.linkDownload": "從 GitHub 下載",
     "bedrockExperiments.title": "基岩版實驗性玩法",
     "bedrockExperiments.description": "一款可以在遊戲外啟用和停用 Minecraft 基岩版世界中實驗性功能的線上工具。 \nMojang 拒絕在教育版中添加此功能，所以我自己製作了它。",
-    "bedrockExperiments.linkHomepage": "基岩版實驗性玩法編輯工具",
-    "donation.title": "請我喝杯咖啡",
-    "donation.description": "支持我以資助我的項目"
+    "bedrockExperiments.linkHomepage": "基岩版實驗性玩法編輯工具"
   },
   "hkTunnelsTolls": {
     "pageTitle": "香港隧道收費表 2026 | 即時查詢西隧、紅隧、東隧等現時收費",
@@ -115,7 +113,10 @@
     "header.projects": "項目",
     "header.about": "關於我",
     "footer.privacyPolicy": "私隱政策",
-    "donation.title": "請我喝杯咖啡",
-    "donation.description": "支持我以資助我的項目"
+    "donation.kofi.title": "請我喝杯咖啡",
+    "donation.kofi.description": "支持我以資助我的項目",
+    "donation.mcmarket.title": "我發現了一個地方...",
+    "donation.mcmarket.description": "使用我的連結購買《後室 Add-On》！",
+    "donation.mcmarket.buttonLabel": "Minecraft 商店"
   }
 }

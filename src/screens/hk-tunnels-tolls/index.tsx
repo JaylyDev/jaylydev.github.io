@@ -3,7 +3,7 @@ import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat
 import { useState, useEffect, JSX } from "react";
 import { Button, HeroUIProvider } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
-import { createTranslateFunction, getHreflang, LocaleProps, ScreenLocaleProps, TranslateFunction } from "@/locale/i18n";
+import { createTranslateFunction, getHreflang, LocaleProps, TranslateFunction } from "@/locale/i18n";
 import publicHolidayData from "./data/public_holidays.json";
 import registryInfo from "./data/registry.json";
 import tollData from "./data/tolls.json";
@@ -578,8 +578,6 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
           })}
         </div>
       </div>
-      {/* Ko-fi */}
-      {/* <KofiWidget donationText={t("donation.title")} supportText={t("donation.description")} lang={lang} /> */}
       {/* Advertisement */}
       <InArticleAdUnit />
       {/* Individual Tunnel Tables */}

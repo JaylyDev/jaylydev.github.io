@@ -4,7 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { LanguageSelector } from "./LanguageSelector";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { KofiWidget } from "./Kofi";
+import { SponsorSection, SponsorWidget } from "./SponsorWidgets";
 
 export interface ISubheadingParams {
   id: string;
@@ -87,11 +87,9 @@ export function SiteFooter({ t, lang = "en", localizedRoutes, showKofi = true }:
 
   return (
     <>
-      {showKofi && (
-        <KofiWidget donationText={t("donation.title")} supportText={t("donation.description")} lang={lang} />
-      )}
+      {showKofi && <SponsorSection t={t} lang={lang} />}
       <footer className="flex flex-row justify-center items-center text-sm text-gray-500 p-4 gap-2">
-        <span>{"© JaylyMC " + (year || "2025") /* Default fallback (e.g., 2025) for server-rendered HTML */}</span>
+        <span>{"© JaylyMC " + (year || "2026")}</span>
         <Link href={`/privacy-policy/`}>{t("footer.privacyPolicy")}</Link>
         {localizedRoutes && localizedRoutes.length > 1 && (
           <LanguageSelector localizedRoutes={localizedRoutes} currentLocale={lang} />

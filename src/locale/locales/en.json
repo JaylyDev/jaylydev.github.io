@@ -115,7 +115,12 @@
     "header.posts": "Posts",
     "header.about": "About Me",
     "footer.privacyPolicy": "Privacy Policy",
-    "donation.title": "Buy me a coffee",
-    "donation.description": "Support me to fund my projects"
+    "donation.kofi.title": "Buy me a coffee",
+    "donation.kofi.description": "Support me to fund my projects",
+    "donation.mcmarket.title": "I found something...",
+    "donation.mcmarket.description": "Buy 'Backrooms Add-On' with my affiliate link!",
+    "donation.mcmarket.buttonLabel": "Minecraft store",
+    "donation.mcmarket.thumbnail": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/9087412c-eb2c-45e3-b932-365dcac238a7/Backrooms_Thumbnail_0.jpg",
+    "donation.mcmarket.link": "https://buy.minecraft.net/L04BZO"
   }
 }
