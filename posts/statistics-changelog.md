@@ -8,6 +8,13 @@ description: This is the complete release history for Bedrock Statistics Add-On.
 
 This is the complete release history for [Bedrock Statistics](/posts/statistics/) Add-On.
 
+### v1.6.2
+
+- Added new textures for new vanilla items added in Minecraft v26.40 update.
+- Statistics now supports localization for all items and blocks from other add-ons.
+
+**What's next?**: Bring search feature from Statistics Plus Add-On to core Statistics Add-On, so that players can search for statistics without needing to install Statistics Plus Add-On.
+
 ### v1.6.1
 
 - Added localization for new vanilla items added in Minecraft v26.10 update.

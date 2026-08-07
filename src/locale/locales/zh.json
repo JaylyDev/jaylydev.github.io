@@ -114,9 +114,7 @@
     "header.about": "關於我",
     "footer.privacyPolicy": "私隱政策",
     "donation.kofi.title": "請我喝杯咖啡",
-    "donation.kofi.description": "支持我以資助我的項目",
-    "donation.mcmarket.title": "我發現了一個地方...",
-    "donation.mcmarket.description": "使用我的連結購買《後室 Add-On》！",
-    "donation.mcmarket.buttonLabel": "Minecraft 商店"
-  }
+    "donation.kofi.description": "支持我以資助我的項目"
+  },
+  "manifestGenerator": {}
 }

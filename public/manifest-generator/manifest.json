@@ -1,0 +1,17 @@
+{
+  "name": "Minecraft Manifest Generator",
+  "short_name": "MC Manifest Gen",
+  "description": "Generate Bedrock manifest.json for behavior packs, resource packs, and add-ons with extensive Script API support.",
+  "start_url": "/manifest-generator/",
+  "scope": "/manifest-generator/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#0F172A",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

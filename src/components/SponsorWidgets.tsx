@@ -121,19 +121,6 @@ export function SponsorSection({ t, lang, paddingSize }: SponsorSectionProps) {
     <section className={`flex flex-col items-center w-full`} style={sectionStyle}>
       <div className="flex flex-col min-[800px]:flex-row gap-5">
         <SponsorWidget
-          donationText={t("donation.mcmarket.title")}
-          className="min-[800px]:w-[460px]"
-          supportText={t("donation.mcmarket.description")}
-          buttonColor="#DDD605"
-          borderColor="#DDD605"
-          href={t("donation.mcmarket.link")}
-          hoverBackgroundColor={{ r: 204, g: 255, b: 0 }}
-          buttonTextColor="#000000"
-          buttonLabel={t("donation.mcmarket.buttonLabel")}
-          backgroundImage={t("donation.mcmarket.thumbnail")}
-          hashTags={["#MinecraftPartner"]}
-        />
-        <SponsorWidget
           donationText={t("donation.kofi.title")}
           supportText={t("donation.kofi.description")}
           buttonColor="#00b4f7"

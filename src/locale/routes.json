@@ -32,6 +32,11 @@
             "paths": [
                 { "lang": "en", "path": "/math-symbols/" }
             ]
+        },
+        {
+            "paths": [
+                { "lang": "en", "path": "/manifest-generator/" }
+            ]
         }
     ]
 }

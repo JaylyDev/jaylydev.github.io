@@ -8,6 +8,12 @@ description: This is the complete release history for Bedrock Statistics Add-On.
 
 This is the complete release history for [Bedrock Statistics](/posts/statistics/) Add-On.
 
+### v1.1.1
+
+- Improved search performance
+- Statistics Plus Add-On can now be used without Beta APIs experiment enabled.
+- Updated minimum Minecraft version requirement to v26.30 or above.
+
 ### v1.1.0
 
 - Now depends on **@minecraft/server-ui** module v2.1.0-beta or above.
