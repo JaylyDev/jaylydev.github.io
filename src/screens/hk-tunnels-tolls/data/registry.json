@@ -110,7 +110,7 @@
           "dest": "CH",
           "direction": "toIsland",
           "fromEntrance": 1,
-          "approachMinutes": 6
+          "approachMinutes": 3
         }
       ]
     },
