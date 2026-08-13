@@ -1,5 +1,5 @@
 {
-    "minecraft_version": "26.10",
+    "minecraft_version": "26.50",
     "categories": [
         {
             "name": "Gameplay",
@@ -65,14 +65,26 @@
         },
         {
             "id": "furnace_recipe_book",
-            "title": "Furnace Recipe Book (since 26.10)",
+            "title": "Furnace Recipe Book (26.10 - 26.30)",
             "description": "Adds a recipe book in the furance screen, similar to the one in the crafting table",
-            "category": "Gameplay"
+            "category": "Deprecated"
         },
         {
             "id": "voxel_shapes",
             "title": "Experimental Voxel Shape Features (since 26.10)",
             "description": "Enables the use of voxel shapes for some vanilla and custom blocks",
+            "category": "Add-On Creators"
+        },
+        {
+            "id": "y_2026_drop_3",
+            "title": "Drop 3 of 2026 (26.40 - 26.50)",
+            "description": "Explore a new surface biome and find the abandoned camps spread throughout the world",
+            "category": "Deprecated"
+        },
+        {
+            "id": "creator_world_clocks",
+            "title": "Creator World Clocks Features (since 26.50)",
+            "description": "Enables the use of world clocks for creators.",
             "category": "Add-On Creators"
         }
     ]
