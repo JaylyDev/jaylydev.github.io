@@ -113,6 +113,27 @@ a.header-subheading:hover {
   box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
 }
 
+/* Pulsing ring to nudge users toward the "Nearest" sort until location is granted */
+@keyframes hkTunnelGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(59, 130, 246, 0);
+  }
+}
+
+.hk-tunnel-glow {
+  animation: hkTunnelGlow 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hk-tunnel-glow {
+    animation: none;
+  }
+}
+
 .language-notice {
   background-color: lightskyblue;
   color: black;

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
-import { useState, useEffect, JSX } from "react";
-import { Button, HeroUIProvider } from "@heroui/react";
+import { useState, useEffect, useMemo, useRef, useCallback, JSX, ReactNode } from "react";
+import { Button, ButtonGroup, HeroUIProvider } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 import { createTranslateFunction, getHreflang, LocaleProps, TranslateFunction } from "@/locale/i18n";
 import publicHolidayData from "./data/public_holidays.json";
@@ -15,6 +15,75 @@ type LocalizedString = string | { id: string };
 type VehicleTypeIdentifier = keyof typeof registryInfo.vehicleTypes;
 
 type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
+
+// "journey" tunnels read official Transport Department times; "detector" tunnels
+// derive the time from live in-tunnel loop-detector speeds and the tunnel length.
+type TrafficSource = "journey" | "detector";
+
+interface DirectionRoute {
+  direction: string;
+  fromEntrance: number;
+  loc?: string; // journey source: JTI display origin
+  dest?: string; // journey source: JTI destination
+  detectors?: string[]; // detector source: in-tunnel detector IDs for this direction
+  approachMinutes?: number; // journey source: free-flow time from JTI sign to tunnel entrance
+}
+
+interface TunnelInfo {
+  name: LocalizedString;
+  category: string;
+  color: string;
+  trafficSource: TrafficSource;
+  lengthKm?: number;
+  maxLegalSpeedKmh?: number;
+  entrances: Coordinates[];
+  journeyRoutes: DirectionRoute[];
+}
+
+// registry.json tunnels are heterogeneous (detector vs journey), so index through this
+// typed view instead of the widened union TypeScript infers from the JSON import.
+function getTunnelInfo(key: HKTunnelIdentifier): TunnelInfo {
+  return registryInfo.tunnels[key] as unknown as TunnelInfo;
+}
+
+enum SortMode {
+  Default,
+  Nearest,
+}
+
+enum TrafficStatus {
+  Unknown,
+  Smooth,
+  Slow,
+  Congested,
+  Closed,
+}
+
+interface JourneyReading {
+  status: TrafficStatus;
+  minutes: number | null;
+}
+
+interface Coordinates {
+  lat: number;
+  lng: number;
+}
+
+interface TunnelGroup {
+  labelId: string;
+  category: string;
+}
+
+interface GroupedTunnel {
+  key: HKTunnelIdentifier;
+  distanceKm: number | null;
+}
+
+// Cross-harbour crossings are the primary decision, so they always sit on top.
+const TUNNEL_GROUPS: TunnelGroup[] = [
+  { labelId: "group.harbour", category: "harbour" },
+  { labelId: "group.other", category: "other" },
+];
 
 interface NumberRange {
   range: number[];
@@ -41,6 +110,10 @@ interface TollCardProps {
   currentDate: Date | null;
   isPublicHoliday: boolean;
   isClient: boolean;
+  journeyReadings: Record<string, JourneyReading> | null;
+  detectorSpeeds: Record<string, number> | null;
+  sortMode: SortMode;
+  userCoords: Coordinates | null;
   t: TranslateFunction;
 }
 
@@ -62,7 +135,96 @@ interface HKTunnelsTollsAppProps {
   isPWA?: boolean;
 }
 
-// Helper function to resolve LocalizedString to actual text
+interface AlertBadgeProps {
+  // Full Tailwind classes so both light and dark variants stay statically scannable,
+  // e.g. background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200"
+  background: string;
+  text: string;
+  children: ReactNode;
+}
+
+function AlertBadge({ background, text, children }: AlertBadgeProps): JSX.Element {
+  return (
+    <span
+      className={`text-[1.45rem] md:text-lg ${background} ${text} px-3 rounded-md font-medium inline-block text-center`}
+    >
+      {children}
+    </span>
+  );
+}
+
+interface TrafficRowsProps {
+  tunnelKey: HKTunnelIdentifier;
+  journeyReadings: Record<string, JourneyReading> | null;
+  detectorSpeeds: Record<string, number> | null;
+  sortMode: SortMode;
+  userCoords: Coordinates | null;
+  t: TranslateFunction;
+}
+
+function TrafficRows({
+  tunnelKey,
+  journeyReadings,
+  detectorSpeeds,
+  sortMode,
+  userCoords,
+  t,
+}: TrafficRowsProps): JSX.Element | null {
+  const tunnel = getTunnelInfo(tunnelKey);
+  const routes = tunnel.journeyRoutes;
+  if (!routes) return null;
+
+  // Default: show every direction the feed provides. Nearest: show only the direction you'd
+  // drive — you enter the portal closest to you and head toward the far one, so keep the route
+  // that starts from your nearest entrance. Fall back to all routes when none match.
+  const activeRoutes = useMemo(() => {
+    if (sortMode === SortMode.Nearest && userCoords) {
+      const nearIndex = nearestEntranceIndex(tunnel.entrances, userCoords);
+      const towards = routes.filter((route) => route.fromEntrance === nearIndex);
+      if (towards.length > 0) return towards;
+    }
+    return routes;
+  }, [sortMode, userCoords, routes, tunnel.entrances]);
+
+  const rows = activeRoutes
+    .map((route) => ({ route, reading: readingForRoute(tunnel, route, journeyReadings, detectorSpeeds) }))
+    .filter((row): row is { route: DirectionRoute; reading: JourneyReading } => row.reading !== null);
+  if (rows.length === 0) return null;
+
+  const TRAFFIC_LABEL_IDS: Record<TrafficStatus, string> = {
+    [TrafficStatus.Unknown]: "traffic.unavailable",
+    [TrafficStatus.Smooth]: "traffic.smooth",
+    [TrafficStatus.Slow]: "traffic.slow",
+    [TrafficStatus.Congested]: "traffic.congested",
+    [TrafficStatus.Closed]: "traffic.closed",
+  };
+
+  return (
+    <div className="flex flex-col gap-1 py-1">
+      {rows.map(({ route, reading }) => {
+        const colors = TRAFFIC_COLORS[reading.status];
+        return (
+          <div key={route.direction} className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-xl md:text-base text-gray-600 dark:text-gray-300">
+              {t(`direction.${route.direction}`)}
+            </span>
+            <div className="flex items-center gap-2">
+              <AlertBadge background={colors.background} text={colors.text}>
+                {t(TRAFFIC_LABEL_IDS[reading.status])}
+              </AlertBadge>
+              {reading.minutes !== null && (
+                <AlertBadge background={colors.background} text={colors.text}>
+                  {t("traffic.minutes", String(reading.minutes))}
+                </AlertBadge>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function resolveLocalizedString(value: LocalizedString, t: TranslateFunction): string {
   if (typeof value === "string") {
     return value;
@@ -70,9 +232,7 @@ function resolveLocalizedString(value: LocalizedString, t: TranslateFunction): s
   return t(value.id);
 }
 
-// Utility functions for Hong Kong timezone handling
 function getHongKongDate(utcDate: Date): { date: Date; dateString: string; timeString: string; dayOfWeek: number } {
-  // Use Intl.DateTimeFormat to get proper Hong Kong time components
   const hkFormatter = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Hong_Kong",
     year: "numeric",
@@ -85,14 +245,16 @@ function getHongKongDate(utcDate: Date): { date: Date; dateString: string; timeS
   });
 
   const hkParts = hkFormatter.formatToParts(utcDate);
-  const hkPartsObj = hkParts.reduce((acc, part) => {
-    acc[part.type] = part.value;
-    return acc;
-  }, {} as Record<string, string>);
+  const hkPartsObj = hkParts.reduce(
+    (acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
 
-  // Create a date object representing HK time
   const hkDate = new Date(
-    `${hkPartsObj.year}-${hkPartsObj.month}-${hkPartsObj.day}T${hkPartsObj.hour}:${hkPartsObj.minute}:${hkPartsObj.second}`
+    `${hkPartsObj.year}-${hkPartsObj.month}-${hkPartsObj.day}T${hkPartsObj.hour}:${hkPartsObj.minute}:${hkPartsObj.second}`,
   );
 
   return {
@@ -119,7 +281,6 @@ function isTimeInRange(time: string, start: string, end: string): boolean {
   if (startMinutes <= endMinutes) {
     return timeMinutes >= startMinutes && timeMinutes <= endMinutes;
   } else {
-    // Overnight range
     return timeMinutes >= startMinutes || timeMinutes <= endMinutes;
   }
 }
@@ -129,6 +290,215 @@ function timeToMinutes(time: string): number {
   return hours * 60 + minutes;
 }
 
+// Great-circle distance in kilometres between two coordinates.
+function haversineKm(a: Coordinates, b: Coordinates): number {
+  const toRad = (deg: number): number => (deg * Math.PI) / 180;
+  const earthRadiusKm = 6371;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const h =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  return earthRadiusKm * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+function nearestEntranceKm(entrances: Coordinates[], coords: Coordinates): number {
+  return Math.min(...entrances.map((entrance) => haversineKm(coords, entrance)));
+}
+
+function nearestEntranceIndex(entrances: Coordinates[], coords: Coordinates): number {
+  let bestIndex = 0;
+  let bestDistance = Infinity;
+  entrances.forEach((entrance, index) => {
+    const distance = haversineKm(coords, entrance);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestIndex = index;
+    }
+  });
+  return bestIndex;
+}
+
+// Cache the last fix so "Nearest" can be restored on reload without a gesture-less geolocation call.
+const COORDS_STORAGE_KEY = "hk-tunnel-coords";
+
+function readStoredCoords(): Coordinates | null {
+  try {
+    const raw = localStorage.getItem(COORDS_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Coordinates;
+    if (typeof parsed?.lat === "number" && typeof parsed?.lng === "number") return parsed;
+  } catch {
+    // Ignore malformed or unavailable storage.
+  }
+  return null;
+}
+
+function storeCoords(coords: Coordinates): void {
+  try {
+    localStorage.setItem(COORDS_STORAGE_KEY, JSON.stringify(coords));
+  } catch {
+    // Ignore storage failures (private mode quota, etc.).
+  }
+}
+
+// Transport Department Journey Time Indicators (2nd generation), updated every 2 minutes.
+// The endpoint sends `access-control-allow-origin: *`, so it can be read directly here.
+const JOURNEY_TIME_URL = "https://resource.data.one.gov.hk/td/jss/Journeytimev2.xml";
+const JOURNEY_REFRESH_MS = 120000;
+
+function journeyKey(loc: string, dest: string): string {
+  return `${loc}|${dest}`;
+}
+
+// COLOUR_ID: 1 = red, 2 = amber, 3 = green. JOURNEY_TYPE 2 with JOURNEY_DATA 3 means the tunnel is closed.
+function parseJourneyTimes(xml: string): Record<string, JourneyReading> {
+  const doc = new DOMParser().parseFromString(xml, "text/xml");
+  const readings: Record<string, JourneyReading> = {};
+
+  Array.from(doc.getElementsByTagName("jtis_journey_time")).forEach((node) => {
+    const value = (tag: string): string => node.getElementsByTagName(tag)[0]?.textContent?.trim() ?? "";
+    const loc = value("LOCATION_ID");
+    const dest = value("DESTINATION_ID");
+    if (!loc || !dest) return;
+
+    const journeyType = Number(value("JOURNEY_TYPE"));
+    const journeyData = Number(value("JOURNEY_DATA"));
+
+    if (journeyType === 2) {
+      if (journeyData === 3) readings[journeyKey(loc, dest)] = { status: TrafficStatus.Closed, minutes: null };
+      return;
+    }
+
+    const colourStatus: Record<number, TrafficStatus> = {
+      1: TrafficStatus.Congested,
+      2: TrafficStatus.Slow,
+      3: TrafficStatus.Smooth,
+    };
+    const status = colourStatus[Number(value("COLOUR_ID"))] ?? TrafficStatus.Unknown;
+    readings[journeyKey(loc, dest)] = { status, minutes: journeyData > 0 ? journeyData : null };
+  });
+
+  return readings;
+}
+
+// Transport Department loop-detector speeds (2 x 30s samples), updated about every minute.
+// Also sends `access-control-allow-origin: *`, so it can be read directly here.
+const DETECTOR_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/rawSpeedVol-all.xml";
+const DETECTOR_REFRESH_MS = 60000;
+
+// Mean valid-lane speed (km/h) per detector, averaged across every lane and sampling period.
+function parseDetectorSpeeds(xml: string): Record<string, number> {
+  const doc = new DOMParser().parseFromString(xml, "text/xml");
+  const totals: Record<string, { sum: number; count: number }> = {};
+
+  Array.from(doc.getElementsByTagName("detector")).forEach((detector) => {
+    const id = detector.getElementsByTagName("detector_id")[0]?.textContent?.trim();
+    if (!id) return;
+    Array.from(detector.getElementsByTagName("lane")).forEach((lane) => {
+      const valid = lane.getElementsByTagName("valid")[0]?.textContent?.trim();
+      const speed = Number(lane.getElementsByTagName("speed")[0]?.textContent);
+      if (valid !== "Y" || !(speed > 0)) return;
+      const bucket = (totals[id] ??= { sum: 0, count: 0 });
+      bucket.sum += speed;
+      bucket.count += 1;
+    });
+  });
+
+  const speeds: Record<string, number> = {};
+  Object.entries(totals).forEach(([id, { sum, count }]) => {
+    if (count > 0) speeds[id] = sum / count;
+  });
+  return speeds;
+}
+
+function speedCongestionStatus(tunnel: TunnelInfo, minutes: number): TrafficStatus {
+  if (tunnel.lengthKm == null || tunnel.maxLegalSpeedKmh == null || !(minutes > 0)) {
+    return TrafficStatus.Unknown;
+  }
+  const seconds = minutes * 60;
+  const avgSpeedKmh = (tunnel.lengthKm / seconds) * 3600;
+  if (avgSpeedKmh < tunnel.maxLegalSpeedKmh * 0.15) return TrafficStatus.Congested;
+  if (avgSpeedKmh < tunnel.maxLegalSpeedKmh * 0.3) return TrafficStatus.Slow;
+  return TrafficStatus.Unknown;
+}
+
+// Balance the official status against our speed-derived read, keeping whichever is more severe.
+// TrafficStatus is ordered by severity, so Math.max picks the worse of the two — our measurement
+// can escalate the alert (e.g. a "smooth"-flagged crawl) but never soften the government's.
+function withSpeedCongestion(tunnel: TunnelInfo, reading: JourneyReading): JourneyReading {
+  if (reading.minutes === null) return reading;
+  const ourStatus = speedCongestionStatus(tunnel, reading.minutes);
+  return { ...reading, status: Math.max(reading.status, ourStatus) as TrafficStatus };
+}
+
+// Detector tunnels: time = length / min(measured speed, legal limit). Capping at the legal
+// limit keeps a free-flowing carriageway (detectors often read above 70) from reporting an
+// impossibly short time, while congestion still pulls the mean speed — and the time — down.
+function readingForRoute(
+  tunnel: TunnelInfo,
+  route: DirectionRoute,
+  journeyReadings: Record<string, JourneyReading> | null,
+  detectorSpeeds: Record<string, number> | null,
+): JourneyReading | null {
+  if (tunnel.trafficSource === "detector") {
+    if (!detectorSpeeds || !route.detectors || tunnel.lengthKm == null || tunnel.maxLegalSpeedKmh == null) {
+      return null;
+    }
+    const speeds = route.detectors
+      .map((id) => detectorSpeeds[id])
+      .filter((speed): speed is number => typeof speed === "number" && speed > 0);
+    if (speeds.length === 0) return null;
+
+    const meanSpeed = speeds.reduce((sum, speed) => sum + speed, 0) / speeds.length;
+    const effectiveSpeed = Math.min(meanSpeed, tunnel.maxLegalSpeedKmh);
+    const minutes = Math.round((tunnel.lengthKm / effectiveSpeed) * 60);
+    const status =
+      meanSpeed >= 60 ? TrafficStatus.Smooth : meanSpeed >= 30 ? TrafficStatus.Slow : TrafficStatus.Congested;
+    return withSpeedCongestion(tunnel, { status, minutes });
+  }
+
+  if (!journeyReadings || !route.loc || !route.dest) return null;
+
+  const floorMinutes =
+    tunnel.lengthKm != null && tunnel.maxLegalSpeedKmh != null
+      ? Math.round((tunnel.lengthKm * 1000) / (tunnel.maxLegalSpeedKmh / 3.6) / 60)
+      : 2;
+
+  const reading = journeyReadings[journeyKey(route.loc, route.dest)] ?? null;
+  if (reading === null) return null;
+
+  const adjusted =
+    reading.minutes !== null && route.approachMinutes
+      ? { ...reading, minutes: Math.max(floorMinutes, reading.minutes - route.approachMinutes) }
+      : reading;
+  return withSpeedCongestion(tunnel, adjusted);
+}
+
+interface BadgeColors {
+  background: string;
+  text: string;
+}
+
+const TRAFFIC_COLORS: Record<TrafficStatus, BadgeColors> = {
+  [TrafficStatus.Unknown]: { background: "bg-gray-100 dark:bg-gray-800", text: "text-gray-800 dark:text-gray-200" },
+  [TrafficStatus.Smooth]: { background: "bg-green-100 dark:bg-green-900", text: "text-green-800 dark:text-green-200" },
+  [TrafficStatus.Slow]: { background: "bg-amber-100 dark:bg-amber-900", text: "text-amber-800 dark:text-amber-200" },
+  [TrafficStatus.Congested]: { background: "bg-red-100 dark:bg-red-900", text: "text-red-800 dark:text-red-200" },
+  [TrafficStatus.Closed]: { background: "bg-red-100 dark:bg-red-900", text: "text-red-800 dark:text-red-200" },
+};
+
+interface ScheduleContext {
+  isHolidaySchedule: boolean;
+  currentTimeStr: string;
+}
+
+// Sundays and public holidays use one toll schedule; weekdays use the other.
+function getScheduleContext(currentTime: Date, isPublicHoliday: boolean): ScheduleContext {
+  const hkInfo = getHongKongDate(currentTime);
+  return { isHolidaySchedule: hkInfo.dayOfWeek === 0 || isPublicHoliday, currentTimeStr: hkInfo.timeString };
+}
+
 // Function to get current toll for a specific tunnel
 function getCurrentTollForTunnel(
   selectedVehicle: VehicleTypeIdentifier,
@@ -136,7 +506,7 @@ function getCurrentTollForTunnel(
   currentTime: Date | null,
   isPublicHoliday: boolean,
   isClient: boolean,
-  t: TranslateFunction
+  t: TranslateFunction,
 ): CurrentTollResult {
   // Show loading until everything is properly loaded
   if (!currentTime || !isClient) return { message: t("loading") };
@@ -149,17 +519,12 @@ function getCurrentTollForTunnel(
     return { message: `$${vehicle.fixedTolls[tunnelKey as keyof typeof vehicle.fixedTolls]}` };
   }
 
-  // Time-varying toll vehicles
-  const hkInfo = getHongKongDate(currentTime);
-  const isWeekend = hkInfo.dayOfWeek === 0; // Sunday
-  const isHolidaySchedule = isWeekend || isPublicHoliday; // Use Sunday schedule for public holidays
-
   if (!tunnel || !("timeVaryingTolls" in tunnel)) {
     return { message: t("unableToCalculate") };
   }
 
+  const { isHolidaySchedule, currentTimeStr } = getScheduleContext(currentTime, isPublicHoliday);
   const timeSlots = isHolidaySchedule ? tunnel.timeVaryingTolls.sundays_and_holidays : tunnel.timeVaryingTolls.weekdays;
-  const currentTimeStr = hkInfo.timeString;
 
   // Find current period
   for (const period of timeSlots.periods) {
@@ -191,31 +556,48 @@ function getCurrentTollForTunnel(
 }
 
 function HKTollCard(props: TollCardProps): JSX.Element {
-  const { tunnelKey, priceAlert, vehicle, currentDate, isPublicHoliday, isClient, t } = props;
+  const { tunnelKey, priceAlert, vehicle, currentDate, isPublicHoliday, isClient } = props;
+  const { journeyReadings, detectorSpeeds, sortMode, userCoords, t } = props;
   const tollResult = getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday, isClient, t);
+  const tunnel = getTunnelInfo(tunnelKey);
 
   return (
-    <div key={tunnelKey} className="border-b border-black dark:border-white pb-1 last:border-b-0">
-      <div className="flex flex-row justify-between items-start gap-2">
-        <span className="text-3xl md:text-2xl font-medium text-left">
-          {resolveLocalizedString(registryInfo.tunnels[tunnelKey].name, t)}
-        </span>
-        <p className="text-right text-5xl py-1 md:py-2 font-bold text-green-600">{tollResult.message}</p>
+    <div key={tunnelKey} className="flex gap-3 border-b border-black dark:border-white pb-1 last:border-b-0">
+      <span
+        className="w-1.5 self-stretch rounded-full shrink-0"
+        style={{ backgroundColor: tunnel.color }}
+        aria-hidden="true"
+      />
+      <div className="flex-1 min-w-0">
+        <div className="flex flex-row justify-between items-start gap-2">
+          <div className="text-left">
+            <span className="text-3xl md:text-2xl font-medium">{resolveLocalizedString(tunnel.name, t)}</span>
+          </div>
+          <p className="text-right text-5xl py-1 md:py-2 font-bold text-green-600">{tollResult.message}</p>
+        </div>
+        <TrafficRows
+          tunnelKey={tunnelKey}
+          journeyReadings={journeyReadings}
+          detectorSpeeds={detectorSpeeds}
+          sortMode={sortMode}
+          userCoords={userCoords}
+          t={t}
+        />
+        {tollResult.isTransitionTime && (
+          <div className="text-right py-1">
+            <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
+              {t("transitionPeriod")}
+            </AlertBadge>
+          </div>
+        )}
+        {priceAlert && (
+          <div className="text-right">
+            <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
+              {priceAlert}
+            </AlertBadge>
+          </div>
+        )}
       </div>
-      {tollResult.isTransitionTime && (
-        <div className="text-right py-1">
-          <span className="text-[1.45rem] md:text-lg bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-3 rounded-md font-medium inline-block text-center">
-            {t("transitionPeriod")}
-          </span>
-        </div>
-      )}
-      {priceAlert && (
-        <div className="text-right">
-          <span className="text-[1.45rem] md:text-lg bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-3 rounded-md font-medium inline-block text-center">
-            {priceAlert}
-          </span>
-        </div>
-      )}
     </div>
   );
 }
@@ -252,97 +634,59 @@ function TunnelTable({ tunnelKey, selectedVehicle, t }: TunnelTableProps): JSX.E
     return `$${vehicle.fixedTolls || 0}`;
   };
 
+  // Weekday and weekend/holiday schedules render identically apart from the heading and periods.
+  const renderSchedule = (labelId: string, colorClass: string, periods: TollPeriod[]) => (
+    <div>
+      <h4 className={`text-xl md:text-base font-medium mb-2 ${colorClass}`}>{t(labelId)}</h4>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                {t("tableHeaderPeriod")}
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                {t("tableHeaderTime")}
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                {t("tableHeaderToll")}
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {periods.map((period: TollPeriod, index: number) => (
+              <tr
+                key={index}
+                className={
+                  period.type === "peak"
+                    ? "bg-red-50 text-black"
+                    : period.type === "transition"
+                      ? "bg-yellow-50 text-black"
+                      : ""
+                }
+              >
+                <td className="px-6 py-4 whitespace-nowrap font-medium">{resolveLocalizedString(period.name, t)}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {vehicle.hasTimeVaryingToll
+                    ? formatToll(period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
+                    : getFixedToll(vehicle as VehicleType)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
   return (
     <div className="card-base-min mb-4">
       <h3 className="text-2xl md:text-lg font-semibold border-b mb-4">{t("tollRates", tunnelName)}</h3>
-
-      {/* Weekdays Table */}
       <div className="mb-6">
-        <h4 className="text-xl md:text-base font-medium mb-2 text-blue-600">{t("weekdaySchedule")}</h4>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  {t("tableHeaderPeriod")}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  {t("tableHeaderTime")}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  {t("tableHeaderToll")}
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {tunnel.timeVaryingTolls.weekdays.periods.map((period: TollPeriod, index: number) => (
-                <tr
-                  key={index}
-                  className={
-                    period.type === "peak"
-                      ? "bg-red-50 text-black"
-                      : period.type === "transition"
-                      ? "bg-yellow-50 text-black"
-                      : ""
-                  }
-                >
-                  <td className="px-6 py-4 whitespace-nowrap font-medium">{resolveLocalizedString(period.name, t)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {vehicle.hasTimeVaryingToll
-                      ? formatToll(period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
-                      : getFixedToll(vehicle as VehicleType)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {renderSchedule("weekdaySchedule", "text-blue-600", tunnel.timeVaryingTolls.weekdays.periods)}
       </div>
-
-      {/* Weekends and Holidays Table */}
-      <div>
-        <h4 className="text-xl md:text-base font-medium mb-2 text-green-600">{t("weekendSchedule")}</h4>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  {t("tableHeaderPeriod")}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  {t("tableHeaderTime")}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  {t("tableHeaderToll")}
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {tunnel.timeVaryingTolls.sundays_and_holidays.periods.map((period: TollPeriod, index: number) => (
-                <tr
-                  key={index}
-                  className={
-                    period.type === "peak"
-                      ? "bg-red-50 text-black"
-                      : period.type === "transition"
-                      ? "bg-yellow-50 text-black"
-                      : ""
-                  }
-                >
-                  <td className="px-6 py-4 whitespace-nowrap font-medium">{resolveLocalizedString(period.name, t)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{period.timeRange}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {vehicle.hasTimeVaryingToll
-                      ? formatToll(period, "multiplier" in vehicle ? vehicle.multiplier : undefined)
-                      : getFixedToll(vehicle as VehicleType)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {renderSchedule("weekendSchedule", "text-green-600", tunnel.timeVaryingTolls.sundays_and_holidays.periods)}
     </div>
   );
 }
@@ -374,10 +718,99 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
+  const [sortMode, setSortMode] = useState<SortMode>(SortMode.Default);
+  const [userCoords, setUserCoords] = useState<Coordinates | null>(null);
+  const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
+  const [journeyReadings, setJourneyReadings] = useState<Record<string, JourneyReading> | null>(null);
+  const [detectorSpeeds, setDetectorSpeeds] = useState<Record<string, number> | null>(null);
+
+  // Live-location stream: the active watch id, and whether a tap is still awaiting its first fix.
+  const watchIdRef = useRef<number | null>(null);
+  const awaitingFirstFixRef = useRef<boolean>(false);
+
+  const stopLocationWatch = useCallback(() => {
+    if (watchIdRef.current !== null && typeof navigator !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+      watchIdRef.current = null;
+    }
+  }, []);
+
+  const startLocationWatch = useCallback(() => {
+    if (typeof navigator === "undefined" || !navigator.geolocation) return;
+    // Replace any existing stream so a gesture-backed tap always establishes a working watch.
+    stopLocationWatch();
+    watchIdRef.current = navigator.geolocation.watchPosition(
+      (position) => {
+        const coords = { lat: position.coords.latitude, lng: position.coords.longitude };
+        setUserCoords(coords);
+        storeCoords(coords);
+        if (awaitingFirstFixRef.current) {
+          awaitingFirstFixRef.current = false;
+          setSortMode(SortMode.Nearest);
+          setIsLoadingLocation(false);
+        }
+      },
+      () => {
+        // Surface a failure only for the first fix; ignore transient errors on a working stream.
+        if (awaitingFirstFixRef.current) {
+          awaitingFirstFixRef.current = false;
+          setSortMode(SortMode.Default);
+          setIsLoadingLocation(false);
+        }
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 30000 },
+    );
+  }, [stopLocationWatch]);
 
   useEffect(() => {
     setIsClient(true);
     setCurrentTime(new Date());
+  }, []);
+
+  // Poll live journey times every 2 minutes (matches the feed's update cadence).
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadJourneyTimes = async () => {
+      try {
+        const response = await fetch(JOURNEY_TIME_URL);
+        if (!response.ok) return;
+        const xml = await response.text();
+        if (!cancelled) setJourneyReadings(parseJourneyTimes(xml));
+      } catch {
+        // Keep the last successful reading on network failure.
+      }
+    };
+
+    loadJourneyTimes();
+    const intervalId = setInterval(loadJourneyTimes, JOURNEY_REFRESH_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  // Poll live detector speeds for the land tunnels (feed refreshes about every minute).
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadDetectorSpeeds = async () => {
+      try {
+        const response = await fetch(DETECTOR_URL);
+        if (!response.ok) return;
+        const xml = await response.text();
+        if (!cancelled) setDetectorSpeeds(parseDetectorSpeeds(xml));
+      } catch {
+        // Keep the last successful reading on network failure.
+      }
+    };
+
+    loadDetectorSpeeds();
+    const intervalId = setInterval(loadDetectorSpeeds, DETECTOR_REFRESH_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(intervalId);
+    };
   }, []);
 
   // Check if current date is a public holiday
@@ -418,6 +851,70 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
     };
   }, []);
 
+  // Hide the full-screen AdSense vignette (not the anchor banner) once it has actually been
+  // visible for 3–7s — anchored to when it's shown, since data-vignette-loaded is set earlier.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const root = document.documentElement;
+    let hasHiddenVignette = false;
+    let hideTimer: number | null = null;
+    const watched = new WeakSet<Element>();
+    const elementObservers: MutationObserver[] = [];
+
+    const isVignetteAd = (ad: Element | null): ad is HTMLElement =>
+      ad instanceof HTMLElement &&
+      ad.parentElement === root &&
+      ad.matches('ins.adsbygoogle.adsbygoogle-noablate[data-vignette-loaded="true"]') &&
+      !ad.matches("[data-anchor-status], [data-anchor-shown]");
+
+    // A non-none computed display means the interstitial is genuinely on screen.
+    const isVisible = (ad: HTMLElement): boolean => {
+      const style = getComputedStyle(ad);
+      return style.display !== "none" && style.visibility !== "hidden";
+    };
+
+    // Start the hide countdown the first time the vignette is both matched and actually visible.
+    const evaluate = (ad: Element | null) => {
+      if (hasHiddenVignette || hideTimer !== null) return;
+      if (!isVignetteAd(ad) || !isVisible(ad)) return;
+
+      const delayMs = 3000 + Math.floor(Math.random() * 4001); // 3s – 7s
+      hideTimer = window.setTimeout(() => {
+        hideTimer = null;
+        if (ad.isConnected) {
+          ad.style.setProperty("display", "none", "important");
+          hasHiddenVignette = true;
+        }
+      }, delayMs);
+    };
+
+    // Re-check on the <ins>'s own style/attribute changes, which is how AdSense reveals it.
+    const watch = (node: Node) => {
+      if (!(node instanceof HTMLElement) || node.tagName !== "INS" || watched.has(node)) return;
+      watched.add(node);
+      const elementObserver = new MutationObserver(() => evaluate(node));
+      elementObserver.observe(node, { attributes: true, attributeFilter: ["style", "data-vignette-loaded", "class"] });
+      elementObservers.push(elementObserver);
+      evaluate(node); // in case it is already shown
+    };
+
+    // The vignette is appended as a direct child of <html>; watch each <ins> that appears there.
+    const rootObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) mutation.addedNodes.forEach(watch);
+    });
+    rootObserver.observe(root, { childList: true });
+
+    // Handle a vignette that is already present when this effect mounts.
+    Array.from(root.children).forEach(watch);
+
+    return () => {
+      rootObserver.disconnect();
+      elementObservers.forEach((observer) => observer.disconnect());
+      if (hideTimer !== null) clearTimeout(hideTimer);
+    };
+  }, []);
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const selectedVehicle = searchParams.get("vehicle") ?? localStorage.getItem("hk-tunnel-vehicle");
@@ -426,10 +923,35 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
     }
   }, [setSelectedVehicle]);
 
+  // Restore "Nearest" from the cached fix instantly, then resume the stream best-effort.
+  useEffect(() => {
+    if (localStorage.getItem("hk-tunnel-sort") !== "nearest") return;
+    const cached = readStoredCoords();
+    if (!cached) return;
+    setUserCoords(cached);
+    setSortMode(SortMode.Nearest);
+    startLocationWatch();
+  }, [startLocationWatch]);
+
+  // Stop the location stream when the user leaves "Nearest", and always on unmount.
+  useEffect(() => {
+    if (sortMode === SortMode.Default) {
+      stopLocationWatch();
+      awaitingFirstFixRef.current = false;
+      setIsLoadingLocation(false);
+    }
+  }, [sortMode, stopLocationWatch]);
+
+  useEffect(() => stopLocationWatch, [stopLocationWatch]);
+
   // Save preferences to localStorage
   useEffect(() => {
     localStorage.setItem("hk-tunnel-vehicle", selectedVehicle);
   }, [selectedVehicle]);
+
+  useEffect(() => {
+    localStorage.setItem("hk-tunnel-sort", sortMode === SortMode.Nearest ? "nearest" : "default");
+  }, [sortMode]);
 
   // Function to get price change alert for a specific tunnel
   const getPriceChangeAlertForTunnel = (tunnelKey: HKTunnelIdentifier): string => {
@@ -443,19 +965,14 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
       return "";
     }
 
-    // Time-varying toll vehicles
-    const hkInfo = getHongKongDate(currentTime);
-    const isWeekend = hkInfo.dayOfWeek === 0; // Sunday
-    const isHolidaySchedule = isWeekend || isPublicHoliday; // Use Sunday schedule for public holidays
-
     if (!tunnel || !("timeVaryingTolls" in tunnel)) {
       return "";
     }
 
+    const { isHolidaySchedule, currentTimeStr } = getScheduleContext(currentTime, isPublicHoliday);
     const timeSlots = isHolidaySchedule
       ? tunnel.timeVaryingTolls.sundays_and_holidays
       : tunnel.timeVaryingTolls.weekdays;
-    const currentTimeStr = hkInfo.timeString;
 
     // Find current period
     let currentPeriod: TollPeriod | null = null;
@@ -502,9 +1019,49 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
     return "";
   };
 
+  // Switch to distance sort and stream the device location so the order tracks movement.
+  const requestNearestSort = () => {
+    // Already have a fix: switch instantly and make sure the stream is running.
+    if (userCoords) {
+      setSortMode(SortMode.Nearest);
+      startLocationWatch();
+      return;
+    }
+    if (typeof navigator === "undefined" || !navigator.geolocation) return;
+
+    // First fix: spinner now for instant feedback; the watch (started in-gesture for iOS) finishes the switch.
+    setIsLoadingLocation(true);
+    awaitingFirstFixRef.current = true;
+    startLocationWatch();
+  };
+
+  const buildGroup = (category: string): GroupedTunnel[] => {
+    const sortByDistance = sortMode === SortMode.Nearest && userCoords !== null;
+    const tunnels: GroupedTunnel[] = Object.keys(registryInfo.tunnels)
+      .filter((key): key is HKTunnelIdentifier => isValidTunnel(key) && registryInfo.tunnels[key].category === category)
+      .map((key) => ({
+        key,
+        distanceKm: sortByDistance
+          ? nearestEntranceKm(registryInfo.tunnels[key].entrances, userCoords as Coordinates)
+          : null,
+      }));
+
+    if (sortByDistance) {
+      tunnels.sort((a, b) => (a.distanceKm as number) - (b.distanceKm as number));
+    }
+    return tunnels;
+  };
+
   const hkTime = currentTime;
   const vehicleName = resolveLocalizedString(registryInfo.vehicleTypes[selectedVehicle].name, t);
   const vehicleDescription = registryInfo.vehicleTypes[selectedVehicle].description;
+
+  const groupedTunnels = useMemo(() => {
+    return TUNNEL_GROUPS.map((group) => ({
+      ...group,
+      tunnels: buildGroup(group.category),
+    }));
+  }, [sortMode, userCoords]);
 
   return (
     <div className="max-w-4xl mx-auto px-2">
@@ -524,34 +1081,60 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
       )}
       {/* Current Toll Display */}
       <div className="card-base-min mb-4">
-        <h3 className="text-xl md:text-lg font-semibold">
-          {t("currentToll")} - {vehicleName}{" "}
-          {vehicleDescription ? `(${resolveLocalizedString(vehicleDescription, t)})` : ""}
-        </h3>
-        <div>
-          <div className="space-y-2">
-            {Object.keys(tollData.tunnels).map((key) => {
-              if (!isValidTunnel(key)) {
-                // console.error(`Invalid tunnel identifier: ${key}`);
-                return null;
-              }
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 className="text-xl md:text-lg font-semibold">
+            {t("currentToll")} - {vehicleName}{" "}
+            {vehicleDescription ? `(${resolveLocalizedString(vehicleDescription, t)})` : ""}
+          </h3>
+          <ButtonGroup>
+            <Button
+              color={sortMode === SortMode.Default ? "primary" : "default"}
+              onPress={() => setSortMode(SortMode.Default)}
+              className="text-xl md:text-lg"
+            >
+              {t("sortDefault")}
+            </Button>
+            <Button
+              color={sortMode === SortMode.Nearest || isLoadingLocation ? "primary" : "default"}
+              className={`text-xl md:text-lg ${userCoords || isLoadingLocation ? "" : "hk-tunnel-glow"}`}
+              onPress={requestNearestSort}
+              isLoading={isLoadingLocation}
+            >
+              {t("sortNearest")}
+            </Button>
+          </ButtonGroup>
+        </div>
+        <div className="mt-2 space-y-4">
+          {groupedTunnels.map((group) => {
+            const tunnels = group.tunnels;
+            if (tunnels.length === 0) return null;
 
-              const priceAlert = getPriceChangeAlertForTunnel(key);
-
-              return (
-                <HKTollCard
-                  key={key}
-                  tunnelKey={key}
-                  priceAlert={priceAlert}
-                  vehicle={selectedVehicle}
-                  currentDate={hkTime}
-                  isPublicHoliday={isPublicHoliday}
-                  isClient={isClient}
-                  t={t}
-                />
-              );
-            })}
-          </div>
+            return (
+              <div key={group.category}>
+                <div className="border-b border-black/20 dark:border-white/20 pb-1 mb-2">
+                  <span className="text-2xl md:text-lg font-bold">{t(group.labelId)}</span>
+                </div>
+                <div className="space-y-2">
+                  {tunnels.map(({ key }) => (
+                    <HKTollCard
+                      key={key}
+                      tunnelKey={key}
+                      priceAlert={getPriceChangeAlertForTunnel(key)}
+                      vehicle={selectedVehicle}
+                      currentDate={hkTime}
+                      isPublicHoliday={isPublicHoliday}
+                      isClient={isClient}
+                      journeyReadings={journeyReadings}
+                      detectorSpeeds={detectorSpeeds}
+                      sortMode={sortMode}
+                      userCoords={userCoords}
+                      t={t}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
       {/* Selection Controls */}
@@ -583,7 +1166,6 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
       {/* Individual Tunnel Tables */}
       {Object.keys(tollData.tunnels).map((key) => {
         if (!isValidTunnel(key)) {
-          // console.error(`Invalid tunnel identifier: ${key}`);
           return null;
         }
         return <TunnelTable key={key} tunnelKey={key} selectedVehicle={selectedVehicle} t={t} />;

@@ -1,50 +1,364 @@
 {
   "vehicleTypes": {
     "privateCar": {
-      "name": { "id": "vehicle.privateCar" },
+      "name": {
+        "id": "vehicle.privateCar"
+      },
       "hasTimeVaryingToll": true,
       "description": null
     },
     "motorcycle": {
-      "name": { "id": "vehicle.motorcycle" },
+      "name": {
+        "id": "vehicle.motorcycle"
+      },
       "hasTimeVaryingToll": true,
       "multiplier": 0.4,
       "description": null
     },
     "taxi": {
-      "name": { "id": "vehicle.taxi" },
+      "name": {
+        "id": "vehicle.taxi"
+      },
       "hasTimeVaryingToll": false,
       "description": null
     },
     "light_commercial": {
-      "name": { "id": "vehicle.lightCommercial" },
+      "name": {
+        "id": "vehicle.lightCommercial"
+      },
       "hasTimeVaryingToll": false,
-      "description": { "id": "vehicle.lightCommercialDescription" }
+      "description": {
+        "id": "vehicle.lightCommercialDescription"
+      }
     },
     "commercial": {
-      "name": { "id": "vehicle.commercial" },
+      "name": {
+        "id": "vehicle.commercial"
+      },
       "hasTimeVaryingToll": false,
-      "description": { "id": "vehicle.commercialDescription" }
+      "description": {
+        "id": "vehicle.commercialDescription"
+      }
     }
   },
   "tunnels": {
-    "whc": { "name": { "id": "tunnel.whc" } },
-    "cht": { "name": { "id": "tunnel.cht" } },
-    "ehc": { "name": { "id": "tunnel.ehc" } },
-    "tai_lam": { "name": { "id": "tunnel.taiLam" } },
-    "tates_cairn": { "name": { "id": "tunnel.tatesCairn" } },
-    "aberdeen": { "name": { "id": "tunnel.aberdeen" } },
-    "shing_mun": { "name": { "id": "tunnel.shingMun" } },
-    "lion_rock": { "name": { "id": "tunnel.lionRock" } },
-    "eagles_nest": { "name": { "id": "tunnel.eaglesNest" } }
+    "whc": {
+      "name": {
+        "id": "tunnel.whc"
+      },
+      "category": "harbour",
+      "color": "#0891b2",
+      "trafficSource": "journey",
+      "lengthKm": 2.0,
+      "maxLegalSpeedKmh": 80,
+      "entrances": [
+        {
+          "lat": 22.2895,
+          "lng": 114.149
+        },
+        {
+          "lat": 22.304,
+          "lng": 114.152
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "loc": "H3",
+          "dest": "WH",
+          "direction": "toKowloon",
+          "fromEntrance": 0,
+          "approachMinutes": 6
+        },
+        {
+          "loc": "K01",
+          "dest": "WH",
+          "direction": "toIsland",
+          "fromEntrance": 1,
+          "approachMinutes": 6
+        }
+      ]
+    },
+    "cht": {
+      "name": {
+        "id": "tunnel.cht"
+      },
+      "category": "harbour",
+      "color": "#dc2626",
+      "trafficSource": "journey",
+      "lengthKm": 1.86,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.296,
+          "lng": 114.1795
+        },
+        {
+          "lat": 22.306,
+          "lng": 114.181
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "loc": "H1",
+          "dest": "CH",
+          "direction": "toKowloon",
+          "fromEntrance": 0,
+          "approachMinutes": 4
+        },
+        {
+          "loc": "K06",
+          "dest": "CH",
+          "direction": "toIsland",
+          "fromEntrance": 1,
+          "approachMinutes": 6
+        }
+      ]
+    },
+    "ehc": {
+      "name": {
+        "id": "tunnel.ehc"
+      },
+      "category": "harbour",
+      "color": "#ca8a04",
+      "trafficSource": "journey",
+      "lengthKm": 2.29,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.2905,
+          "lng": 114.2245
+        },
+        {
+          "lat": 22.3105,
+          "lng": 114.229
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "loc": "H11",
+          "dest": "EH",
+          "direction": "toKowloon",
+          "fromEntrance": 0,
+          "approachMinutes": 1
+        },
+        {
+          "loc": "K08",
+          "dest": "EH",
+          "direction": "toIsland",
+          "fromEntrance": 1,
+          "approachMinutes": 5
+        }
+      ]
+    },
+    "tai_lam": {
+      "name": {
+        "id": "tunnel.taiLam"
+      },
+      "category": "other",
+      "color": "#16a34a",
+      "trafficSource": "detector",
+      "lengthKm": 3.8,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.376,
+          "lng": 114.0685
+        },
+        {
+          "lat": 22.369,
+          "lng": 114.093
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "direction": "toYuenLong",
+          "fromEntrance": 1,
+          "detectors": ["AID03116"]
+        },
+        {
+          "direction": "toTingKau",
+          "fromEntrance": 0,
+          "detectors": ["AID03201"]
+        }
+      ]
+    },
+    "tates_cairn": {
+      "name": {
+        "id": "tunnel.tatesCairn"
+      },
+      "category": "other",
+      "color": "#7c3aed",
+      "trafficSource": "detector",
+      "lengthKm": 4.0,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.3565,
+          "lng": 114.2045
+        },
+        {
+          "lat": 22.34,
+          "lng": 114.21
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "direction": "toShaTin",
+          "fromEntrance": 1,
+          "detectors": ["AID02118"]
+        },
+        {
+          "direction": "toKowloon",
+          "fromEntrance": 0,
+          "detectors": ["AID02201"]
+        }
+      ]
+    },
+    "aberdeen": {
+      "name": {
+        "id": "tunnel.aberdeen"
+      },
+      "category": "other",
+      "color": "#2563eb",
+      "trafficSource": "detector",
+      "lengthKm": 1.9,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.257,
+          "lng": 114.178
+        },
+        {
+          "lat": 22.267,
+          "lng": 114.177
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "direction": "toWanChai",
+          "fromEntrance": 0,
+          "detectors": ["AID01217"]
+        },
+        {
+          "direction": "toAberdeen",
+          "fromEntrance": 1,
+          "detectors": ["AID01107"]
+        }
+      ]
+    },
+    "shing_mun": {
+      "name": {
+        "id": "tunnel.shingMun"
+      },
+      "category": "other",
+      "color": "#059669",
+      "trafficSource": "detector",
+      "lengthKm": 2.6,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.372,
+          "lng": 114.147
+        },
+        {
+          "lat": 22.376,
+          "lng": 114.128
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "direction": "toShaTin",
+          "fromEntrance": 1,
+          "detectors": ["AID09110", "AID09111"]
+        },
+        {
+          "direction": "toTsuenWan",
+          "fromEntrance": 0,
+          "detectors": ["TDS90014", "TDS90015"]
+        }
+      ]
+    },
+    "lion_rock": {
+      "name": {
+        "id": "tunnel.lionRock"
+      },
+      "category": "other",
+      "color": "#e11d48",
+      "trafficSource": "detector",
+      "lengthKm": 1.4,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.356,
+          "lng": 114.179
+        },
+        {
+          "lat": 22.3435,
+          "lng": 114.1815
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "direction": "toShaTin",
+          "fromEntrance": 1,
+          "detectors": ["AID01123", "AID01124"]
+        },
+        {
+          "direction": "toKowloon",
+          "fromEntrance": 0,
+          "detectors": ["AID01201", "TDS10013"]
+        }
+      ]
+    },
+    "eagles_nest": {
+      "name": {
+        "id": "tunnel.eaglesNest"
+      },
+      "category": "other",
+      "color": "#0d9488",
+      "trafficSource": "journey",
+      "lengthKm": 2.1,
+      "maxLegalSpeedKmh": 70,
+      "entrances": [
+        {
+          "lat": 22.348,
+          "lng": 114.142
+        },
+        {
+          "lat": 22.356,
+          "lng": 114.145
+        }
+      ],
+      "journeyRoutes": [
+        {
+          "loc": "N06",
+          "dest": "TSCA",
+          "direction": "toKowloon",
+          "fromEntrance": 1,
+          "approachMinutes": 5
+        }
+      ]
+    }
   },
   "notes": [
-    { "id": "note.0" },
-    { "id": "note.1" },
-    { "id": "note.2" },
-    { "id": "note.3" },
-    { "id": "note.4" },
-    { "id": "note.5" }
+    {
+      "id": "note.0"
+    },
+    {
+      "id": "note.1"
+    },
+    {
+      "id": "note.2"
+    },
+    {
+      "id": "note.3"
+    },
+    {
+      "id": "note.4"
+    },
+    {
+      "id": "note.5"
+    }
   ],
   "links": [
     {
