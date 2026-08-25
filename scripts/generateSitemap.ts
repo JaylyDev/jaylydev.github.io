@@ -13,7 +13,8 @@ interface PathRoute {
 }
 
 interface Route {
-  id: string;
+  id?: string;
+  noindex?: boolean;
   paths: PathRoute[];
 }
 
@@ -94,6 +95,7 @@ function generateLocalizedSitemap(): UrlEntry[] {
   const urls: UrlEntry[] = [];
 
   for (const route of routes) {
+    if (route.noindex) continue;
     // Create URL entries for each language version
     for (const pathConfig of route.paths) {
       const alternates = route.paths.map((p) => ({
