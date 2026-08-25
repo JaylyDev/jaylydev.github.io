@@ -12,14 +12,14 @@
   "dependencies": {
     "@heroui/react": "^2.7.8",
     "@jsdevtools/rehype-toc": "^3.0.2",
-    "@wooorm/starry-night": "^3.2.0",
-    "autoprefixer": "10.4.20",
+    "@wooorm/starry-night": "^3.10.0",
+    "autoprefixer": "10.4.21",
     "gray-matter": "^4.0.3",
     "hast-util-to-string": "^3.0.0",
     "highlight.js": "^11.10.0",
     "jszip": "^3.10.1",
     "nbtify": "^2.2.0",
-    "next": "^16.2.6",
+    "next": "^16.3.3",
     "next-themes": "^0.4.6",
     "prettier": "^3.8.4",
     "react": "^19.1.2",
@@ -32,20 +32,20 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
     "remark-rehype": "^11.1.0",
-    "sharp": "0.34.2",
+    "sharp": "^0.35.3",
     "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@types/jszip": "^3.4.0",
-    "@types/node": "22.13.16",
+    "@types/node": "24.6.1",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.2.6",
     "@types/uuid": "^9.0.8",
     "eslint": "9.30.0",
     "eslint-config-next": "^15.3.4",
-    "postcss": "8.5.10",
+    "postcss": "^8.5.26",
     "tailwindcss": "3.4.0",
-    "tsx": "^4.19.2",
-    "typescript": "5.1.6"
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.3"
   }
 }
