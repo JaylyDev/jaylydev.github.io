@@ -53,12 +53,12 @@
       "maxLegalSpeedKmh": 80,
       "entrances": [
         {
-          "lat": 22.2895,
-          "lng": 114.149
+          "lat": 22.2901,
+          "lng": 114.14213
         },
         {
-          "lat": 22.304,
-          "lng": 114.152
+          "lat": 22.30331,
+          "lng": 114.15872
         }
       ],
       "journeyRoutes": [
@@ -89,12 +89,12 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.296,
-          "lng": 114.1795
+          "lat": 22.28291,
+          "lng": 114.18211
         },
         {
-          "lat": 22.306,
-          "lng": 114.181
+          "lat": 22.30209,
+          "lng": 114.18049
         }
       ],
       "journeyRoutes": [
@@ -125,12 +125,12 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.2905,
-          "lng": 114.2245
+          "lat": 22.28824,
+          "lng": 114.2138
         },
         {
-          "lat": 22.3105,
-          "lng": 114.229
+          "lat": 22.30033,
+          "lng": 114.23283
         }
       ],
       "journeyRoutes": [
@@ -161,24 +161,28 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.376,
-          "lng": 114.0685
+          "lat": 22.41895,
+          "lng": 114.06389
         },
         {
-          "lat": 22.369,
-          "lng": 114.093
+          "lat": 22.37338,
+          "lng": 114.07028
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toYuenLong",
           "fromEntrance": 1,
-          "detectors": ["AID03116"]
+          "detectors": [
+            "AID03116"
+          ]
         },
         {
           "direction": "toTingKau",
           "fromEntrance": 0,
-          "detectors": ["AID03201"]
+          "detectors": [
+            "AID03201"
+          ]
         }
       ]
     },
@@ -193,24 +197,28 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.3565,
-          "lng": 114.2045
+          "lat": 22.37763,
+          "lng": 114.2118
         },
         {
-          "lat": 22.34,
-          "lng": 114.21
+          "lat": 22.34093,
+          "lng": 114.20382
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toShaTin",
           "fromEntrance": 1,
-          "detectors": ["AID02118"]
+          "detectors": [
+            "AID02118"
+          ]
         },
         {
           "direction": "toKowloon",
           "fromEntrance": 0,
-          "detectors": ["AID02201"]
+          "detectors": [
+            "AID02201"
+          ]
         }
       ]
     },
@@ -225,24 +233,28 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.257,
-          "lng": 114.178
+          "lat": 22.25163,
+          "lng": 114.17795
         },
         {
-          "lat": 22.267,
-          "lng": 114.177
+          "lat": 22.27136,
+          "lng": 114.18042
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toWanChai",
           "fromEntrance": 0,
-          "detectors": ["AID01217"]
+          "detectors": [
+            "AID01217"
+          ]
         },
         {
           "direction": "toAberdeen",
           "fromEntrance": 1,
-          "detectors": ["AID01107"]
+          "detectors": [
+            "AID01107"
+          ]
         }
       ]
     },
@@ -257,24 +269,30 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.372,
-          "lng": 114.147
+          "lat": 22.38083,
+          "lng": 114.16712
         },
         {
-          "lat": 22.376,
-          "lng": 114.128
+          "lat": 22.38143,
+          "lng": 114.13857
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toShaTin",
           "fromEntrance": 1,
-          "detectors": ["AID09110", "AID09111"]
+          "detectors": [
+            "AID09110",
+            "AID09111"
+          ]
         },
         {
           "direction": "toTsuenWan",
           "fromEntrance": 0,
-          "detectors": ["TDS90014", "TDS90015"]
+          "detectors": [
+            "TDS90014",
+            "TDS90015"
+          ]
         }
       ]
     },
@@ -289,24 +307,30 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.356,
-          "lng": 114.179
+          "lat": 22.35875,
+          "lng": 114.17438
         },
         {
-          "lat": 22.3435,
-          "lng": 114.1815
+          "lat": 22.34502,
+          "lng": 114.18147
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toShaTin",
           "fromEntrance": 1,
-          "detectors": ["AID01123", "AID01124"]
+          "detectors": [
+            "AID01123",
+            "AID01124"
+          ]
         },
         {
           "direction": "toKowloon",
           "fromEntrance": 0,
-          "detectors": ["AID01201", "TDS10013"]
+          "detectors": [
+            "AID01201",
+            "TDS10013"
+          ]
         }
       ]
     },
@@ -321,12 +345,12 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.348,
-          "lng": 114.142
+          "lat": 22.34437,
+          "lng": 114.14504
         },
         {
-          "lat": 22.356,
-          "lng": 114.145
+          "lat": 22.35936,
+          "lng": 114.16337
         }
       ],
       "journeyRoutes": [

@@ -53,7 +53,7 @@
       "maxLegalSpeedKmh": 80,
       "entrances": [
         {
-          "lat": 22.29010,
+          "lat": 22.2901,
           "lng": 114.14213
         },
         {
@@ -68,12 +68,45 @@
           "direction": "toKowloon",
           "fromEntrance": 0,
           "approachMinutes": 5,
-          "approachDetectors": ["AID04218", "AID04219", "AID04220", "AID04221"],
+          "approachDetectors": [
+            {
+              "id": "AID04220",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28889,114.14396&destination=22.29010,114.14213&travelmode=driving"
+            },
+            {
+              "id": "AID04219",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28842,114.14797&destination=22.29010,114.14213&travelmode=driving"
+            },
+            {
+              "id": "AID04218",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28753,114.15153&destination=22.29010,114.14213&travelmode=driving"
+            }
+          ],
           "indicators": [
-            { "loc": "H2", "dest": "WH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27160,114.18020&destination=22.29010,114.14213&travelmode=driving" },
-            { "loc": "H3", "dest": "WH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.29205,114.19390&destination=22.29010,114.14213&travelmode=driving" },
-            { "loc": "H4", "dest": "WH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27480,114.17950&destination=22.29010,114.14213&travelmode=driving" },
-            { "loc": "H5", "dest": "WH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28315,114.19120&destination=22.29010,114.14213&travelmode=driving" }
+            {
+              "loc": "H2",
+              "dest": "WH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27160,114.18020&destination=22.29010,114.14213&travelmode=driving"
+            },
+            {
+              "loc": "H3",
+              "dest": "WH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.29205,114.19390&destination=22.29010,114.14213&travelmode=driving"
+            },
+            {
+              "loc": "H4",
+              "dest": "WH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27480,114.17950&destination=22.29010,114.14213&travelmode=driving"
+            },
+            {
+              "loc": "H5",
+              "dest": "WH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28315,114.19120&destination=22.29010,114.14213&travelmode=driving"
+            }
           ]
         },
         {
@@ -82,14 +115,57 @@
           "direction": "toIsland",
           "fromEntrance": 1,
           "approachMinutes": 6,
-          "approachDetectors": ["AID03207", "AID03208", "AID03209", "AID03210", "AID03211"],
+          "approachDetectors": [
+            {
+              "id": "AID03208",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31896,114.15929&destination=22.30331,114.15872&travelmode=driving"
+            },
+            {
+              "id": "AID03207",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32131,114.15801&destination=22.30331,114.15872&travelmode=driving"
+            },
+            {
+              "id": "AID03209",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31688,114.16017&destination=22.30331,114.15872&travelmode=driving"
+            }
+          ],
           "indicators": [
-            { "loc": "K01", "dest": "WH", "approachMinutes": 4, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31505,114.16680&destination=22.30331,114.15872&travelmode=driving" },
-            { "loc": "K03", "dest": "WH", "approachMinutes": 7, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32420,114.17835&destination=22.30331,114.15872&travelmode=driving" },
-            { "loc": "K04", "dest": "WH", "approachMinutes": 6, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31330,114.17695&destination=22.30331,114.15872&travelmode=driving" },
-            { "loc": "K05", "dest": "WH", "approachMinutes": 6, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31990,114.20675&destination=22.30331,114.15872&travelmode=driving" },
-            { "loc": "K06", "dest": "WH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30920,114.18410&destination=22.30331,114.15872&travelmode=driving" },
-            { "loc": "K08", "dest": "WH", "approachMinutes": 6, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32515,114.20540&destination=22.30331,114.15872&travelmode=driving" }
+            {
+              "loc": "K01",
+              "dest": "WH",
+              "approachMinutes": 4,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31505,114.16680&destination=22.30331,114.15872&travelmode=driving"
+            },
+            {
+              "loc": "K03",
+              "dest": "WH",
+              "approachMinutes": 7,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32420,114.17835&destination=22.30331,114.15872&travelmode=driving"
+            },
+            {
+              "loc": "K04",
+              "dest": "WH",
+              "approachMinutes": 6,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31330,114.17695&destination=22.30331,114.15872&travelmode=driving"
+            },
+            {
+              "loc": "K05",
+              "dest": "WH",
+              "approachMinutes": 6,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31990,114.20675&destination=22.30331,114.15872&travelmode=driving"
+            },
+            {
+              "loc": "K06",
+              "dest": "WH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30920,114.18410&destination=22.30331,114.15872&travelmode=driving"
+            },
+            {
+              "loc": "K08",
+              "dest": "WH",
+              "approachMinutes": 6,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32515,114.20540&destination=22.30331,114.15872&travelmode=driving"
+            }
           ]
         }
       ]
@@ -120,14 +196,53 @@
           "direction": "toKowloon",
           "fromEntrance": 0,
           "approachMinutes": 2,
-          "approachDetectors": ["AID01109", "AID01110", "TDSIEC10001", "TDSIEC10002", "TDSIEC10003", "TDSIEC20001", "TDSIEC20002"],
+          "approachDetectors": [
+            {
+              "id": "AID01110",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27936,114.18122&destination=22.28291,114.18211&travelmode=driving"
+            },
+            {
+              "id": "AID01109",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27659,114.18108&destination=22.28291,114.18211&travelmode=driving"
+            }
+          ],
           "indicators": [
-            { "loc": "H1", "dest": "CH", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27930,114.17210&destination=22.28291,114.18211&travelmode=driving" },
-            { "loc": "H2", "dest": "CH", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27160,114.18020&destination=22.28291,114.18211&travelmode=driving" },
-            { "loc": "H3", "dest": "CH", "approachMinutes": 3, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.29205,114.19390&destination=22.28291,114.18211&travelmode=driving" },
-            { "loc": "H4", "dest": "CH", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27480,114.17950&destination=22.28291,114.18211&travelmode=driving" },
-            { "loc": "H5", "dest": "CH", "approachMinutes": 3, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28315,114.19120&destination=22.28291,114.18211&travelmode=driving" },
-            { "loc": "H11", "dest": "CH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28525,114.22135&destination=22.28291,114.18211&travelmode=driving" }
+            {
+              "loc": "H1",
+              "dest": "CH",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27930,114.17210&destination=22.28291,114.18211&travelmode=driving"
+            },
+            {
+              "loc": "H2",
+              "dest": "CH",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27160,114.18020&destination=22.28291,114.18211&travelmode=driving"
+            },
+            {
+              "loc": "H3",
+              "dest": "CH",
+              "approachMinutes": 3,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.29205,114.19390&destination=22.28291,114.18211&travelmode=driving"
+            },
+            {
+              "loc": "H4",
+              "dest": "CH",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27480,114.17950&destination=22.28291,114.18211&travelmode=driving"
+            },
+            {
+              "loc": "H5",
+              "dest": "CH",
+              "approachMinutes": 3,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28315,114.19120&destination=22.28291,114.18211&travelmode=driving"
+            },
+            {
+              "loc": "H11",
+              "dest": "CH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28525,114.22135&destination=22.28291,114.18211&travelmode=driving"
+            }
           ]
         },
         {
@@ -136,15 +251,63 @@
           "direction": "toIsland",
           "fromEntrance": 1,
           "approachMinutes": 2,
-          "approachDetectors": ["AID01208", "AID01209", "AID01210", "AID01211", "AID01212", "AID05225", "AID05226", "AID05109"],
+          "approachDetectors": [
+            {
+              "id": "AID01213",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30527,114.18147&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "id": "AID01212",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30946,114.17883&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "id": "AID01211",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31041,114.17823&destination=22.30209,114.18049&travelmode=driving"
+            }
+          ],
           "indicators": [
-            { "loc": "K01", "dest": "CH", "approachMinutes": 4, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31505,114.16680&destination=22.30209,114.18049&travelmode=driving" },
-            { "loc": "K02", "dest": "CH", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30590,114.17850&destination=22.30209,114.18049&travelmode=driving" },
-            { "loc": "K03", "dest": "CH", "approachMinutes": 3, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32420,114.17835&destination=22.30209,114.18049&travelmode=driving" },
-            { "loc": "K04", "dest": "CH", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31330,114.17695&destination=22.30209,114.18049&travelmode=driving" },
-            { "loc": "K05", "dest": "CH", "approachMinutes": 4, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31990,114.20675&destination=22.30209,114.18049&travelmode=driving" },
-            { "loc": "K06", "dest": "CH", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30920,114.18410&destination=22.30209,114.18049&travelmode=driving" },
-            { "loc": "K08", "dest": "CH", "approachMinutes": 4, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32515,114.20540&destination=22.30209,114.18049&travelmode=driving" }
+            {
+              "loc": "K01",
+              "dest": "CH",
+              "approachMinutes": 4,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31505,114.16680&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "loc": "K02",
+              "dest": "CH",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30590,114.17850&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "loc": "K03",
+              "dest": "CH",
+              "approachMinutes": 3,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32420,114.17835&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "loc": "K04",
+              "dest": "CH",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31330,114.17695&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "loc": "K05",
+              "dest": "CH",
+              "approachMinutes": 4,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.31990,114.20675&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "loc": "K06",
+              "dest": "CH",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30920,114.18410&destination=22.30209,114.18049&travelmode=driving"
+            },
+            {
+              "loc": "K08",
+              "dest": "CH",
+              "approachMinutes": 4,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32515,114.20540&destination=22.30209,114.18049&travelmode=driving"
+            }
           ]
         }
       ]
@@ -161,7 +324,7 @@
       "entrances": [
         {
           "lat": 22.28824,
-          "lng": 114.21380
+          "lng": 114.2138
         },
         {
           "lat": 22.30033,
@@ -175,13 +338,51 @@
           "direction": "toKowloon",
           "fromEntrance": 0,
           "approachMinutes": 1,
-          "approachDetectors": ["AID04109", "AID04110", "AID04111", "AID04222"],
+          "approachDetectors": [
+            {
+              "id": "AID04222",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28951,114.21401&destination=22.28824,114.21380&travelmode=driving"
+            },
+            {
+              "id": "AID04111",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28955,114.21596&destination=22.28824,114.21380&travelmode=driving"
+            },
+            {
+              "id": "AID04110",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.29117,114.21179&destination=22.28824,114.21380&travelmode=driving"
+            }
+          ],
           "indicators": [
-            { "loc": "H1", "dest": "EH", "approachMinutes": 4, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27930,114.17210&destination=22.28824,114.21380&travelmode=driving" },
-            { "loc": "H2", "dest": "EH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27160,114.18020&destination=22.28824,114.21380&travelmode=driving" },
-            { "loc": "H4", "dest": "EH", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27480,114.17950&destination=22.28824,114.21380&travelmode=driving" },
-            { "loc": "H5", "dest": "EH", "approachMinutes": 3, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28315,114.19120&destination=22.28824,114.21380&travelmode=driving" },
-            { "loc": "H11", "dest": "EH", "approachMinutes": 1, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28525,114.22135&destination=22.28824,114.21380&travelmode=driving" }
+            {
+              "loc": "H1",
+              "dest": "EH",
+              "approachMinutes": 4,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27930,114.17210&destination=22.28824,114.21380&travelmode=driving"
+            },
+            {
+              "loc": "H2",
+              "dest": "EH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27160,114.18020&destination=22.28824,114.21380&travelmode=driving"
+            },
+            {
+              "loc": "H4",
+              "dest": "EH",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27480,114.17950&destination=22.28824,114.21380&travelmode=driving"
+            },
+            {
+              "loc": "H5",
+              "dest": "EH",
+              "approachMinutes": 3,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28315,114.19120&destination=22.28824,114.21380&travelmode=driving"
+            },
+            {
+              "loc": "H11",
+              "dest": "EH",
+              "approachMinutes": 1,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.28525,114.22135&destination=22.28824,114.21380&travelmode=driving"
+            }
           ]
         },
         {
@@ -190,14 +391,53 @@
           "direction": "toIsland",
           "fromEntrance": 1,
           "approachMinutes": 5,
-          "approachDetectors": ["AID02211", "AID02212", "AID02213", "AID02214", "AID02215"],
+          "approachDetectors": [
+            {
+              "id": "AID02104",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30695,114.23311&destination=22.30033,114.23283&travelmode=driving"
+            },
+            {
+              "id": "AID02215",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30828,114.23212&destination=22.30033,114.23283&travelmode=driving"
+            }
+          ],
           "indicators": [
-            { "loc": "K02", "dest": "EH", "approachMinutes": 7, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30590,114.17850&destination=22.30033,114.23283&travelmode=driving" },
-            { "loc": "K03", "dest": "EH", "approachMinutes": 10, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32420,114.17835&destination=22.30033,114.23283&travelmode=driving" },
-            { "loc": "K08", "dest": "EH", "approachMinutes": 4, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32515,114.20540&destination=22.30033,114.23283&travelmode=driving" },
-            { "loc": "N11", "dest": "EH", "approachMinutes": 6, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30600,114.25300&destination=22.30033,114.23283&travelmode=driving" },
-            { "loc": "N12", "dest": "EH", "approachMinutes": 6, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30700,114.25200&destination=22.30033,114.23283&travelmode=driving" },
-            { "loc": "N13", "dest": "EH", "approachMinutes": 7, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30500,114.25100&destination=22.30033,114.23283&travelmode=driving" }
+            {
+              "loc": "K02",
+              "dest": "EH",
+              "approachMinutes": 7,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30590,114.17850&destination=22.30033,114.23283&travelmode=driving"
+            },
+            {
+              "loc": "K03",
+              "dest": "EH",
+              "approachMinutes": 10,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32420,114.17835&destination=22.30033,114.23283&travelmode=driving"
+            },
+            {
+              "loc": "K08",
+              "dest": "EH",
+              "approachMinutes": 4,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.32515,114.20540&destination=22.30033,114.23283&travelmode=driving"
+            },
+            {
+              "loc": "N11",
+              "dest": "EH",
+              "approachMinutes": 6,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30600,114.25300&destination=22.30033,114.23283&travelmode=driving"
+            },
+            {
+              "loc": "N12",
+              "dest": "EH",
+              "approachMinutes": 6,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30700,114.25200&destination=22.30033,114.23283&travelmode=driving"
+            },
+            {
+              "loc": "N13",
+              "dest": "EH",
+              "approachMinutes": 7,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.30500,114.25100&destination=22.30033,114.23283&travelmode=driving"
+            }
           ]
         }
       ]
@@ -208,24 +448,32 @@
       },
       "category": "other",
       "color": "#16a34a",
-      "trafficSource": "detector",
+      "trafficSource": "journey",
       "lengthKm": 3.8,
       "entrances": [
         {
-          "lat": 22.37600,
-          "lng": 114.06850
+          "lat": 22.41895,
+          "lng": 114.06389
         },
         {
-          "lat": 22.36900,
-          "lng": 114.09300
+          "lat": 22.37338,
+          "lng": 114.07028
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toYuenLong",
           "fromEntrance": 1,
-          "detectors": ["AID03116"],
-          "approachDetectors": ["AID03115"],
+          "detectors": [
+            {
+              "id": "AID03116",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.37145,114.07362&destination=22.37338,114.07028&travelmode=driving"
+            },
+            {
+              "id": "AID03115",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.36921,114.07684&destination=22.37338,114.07028&travelmode=driving"
+            }
+          ],
           "speedLimitKmh": 100,
           "approachSpeedLimitKmh": 100
         },
@@ -236,12 +484,23 @@
           "fromEntrance": 0,
           "approachMinutes": 5,
           "indicators": [
-            { "loc": "SJ4", "dest": "TKTL", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.46430,114.05300&destination=22.41893,114.06401&travelmode=driving" },
-            { "loc": "N02", "dest": "ATL", "approachMinutes": 22, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.44062,114.01618&destination=22.41893,114.06401&travelmode=driving" },
-            { "loc": "N01", "dest": "ATL", "approachMinutes": 21, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.43548,114.00081&destination=22.41893,114.06401&travelmode=driving" }
+            {
+              "loc": "SJ4",
+              "dest": "TKTL",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.46430,114.05300&destination=22.41895,114.06389&travelmode=driving"
+            }
           ],
-          "detectors": ["AID03201"],
-          "approachDetectors": ["TDS30007", "TDS30006", "TDS30003", "TDS30001"],
+          "detectors": [
+            {
+              "id": "TDS30002",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.42323,114.06431&destination=22.41895,114.06389&travelmode=driving"
+            },
+            {
+              "id": "TDS30003",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.42816,114.064&destination=22.41895,114.06389&travelmode=driving"
+            }
+          ],
           "speedLimitKmh": 80,
           "approachSpeedLimitKmh": 80
         }
@@ -258,24 +517,42 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.3565,
-          "lng": 114.2045
+          "lat": 22.37763,
+          "lng": 114.2118
         },
         {
-          "lat": 22.34,
-          "lng": 114.21
+          "lat": 22.34093,
+          "lng": 114.20382
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toShaTin",
           "fromEntrance": 1,
-          "detectors": ["AID02118"]
+          "detectors": [
+            {
+              "id": "AID02117",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.33843,114.20343&destination=22.34093,114.20382&travelmode=driving"
+            },
+            {
+              "id": "AID02116",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.33323,114.20516&destination=22.34093,114.20382&travelmode=driving"
+            }
+          ]
         },
         {
           "direction": "toKowloon",
           "fromEntrance": 0,
-          "detectors": ["AID02201"]
+          "detectors": [
+            {
+              "id": "TDS20001",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.38099,114.21021&destination=22.37763,114.21180&travelmode=driving"
+            },
+            {
+              "id": "TDS20002",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.38406,114.21064&destination=22.37763,114.21180&travelmode=driving"
+            }
+          ]
         }
       ]
     },
@@ -294,8 +571,8 @@
           "lng": 114.17795
         },
         {
-          "lat": 22.26700,
-          "lng": 114.17700
+          "lat": 22.27136,
+          "lng": 114.18042
         }
       ],
       "journeyRoutes": [
@@ -306,16 +583,65 @@
           "fromEntrance": 0,
           "approachMinutes": 2,
           "indicators": [
-            { "loc": "H6", "dest": "ABT", "approachMinutes": 6, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24750,114.19080&destination=22.25163,114.17795&travelmode=driving" },
-            { "loc": "H7", "dest": "ABT", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24900,114.17550&destination=22.25163,114.17795&travelmode=driving" },
-            { "loc": "H8", "dest": "ABT", "approachMinutes": 2, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24920,114.16200&destination=22.25163,114.17795&travelmode=driving" },
-            { "loc": "H9", "dest": "ABT", "approachMinutes": 5, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24750,114.15950&destination=22.25163,114.17795&travelmode=driving" }
+            {
+              "loc": "H6",
+              "dest": "ABT",
+              "approachMinutes": 6,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24750,114.19080&destination=22.25163,114.17795&travelmode=driving"
+            },
+            {
+              "loc": "H7",
+              "dest": "ABT",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24900,114.17550&destination=22.25163,114.17795&travelmode=driving"
+            },
+            {
+              "loc": "H8",
+              "dest": "ABT",
+              "approachMinutes": 2,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24920,114.16200&destination=22.25163,114.17795&travelmode=driving"
+            },
+            {
+              "loc": "H9",
+              "dest": "ABT",
+              "approachMinutes": 5,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24750,114.15950&destination=22.25163,114.17795&travelmode=driving"
+            }
+          ],
+          "approachDetectors": [
+            {
+              "id": "AID01218",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.25005,114.17371&destination=22.25163,114.17795&travelmode=driving"
+            },
+            {
+              "id": "AID01106",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.25044,114.17188&destination=22.25163,114.17795&travelmode=driving"
+            }
+          ],
+          "detectors": [
+            {
+              "id": "AID01217",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.2506,114.17757&destination=22.25163,114.17795&travelmode=driving"
+            },
+            {
+              "id": "AID01107",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.24999,114.17629&destination=22.25163,114.17795&travelmode=driving"
+            }
           ]
         },
         {
           "direction": "toAberdeen",
           "fromEntrance": 1,
-          "detectors": ["AID01107"]
+          "detectors": [
+            {
+              "id": "AID01216",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27332,114.1796&destination=22.27136,114.18042&travelmode=driving"
+            },
+            {
+              "id": "AID01215",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.27822,114.18122&destination=22.27136,114.18042&travelmode=driving"
+            }
+          ]
         }
       ]
     },
@@ -330,24 +656,42 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.372,
-          "lng": 114.147
+          "lat": 22.38083,
+          "lng": 114.16712
         },
         {
-          "lat": 22.376,
-          "lng": 114.128
+          "lat": 22.38143,
+          "lng": 114.13857
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toShaTin",
           "fromEntrance": 1,
-          "detectors": ["AID09110", "AID09111"]
+          "detectors": [
+            {
+              "id": "AID09109",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.38165,114.13585&destination=22.38143,114.13857&travelmode=driving"
+            },
+            {
+              "id": "AID09108",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.37998,114.1321&destination=22.38143,114.13857&travelmode=driving"
+            }
+          ]
         },
         {
           "direction": "toTsuenWan",
           "fromEntrance": 0,
-          "detectors": ["TDS90014", "TDS90015"]
+          "detectors": [
+            {
+              "id": "TDS90015",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.3814,114.16927&destination=22.38083,114.16712&travelmode=driving"
+            },
+            {
+              "id": "TDS90014",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.38259,114.17278&destination=22.38083,114.16712&travelmode=driving"
+            }
+          ]
         }
       ]
     },
@@ -362,24 +706,42 @@
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
-          "lat": 22.356,
-          "lng": 114.179
+          "lat": 22.35875,
+          "lng": 114.17438
         },
         {
-          "lat": 22.3435,
-          "lng": 114.1815
+          "lat": 22.34502,
+          "lng": 114.18147
         }
       ],
       "journeyRoutes": [
         {
           "direction": "toShaTin",
           "fromEntrance": 1,
-          "detectors": ["AID01123", "AID01124"]
+          "detectors": [
+            {
+              "id": "AID01122",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.34191,114.17893&destination=22.34502,114.18147&travelmode=driving"
+            },
+            {
+              "id": "AID07212",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.34402,114.18277&destination=22.34502,114.18147&travelmode=driving"
+            }
+          ]
         },
         {
           "direction": "toKowloon",
           "fromEntrance": 0,
-          "detectors": ["AID01201"]
+          "detectors": [
+            {
+              "id": "TDS10012",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.36287,114.17963&destination=22.35875,114.17438&travelmode=driving"
+            },
+            {
+              "id": "TDS10013",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.36025,114.1764&destination=22.35875,114.17438&travelmode=driving"
+            }
+          ]
         }
       ]
     },
@@ -394,8 +756,8 @@
       "maxLegalSpeedKmh": 80,
       "entrances": [
         {
-          "lat": 22.34800,
-          "lng": 114.14200
+          "lat": 22.34437,
+          "lng": 114.14504
         },
         {
           "lat": 22.35936,
@@ -410,13 +772,31 @@
           "fromEntrance": 1,
           "approachMinutes": 3,
           "indicators": [
-            { "loc": "N06", "dest": "TSCA", "approachMinutes": 3, "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.37690,114.17800&destination=22.35936,114.16337&travelmode=driving" }
+            {
+              "loc": "N06",
+              "dest": "TSCA",
+              "approachMinutes": 3,
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.37690,114.17800&destination=22.35936,114.16337&travelmode=driving"
+            }
           ]
         },
         {
           "direction": "toShaTin",
           "fromEntrance": 0,
-          "approachDetectors": ["AID03114"],
+          "approachDetectors": [
+            {
+              "id": "AID03114",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.33166,114.14277&destination=22.34437,114.14504&travelmode=driving"
+            },
+            {
+              "id": "AID05121",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.33557,114.14854&destination=22.34437,114.14504&travelmode=driving"
+            },
+            {
+              "id": "AID05123",
+              "mapUrl": "https://www.google.com/maps/dir/?api=1&origin=22.33708,114.14002&destination=22.34437,114.14504&travelmode=driving"
+            }
+          ],
           "approachSpeedLimitKmh": 80
         }
       ]

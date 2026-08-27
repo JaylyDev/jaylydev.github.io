@@ -18,6 +18,11 @@ type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
 
 type TrafficSource = "journey" | "detector";
 
+interface DetectorEntry {
+  id: string;
+  mapUrl?: string;
+}
+
 interface JTIIndicator {
   loc: string;
   dest: string;
@@ -30,9 +35,9 @@ interface DirectionRoute {
   fromEntrance: number;
   loc?: string;
   dest?: string;
-  detectors?: string[];
+  detectors?: (string | DetectorEntry)[];
   approachMinutes?: number;
-  approachDetectors?: string[];
+  approachDetectors?: (string | DetectorEntry)[];
   speedLimitKmh?: number;
   approachSpeedLimitKmh?: number;
   indicators?: JTIIndicator[];
@@ -66,6 +71,13 @@ enum TrafficStatus {
   Closed,
 }
 
+interface DebugDetectorInfo {
+  id: string;
+  speedKmh: number | null;
+  isApproach?: boolean;
+  mapUrl?: string;
+}
+
 interface DebugIndicatorInfo {
   loc: string;
   dest: string;
@@ -82,6 +94,7 @@ interface JourneyReading {
   speedKmh?: number | null;
   speedLimitKmh?: number | null;
   debugIndicators?: DebugIndicatorInfo[];
+  debugDetectors?: DebugDetectorInfo[];
   debugMedianMinutes?: number | null;
 }
 
@@ -336,22 +349,37 @@ function parseDetectorSpeeds(xml: string): Record<string, number> {
 
 // ─── Traffic status logic ─────────────────────────────────────────────────────
 
-function speedCongestionStatus(tunnel: TunnelInfo, minutes: number): TrafficStatus {
-  if (tunnel.lengthKm == null || tunnel.maxLegalSpeedKmh == null || !(minutes > 0)) return TrafficStatus.Unknown;
+function speedCongestionStatus(
+  tunnel: TunnelInfo,
+  minutes: number,
+  speedLimitKmh: number = 70,
+): TrafficStatus {
+  if (tunnel.lengthKm == null || !(minutes > 0)) return TrafficStatus.Unknown;
+  const effectiveLimit = speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
   const avgSpeedKmh = (tunnel.lengthKm / (minutes * 60)) * 3600;
-  if (avgSpeedKmh < tunnel.maxLegalSpeedKmh * 0.15) return TrafficStatus.Congested;
-  if (avgSpeedKmh < tunnel.maxLegalSpeedKmh * 0.3) return TrafficStatus.Slow;
+  if (avgSpeedKmh < effectiveLimit * 0.15) return TrafficStatus.Congested;
+  if (avgSpeedKmh < effectiveLimit * 0.4) return TrafficStatus.Slow;
   return TrafficStatus.Unknown;
 }
 
-function withSpeedCongestion(tunnel: TunnelInfo, reading: JourneyReading): JourneyReading {
+function withSpeedCongestion(
+  tunnel: TunnelInfo,
+  reading: JourneyReading,
+  speedLimitKmh: number = 70,
+): JourneyReading {
   if (reading.minutes === null) return reading;
-  const ourStatus = speedCongestionStatus(tunnel, reading.minutes);
+  const effectiveLimit = reading.speedLimitKmh || speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
+  const ourStatus = speedCongestionStatus(tunnel, reading.minutes, effectiveLimit);
   return { ...reading, status: Math.max(reading.status, ourStatus) as TrafficStatus };
 }
 
+function normalizeDetector(d: string | DetectorEntry): DetectorEntry {
+  if (typeof d === "string") return { id: d };
+  return d;
+}
+
 function calculateApproachStatus(
-  detectors: string[],
+  detectors: (string | DetectorEntry)[],
   detectorSpeeds: Record<string, number>,
   speedLimitKmh: number = 70,
 ): { status: TrafficStatus; averageSpeed: number | null } {
@@ -362,7 +390,8 @@ function calculateApproachStatus(
   let totalSpeed = 0;
   const smoothThreshold = speedLimitKmh * 0.75;
   const slowThreshold = speedLimitKmh * 0.4;
-  for (const id of detectors) {
+  for (const d of detectors) {
+    const id = typeof d === "string" ? d : d.id;
     const speed = detectorSpeeds[id];
     if (typeof speed === "number" && speed > 0) {
       validCount++;
@@ -406,6 +435,22 @@ function readingForRoute(
   const routeLimit = route.speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
   const approachLimit = route.approachSpeedLimitKmh || routeLimit;
 
+  const debugDetectors: DebugDetectorInfo[] = [];
+  if (route.detectors && route.detectors.length > 0) {
+    for (const d of route.detectors) {
+      const det = normalizeDetector(d);
+      const spd = detectorSpeeds && typeof detectorSpeeds[det.id] === "number" ? Math.round(detectorSpeeds[det.id]) : null;
+      debugDetectors.push({ id: det.id, speedKmh: spd, isApproach: false, mapUrl: det.mapUrl });
+    }
+  }
+  if (route.approachDetectors && route.approachDetectors.length > 0) {
+    for (const d of route.approachDetectors) {
+      const det = normalizeDetector(d);
+      const spd = detectorSpeeds && typeof detectorSpeeds[det.id] === "number" ? Math.round(detectorSpeeds[det.id]) : null;
+      debugDetectors.push({ id: det.id, speedKmh: spd, isApproach: true, mapUrl: det.mapUrl });
+    }
+  }
+
   if (route.approachDetectors && route.approachDetectors.length > 0 && detectorSpeeds) {
     const result = calculateApproachStatus(route.approachDetectors, detectorSpeeds, approachLimit);
     approachStatus = result.status;
@@ -415,7 +460,10 @@ function readingForRoute(
   if (tunnel.trafficSource === "detector") {
     if (!detectorSpeeds || !route.detectors || tunnel.lengthKm == null) return null;
     const speeds = route.detectors
-      .map((id) => detectorSpeeds[id])
+      .map((d) => {
+        const id = typeof d === "string" ? d : d.id;
+        return detectorSpeeds[id];
+      })
       .filter((speed): speed is number => typeof speed === "number" && speed > 0);
     if (speeds.length === 0) return null;
     const meanSpeed = speeds.reduce((sum, s) => sum + s, 0) / speeds.length;
@@ -431,12 +479,17 @@ function readingForRoute(
           : TrafficStatus.Congested;
     const combinedStatus = Math.max(status, approachStatus) as TrafficStatus;
     const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, minutes) as number;
-    return withSpeedCongestion(tunnel, {
-      status: combinedStatus,
-      minutes: finalMinutes,
-      speedKmh: Math.round(meanSpeed),
-      speedLimitKmh: routeLimit,
-    });
+    return withSpeedCongestion(
+      tunnel,
+      {
+        status: combinedStatus,
+        minutes: finalMinutes,
+        speedKmh: Math.round(meanSpeed),
+        speedLimitKmh: routeLimit,
+        debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
+      },
+      routeLimit,
+    );
   }
 
   const floorMinutes =
@@ -452,7 +505,10 @@ function readingForRoute(
   if (candidateIndicators.length === 0 || !journeyReadings) {
     if (route.detectors && route.detectors.length > 0 && detectorSpeeds && tunnel.lengthKm != null) {
       const speeds = route.detectors
-        .map((id) => detectorSpeeds[id])
+        .map((d) => {
+          const id = typeof d === "string" ? d : d.id;
+          return detectorSpeeds[id];
+        })
         .filter((speed): speed is number => typeof speed === "number" && speed > 0);
       if (speeds.length > 0) {
         const meanSpeed = speeds.reduce((sum, s) => sum + s, 0) / speeds.length;
@@ -468,21 +524,31 @@ function readingForRoute(
               : TrafficStatus.Congested;
         const combinedStatus = Math.max(status, approachStatus) as TrafficStatus;
         const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, minutes) as number;
-        return withSpeedCongestion(tunnel, {
-          status: combinedStatus,
-          minutes: finalMinutes,
-          speedKmh: Math.round(meanSpeed),
-          speedLimitKmh: routeLimit,
-        });
+        return withSpeedCongestion(
+          tunnel,
+          {
+            status: combinedStatus,
+            minutes: finalMinutes,
+            speedKmh: Math.round(meanSpeed),
+            speedLimitKmh: routeLimit,
+            debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
+          },
+          routeLimit,
+        );
       }
     }
     if (route.approachDetectors && route.approachDetectors.length > 0 && detectorSpeeds) {
-      return withSpeedCongestion(tunnel, {
-        status: approachStatus,
-        minutes: adjustMinutesForStatus(tunnel, approachStatus, floorMinutes),
-        speedKmh: approachSpeed != null ? Math.round(approachSpeed) : null,
-        speedLimitKmh: routeLimit,
-      });
+      return withSpeedCongestion(
+        tunnel,
+        {
+          status: approachStatus,
+          minutes: adjustMinutesForStatus(tunnel, approachStatus, floorMinutes),
+          speedKmh: approachSpeed != null ? Math.round(approachSpeed) : null,
+          speedLimitKmh: routeLimit,
+          debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
+        },
+        routeLimit,
+      );
     }
     return null;
   }
@@ -519,13 +585,18 @@ function readingForRoute(
 
   if (validItems.length === 0) {
     if (route.approachDetectors && route.approachDetectors.length > 0 && detectorSpeeds) {
-      return withSpeedCongestion(tunnel, {
-        status: approachStatus,
-        minutes: adjustMinutesForStatus(tunnel, approachStatus, floorMinutes),
-        speedKmh: approachSpeed != null ? Math.round(approachSpeed) : null,
-        speedLimitKmh: routeLimit,
-        debugIndicators,
-      });
+      return withSpeedCongestion(
+        tunnel,
+        {
+          status: approachStatus,
+          minutes: adjustMinutesForStatus(tunnel, approachStatus, floorMinutes),
+          speedKmh: approachSpeed != null ? Math.round(approachSpeed) : null,
+          speedLimitKmh: routeLimit,
+          debugIndicators,
+          debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
+        },
+        routeLimit,
+      );
     }
     return null;
   }
@@ -546,20 +617,27 @@ function readingForRoute(
     medianStatus = Math.max(mid1.status, mid2.status) as TrafficStatus;
   }
 
-  const finalMinutes = adjustMinutesForStatus(tunnel, medianStatus, medianMinutes);
+  const speedStatus = speedCongestionStatus(tunnel, medianMinutes, routeLimit);
+  const effectiveStatus = Math.max(medianStatus, speedStatus) as TrafficStatus;
+  const finalMinutes = adjustMinutesForStatus(tunnel, effectiveStatus, medianMinutes);
   let finalSpeedKmh = approachSpeed;
   if (finalSpeedKmh == null && finalMinutes != null && finalMinutes > 0 && tunnel.lengthKm != null) {
     finalSpeedKmh = Math.round((tunnel.lengthKm / finalMinutes) * 60);
   }
 
-  return withSpeedCongestion(tunnel, {
-    status: medianStatus,
-    minutes: finalMinutes,
-    speedKmh: finalSpeedKmh != null ? Math.round(finalSpeedKmh) : null,
-    speedLimitKmh: routeLimit,
-    debugIndicators,
-    debugMedianMinutes: medianMinutes,
-  });
+  return withSpeedCongestion(
+    tunnel,
+    {
+      status: effectiveStatus,
+      minutes: finalMinutes,
+      speedKmh: finalSpeedKmh != null ? Math.round(finalSpeedKmh) : null,
+      speedLimitKmh: routeLimit,
+      debugIndicators,
+      debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
+      debugMedianMinutes: medianMinutes,
+    },
+    routeLimit,
+  );
 }
 
 const TRAFFIC_COLORS: Record<TrafficStatus, BadgeColors> = {
@@ -697,10 +775,11 @@ function TrafficRows({
                 )}
               </div>
             </div>
-            {reading.debugIndicators && reading.debugIndicators.length > 0 && (
+            {((reading.debugIndicators && reading.debugIndicators.length > 0) ||
+              (reading.debugDetectors && reading.debugDetectors.length > 0)) && (
               <div className="text-xs font-mono text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-900/80 px-2 py-1.5 rounded border border-gray-200 dark:border-gray-800 flex flex-wrap items-center gap-1.5 leading-relaxed">
                 <span className="font-bold text-gray-700 dark:text-gray-300">Debug:</span>
-                {reading.debugIndicators.map((dbg) => (
+                {reading.debugIndicators?.map((dbg) => (
                   <span key={`${dbg.loc}-${dbg.dest}`} className="inline-flex items-center">
                     [
                     {dbg.mapUrl ? (
@@ -725,6 +804,25 @@ function TrafficRows({
                     → Median: {reading.debugMedianMinutes}m
                   </span>
                 )}
+                {reading.debugDetectors?.map((det) => (
+                  <span key={det.id} className="inline-flex items-center">
+                    [{det.isApproach ? "appr:" : ""}
+                    {det.mapUrl ? (
+                      <a
+                        href={det.mapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 dark:text-blue-400 font-semibold underline hover:text-blue-800 dark:hover:text-blue-300"
+                        title={`Google Maps route from ${det.id} to tunnel entrance`}
+                      >
+                        {det.id}
+                      </a>
+                    ) : (
+                      <span className="font-semibold">{det.id}</span>
+                    )}
+                    : {det.speedKmh != null ? `${det.speedKmh}km/h` : "N/A"}]
+                  </span>
+                ))}
               </div>
             )}
           </div>
