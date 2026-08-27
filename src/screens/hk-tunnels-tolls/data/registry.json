@@ -49,7 +49,7 @@
       "category": "harbour",
       "color": "#0891b2",
       "trafficSource": "journey",
-      "lengthKm": 2.0,
+      "lengthKm": 2,
       "maxLegalSpeedKmh": 80,
       "entrances": [
         {
@@ -67,14 +67,90 @@
           "dest": "WH",
           "direction": "toKowloon",
           "fromEntrance": 0,
-          "approachMinutes": 6
+          "approachMinutes": 5,
+          "approachDetectors": [
+            {
+              "id": "AID04220"
+            },
+            {
+              "id": "AID04219"
+            },
+            {
+              "id": "AID04218"
+            }
+          ],
+          "indicators": [
+            {
+              "loc": "H2",
+              "dest": "WH",
+              "approachMinutes": 5
+            },
+            {
+              "loc": "H3",
+              "dest": "WH",
+              "approachMinutes": 5
+            },
+            {
+              "loc": "H4",
+              "dest": "WH",
+              "approachMinutes": 5
+            },
+            {
+              "loc": "H5",
+              "dest": "WH",
+              "approachMinutes": 5
+            }
+          ]
         },
         {
           "loc": "K01",
           "dest": "WH",
           "direction": "toIsland",
           "fromEntrance": 1,
-          "approachMinutes": 6
+          "approachMinutes": 6,
+          "approachDetectors": [
+            {
+              "id": "AID03208"
+            },
+            {
+              "id": "AID03207"
+            },
+            {
+              "id": "AID03209"
+            }
+          ],
+          "indicators": [
+            {
+              "loc": "K01",
+              "dest": "WH",
+              "approachMinutes": 4
+            },
+            {
+              "loc": "K03",
+              "dest": "WH",
+              "approachMinutes": 7
+            },
+            {
+              "loc": "K04",
+              "dest": "WH",
+              "approachMinutes": 6
+            },
+            {
+              "loc": "K05",
+              "dest": "WH",
+              "approachMinutes": 6
+            },
+            {
+              "loc": "K06",
+              "dest": "WH",
+              "approachMinutes": 5
+            },
+            {
+              "loc": "K08",
+              "dest": "WH",
+              "approachMinutes": 6
+            }
+          ]
         }
       ]
     },
@@ -103,14 +179,102 @@
           "dest": "CH",
           "direction": "toKowloon",
           "fromEntrance": 0,
-          "approachMinutes": 4
+          "approachMinutes": 2,
+          "approachDetectors": [
+            {
+              "id": "AID01110"
+            },
+            {
+              "id": "AID01109"
+            }
+          ],
+          "indicators": [
+            {
+              "loc": "H1",
+              "dest": "CH",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "H2",
+              "dest": "CH",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "H3",
+              "dest": "CH",
+              "approachMinutes": 3
+            },
+            {
+              "loc": "H4",
+              "dest": "CH",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "H5",
+              "dest": "CH",
+              "approachMinutes": 3
+            },
+            {
+              "loc": "H11",
+              "dest": "CH",
+              "approachMinutes": 5
+            }
+          ]
         },
         {
           "loc": "K06",
           "dest": "CH",
           "direction": "toIsland",
           "fromEntrance": 1,
-          "approachMinutes": 3
+          "approachMinutes": 2,
+          "approachDetectors": [
+            {
+              "id": "AID01213"
+            },
+            {
+              "id": "AID01212"
+            },
+            {
+              "id": "AID01211"
+            }
+          ],
+          "indicators": [
+            {
+              "loc": "K01",
+              "dest": "CH",
+              "approachMinutes": 4
+            },
+            {
+              "loc": "K02",
+              "dest": "CH",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "K03",
+              "dest": "CH",
+              "approachMinutes": 3
+            },
+            {
+              "loc": "K04",
+              "dest": "CH",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "K05",
+              "dest": "CH",
+              "approachMinutes": 4
+            },
+            {
+              "loc": "K06",
+              "dest": "CH",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "K08",
+              "dest": "CH",
+              "approachMinutes": 4
+            }
+          ]
         }
       ]
     },
@@ -139,14 +303,92 @@
           "dest": "EH",
           "direction": "toKowloon",
           "fromEntrance": 0,
-          "approachMinutes": 1
+          "approachMinutes": 1,
+          "approachDetectors": [
+            {
+              "id": "AID04222"
+            },
+            {
+              "id": "AID04111"
+            },
+            {
+              "id": "AID04110"
+            }
+          ],
+          "indicators": [
+            {
+              "loc": "H1",
+              "dest": "EH",
+              "approachMinutes": 4
+            },
+            {
+              "loc": "H2",
+              "dest": "EH",
+              "approachMinutes": 5
+            },
+            {
+              "loc": "H4",
+              "dest": "EH",
+              "approachMinutes": 5
+            },
+            {
+              "loc": "H5",
+              "dest": "EH",
+              "approachMinutes": 3
+            },
+            {
+              "loc": "H11",
+              "dest": "EH",
+              "approachMinutes": 1
+            }
+          ]
         },
         {
           "loc": "K08",
           "dest": "EH",
           "direction": "toIsland",
           "fromEntrance": 1,
-          "approachMinutes": 5
+          "approachMinutes": 5,
+          "approachDetectors": [
+            {
+              "id": "AID02104"
+            },
+            {
+              "id": "AID02215"
+            }
+          ],
+          "indicators": [
+            {
+              "loc": "K02",
+              "dest": "EH",
+              "approachMinutes": 7
+            },
+            {
+              "loc": "K03",
+              "dest": "EH",
+              "approachMinutes": 10
+            },
+            {
+              "loc": "K08",
+              "dest": "EH",
+              "approachMinutes": 4
+            },
+            {
+              "loc": "N11",
+              "dest": "EH",
+              "approachMinutes": 6
+            },
+            {
+              "loc": "N12",
+              "dest": "EH",
+              "approachMinutes": 6
+            },
+            {
+              "loc": "N13",
+              "dest": "EH",
+              "approachMinutes": 7
+            }
+          ]
         }
       ]
     },
@@ -156,9 +398,8 @@
       },
       "category": "other",
       "color": "#16a34a",
-      "trafficSource": "detector",
+      "trafficSource": "journey",
       "lengthKm": 3.8,
-      "maxLegalSpeedKmh": 70,
       "entrances": [
         {
           "lat": 22.41895,
@@ -174,15 +415,39 @@
           "direction": "toYuenLong",
           "fromEntrance": 1,
           "detectors": [
-            "AID03116"
-          ]
+            {
+              "id": "AID03116"
+            },
+            {
+              "id": "AID03115"
+            }
+          ],
+          "speedLimitKmh": 100,
+          "approachSpeedLimitKmh": 100
         },
         {
+          "loc": "SJ4",
+          "dest": "TKTL",
           "direction": "toTingKau",
           "fromEntrance": 0,
+          "approachMinutes": 5,
+          "indicators": [
+            {
+              "loc": "SJ4",
+              "dest": "TKTL",
+              "approachMinutes": 5
+            }
+          ],
           "detectors": [
-            "AID03201"
-          ]
+            {
+              "id": "TDS30002"
+            },
+            {
+              "id": "TDS30003"
+            }
+          ],
+          "speedLimitKmh": 80,
+          "approachSpeedLimitKmh": 80
         }
       ]
     },
@@ -193,7 +458,7 @@
       "category": "other",
       "color": "#7c3aed",
       "trafficSource": "detector",
-      "lengthKm": 4.0,
+      "lengthKm": 4,
       "maxLegalSpeedKmh": 70,
       "entrances": [
         {
@@ -210,14 +475,24 @@
           "direction": "toShaTin",
           "fromEntrance": 1,
           "detectors": [
-            "AID02118"
+            {
+              "id": "AID02117"
+            },
+            {
+              "id": "AID02116"
+            }
           ]
         },
         {
           "direction": "toKowloon",
           "fromEntrance": 0,
           "detectors": [
-            "AID02201"
+            {
+              "id": "TDS20001"
+            },
+            {
+              "id": "TDS20002"
+            }
           ]
         }
       ]
@@ -228,7 +503,7 @@
       },
       "category": "other",
       "color": "#2563eb",
-      "trafficSource": "detector",
+      "trafficSource": "journey",
       "lengthKm": 1.9,
       "maxLegalSpeedKmh": 70,
       "entrances": [
@@ -243,17 +518,60 @@
       ],
       "journeyRoutes": [
         {
+          "loc": "H8",
+          "dest": "ABT",
           "direction": "toWanChai",
           "fromEntrance": 0,
+          "approachMinutes": 2,
+          "indicators": [
+            {
+              "loc": "H6",
+              "dest": "ABT",
+              "approachMinutes": 6
+            },
+            {
+              "loc": "H7",
+              "dest": "ABT",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "H8",
+              "dest": "ABT",
+              "approachMinutes": 2
+            },
+            {
+              "loc": "H9",
+              "dest": "ABT",
+              "approachMinutes": 5
+            }
+          ],
+          "approachDetectors": [
+            {
+              "id": "AID01218"
+            },
+            {
+              "id": "AID01106"
+            }
+          ],
           "detectors": [
-            "AID01217"
+            {
+              "id": "AID01217"
+            },
+            {
+              "id": "AID01107"
+            }
           ]
         },
         {
           "direction": "toAberdeen",
           "fromEntrance": 1,
           "detectors": [
-            "AID01107"
+            {
+              "id": "AID01216"
+            },
+            {
+              "id": "AID01215"
+            }
           ]
         }
       ]
@@ -282,16 +600,24 @@
           "direction": "toShaTin",
           "fromEntrance": 1,
           "detectors": [
-            "AID09110",
-            "AID09111"
+            {
+              "id": "AID09109"
+            },
+            {
+              "id": "AID09108"
+            }
           ]
         },
         {
           "direction": "toTsuenWan",
           "fromEntrance": 0,
           "detectors": [
-            "TDS90014",
-            "TDS90015"
+            {
+              "id": "TDS90015"
+            },
+            {
+              "id": "TDS90014"
+            }
           ]
         }
       ]
@@ -320,16 +646,24 @@
           "direction": "toShaTin",
           "fromEntrance": 1,
           "detectors": [
-            "AID01123",
-            "AID01124"
+            {
+              "id": "AID01122"
+            },
+            {
+              "id": "AID07212"
+            }
           ]
         },
         {
           "direction": "toKowloon",
           "fromEntrance": 0,
           "detectors": [
-            "AID01201",
-            "TDS10013"
+            {
+              "id": "TDS10012"
+            },
+            {
+              "id": "TDS10013"
+            }
           ]
         }
       ]
@@ -342,7 +676,7 @@
       "color": "#0d9488",
       "trafficSource": "journey",
       "lengthKm": 2.1,
-      "maxLegalSpeedKmh": 70,
+      "maxLegalSpeedKmh": 80,
       "entrances": [
         {
           "lat": 22.34437,
@@ -359,7 +693,30 @@
           "dest": "TSCA",
           "direction": "toKowloon",
           "fromEntrance": 1,
-          "approachMinutes": 5
+          "approachMinutes": 3,
+          "indicators": [
+            {
+              "loc": "N06",
+              "dest": "TSCA",
+              "approachMinutes": 3
+            }
+          ]
+        },
+        {
+          "direction": "toShaTin",
+          "fromEntrance": 0,
+          "approachDetectors": [
+            {
+              "id": "AID03114"
+            },
+            {
+              "id": "AID05121"
+            },
+            {
+              "id": "AID05123"
+            }
+          ],
+          "approachSpeedLimitKmh": 80
         }
       ]
     }

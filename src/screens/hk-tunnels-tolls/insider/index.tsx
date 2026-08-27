@@ -96,6 +96,10 @@ interface JourneyReading {
   debugIndicators?: DebugIndicatorInfo[];
   debugDetectors?: DebugDetectorInfo[];
   debugMedianMinutes?: number | null;
+  debugThresholds?: {
+    slowMinutes: number;
+    congestedMinutes: number;
+  };
 }
 
 interface Coordinates {
@@ -362,17 +366,6 @@ function speedCongestionStatus(
   return TrafficStatus.Unknown;
 }
 
-function withSpeedCongestion(
-  tunnel: TunnelInfo,
-  reading: JourneyReading,
-  speedLimitKmh: number = 70,
-): JourneyReading {
-  if (reading.minutes === null) return reading;
-  const effectiveLimit = reading.speedLimitKmh || speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
-  const ourStatus = speedCongestionStatus(tunnel, reading.minutes, effectiveLimit);
-  return { ...reading, status: Math.max(reading.status, ourStatus) as TrafficStatus };
-}
-
 function normalizeDetector(d: string | DetectorEntry): DetectorEntry {
   if (typeof d === "string") return { id: d };
   return d;
@@ -434,6 +427,8 @@ function readingForRoute(
   let approachSpeed: number | null = null;
   const routeLimit = route.speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
   const approachLimit = route.approachSpeedLimitKmh || routeLimit;
+  const floorMinutes =
+    tunnel.lengthKm != null && routeLimit != null ? Math.round((tunnel.lengthKm * 1000) / (routeLimit / 3.6) / 60) : 2;
 
   const debugDetectors: DebugDetectorInfo[] = [];
   if (route.detectors && route.detectors.length > 0) {
@@ -457,43 +452,57 @@ function readingForRoute(
     approachSpeed = result.averageSpeed;
   }
 
-  if (tunnel.trafficSource === "detector") {
-    if (!detectorSpeeds || !route.detectors || tunnel.lengthKm == null) return null;
+  let inTunnelDetectorStatus = TrafficStatus.Unknown;
+  let inTunnelDetectorSpeed: number | null = null;
+  let inTunnelDetectorMinutes: number | null = null;
+  if (route.detectors && route.detectors.length > 0 && detectorSpeeds && tunnel.lengthKm != null) {
     const speeds = route.detectors
       .map((d) => {
         const id = typeof d === "string" ? d : d.id;
         return detectorSpeeds[id];
       })
       .filter((speed): speed is number => typeof speed === "number" && speed > 0);
-    if (speeds.length === 0) return null;
-    const meanSpeed = speeds.reduce((sum, s) => sum + s, 0) / speeds.length;
-    const effectiveSpeed = Math.min(meanSpeed, routeLimit);
-    const minutes = Math.round((tunnel.lengthKm / effectiveSpeed) * 60);
-    const smoothThreshold = routeLimit * 0.75;
-    const slowThreshold = routeLimit * 0.4;
-    const status =
-      meanSpeed >= smoothThreshold
-        ? TrafficStatus.Smooth
-        : meanSpeed >= slowThreshold
-          ? TrafficStatus.Slow
-          : TrafficStatus.Congested;
-    const combinedStatus = Math.max(status, approachStatus) as TrafficStatus;
-    const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, minutes) as number;
-    return withSpeedCongestion(
-      tunnel,
-      {
-        status: combinedStatus,
-        minutes: finalMinutes,
-        speedKmh: Math.round(meanSpeed),
-        speedLimitKmh: routeLimit,
-        debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-      },
-      routeLimit,
-    );
+    if (speeds.length > 0) {
+      const meanSpeed = speeds.reduce((sum, s) => sum + s, 0) / speeds.length;
+      const effectiveSpeed = Math.min(meanSpeed, routeLimit);
+      inTunnelDetectorMinutes = Math.round((tunnel.lengthKm / effectiveSpeed) * 60);
+      inTunnelDetectorSpeed = Math.round(meanSpeed);
+      const smoothThreshold = routeLimit * 0.75;
+      const slowThreshold = routeLimit * 0.4;
+      inTunnelDetectorStatus =
+        meanSpeed >= smoothThreshold
+          ? TrafficStatus.Smooth
+          : meanSpeed >= slowThreshold
+            ? TrafficStatus.Slow
+            : TrafficStatus.Congested;
+    }
   }
 
-  const floorMinutes =
-    tunnel.lengthKm != null && routeLimit != null ? Math.round((tunnel.lengthKm * 1000) / (routeLimit / 3.6) / 60) : 2;
+  const detectorSpeedStatus = Math.max(inTunnelDetectorStatus, approachStatus) as TrafficStatus;
+
+  const debugThresholds =
+    tunnel.lengthKm != null
+      ? {
+          slowMinutes: Math.floor((tunnel.lengthKm * 60) / (routeLimit * 0.4)) + 1,
+          congestedMinutes: Math.floor((tunnel.lengthKm * 60) / (routeLimit * 0.15)) + 1,
+        }
+      : undefined;
+
+  if (tunnel.trafficSource === "detector") {
+    if (inTunnelDetectorMinutes === null && approachStatus === TrafficStatus.Unknown) return null;
+    const baseMinutes = inTunnelDetectorMinutes ?? floorMinutes;
+    const minutesBasedStatus = speedCongestionStatus(tunnel, baseMinutes, routeLimit);
+    const combinedStatus = Math.max(detectorSpeedStatus, minutesBasedStatus) as TrafficStatus;
+    const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, baseMinutes) as number;
+    return {
+      status: combinedStatus,
+      minutes: finalMinutes,
+      speedKmh: inTunnelDetectorSpeed ?? approachSpeed,
+      speedLimitKmh: routeLimit,
+      debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
+      debugThresholds,
+    };
+  }
 
   const candidateIndicators: JTIIndicator[] =
     route.indicators && route.indicators.length > 0
@@ -502,142 +511,85 @@ function readingForRoute(
         ? [{ loc: route.loc, dest: route.dest, approachMinutes: route.approachMinutes || 0 }]
         : [];
 
-  if (candidateIndicators.length === 0 || !journeyReadings) {
-    if (route.detectors && route.detectors.length > 0 && detectorSpeeds && tunnel.lengthKm != null) {
-      const speeds = route.detectors
-        .map((d) => {
-          const id = typeof d === "string" ? d : d.id;
-          return detectorSpeeds[id];
-        })
-        .filter((speed): speed is number => typeof speed === "number" && speed > 0);
-      if (speeds.length > 0) {
-        const meanSpeed = speeds.reduce((sum, s) => sum + s, 0) / speeds.length;
-        const effectiveSpeed = Math.min(meanSpeed, routeLimit);
-        const minutes = Math.round((tunnel.lengthKm / effectiveSpeed) * 60);
-        const smoothThreshold = routeLimit * 0.75;
-        const slowThreshold = routeLimit * 0.4;
-        const status =
-          meanSpeed >= smoothThreshold
-            ? TrafficStatus.Smooth
-            : meanSpeed >= slowThreshold
-              ? TrafficStatus.Slow
-              : TrafficStatus.Congested;
-        const combinedStatus = Math.max(status, approachStatus) as TrafficStatus;
-        const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, minutes) as number;
-        return withSpeedCongestion(
-          tunnel,
-          {
-            status: combinedStatus,
-            minutes: finalMinutes,
-            speedKmh: Math.round(meanSpeed),
-            speedLimitKmh: routeLimit,
-            debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-          },
-          routeLimit,
-        );
-      }
-    }
-    if (route.approachDetectors && route.approachDetectors.length > 0 && detectorSpeeds) {
-      return withSpeedCongestion(
-        tunnel,
-        {
-          status: approachStatus,
-          minutes: adjustMinutesForStatus(tunnel, approachStatus, floorMinutes),
-          speedKmh: approachSpeed != null ? Math.round(approachSpeed) : null,
-          speedLimitKmh: routeLimit,
-          debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-        },
-        routeLimit,
-      );
-    }
-    return null;
-  }
-
   const debugIndicators: DebugIndicatorInfo[] = [];
   const validItems: { netMinutes: number; status: TrafficStatus }[] = [];
 
-  for (const ind of candidateIndicators) {
-    const rawReading = journeyReadings[journeyKey(ind.loc, ind.dest)] ?? null;
-    if (rawReading && rawReading.minutes !== null && rawReading.minutes > 0) {
-      const netMinutes = Math.max(floorMinutes, rawReading.minutes - ind.approachMinutes);
-      validItems.push({ netMinutes, status: rawReading.status });
-      debugIndicators.push({
-        loc: ind.loc,
-        dest: ind.dest,
-        rawMinutes: rawReading.minutes,
-        approachMinutes: ind.approachMinutes,
-        netMinutes,
-        status: rawReading.status,
-        mapUrl: ind.mapUrl,
-      });
+  if (candidateIndicators.length > 0 && journeyReadings) {
+    for (const ind of candidateIndicators) {
+      const rawReading = journeyReadings[journeyKey(ind.loc, ind.dest)] ?? null;
+      if (rawReading && rawReading.minutes !== null && rawReading.minutes > 0) {
+        const netMinutes = Math.max(floorMinutes, rawReading.minutes - ind.approachMinutes);
+        validItems.push({ netMinutes, status: rawReading.status });
+        debugIndicators.push({
+          loc: ind.loc,
+          dest: ind.dest,
+          rawMinutes: rawReading.minutes,
+          approachMinutes: ind.approachMinutes,
+          netMinutes,
+          status: rawReading.status,
+          mapUrl: ind.mapUrl,
+        });
+      } else {
+        debugIndicators.push({
+          loc: ind.loc,
+          dest: ind.dest,
+          rawMinutes: rawReading ? rawReading.minutes : null,
+          approachMinutes: ind.approachMinutes,
+          netMinutes: null,
+          status: rawReading ? rawReading.status : TrafficStatus.Unknown,
+          mapUrl: ind.mapUrl,
+        });
+      }
+    }
+  }
+
+  let indicatorStatus = TrafficStatus.Unknown;
+  let medianMinutes: number | null = null;
+
+  if (validItems.length > 0) {
+    validItems.sort((a, b) => a.netMinutes - b.netMinutes);
+    const len = validItems.length;
+    if (len % 2 === 1) {
+      const mid = Math.floor(len / 2);
+      medianMinutes = validItems[mid].netMinutes;
+      indicatorStatus = validItems[mid].status;
     } else {
-      debugIndicators.push({
-        loc: ind.loc,
-        dest: ind.dest,
-        rawMinutes: rawReading ? rawReading.minutes : null,
-        approachMinutes: ind.approachMinutes,
-        netMinutes: null,
-        status: rawReading ? rawReading.status : TrafficStatus.Unknown,
-        mapUrl: ind.mapUrl,
-      });
+      const mid1 = validItems[len / 2 - 1];
+      const mid2 = validItems[len / 2];
+      medianMinutes = Math.round((mid1.netMinutes + mid2.netMinutes) / 2);
+      indicatorStatus = Math.max(mid1.status, mid2.status) as TrafficStatus;
     }
   }
 
-  if (validItems.length === 0) {
-    if (route.approachDetectors && route.approachDetectors.length > 0 && detectorSpeeds) {
-      return withSpeedCongestion(
-        tunnel,
-        {
-          status: approachStatus,
-          minutes: adjustMinutesForStatus(tunnel, approachStatus, floorMinutes),
-          speedKmh: approachSpeed != null ? Math.round(approachSpeed) : null,
-          speedLimitKmh: routeLimit,
-          debugIndicators,
-          debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-        },
-        routeLimit,
-      );
+  if (medianMinutes === null) {
+    if (inTunnelDetectorMinutes !== null) {
+      medianMinutes = inTunnelDetectorMinutes;
+    } else if (approachStatus !== TrafficStatus.Unknown) {
+      medianMinutes = floorMinutes;
+    } else {
+      return null;
     }
-    return null;
   }
 
-  validItems.sort((a, b) => a.netMinutes - b.netMinutes);
-  let medianMinutes: number;
-  let medianStatus: TrafficStatus;
+  const minutesBasedEffectiveStatus = speedCongestionStatus(tunnel, medianMinutes, routeLimit);
+  const combinedStatus = Math.max(indicatorStatus, detectorSpeedStatus, minutesBasedEffectiveStatus) as TrafficStatus;
+  const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, medianMinutes);
 
-  const len = validItems.length;
-  if (len % 2 === 1) {
-    const mid = Math.floor(len / 2);
-    medianMinutes = validItems[mid].netMinutes;
-    medianStatus = validItems[mid].status;
-  } else {
-    const mid1 = validItems[len / 2 - 1];
-    const mid2 = validItems[len / 2];
-    medianMinutes = Math.round((mid1.netMinutes + mid2.netMinutes) / 2);
-    medianStatus = Math.max(mid1.status, mid2.status) as TrafficStatus;
-  }
-
-  const speedStatus = speedCongestionStatus(tunnel, medianMinutes, routeLimit);
-  const effectiveStatus = Math.max(medianStatus, speedStatus) as TrafficStatus;
-  const finalMinutes = adjustMinutesForStatus(tunnel, effectiveStatus, medianMinutes);
-  let finalSpeedKmh = approachSpeed;
+  let finalSpeedKmh = inTunnelDetectorSpeed ?? approachSpeed;
   if (finalSpeedKmh == null && finalMinutes != null && finalMinutes > 0 && tunnel.lengthKm != null) {
     finalSpeedKmh = Math.round((tunnel.lengthKm / finalMinutes) * 60);
   }
 
-  return withSpeedCongestion(
-    tunnel,
-    {
-      status: effectiveStatus,
-      minutes: finalMinutes,
-      speedKmh: finalSpeedKmh != null ? Math.round(finalSpeedKmh) : null,
-      speedLimitKmh: routeLimit,
-      debugIndicators,
-      debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-      debugMedianMinutes: medianMinutes,
-    },
-    routeLimit,
-  );
+  return {
+    status: combinedStatus,
+    minutes: finalMinutes,
+    speedKmh: finalSpeedKmh != null ? Math.round(finalSpeedKmh) : null,
+    speedLimitKmh: routeLimit,
+    debugIndicators: debugIndicators.length > 0 ? debugIndicators : undefined,
+    debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
+    debugMedianMinutes: medianMinutes,
+    debugThresholds,
+  };
 }
 
 const TRAFFIC_COLORS: Record<TrafficStatus, BadgeColors> = {
@@ -776,53 +728,72 @@ function TrafficRows({
               </div>
             </div>
             {((reading.debugIndicators && reading.debugIndicators.length > 0) ||
-              (reading.debugDetectors && reading.debugDetectors.length > 0)) && (
-              <div className="text-xs font-mono text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-900/80 px-2 py-1.5 rounded border border-gray-200 dark:border-gray-800 flex flex-wrap items-center gap-1.5 leading-relaxed">
+              (reading.debugDetectors && reading.debugDetectors.length > 0) ||
+              Boolean(reading.debugThresholds)) && (
+              <div className="text-xs font-mono text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-900/80 px-2.5 py-2 rounded border border-gray-200 dark:border-gray-800 flex flex-col gap-1 leading-relaxed">
                 <span className="font-bold text-gray-700 dark:text-gray-300">Debug:</span>
-                {reading.debugIndicators?.map((dbg) => (
-                  <span key={`${dbg.loc}-${dbg.dest}`} className="inline-flex items-center">
-                    [
-                    {dbg.mapUrl ? (
-                      <a
-                        href={dbg.mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 dark:text-blue-400 font-semibold underline hover:text-blue-800 dark:hover:text-blue-300"
-                        title={`Google Maps route from ${dbg.loc} to tunnel entrance`}
-                      >
-                        {dbg.loc}
-                      </a>
-                    ) : (
-                      <span className="font-semibold">{dbg.loc}</span>
-                    )}
-                    : {dbg.rawMinutes != null ? `${dbg.rawMinutes}m` : "N/A"}-{dbg.approachMinutes}m
-                    {dbg.netMinutes != null ? `=${dbg.netMinutes}m` : ""}]
-                  </span>
-                ))}
-                {reading.debugMedianMinutes != null && (
-                  <span className="font-bold text-green-700 dark:text-green-400">
-                    → Median: {reading.debugMedianMinutes}m
-                  </span>
-                )}
-                {reading.debugDetectors?.map((det) => (
-                  <span key={det.id} className="inline-flex items-center">
-                    [{det.isApproach ? "appr:" : ""}
-                    {det.mapUrl ? (
-                      <a
-                        href={det.mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 dark:text-blue-400 font-semibold underline hover:text-blue-800 dark:hover:text-blue-300"
-                        title={`Google Maps route from ${det.id} to tunnel entrance`}
-                      >
-                        {det.id}
-                      </a>
-                    ) : (
-                      <span className="font-semibold">{det.id}</span>
-                    )}
-                    : {det.speedKmh != null ? `${det.speedKmh}km/h` : "N/A"}]
-                  </span>
-                ))}
+                <ul className="list-disc list-inside space-y-1 pl-1">
+                  {reading.debugIndicators && reading.debugIndicators.length > 0 && (
+                    <li>
+                      {reading.debugIndicators.map((dbg) => (
+                        <span key={`${dbg.loc}-${dbg.dest}`} className="inline-flex items-center mr-1.5">
+                          [
+                          {dbg.mapUrl ? (
+                            <a
+                              href={dbg.mapUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 dark:text-blue-400 font-semibold underline hover:text-blue-800 dark:hover:text-blue-300"
+                              title={`Google Maps route from ${dbg.loc} to tunnel entrance`}
+                            >
+                              {dbg.loc}
+                            </a>
+                          ) : (
+                            <span className="font-semibold">{dbg.loc}</span>
+                          )}
+                          : {dbg.rawMinutes != null ? `${dbg.rawMinutes}m` : "N/A"}-{dbg.approachMinutes}m
+                          {dbg.netMinutes != null ? `=${dbg.netMinutes}m` : ""}]
+                        </span>
+                      ))}
+                      {reading.debugMedianMinutes != null && (
+                        <span className="font-bold text-green-700 dark:text-green-400">
+                          → Median: {reading.debugMedianMinutes}m
+                        </span>
+                      )}
+                    </li>
+                  )}
+                  {reading.debugDetectors && reading.debugDetectors.length > 0 && (
+                    <li>
+                      {reading.debugDetectors.map((det) => (
+                        <span key={det.id} className="inline-flex items-center mr-1.5">
+                          [{det.isApproach ? "appr:" : ""}
+                          {det.mapUrl ? (
+                            <a
+                              href={det.mapUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 dark:text-blue-400 font-semibold underline hover:text-blue-800 dark:hover:text-blue-300"
+                              title={`Google Maps route from ${det.id} to tunnel entrance`}
+                            >
+                              {det.id}
+                            </a>
+                          ) : (
+                            <span className="font-semibold">{det.id}</span>
+                          )}
+                          : {det.speedKmh != null ? `${det.speedKmh}km/h` : "N/A"}]
+                        </span>
+                      ))}
+                    </li>
+                  )}
+                  {reading.debugThresholds && (
+                    <li>
+                      <span className="inline-flex items-center gap-1 font-semibold">
+                        [<span className="text-amber-600 dark:text-amber-400">Slow: ≥{reading.debugThresholds.slowMinutes}m</span>
+                        , <span className="text-red-600 dark:text-red-400">Congested: ≥{reading.debugThresholds.congestedMinutes}m</span>]
+                      </span>
+                    </li>
+                  )}
+                </ul>
               </div>
             )}
           </div>
@@ -884,7 +855,7 @@ function HKTollCard(props: TollCardProps): JSX.Element {
                 <br />
                 <AlertBadge background="bg-blue-100 dark:bg-blue-900" text="text-blue-800 dark:text-blue-200">
                   {t("tomorrow.from", tomorrowToll.time)}{" "}
-                  {tomorrowToll.periodName ? `— ${resolveLocalizedString(tomorrowToll.periodName, t)}: ` : ""}
+                  {tomorrowToll.periodName ? `: ${resolveLocalizedString(tomorrowToll.periodName, t)}: ` : ""}
                   {tomorrowToll.toll}
                 </AlertBadge>
               </>
@@ -1182,7 +1153,7 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
       {/* Beta banner */}
       <div className="mx-2 mb-4 p-2 rounded-md border bg-amber-50 dark:bg-amber-950 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 text-center">
         <span className="font-bold">{t("insiderBanner.tag")}</span>
-        {" — "}
+        {": "}
         {t("insiderBanner.text")}
         <a href={lang === "zh" ? "/zh/hk-tunnels-tolls/" : "/hk-tunnels-tolls/"} className="underline ml-1">
           {t("insiderBanner.officialLink")}
