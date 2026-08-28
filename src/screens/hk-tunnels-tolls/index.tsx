@@ -468,8 +468,23 @@ function readingForRoute(
       } else {
         const mid1 = validItems[len / 2 - 1];
         const mid2 = validItems[len / 2];
-        medianMinutes = Math.round((mid1.netMinutes + mid2.netMinutes) / 2);
-        indicatorStatus = Math.max(mid1.status, mid2.status) as TrafficStatus;
+        // Portal-detector-gated tie-breaking for even-count splits:
+        // When the middle two indicators disagree (e.g. 2 expressway routes smooth,
+        // 2 surface-street routes slow), the portal speed decides whether the delay
+        // is at the tunnel entrance (pick pessimistic side) or is upstream-only
+        // surface congestion (pick optimistic side).
+        // Portal threshold: 55 km/h — if faster, entrance is queue-free.
+        const isSplit = mid1.status !== mid2.status || mid1.netMinutes !== mid2.netMinutes;
+        const portalIsClear = approachSpeed !== null && approachSpeed >= 55;
+        if (isSplit && portalIsClear) {
+          // Entrance is free-flowing: upstream surface road is the bottleneck, not the tunnel.
+          medianMinutes = mid1.netMinutes;
+          indicatorStatus = mid1.status;
+        } else {
+          // No portal data or portal is slow: entrance has a queue, use pessimistic side.
+          medianMinutes = Math.round((mid1.netMinutes + mid2.netMinutes) / 2);
+          indicatorStatus = Math.max(mid1.status, mid2.status) as TrafficStatus;
+        }
       }
     }
   }
