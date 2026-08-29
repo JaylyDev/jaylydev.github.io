@@ -136,17 +136,16 @@ export default function SegmentMap({ irnSpeeds, t, selectedTunnelKey: initialTun
       visibleSegments.forEach((seg) => {
         const speed = irnSpeeds && typeof irnSpeeds[seg.id] === "number" ? Math.round(irnSpeeds[seg.id]) : null;
         const color = getSegmentColor(speed, seg.speedLimitKmh);
-        const isApproach = seg.type === "approach";
 
         const polyline = L.polyline(seg.path, {
           color,
-          weight: isApproach ? 6 : 7,
+          weight: 7,
           opacity: 0.9,
         });
 
         // Tooltip on hover
         polyline.bindTooltip(
-          `<b>#${seg.id}</b> ${seg.name ? `(${seg.name})` : ""}: <b>${speed != null ? `${speed} km/h` : "N/A"}</b> (${isApproach ? "500m Approach" : "Bore"})`,
+          `<b>#${seg.id}</b> ${seg.name ? `(${seg.name})` : ""}: <b>${speed != null ? `${speed} km/h` : "N/A"}</b> (Tunnel Bore)`,
           { sticky: true }
         );
 
@@ -159,7 +158,7 @@ export default function SegmentMap({ irnSpeeds, t, selectedTunnelKey: initialTun
             <div style="color: #666; margin-bottom: 4px;">${seg.name}</div>
             <div><b>Tunnel:</b> ${resolveLocalizedString(seg.tunnelName, t)}</div>
             <div><b>Direction:</b> ${t(`direction.${seg.direction}`)}</div>
-            <div><b>Zone:</b> ${isApproach ? "500m Approach Ramp" : "Tunnel Bore"}</div>
+            <div><b>Zone:</b> Tunnel Bore</div>
             <div><b>Speed Limit:</b> ${seg.speedLimitKmh} km/h</div>
             <div style="margin-top: 4px; font-weight: bold; color: ${color};">
               <b>Live Speed:</b> ${speed != null ? `${speed} km/h` : "No speed data"}

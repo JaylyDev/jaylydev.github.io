@@ -17,14 +17,17 @@ type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
 
 type TrafficSource = "journey" | "detector";
 
-interface DetectorEntry {
-  id: string;
-}
-
 interface JTIIndicator {
   loc: string;
   dest: string;
   approachMinutes: number;
+  mapUrl?: string;
+}
+
+interface IrnSegment {
+  id: string;
+  name: string;
+  type: "approach" | "bore";
 }
 
 interface DirectionRoute {
@@ -32,12 +35,11 @@ interface DirectionRoute {
   fromEntrance: number;
   loc?: string;
   dest?: string;
-  detectors?: (string | DetectorEntry)[];
   approachMinutes?: number;
-  approachDetectors?: (string | DetectorEntry)[];
   speedLimitKmh?: number;
   approachSpeedLimitKmh?: number;
   indicators?: JTIIndicator[];
+  irnSegments?: IrnSegment[];
 }
 
 interface TunnelInfo {
@@ -45,7 +47,7 @@ interface TunnelInfo {
   category: string;
   color: string;
   trafficSource: TrafficSource;
-  lengthKm?: number;
+  lengthKm: number;
   maxLegalSpeedKmh?: number;
   entrances: Coordinates[];
   journeyRoutes: DirectionRoute[];
@@ -121,7 +123,7 @@ interface TollCardProps {
   isPublicHoliday: boolean;
   isClient: boolean;
   journeyReadings: Record<string, JourneyReading> | null;
-  detectorSpeeds: Record<string, number> | null;
+  irnSpeeds: Record<string, number> | null;
   sortMode: SortMode;
   userCoords: Coordinates | null;
   t: TranslateFunction;
@@ -138,11 +140,21 @@ interface TunnelTableProps {
   t: TranslateFunction;
 }
 
+interface HKTunnelsTollsAboutProps {
+  aboutHtml: string;
+}
+
+function HKTunnelsTollsAbout({ aboutHtml }: HKTunnelsTollsAboutProps): JSX.Element {
+  return <div className="markdown-body" dangerouslySetInnerHTML={{ __html: aboutHtml }} />;
+}
+
 interface HKTunnelsTollsAppProps {
   t: TranslateFunction;
   lang?: string;
   isAppleDevice?: boolean;
   isPWA?: boolean;
+  aboutHtml: string;
+  iosGuideHtml: string;
 }
 
 interface BadgeColors {
@@ -293,37 +305,25 @@ function parseJourneyTimes(xml: string): Record<string, JourneyReading> {
   return readings;
 }
 
-const DETECTOR_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/rawSpeedVol-all.xml";
-const DETECTOR_REFRESH_MS = 60000;
+const IRN_SPEED_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/irnAvgSpeed-all.xml";
+const IRN_REFRESH_MS = 60000;
 
-function parseDetectorSpeeds(xml: string): Record<string, number> {
+function parseIrnSpeeds(xml: string): Record<string, number> {
   const doc = new DOMParser().parseFromString(xml, "text/xml");
-  const totals: Record<string, { sum: number; count: number }> = {};
-  Array.from(doc.getElementsByTagName("detector")).forEach((detector) => {
-    const id = detector.getElementsByTagName("detector_id")[0]?.textContent?.trim();
-    if (!id) return;
-    Array.from(detector.getElementsByTagName("lane")).forEach((lane) => {
-      const valid = lane.getElementsByTagName("valid")[0]?.textContent?.trim();
-      const speed = Number(lane.getElementsByTagName("speed")[0]?.textContent);
-      if (valid !== "Y" || !(speed > 0)) return;
-      const bucket = (totals[id] ??= { sum: 0, count: 0 });
-      bucket.sum += speed;
-      bucket.count += 1;
-    });
-  });
   const speeds: Record<string, number> = {};
-  Object.entries(totals).forEach(([id, { sum, count }]) => {
-    if (count > 0) speeds[id] = sum / count;
+  Array.from(doc.getElementsByTagName("segment")).forEach((seg) => {
+    const id = seg.getElementsByTagName("segment_id")[0]?.textContent?.trim();
+    const valid = seg.getElementsByTagName("valid")[0]?.textContent?.trim();
+    const speed = Number(seg.getElementsByTagName("speed")[0]?.textContent);
+    if (id && valid === "Y" && speed > 0) {
+      speeds[id] = speed;
+    }
   });
   return speeds;
 }
 
-function speedCongestionStatus(
-  tunnel: TunnelInfo,
-  minutes: number,
-  speedLimitKmh: number = 70,
-): TrafficStatus {
-  if (tunnel.lengthKm == null || !(minutes > 0)) return TrafficStatus.Unknown;
+function speedCongestionStatus(tunnel: TunnelInfo, minutes: number, speedLimitKmh: number = 70): TrafficStatus {
+  if (!(minutes > 0)) return TrafficStatus.Unknown;
   const effectiveLimit = speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
   const avgSpeedKmh = (tunnel.lengthKm / (minutes * 60)) * 3600;
   if (avgSpeedKmh < effectiveLimit * 0.15) return TrafficStatus.Congested;
@@ -331,42 +331,8 @@ function speedCongestionStatus(
   return TrafficStatus.Unknown;
 }
 
-function calculateApproachStatus(
-  detectors: (string | DetectorEntry)[],
-  detectorSpeeds: Record<string, number>,
-  speedLimitKmh: number = 70,
-): { status: TrafficStatus; averageSpeed: number | null } {
-  let green = 0;
-  let yellow = 0;
-  let red = 0;
-  let validCount = 0;
-  let totalSpeed = 0;
-  const smoothThreshold = speedLimitKmh * 0.75;
-  const slowThreshold = speedLimitKmh * 0.4;
-  for (const d of detectors) {
-    const id = typeof d === "string" ? d : d.id;
-    const speed = detectorSpeeds[id];
-    if (typeof speed === "number" && speed > 0) {
-      validCount++;
-      totalSpeed += speed;
-      if (speed >= smoothThreshold) green++;
-      else if (speed >= slowThreshold) yellow++;
-      else red++;
-    }
-  }
-  if (validCount === 0) return { status: TrafficStatus.Unknown, averageSpeed: null };
-  const pGreen = green / validCount;
-  const pYellow = yellow / validCount;
-  const pRed = red / validCount;
-  const score = pGreen * 1 + pYellow * 2 + pRed * 3;
-  let status = TrafficStatus.Smooth;
-  if (pRed >= 0.2 || score >= 2.2) status = TrafficStatus.Congested;
-  else if (pYellow >= 0.3 || score >= 1.35) status = TrafficStatus.Slow;
-  return { status, averageSpeed: Math.round(totalSpeed / validCount) };
-}
-
 function adjustMinutesForStatus(tunnel: TunnelInfo, status: TrafficStatus, minutes: number | null): number | null {
-  if (minutes === null || tunnel.lengthKm == null) return minutes;
+  if (minutes === null) return minutes;
   const limit = tunnel.maxLegalSpeedKmh || 70;
   if (status === TrafficStatus.Slow) {
     return Math.max(minutes, Math.round((tunnel.lengthKm / (limit * 0.5)) * 60));
@@ -381,62 +347,10 @@ function readingForRoute(
   tunnel: TunnelInfo,
   route: DirectionRoute,
   journeyReadings: Record<string, JourneyReading> | null,
-  detectorSpeeds: Record<string, number> | null,
+  irnSpeeds: Record<string, number> | null,
 ): JourneyReading | null {
   const routeLimit = route.speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
-  const approachLimit = route.approachSpeedLimitKmh || routeLimit;
-  const floorMinutes =
-    tunnel.lengthKm != null && routeLimit != null ? Math.round((tunnel.lengthKm * 1000) / (routeLimit / 3.6) / 60) : 2;
-
-  let approachStatus = TrafficStatus.Unknown;
-  let approachSpeed: number | null = null;
-  if (route.approachDetectors && route.approachDetectors.length > 0 && detectorSpeeds) {
-    const result = calculateApproachStatus(route.approachDetectors, detectorSpeeds, approachLimit);
-    approachStatus = result.status;
-    approachSpeed = result.averageSpeed;
-  }
-
-  let inTunnelDetectorStatus = TrafficStatus.Unknown;
-  let inTunnelDetectorSpeed: number | null = null;
-  let inTunnelDetectorMinutes: number | null = null;
-  if (route.detectors && route.detectors.length > 0 && detectorSpeeds && tunnel.lengthKm != null) {
-    const speeds = route.detectors
-      .map((d) => {
-        const id = typeof d === "string" ? d : d.id;
-        return detectorSpeeds[id];
-      })
-      .filter((speed): speed is number => typeof speed === "number" && speed > 0);
-    if (speeds.length > 0) {
-      const meanSpeed = speeds.reduce((sum, s) => sum + s, 0) / speeds.length;
-      const effectiveSpeed = Math.min(meanSpeed, routeLimit);
-      inTunnelDetectorMinutes = Math.round((tunnel.lengthKm / effectiveSpeed) * 60);
-      inTunnelDetectorSpeed = Math.round(meanSpeed);
-      const smoothThreshold = routeLimit * 0.75;
-      const slowThreshold = routeLimit * 0.4;
-      inTunnelDetectorStatus =
-        meanSpeed >= smoothThreshold
-          ? TrafficStatus.Smooth
-          : meanSpeed >= slowThreshold
-            ? TrafficStatus.Slow
-            : TrafficStatus.Congested;
-    }
-  }
-
-  const detectorSpeedStatus = Math.max(inTunnelDetectorStatus, approachStatus) as TrafficStatus;
-
-  if (tunnel.trafficSource === "detector") {
-    if (inTunnelDetectorMinutes === null && approachStatus === TrafficStatus.Unknown) return null;
-    const baseMinutes = inTunnelDetectorMinutes ?? floorMinutes;
-    const minutesBasedStatus = speedCongestionStatus(tunnel, baseMinutes, routeLimit);
-    const combinedStatus = Math.max(detectorSpeedStatus, minutesBasedStatus) as TrafficStatus;
-    const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, baseMinutes) as number;
-    return {
-      status: combinedStatus,
-      minutes: finalMinutes,
-      speedKmh: inTunnelDetectorSpeed ?? approachSpeed,
-      speedLimitKmh: routeLimit,
-    };
-  }
+  const floorMinutes = Math.round((tunnel.lengthKm * 1000) / (routeLimit / 3.6) / 60);
 
   const candidateIndicators: JTIIndicator[] =
     route.indicators && route.indicators.length > 0
@@ -445,11 +359,8 @@ function readingForRoute(
         ? [{ loc: route.loc, dest: route.dest, approachMinutes: route.approachMinutes || 0 }]
         : [];
 
-  let indicatorStatus = TrafficStatus.Unknown;
-  let medianMinutes: number | null = null;
-
+  const validItems: { netMinutes: number; status: TrafficStatus }[] = [];
   if (candidateIndicators.length > 0 && journeyReadings) {
-    const validItems: { netMinutes: number; status: TrafficStatus }[] = [];
     for (const ind of candidateIndicators) {
       const rawReading = journeyReadings[journeyKey(ind.loc, ind.dest)] ?? null;
       if (rawReading && rawReading.minutes !== null && rawReading.minutes > 0) {
@@ -457,63 +368,67 @@ function readingForRoute(
         validItems.push({ netMinutes, status: rawReading.status });
       }
     }
+  }
 
-    if (validItems.length > 0) {
-      validItems.sort((a, b) => a.netMinutes - b.netMinutes);
-      const len = validItems.length;
-      if (len % 2 === 1) {
-        const mid = Math.floor(len / 2);
-        medianMinutes = validItems[mid].netMinutes;
-        indicatorStatus = validItems[mid].status;
-      } else {
-        const mid1 = validItems[len / 2 - 1];
-        const mid2 = validItems[len / 2];
-        // Portal-detector-gated tie-breaking for even-count splits:
-        // When the middle two indicators disagree (e.g. 2 expressway routes smooth,
-        // 2 surface-street routes slow), the portal speed decides whether the delay
-        // is at the tunnel entrance (pick pessimistic side) or is upstream-only
-        // surface congestion (pick optimistic side).
-        // Portal threshold: 55 km/h — if faster, entrance is queue-free.
-        const isSplit = mid1.status !== mid2.status || mid1.netMinutes !== mid2.netMinutes;
-        const portalIsClear = approachSpeed !== null && approachSpeed >= 55;
-        if (isSplit && portalIsClear) {
-          // Entrance is free-flowing: upstream surface road is the bottleneck, not the tunnel.
-          medianMinutes = mid1.netMinutes;
-          indicatorStatus = mid1.status;
-        } else {
-          // No portal data or portal is slow: entrance has a queue, use pessimistic side.
-          medianMinutes = Math.round((mid1.netMinutes + mid2.netMinutes) / 2);
-          indicatorStatus = Math.max(mid1.status, mid2.status) as TrafficStatus;
+  // 1. Primary: JTIS journey boards
+  if (validItems.length > 0) {
+    let best = validItems[0];
+    for (const item of validItems) {
+      if (item.netMinutes < best.netMinutes) best = item;
+    }
+    const medianMinutes = best.netMinutes;
+    const minutesBasedEffectiveStatus = speedCongestionStatus(tunnel, medianMinutes, routeLimit);
+    const status = Math.max(best.status, minutesBasedEffectiveStatus) as TrafficStatus;
+    const finalMinutes = adjustMinutesForStatus(tunnel, status, medianMinutes);
+    let finalSpeedKmh: number | null = null;
+    if (finalMinutes != null && finalMinutes > 0) {
+      finalSpeedKmh = Math.round((tunnel.lengthKm / finalMinutes) * 60);
+    }
+
+    return {
+      status,
+      minutes: finalMinutes,
+      speedKmh: finalSpeedKmh,
+      speedLimitKmh: routeLimit,
+    };
+  }
+
+  // 2. Fallback: IRN Segments (Tunnel bore only)
+  const validBoreSpeeds: number[] = [];
+  if (route.irnSegments && route.irnSegments.length > 0 && irnSpeeds) {
+    for (const seg of route.irnSegments) {
+      if (seg.type === "bore") {
+        const spd = irnSpeeds[seg.id];
+        if (typeof spd === "number" && spd > 0) {
+          validBoreSpeeds.push(spd);
         }
       }
     }
   }
 
-  if (medianMinutes === null) {
-    if (inTunnelDetectorMinutes !== null) {
-      medianMinutes = inTunnelDetectorMinutes;
-    } else if (approachStatus !== TrafficStatus.Unknown) {
-      medianMinutes = floorMinutes;
-    } else {
-      return null;
-    }
+  if (validBoreSpeeds.length > 0) {
+    const govSpeed = validBoreSpeeds.reduce((a, b) => a + b, 0) / validBoreSpeeds.length;
+
+    const smoothThresh = routeLimit * 0.75;
+    const slowThresh = routeLimit * 0.4;
+    const status =
+      govSpeed >= smoothThresh
+        ? TrafficStatus.Smooth
+        : govSpeed >= slowThresh
+          ? TrafficStatus.Slow
+          : TrafficStatus.Congested;
+
+    const minutes = Math.max(floorMinutes, Math.round((tunnel.lengthKm / Math.min(govSpeed, routeLimit)) * 60));
+
+    return {
+      status,
+      minutes,
+      speedKmh: Math.round(govSpeed),
+      speedLimitKmh: routeLimit,
+    };
   }
 
-  const minutesBasedEffectiveStatus = speedCongestionStatus(tunnel, medianMinutes, routeLimit);
-  const combinedStatus = Math.max(indicatorStatus, detectorSpeedStatus, minutesBasedEffectiveStatus) as TrafficStatus;
-  const finalMinutes = adjustMinutesForStatus(tunnel, combinedStatus, medianMinutes);
-
-  let finalSpeedKmh = inTunnelDetectorSpeed ?? approachSpeed;
-  if (finalSpeedKmh == null && finalMinutes != null && finalMinutes > 0 && tunnel.lengthKm != null) {
-    finalSpeedKmh = Math.round((tunnel.lengthKm / finalMinutes) * 60);
-  }
-
-  return {
-    status: combinedStatus,
-    minutes: finalMinutes,
-    speedKmh: finalSpeedKmh != null ? Math.round(finalSpeedKmh) : null,
-    speedLimitKmh: routeLimit,
-  };
+  return null;
 }
 
 const TRAFFIC_COLORS: Record<TrafficStatus, BadgeColors> = {
@@ -587,7 +502,7 @@ function AlertBadge({ background, text, children }: AlertBadgeProps): JSX.Elemen
 interface TrafficRowsProps {
   tunnelKey: HKTunnelIdentifier;
   journeyReadings: Record<string, JourneyReading> | null;
-  detectorSpeeds: Record<string, number> | null;
+  irnSpeeds: Record<string, number> | null;
   sortMode: SortMode;
   userCoords: Coordinates | null;
   t: TranslateFunction;
@@ -596,7 +511,7 @@ interface TrafficRowsProps {
 function TrafficRows({
   tunnelKey,
   journeyReadings,
-  detectorSpeeds,
+  irnSpeeds,
   sortMode,
   userCoords,
   t,
@@ -623,7 +538,7 @@ function TrafficRows({
   };
 
   const rows = activeRoutes
-    .map((route) => ({ route, reading: readingForRoute(tunnel, route, journeyReadings, detectorSpeeds) }))
+    .map((route) => ({ route, reading: readingForRoute(tunnel, route, journeyReadings, irnSpeeds) }))
     .filter((row): row is { route: DirectionRoute; reading: JourneyReading } => row.reading !== null);
   if (rows.length === 0) return null;
 
@@ -655,7 +570,7 @@ function TrafficRows({
 
 function HKTollCard(props: TollCardProps): JSX.Element {
   const { tunnelKey, priceAlert, vehicle, currentDate, isPublicHoliday, isClient } = props;
-  const { journeyReadings, detectorSpeeds, sortMode, userCoords, t } = props;
+  const { journeyReadings, irnSpeeds, sortMode, userCoords, t } = props;
   const tollResult = getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday, isClient, t);
   const tunnel = getTunnelInfo(tunnelKey);
 
@@ -676,7 +591,7 @@ function HKTollCard(props: TollCardProps): JSX.Element {
         <TrafficRows
           tunnelKey={tunnelKey}
           journeyReadings={journeyReadings}
-          detectorSpeeds={detectorSpeeds}
+          irnSpeeds={irnSpeeds}
           sortMode={sortMode}
           userCoords={userCoords}
           t={t}
@@ -788,28 +703,21 @@ function TunnelTable({ tunnelKey, selectedVehicle, t }: TunnelTableProps): JSX.E
 }
 
 interface IosHomeScreenGuideProps {
-  t: TranslateFunction;
+  iosGuideHtml: string;
 }
 
-function IosHomeScreenGuide({ t }: IosHomeScreenGuideProps): JSX.Element {
-  return (
-    <>
-      <h2 id="ios-app-guide" className="text-2xl font-bold py-2">
-        {t("iosAppGuide.title")}
-      </h2>
-      <ol className="px-4">
-        <li>
-          {t("iosAppGuide.0")}
-          <img src="/hk-tunnels-tolls/assets/ios-share-button.png" alt="iOS Share Button" />
-        </li>
-        <li>{t("iosAppGuide.1")}</li>
-        <img src={t("iosAppGuide.image")} alt="iOS Home Screen Guide" className="w-full max-w-md" />
-      </ol>
-    </>
-  );
+function IosHomeScreenGuide({ iosGuideHtml }: IosHomeScreenGuideProps): JSX.Element {
+  return <div className="markdown-body" dangerouslySetInnerHTML={{ __html: iosGuideHtml }} />;
 }
 
-function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HKTunnelsTollsAppProps): JSX.Element {
+function HKTunnelsTollsApp({
+  t,
+  lang,
+  isAppleDevice = false,
+  isPWA = false,
+  aboutHtml,
+  iosGuideHtml,
+}: HKTunnelsTollsAppProps): JSX.Element {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [isPublicHoliday, setIsPublicHoliday] = useState<boolean>(false);
@@ -818,7 +726,7 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
   const [userCoords, setUserCoords] = useState<Coordinates | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
   const [journeyReadings, setJourneyReadings] = useState<Record<string, JourneyReading> | null>(null);
-  const [detectorSpeeds, setDetectorSpeeds] = useState<Record<string, number> | null>(null);
+  const [irnSpeeds, setIrnSpeeds] = useState<Record<string, number> | null>(null);
 
   const watchIdRef = useRef<number | null>(null);
   const awaitingFirstFixRef = useRef<boolean>(false);
@@ -882,37 +790,41 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
 
   useEffect(() => {
     let cancelled = false;
-    const loadDetectorSpeeds = async () => {
+    const loadIrnSpeeds = async () => {
       try {
-        const response = await fetch(DETECTOR_URL);
+        const response = await fetch(IRN_SPEED_URL);
         if (!response.ok) return;
         const xml = await response.text();
-        if (!cancelled) setDetectorSpeeds(parseDetectorSpeeds(xml));
+        if (!cancelled) setIrnSpeeds(parseIrnSpeeds(xml));
       } catch {
         /* keep last successful reading */
       }
     };
-    loadDetectorSpeeds();
-    const intervalId = setInterval(loadDetectorSpeeds, DETECTOR_REFRESH_MS);
+    loadIrnSpeeds();
+    const intervalId = setInterval(loadIrnSpeeds, IRN_REFRESH_MS);
     return () => {
       cancelled = true;
       clearInterval(intervalId);
     };
   }, []);
 
-  useEffect(() => {
-    const holidays = new Set<string>();
-    if (publicHolidayData.vcalendar && publicHolidayData.vcalendar[0] && publicHolidayData.vcalendar[0].vevent) {
+  const holidays = useMemo(() => {
+    const set = new Set<string>();
+    if (publicHolidayData.vcalendar?.[0]?.vevent) {
       publicHolidayData.vcalendar[0].vevent.forEach((event) => {
         const dateStr = event.dtstart[0] as string;
-        holidays.add(dateStr);
+        set.add(dateStr);
       });
     }
+    return set;
+  }, []);
+
+  useEffect(() => {
     if (currentTime) {
       const hkInfo = getHongKongDate(currentTime);
       setIsPublicHoliday(holidays.has(hkInfo.dateString));
     }
-  }, [currentTime]);
+  }, [currentTime, holidays]);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -1153,7 +1065,7 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
                       isPublicHoliday={isPublicHoliday}
                       isClient={isClient}
                       journeyReadings={journeyReadings}
-                      detectorSpeeds={detectorSpeeds}
+                      irnSpeeds={irnSpeeds}
                       sortMode={sortMode}
                       userCoords={userCoords}
                       t={t}
@@ -1200,30 +1112,9 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
       })}
 
       {/* About, Notes and Links */}
-      <div className="px-3">
-        {isAppleDevice && !isPWA && <IosHomeScreenGuide t={t} />}
-        <h2 className="text-2xl font-bold py-2 mt-4">{t("aboutHeading")}</h2>
-        <p>{t("aboutDescription")}</p>
-        <h3 className="text-xl font-bold py-2">{t("notesHeading")}</h3>
-        <ul>
-          {registryInfo.notes.map((note, index) => (
-            <li key={index} className="flex items-start">
-              <span className="w-2 h-2 bg-black dark:bg-white rounded-full mt-2 mr-3 flex-shrink-0"></span>
-              {resolveLocalizedString(note, t)}
-            </li>
-          ))}
-        </ul>
-        <h3 className="text-xl font-bold py-2">{t("linksHeading")}</h3>
-        <ul>
-          {registryInfo.links.map((link, index) => (
-            <li key={index} className="flex items-start">
-              <span className="w-2 h-2 bg-black dark:bg-white rounded-full mt-2 mr-3 flex-shrink-0"></span>
-              <a href={t(link.url)} target="_blank" rel="noopener noreferrer">
-                {t(link.id)}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div>
+        {isAppleDevice && !isPWA && <IosHomeScreenGuide iosGuideHtml={iosGuideHtml} />}
+        <HKTunnelsTollsAbout aboutHtml={aboutHtml} />
       </div>
 
       {/* Footer */}
@@ -1248,7 +1139,18 @@ function HKTunnelsTollsApp({ t, lang, isAppleDevice = false, isPWA = false }: HK
   );
 }
 
-export default function Page({ texts, lang, localizedRoutes }: LocaleProps): JSX.Element {
+export interface HKTunnelsTollsScreenProps extends LocaleProps {
+  aboutHtml: string;
+  iosGuideHtml: string;
+}
+
+export default function Page({
+  texts,
+  lang,
+  localizedRoutes,
+  aboutHtml,
+  iosGuideHtml,
+}: HKTunnelsTollsScreenProps): JSX.Element {
   const t = createTranslateFunction(texts);
   const hreflang = getHreflang(lang, localizedRoutes, true);
   const faqSchema = {
@@ -1326,7 +1228,14 @@ export default function Page({ texts, lang, localizedRoutes }: LocaleProps): JSX
       <SiteHeader t={t} icon="/hk-tunnels-tolls/icon.png" lang={lang} localizedRoutes={localizedRoutes} />
       <HeroUIProvider>
         <ThemeProvider>
-          <HKTunnelsTollsApp t={t} lang={lang} isAppleDevice={isAppleDevice} isPWA={isPWA} />
+          <HKTunnelsTollsApp
+            t={t}
+            lang={lang}
+            isAppleDevice={isAppleDevice}
+            isPWA={isPWA}
+            aboutHtml={aboutHtml}
+            iosGuideHtml={iosGuideHtml}
+          />
         </ThemeProvider>
       </HeroUIProvider>
       <SiteFooter t={t} lang={lang} localizedRoutes={localizedRoutes} />

@@ -1,9 +1,25 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import HKTunnelsTolls from "@/screens/hk-tunnels-tolls";
 import { getStaticLocaleProps, LocaleProps, SUPPORTED_LOCALES } from "@/locale/i18n";
+import * as path from "path";
+import * as fs from "fs/promises";
+import { parseMarkdown } from "@/utilities/markdown";
 
-export default function Page({ texts, lang, localizedRoutes }: LocaleProps) {
-  return <HKTunnelsTolls texts={texts} lang={lang} localizedRoutes={localizedRoutes} />;
+interface PageProps extends LocaleProps {
+  aboutHtml: string;
+  iosGuideHtml: string;
+}
+
+export default function Page({ texts, lang, localizedRoutes, aboutHtml, iosGuideHtml }: PageProps) {
+  return (
+    <HKTunnelsTolls
+      texts={texts}
+      lang={lang}
+      localizedRoutes={localizedRoutes}
+      aboutHtml={aboutHtml}
+      iosGuideHtml={iosGuideHtml}
+    />
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -17,10 +33,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<LocaleProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
   const locale = params?.locale as string;
-  const fs = await import("fs/promises");
-  const path = await import("path");
 
   if (!SUPPORTED_LOCALES.includes(locale)) {
     return {
@@ -36,7 +50,20 @@ export const getStaticProps: GetStaticProps<LocaleProps> = async ({ params }) =>
     props.hreflang = "zh-HK";
   }
 
+  const docFileName = locale === "zh" || props.hreflang === "zh-HK" ? "zh-HK.md" : "en.md";
+  const aboutPath = path.join(process.cwd(), "src/screens/hk-tunnels-tolls/docs/about", docFileName);
+  const aboutContent = await fs.readFile(aboutPath, "utf8");
+  const aboutHtml = await parseMarkdown(aboutContent);
+
+  const iosGuidePath = path.join(process.cwd(), "src/screens/hk-tunnels-tolls/docs/ios-guide", docFileName);
+  const iosGuideContent = await fs.readFile(iosGuidePath, "utf8");
+  const iosGuideHtml = await parseMarkdown(iosGuideContent);
+
   return {
-    props,
+    props: {
+      ...props,
+      aboutHtml,
+      iosGuideHtml,
+    },
   };
 };

@@ -28,11 +28,6 @@ type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
 
 type TrafficSource = "journey" | "detector";
 
-interface DetectorEntry {
-  id: string;
-  mapUrl?: string;
-}
-
 interface JTIIndicator {
   loc: string;
   dest: string;
@@ -51,9 +46,7 @@ interface DirectionRoute {
   fromEntrance: number;
   loc?: string;
   dest?: string;
-  detectors?: (string | DetectorEntry)[];
   approachMinutes?: number;
-  approachDetectors?: (string | DetectorEntry)[];
   speedLimitKmh?: number;
   approachSpeedLimitKmh?: number;
   indicators?: JTIIndicator[];
@@ -65,7 +58,7 @@ interface TunnelInfo {
   category: string;
   color: string;
   trafficSource: TrafficSource;
-  lengthKm?: number;
+  lengthKm: number;
   maxLegalSpeedKmh?: number;
   entrances: Coordinates[];
   journeyRoutes: DirectionRoute[];
@@ -86,13 +79,6 @@ enum TrafficStatus {
   Slow,
   Congested,
   Closed,
-}
-
-interface DebugDetectorInfo {
-  id: string;
-  speedKmh: number | null;
-  isApproach?: boolean;
-  mapUrl?: string;
 }
 
 interface DebugIndicatorInfo {
@@ -118,11 +104,10 @@ interface JourneyReading {
   speedKmh?: number | null;
   speedLimitKmh?: number | null;
   debugIndicators?: DebugIndicatorInfo[];
-  debugDetectors?: DebugDetectorInfo[];
   debugIrnSegments?: DebugIrnSegment[];
-  debugMedianMinutes?: number | null;
-  debugStatusSource?: "irn" | "detector" | "journey-fallback";
   debugGovSpeedKmh?: number | null;
+  debugIrnMinutes?: number | null;
+  debugJtisMinutes?: number | null;
   debugThresholds?: {
     slowMinutes: number;
     congestedMinutes: number;
@@ -160,13 +145,6 @@ interface TollPeriod {
   toll: number | NumberRange;
 }
 
-interface VehicleType {
-  hasTimeVaryingToll: boolean;
-  fixedTolls?: Record<HKTunnelIdentifier, number | undefined>;
-  multiplier?: number;
-  description?: LocalizedString;
-}
-
 interface CurrentTollResult {
   message: string;
   isTransitionTime?: true;
@@ -186,7 +164,6 @@ interface AlertBadgeProps {
 interface TrafficRowsProps {
   tunnelKey: HKTunnelIdentifier;
   journeyReadings: Record<string, JourneyReading> | null;
-  detectorSpeeds: Record<string, number> | null;
   irnSpeeds: Record<string, number> | null;
   sortMode: SortMode;
   userCoords: Coordinates | null;
@@ -202,7 +179,6 @@ interface TollCardProps {
   isPublicHoliday: boolean;
   isClient: boolean;
   journeyReadings: Record<string, JourneyReading> | null;
-  detectorSpeeds: Record<string, number> | null;
   irnSpeeds: Record<string, number> | null;
   sortMode: SortMode;
   userCoords: Coordinates | null;
@@ -355,31 +331,6 @@ function parseJourneyTimes(xml: string): Record<string, JourneyReading> {
   return readings;
 }
 
-const DETECTOR_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/rawSpeedVol-all.xml";
-const DETECTOR_REFRESH_MS = 60000;
-
-function parseDetectorSpeeds(xml: string): Record<string, number> {
-  const doc = new DOMParser().parseFromString(xml, "text/xml");
-  const totals: Record<string, { sum: number; count: number }> = {};
-  Array.from(doc.getElementsByTagName("detector")).forEach((detector) => {
-    const id = detector.getElementsByTagName("detector_id")[0]?.textContent?.trim();
-    if (!id) return;
-    Array.from(detector.getElementsByTagName("lane")).forEach((lane) => {
-      const valid = lane.getElementsByTagName("valid")[0]?.textContent?.trim();
-      const speed = Number(lane.getElementsByTagName("speed")[0]?.textContent);
-      if (valid !== "Y" || !(speed > 0)) return;
-      const bucket = (totals[id] ??= { sum: 0, count: 0 });
-      bucket.sum += speed;
-      bucket.count += 1;
-    });
-  });
-  const speeds: Record<string, number> = {};
-  Object.entries(totals).forEach(([id, { sum, count }]) => {
-    if (count > 0) speeds[id] = sum / count;
-  });
-  return speeds;
-}
-
 const IRN_SPEED_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/irnAvgSpeed-all.xml";
 const IRN_REFRESH_MS = 60000;
 
@@ -399,12 +350,8 @@ function parseIrnSpeeds(xml: string): Record<string, number> {
 
 // ─── Traffic status logic ─────────────────────────────────────────────────────
 
-function speedCongestionStatus(
-  tunnel: TunnelInfo,
-  minutes: number,
-  speedLimitKmh: number = 70,
-): TrafficStatus {
-  if (tunnel.lengthKm == null || !(minutes > 0)) return TrafficStatus.Unknown;
+function speedCongestionStatus(tunnel: TunnelInfo, minutes: number, speedLimitKmh: number = 70): TrafficStatus {
+  if (!(minutes > 0)) return TrafficStatus.Unknown;
   const effectiveLimit = speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
   const avgSpeedKmh = (tunnel.lengthKm / (minutes * 60)) * 3600;
   if (avgSpeedKmh < effectiveLimit * 0.15) return TrafficStatus.Congested;
@@ -412,47 +359,8 @@ function speedCongestionStatus(
   return TrafficStatus.Unknown;
 }
 
-function normalizeDetector(d: string | DetectorEntry): DetectorEntry {
-  if (typeof d === "string") return { id: d };
-  return d;
-}
-
-function calculateApproachStatus(
-  detectors: (string | DetectorEntry)[],
-  detectorSpeeds: Record<string, number>,
-  speedLimitKmh: number = 70,
-): { status: TrafficStatus; averageSpeed: number | null } {
-  let green = 0;
-  let yellow = 0;
-  let red = 0;
-  let validCount = 0;
-  let totalSpeed = 0;
-  const smoothThreshold = speedLimitKmh * 0.75;
-  const slowThreshold = speedLimitKmh * 0.4;
-  for (const d of detectors) {
-    const id = typeof d === "string" ? d : d.id;
-    const speed = detectorSpeeds[id];
-    if (typeof speed === "number" && speed > 0) {
-      validCount++;
-      totalSpeed += speed;
-      if (speed >= smoothThreshold) green++;
-      else if (speed >= slowThreshold) yellow++;
-      else red++;
-    }
-  }
-  if (validCount === 0) return { status: TrafficStatus.Unknown, averageSpeed: null };
-  const pGreen = green / validCount;
-  const pYellow = yellow / validCount;
-  const pRed = red / validCount;
-  const score = pGreen * 1 + pYellow * 2 + pRed * 3;
-  let status = TrafficStatus.Smooth;
-  if (pRed >= 0.2 || score >= 2.2) status = TrafficStatus.Congested;
-  else if (pYellow >= 0.3 || score >= 1.35) status = TrafficStatus.Slow;
-  return { status, averageSpeed: Math.round(totalSpeed / validCount) };
-}
-
 function adjustMinutesForStatus(tunnel: TunnelInfo, status: TrafficStatus, minutes: number | null): number | null {
-  if (minutes === null || tunnel.lengthKm == null) return minutes;
+  if (minutes === null) return minutes;
   const limit = tunnel.maxLegalSpeedKmh || 70;
   if (status === TrafficStatus.Slow) {
     return Math.max(minutes, Math.round((tunnel.lengthKm / (limit * 0.5)) * 60));
@@ -467,77 +375,21 @@ function readingForRoute(
   tunnel: TunnelInfo,
   route: DirectionRoute,
   journeyReadings: Record<string, JourneyReading> | null,
-  detectorSpeeds: Record<string, number> | null,
   irnSpeeds: Record<string, number> | null,
 ): JourneyReading | null {
-  let approachStatus = TrafficStatus.Unknown;
-  let approachSpeed: number | null = null;
   const routeLimit = route.speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
-  const approachLimit = route.approachSpeedLimitKmh || routeLimit;
-  const floorMinutes =
-    tunnel.lengthKm != null && routeLimit != null ? Math.round((tunnel.lengthKm * 1000) / (routeLimit / 3.6) / 60) : 2;
+  const floorMinutes = Math.round((tunnel.lengthKm * 1000) / (routeLimit / 3.6) / 60);
 
-  const debugThresholds =
-    tunnel.lengthKm != null
-      ? {
-          slowMinutes: Math.floor((tunnel.lengthKm * 60) / (routeLimit * 0.4)) + 1,
-          congestedMinutes: Math.floor((tunnel.lengthKm * 60) / (routeLimit * 0.15)) + 1,
-        }
-      : undefined;
+  const debugThresholds = {
+    slowMinutes: Math.floor((tunnel.lengthKm * 60) / (routeLimit * 0.4)) + 1,
+    congestedMinutes: Math.floor((tunnel.lengthKm * 60) / (routeLimit * 0.15)) + 1,
+  };
 
   const debugIrnSegments: DebugIrnSegment[] = [];
   if (route.irnSegments && route.irnSegments.length > 0) {
     for (const seg of route.irnSegments) {
       const spd = irnSpeeds && typeof irnSpeeds[seg.id] === "number" ? Math.round(irnSpeeds[seg.id]) : null;
       debugIrnSegments.push({ id: seg.id, name: seg.name, type: seg.type, speedKmh: spd });
-    }
-  }
-
-  const debugDetectors: DebugDetectorInfo[] = [];
-  if (route.detectors && route.detectors.length > 0) {
-    for (const d of route.detectors) {
-      const det = normalizeDetector(d);
-      const spd = detectorSpeeds && typeof detectorSpeeds[det.id] === "number" ? Math.round(detectorSpeeds[det.id]) : null;
-      debugDetectors.push({ id: det.id, speedKmh: spd, isApproach: false, mapUrl: det.mapUrl });
-    }
-  }
-  if (route.approachDetectors && route.approachDetectors.length > 0) {
-    for (const d of route.approachDetectors) {
-      const det = normalizeDetector(d);
-      const spd = detectorSpeeds && typeof detectorSpeeds[det.id] === "number" ? Math.round(detectorSpeeds[det.id]) : null;
-      debugDetectors.push({ id: det.id, speedKmh: spd, isApproach: true, mapUrl: det.mapUrl });
-    }
-  }
-
-  if (route.approachDetectors && route.approachDetectors.length > 0 && detectorSpeeds) {
-    const result = calculateApproachStatus(route.approachDetectors, detectorSpeeds, approachLimit);
-    approachStatus = result.status;
-    approachSpeed = result.averageSpeed;
-  }
-
-  let inTunnelDetectorStatus = TrafficStatus.Unknown;
-  let inTunnelDetectorSpeed: number | null = null;
-  let inTunnelDetectorMinutes: number | null = null;
-  if (route.detectors && route.detectors.length > 0 && detectorSpeeds && tunnel.lengthKm != null) {
-    const speeds = route.detectors
-      .map((d) => {
-        const id = typeof d === "string" ? d : d.id;
-        return detectorSpeeds[id];
-      })
-      .filter((speed): speed is number => typeof speed === "number" && speed > 0);
-    if (speeds.length > 0) {
-      const meanSpeed = speeds.reduce((sum, s) => sum + s, 0) / speeds.length;
-      const effectiveSpeed = Math.min(meanSpeed, routeLimit);
-      inTunnelDetectorMinutes = Math.round((tunnel.lengthKm / effectiveSpeed) * 60);
-      inTunnelDetectorSpeed = Math.round(meanSpeed);
-      const smoothThreshold = routeLimit * 0.75;
-      const slowThreshold = routeLimit * 0.4;
-      inTunnelDetectorStatus =
-        meanSpeed >= smoothThreshold
-          ? TrafficStatus.Smooth
-          : meanSpeed >= slowThreshold
-            ? TrafficStatus.Slow
-            : TrafficStatus.Congested;
     }
   }
 
@@ -580,25 +432,50 @@ function readingForRoute(
     }
   }
 
-  // 1. Primary: IRN Segments (500m approach + entire tunnel bore)
-  const validApproachSpeeds = debugIrnSegments
-    .filter((s) => s.type === "approach" && s.speedKmh !== null && s.speedKmh > 0)
-    .map((s) => s.speedKmh as number);
   const validBoreSpeeds = debugIrnSegments
     .filter((s) => s.type === "bore" && s.speedKmh !== null && s.speedKmh > 0)
     .map((s) => s.speedKmh as number);
+  const govSpeed =
+    validBoreSpeeds.length > 0 ? validBoreSpeeds.reduce((a, b) => a + b, 0) / validBoreSpeeds.length : null;
+  const irnMinutes =
+    govSpeed !== null
+      ? Math.max(floorMinutes, Math.round((tunnel.lengthKm / Math.min(govSpeed, routeLimit)) * 60))
+      : null;
 
-  if (validApproachSpeeds.length > 0 || validBoreSpeeds.length > 0) {
-    const apprMean =
-      validApproachSpeeds.length > 0
-        ? validApproachSpeeds.reduce((a, b) => a + b, 0) / validApproachSpeeds.length
-        : null;
-    const boreMean =
-      validBoreSpeeds.length > 0 ? validBoreSpeeds.reduce((a, b) => a + b, 0) / validBoreSpeeds.length : null;
+  let jtisBestMinutes: number | null = null;
+  let jtisStatus: TrafficStatus = TrafficStatus.Unknown;
+  if (validItems.length > 0) {
+    let best = validItems[0];
+    for (const item of validItems) if (item.netMinutes < best.netMinutes) best = item;
+    jtisBestMinutes = best.netMinutes;
+    const minutesBasedEffectiveStatus = speedCongestionStatus(tunnel, jtisBestMinutes, routeLimit);
+    jtisStatus = Math.max(best.status, minutesBasedEffectiveStatus) as TrafficStatus;
+  }
 
-    const govSpeed =
-      apprMean !== null && boreMean !== null ? Math.min(apprMean, boreMean) : (apprMean ?? (boreMean as number));
+  // 1. Primary: JTIS journey boards
+  if (jtisBestMinutes !== null) {
+    const finalMinutes = adjustMinutesForStatus(tunnel, jtisStatus, jtisBestMinutes);
+    let finalSpeedKmh: number | null = null;
+    if (finalMinutes != null && finalMinutes > 0) {
+      finalSpeedKmh = Math.round((tunnel.lengthKm / finalMinutes) * 60);
+    }
 
+    return {
+      status: jtisStatus,
+      minutes: finalMinutes,
+      speedKmh: finalSpeedKmh,
+      speedLimitKmh: routeLimit,
+      debugIrnSegments: debugIrnSegments.length > 0 ? debugIrnSegments : undefined,
+      debugIndicators: debugIndicators.length > 0 ? debugIndicators : undefined,
+      debugGovSpeedKmh: govSpeed !== null ? Math.round(govSpeed) : undefined,
+      debugIrnMinutes: irnMinutes,
+      debugJtisMinutes: jtisBestMinutes,
+      debugThresholds,
+    };
+  }
+
+  // 2. Fallback: IRN Segments (Tunnel bore only)
+  if (govSpeed !== null && irnMinutes !== null) {
     const smoothThresh = routeLimit * 0.75;
     const slowThresh = routeLimit * 0.4;
     const status =
@@ -608,76 +485,21 @@ function readingForRoute(
           ? TrafficStatus.Slow
           : TrafficStatus.Congested;
 
-    let minutes = Math.max(floorMinutes, Math.round(((tunnel.lengthKm || 2) / Math.min(govSpeed, routeLimit)) * 60));
-    minutes = adjustMinutesForStatus(tunnel, status, minutes) as number;
-
     return {
       status,
-      minutes,
+      minutes: irnMinutes,
       speedKmh: Math.round(govSpeed),
       speedLimitKmh: routeLimit,
       debugIrnSegments: debugIrnSegments.length > 0 ? debugIrnSegments : undefined,
       debugIndicators: debugIndicators.length > 0 ? debugIndicators : undefined,
-      debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-      debugMedianMinutes: minutes,
-      debugStatusSource: "irn",
       debugGovSpeedKmh: Math.round(govSpeed),
+      debugIrnMinutes: irnMinutes,
+      debugJtisMinutes: jtisBestMinutes,
       debugThresholds,
     };
   }
 
-  // 2. Secondary fallback: Hardware speed detectors
-  const hasDetectorSignal =
-    inTunnelDetectorStatus !== TrafficStatus.Unknown || approachStatus !== TrafficStatus.Unknown;
-
-  if (hasDetectorSignal) {
-    const status = Math.max(inTunnelDetectorStatus, approachStatus) as TrafficStatus;
-    const govSpeed = inTunnelDetectorSpeed ?? approachSpeed;
-    let minutes: number | null = floorMinutes;
-    if (tunnel.lengthKm != null && govSpeed != null && govSpeed > 0) {
-      minutes = Math.max(floorMinutes, Math.round((tunnel.lengthKm / Math.min(govSpeed, routeLimit)) * 60));
-    }
-    minutes = adjustMinutesForStatus(tunnel, status, minutes);
-    return {
-      status,
-      minutes,
-      speedKmh: govSpeed != null ? Math.round(govSpeed) : null,
-      speedLimitKmh: routeLimit,
-      debugIrnSegments: debugIrnSegments.length > 0 ? debugIrnSegments : undefined,
-      debugIndicators: debugIndicators.length > 0 ? debugIndicators : undefined,
-      debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-      debugMedianMinutes: minutes,
-      debugStatusSource: "detector",
-      debugGovSpeedKmh: govSpeed != null ? Math.round(govSpeed) : null,
-      debugThresholds,
-    };
-  }
-
-  // 3. Fallback: JTIS journey boards
-  if (validItems.length === 0) return null;
-  let best = validItems[0];
-  for (const item of validItems) if (item.netMinutes < best.netMinutes) best = item;
-  const medianMinutes = best.netMinutes;
-  const minutesBasedEffectiveStatus = speedCongestionStatus(tunnel, medianMinutes, routeLimit);
-  const status = Math.max(best.status, minutesBasedEffectiveStatus) as TrafficStatus;
-  const finalMinutes = adjustMinutesForStatus(tunnel, status, medianMinutes);
-  let finalSpeedKmh: number | null = null;
-  if (finalMinutes != null && finalMinutes > 0 && tunnel.lengthKm != null) {
-    finalSpeedKmh = Math.round((tunnel.lengthKm / finalMinutes) * 60);
-  }
-
-  return {
-    status,
-    minutes: finalMinutes,
-    speedKmh: finalSpeedKmh,
-    speedLimitKmh: routeLimit,
-    debugIrnSegments: debugIrnSegments.length > 0 ? debugIrnSegments : undefined,
-    debugIndicators: debugIndicators.length > 0 ? debugIndicators : undefined,
-    debugDetectors: debugDetectors.length > 0 ? debugDetectors : undefined,
-    debugMedianMinutes: medianMinutes,
-    debugStatusSource: "journey-fallback",
-    debugThresholds,
-  };
+  return null;
 }
 
 const TRAFFIC_COLORS: Record<TrafficStatus, BadgeColors> = {
@@ -750,7 +572,6 @@ function AlertBadge({ background, text, children }: AlertBadgeProps): JSX.Elemen
 function TrafficRows({
   tunnelKey,
   journeyReadings,
-  detectorSpeeds,
   irnSpeeds,
   sortMode,
   userCoords,
@@ -778,7 +599,7 @@ function TrafficRows({
   };
 
   const rows = activeRoutes
-    .map((route) => ({ route, reading: readingForRoute(tunnel, route, journeyReadings, detectorSpeeds, irnSpeeds) }))
+    .map((route) => ({ route, reading: readingForRoute(tunnel, route, journeyReadings, irnSpeeds) }))
     .filter((row): row is { route: DirectionRoute; reading: JourneyReading } => row.reading !== null);
   if (rows.length === 0) return null;
 
@@ -818,47 +639,28 @@ function TrafficRows({
             </div>
             {((reading.debugIrnSegments && reading.debugIrnSegments.length > 0) ||
               (reading.debugIndicators && reading.debugIndicators.length > 0) ||
-              (reading.debugDetectors && reading.debugDetectors.length > 0) ||
-              Boolean(reading.debugThresholds) ||
-              Boolean(reading.debugStatusSource)) && (
+              Boolean(reading.debugThresholds)) && (
               <div className="text-xs font-mono text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-900/80 px-2.5 py-2 rounded border border-gray-200 dark:border-gray-800 flex flex-col gap-1 leading-relaxed">
                 <span className="font-bold text-gray-700 dark:text-gray-300">Debug:</span>
                 <ul className="list-disc list-inside space-y-1 pl-1">
                   {reading.debugIrnSegments && reading.debugIrnSegments.length > 0 && (
-                    <>
-                      <li>
-                        <span className="font-semibold text-purple-700 dark:text-purple-300">IRN Approach (500m): </span>
-                        {reading.debugIrnSegments.filter((s) => s.type === "approach").length > 0 ? (
-                          reading.debugIrnSegments
-                            .filter((s) => s.type === "approach")
-                            .map((s) => (
-                              <span key={s.id} className="inline-flex items-center mr-1.5">
-                                [{s.id} ({s.name}): {s.speedKmh != null ? `${s.speedKmh}km/h` : "N/A"}]
-                              </span>
-                            ))
-                        ) : (
-                          <span className="text-gray-400">none</span>
-                        )}
-                      </li>
-                      <li>
-                        <span className="font-semibold text-purple-700 dark:text-purple-300">IRN Bore: </span>
-                        {reading.debugIrnSegments.filter((s) => s.type === "bore").length > 0 ? (
-                          reading.debugIrnSegments
-                            .filter((s) => s.type === "bore")
-                            .map((s) => (
-                              <span key={s.id} className="inline-flex items-center mr-1.5">
-                                [{s.id} ({s.name}): {s.speedKmh != null ? `${s.speedKmh}km/h` : "N/A"}]
-                              </span>
-                            ))
-                        ) : (
-                          <span className="text-gray-400">none</span>
-                        )}
-                      </li>
-                    </>
+                    <li>
+                      <span className="font-semibold text-purple-700 dark:text-purple-300">IRN: </span>
+                      {reading.debugIrnSegments.map((s) => (
+                        <span key={s.id} className="inline-flex items-center mr-1.5">
+                          [{s.id} ({s.name}): {s.speedKmh != null ? `${s.speedKmh}km/h` : "N/A"}]
+                        </span>
+                      ))}
+                      {reading.debugGovSpeedKmh != null && reading.debugIrnMinutes != null && (
+                        <span className="font-semibold text-purple-800 dark:text-purple-200">
+                          {`-> ${reading.debugGovSpeedKmh}km/h, ${reading.debugIrnMinutes} mins`}
+                        </span>
+                      )}
+                    </li>
                   )}
                   {reading.debugIndicators && reading.debugIndicators.length > 0 && (
                     <li>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">JTIS Boards: </span>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">JTIS: </span>
                       {reading.debugIndicators.map((dbg) => (
                         <span key={`${dbg.loc}-${dbg.dest}`} className="inline-flex items-center mr-1.5">
                           [
@@ -879,52 +681,25 @@ function TrafficRows({
                           {dbg.netMinutes != null ? `=${dbg.netMinutes}m` : ""}]
                         </span>
                       ))}
-                    </li>
-                  )}
-                  {reading.debugDetectors && reading.debugDetectors.length > 0 && (
-                    <li>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300">Detectors: </span>
-                      {reading.debugDetectors.map((det) => (
-                        <span key={det.id} className="inline-flex items-center mr-1.5">
-                          [{det.isApproach ? "appr:" : ""}
-                          {det.mapUrl ? (
-                            <a
-                              href={det.mapUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-600 dark:text-blue-400 font-semibold underline hover:text-blue-800 dark:hover:text-blue-300"
-                              title={`Google Maps route from ${det.id} to tunnel entrance`}
-                            >
-                              {det.id}
-                            </a>
-                          ) : (
-                            <span className="font-semibold">{det.id}</span>
-                          )}
-                          : {det.speedKmh != null ? `${det.speedKmh}km/h` : "N/A"}]
+                      {reading.debugJtisMinutes != null && (
+                        <span className="font-semibold text-blue-700 dark:text-blue-300">
+                          {`-> ${reading.debugJtisMinutes} mins`}
                         </span>
-                      ))}
+                      )}
                     </li>
                   )}
                   {reading.debugThresholds && (
                     <li>
                       <span className="inline-flex items-center gap-1 font-semibold">
-                        [<span className="text-amber-600 dark:text-amber-400">Slow: ≥{reading.debugThresholds.slowMinutes}m</span>
-                        , <span className="text-red-600 dark:text-red-400">Congested: ≥{reading.debugThresholds.congestedMinutes}m</span>]
-                      </span>
-                    </li>
-                  )}
-                  {reading.debugStatusSource && (
-                    <li>
-                      <span className="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400">
-                        {reading.debugStatusSource === "irn"
-                          ? `[Status from IRN (500m Approach + Entire Tunnel Bore)${
-                              reading.debugGovSpeedKmh != null ? ` @ ${reading.debugGovSpeedKmh}km/h` : ""
-                            } → ${reading.debugMedianMinutes}m]`
-                          : reading.debugStatusSource === "detector"
-                            ? `[Status from portal / in-tunnel detectors${
-                                reading.debugGovSpeedKmh != null ? ` @ ${reading.debugGovSpeedKmh}km/h` : ""
-                              } → ${reading.debugMedianMinutes}m in/before tunnel]`
-                            : `[No IRN/detector coverage → status from fastest journey board, ${reading.debugMedianMinutes}m]`}
+                        [
+                        <span className="text-amber-600 dark:text-amber-400">
+                          Slow: ≥{reading.debugThresholds.slowMinutes}m
+                        </span>
+                        ,{" "}
+                        <span className="text-red-600 dark:text-red-400">
+                          Congested: ≥{reading.debugThresholds.congestedMinutes}m
+                        </span>
+                        ]
                       </span>
                     </li>
                   )}
@@ -940,7 +715,7 @@ function TrafficRows({
 
 function HKTollCard(props: TollCardProps): JSX.Element {
   const { tunnelKey, priceAlert, tomorrowToll, vehicle, currentDate, isPublicHoliday, isClient } = props;
-  const { journeyReadings, detectorSpeeds, irnSpeeds, sortMode, userCoords, t } = props;
+  const { journeyReadings, irnSpeeds, sortMode, userCoords, t } = props;
   const tollResult = getCurrentTollForTunnel(vehicle, tunnelKey, currentDate, isPublicHoliday, isClient, t);
   const tunnel = getTunnelInfo(tunnelKey);
 
@@ -961,7 +736,6 @@ function HKTollCard(props: TollCardProps): JSX.Element {
         <TrafficRows
           tunnelKey={tunnelKey}
           journeyReadings={journeyReadings}
-          detectorSpeeds={detectorSpeeds}
           irnSpeeds={irnSpeeds}
           sortMode={sortMode}
           userCoords={userCoords}
@@ -1019,7 +793,6 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
   const [userCoords, setUserCoords] = useState<Coordinates | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
   const [journeyReadings, setJourneyReadings] = useState<Record<string, JourneyReading> | null>(null);
-  const [detectorSpeeds, setDetectorSpeeds] = useState<Record<string, number> | null>(null);
   const [irnSpeeds, setIrnSpeeds] = useState<Record<string, number> | null>(null);
 
   const watchIdRef = useRef<number | null>(null);
@@ -1076,26 +849,6 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
     };
     load();
     const id = setInterval(load, JOURNEY_REFRESH_MS);
-    return () => {
-      cancelled = true;
-      clearInterval(id);
-    };
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const res = await fetch(DETECTOR_URL);
-        if (!res.ok) return;
-        const xml = await res.text();
-        if (!cancelled) setDetectorSpeeds(parseDetectorSpeeds(xml));
-      } catch {
-        /* keep last reading */
-      }
-    };
-    load();
-    const id = setInterval(load, DETECTOR_REFRESH_MS);
     return () => {
       cancelled = true;
       clearInterval(id);
@@ -1366,7 +1119,6 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
                       isPublicHoliday={isPublicHoliday}
                       isClient={isClient}
                       journeyReadings={journeyReadings}
-                      detectorSpeeds={detectorSpeeds}
                       irnSpeeds={irnSpeeds}
                       sortMode={sortMode}
                       userCoords={userCoords}
@@ -1379,9 +1131,6 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
           })}
         </div>
       </div>
-
-      {/* IRN Segment Map */}
-      <SegmentMap irnSpeeds={irnSpeeds} t={t} />
 
       {/* Vehicle Type Selection */}
       <div className="card-base-min mb-8">
@@ -1406,6 +1155,9 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
           })}
         </div>
       </div>
+
+      {/* IRN Segment Map */}
+      <SegmentMap irnSpeeds={irnSpeeds} t={t} />
 
       {/* Last updated */}
       <p className="text-center text-sm text-gray-500 p-4">
