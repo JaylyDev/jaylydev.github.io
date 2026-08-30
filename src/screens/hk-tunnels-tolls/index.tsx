@@ -1059,10 +1059,10 @@ function HKTunnelsTollsApp({
       {/* Current Toll Display */}
       <div className="card-base-min mb-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="text-xl md:text-lg font-semibold">
+          <h2 className="text-xl md:text-lg font-semibold">
             {t("currentToll")} - {vehicleName}{" "}
             {vehicleDescription ? `(${resolveLocalizedString(vehicleDescription, t)})` : ""}
-          </h3>
+          </h2>
           <ButtonGroup>
             <Button
               color={sortMode === SortMode.Default ? "primary" : "default"}
