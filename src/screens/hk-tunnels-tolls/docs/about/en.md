@@ -4,12 +4,12 @@ Instantly check real-time toll rates and live traffic conditions across all majo
 
 ## Info about tunnel status
 
-The platform connects directly to the Hong Kong Transport Department's open data services, including the Journey Time Indication System (JTIS) and Intelligent Road Network (IRN) traffic detectors, to present real-time roadway conditions on each tunnel card:
+The platform connects directly to the Hong Kong Transport Department's open data services, including the Journey Time Indication System and Intelligent Road Network traffic detectors, to present real-time roadway conditions on each tunnel card:
 
 - **Traffic Flow Status:** Dynamically categorizes current traffic conditions into "Smooth", "Slow", "Congested", or "Closed" based on real-time detector speeds and measured transit durations.
 - **Estimated Journey Time:** Displays the estimated travel time in minutes from major approach corridors to tunnel exits, helping you gauge cross-harbour travel time accurately.
-- **Average Speed and Speed Limits:** Calculates live average driving speeds (km/h) through tunnel bores and contrasts them against statutory speed limits to help drivers evaluate road congestion.
-- **Directional Monitoring:** Provides independent traffic feeds for each travel direction across cross-harbour tunnels (To Kowloon / To Island) and major land corridors (such as To Sha Tin, To Tsuen Wan, To Yuen Long).
+- **Average Speed and Speed Limits:** Calculates live average driving speeds through tunnel bores and contrasts them against statutory speed limits to help drivers evaluate road congestion.
+- **Directional Monitoring:** Provides independent traffic feeds for each travel direction (e.g., To Kowloon / To Island / To NT) across the three cross-harbour tunnels (WHC, CHT, EHC) and major land tunnels (Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnel, Lion Rock Tunnel, and Eagle's Nest Tunnel).
 
 > [!NOTE]
 > Traffic data updates automatically every 1 to 2 minutes from the government's open data platform to ensure continuous real-time accuracy.
