@@ -26,7 +26,8 @@ export async function parseMarkdown(
     .use(rehypeRaw)
     .use(rehypeHighlight)
     .use(rehypeStringify)
-    .use(rehypeSlug);
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, { behavior: "append" });
 
   if (tableOfContents) {
     processor.use(rehypeToc, {
@@ -51,8 +52,6 @@ export async function parseMarkdown(
       },
     });
   }
-
-  processor.use(rehypeAutolinkHeadings, { behavior: "append" });
 
   const result = await processor.process(content);
   return result.toString();

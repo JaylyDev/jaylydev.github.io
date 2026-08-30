@@ -274,7 +274,7 @@ function isValidTunnel(t: string): t is HKTunnelIdentifier {
 }
 
 const JOURNEY_TIME_URL = "https://resource.data.one.gov.hk/td/jss/Journeytimev2.xml";
-const JOURNEY_REFRESH_MS = 120000;
+const REFRESH_MS = 120000;
 
 function journeyKey(loc: string, dest: string): string {
   return `${loc}|${dest}`;
@@ -306,7 +306,6 @@ function parseJourneyTimes(xml: string): Record<string, JourneyReading> {
 }
 
 const IRN_SPEED_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/irnAvgSpeed-all.xml";
-const IRN_REFRESH_MS = 60000;
 
 function parseIrnSpeeds(xml: string): Record<string, number> {
   const doc = new DOMParser().parseFromString(xml, "text/xml");
@@ -710,6 +709,54 @@ function IosHomeScreenGuide({ iosGuideHtml }: IosHomeScreenGuideProps): JSX.Elem
   return <div className="markdown-body" dangerouslySetInnerHTML={{ __html: iosGuideHtml }} />;
 }
 
+function IosShareButton({ t }: { t: TranslateFunction }): JSX.Element {
+  return (
+    <a href={"#ios-app-guide"}>
+      <div className="mx-2 mb-4 p-2 rounded-md border bg-blue-50 border-blue-100 text-blue-800 font-bold text-lg text-center">
+        <img
+          src="/assets/posts/hk-toll-rate/ios-share-button.png"
+          alt="iOS Share Button"
+          className="h-6 inline-block mr-2"
+        />
+        <span>{t("iosAppGuide.title")}</span>
+      </div>
+    </a>
+  );
+}
+
+interface VehicleSelectorProps {
+  t: TranslateFunction;
+  selectedVehicle: VehicleTypeIdentifier;
+  setSelectedVehicle: (vehicle: VehicleTypeIdentifier) => void;
+}
+
+function VehicleSelector({ t, selectedVehicle, setSelectedVehicle }: VehicleSelectorProps): JSX.Element {
+  return (
+    <div className="card-base-min mb-8">
+      <h3 className="text-xl md:text-lg font-semibold mb-2">{t("vehicleTypeSelection")}</h3>
+      <div className="grid grid-cols-2 gap-4">
+        {Object.entries(tollData.vehicleTypes).map(([key], index, array) => {
+          if (!isValidVehicle(key)) return null;
+          const vehicle = resolveLocalizedString(registryInfo.vehicleTypes[key].name, t);
+          return (
+            <Button
+              key={key}
+              color={selectedVehicle === key ? "primary" : "default"}
+              size="lg"
+              className={`text-xl md:text-lg ${
+                array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
+              }`}
+              onPress={() => setSelectedVehicle(key)}
+            >
+              {vehicle}
+            </Button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function HKTunnelsTollsApp({
   t,
   lang,
@@ -781,7 +828,7 @@ function HKTunnelsTollsApp({
       }
     };
     loadJourneyTimes();
-    const intervalId = setInterval(loadJourneyTimes, JOURNEY_REFRESH_MS);
+    const intervalId = setInterval(loadJourneyTimes, REFRESH_MS);
     return () => {
       cancelled = true;
       clearInterval(intervalId);
@@ -801,7 +848,7 @@ function HKTunnelsTollsApp({
       }
     };
     loadIrnSpeeds();
-    const intervalId = setInterval(loadIrnSpeeds, IRN_REFRESH_MS);
+    const intervalId = setInterval(loadIrnSpeeds, REFRESH_MS);
     return () => {
       cancelled = true;
       clearInterval(intervalId);
@@ -1007,18 +1054,7 @@ function HKTunnelsTollsApp({
     <div className="max-w-4xl mx-auto px-2">
       {/* Header */}
       <h1 className="text-center m-2 md:m-4 text-3xl md:text-4xl font-bold md:p-2">{t("pageHeading")}</h1>
-      {isAppleDevice && !isPWA && (
-        <a href={"#ios-app-guide"}>
-          <div className="mx-2 mb-4 p-2 rounded-md border bg-blue-50 border-blue-100 text-blue-800 font-bold text-lg text-center">
-            <img
-              src="/assets/posts/hk-toll-rate/ios-share-button.png"
-              alt="iOS Share Button"
-              className="h-6 inline-block mr-2"
-            />
-            <span>{t("iosAppGuide.title")}</span>
-          </div>
-        </a>
-      )}
+      {isAppleDevice && !isPWA && <IosShareButton t={t} />}
 
       {/* Current Toll Display */}
       <div className="card-base-min mb-4">
@@ -1079,28 +1115,7 @@ function HKTunnelsTollsApp({
       </div>
 
       {/* Selection Controls */}
-      <div className="card-base-min mb-8">
-        <h3 className="text-xl md:text-lg font-semibold mb-2">{t("vehicleTypeSelection")}</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {Object.entries(tollData.vehicleTypes).map(([key], index, array) => {
-            if (!isValidVehicle(key)) return null;
-            const vehicle = resolveLocalizedString(registryInfo.vehicleTypes[key].name, t);
-            return (
-              <Button
-                key={key}
-                color={selectedVehicle === key ? "primary" : "default"}
-                size="lg"
-                className={`text-xl md:text-lg ${
-                  array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
-                }`}
-                onPress={() => setSelectedVehicle(key)}
-              >
-                {vehicle}
-              </Button>
-            );
-          })}
-        </div>
-      </div>
+      <VehicleSelector t={t} selectedVehicle={selectedVehicle} setSelectedVehicle={setSelectedVehicle} />
 
       {/* Advertisement */}
       <InArticleAdUnit />
@@ -1122,7 +1137,7 @@ function HKTunnelsTollsApp({
         {t("lastUpdated")}
         <span suppressHydrationWarning>
           {currentTime
-            ? currentTime.toLocaleString(lang === "zh" ? "zh-HK" : "en-US", {
+            ? currentTime.toLocaleString("zh-HK", {
                 timeZone: "Asia/Hong_Kong",
                 year: "numeric",
                 month: "2-digit",

@@ -35,7 +35,7 @@ export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGloba
       <header className="header">
         <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
           <Link rel="apple-touch-icon" href={`${localePrefix}/`}>
-            <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={50} height={25}></Image>
+            <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={50} height={50}></Image>
           </Link>
         </div>
         <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
@@ -51,7 +51,7 @@ export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGloba
                 className="flex flex-none select-none items-center h-12 w-12"
               >
                 <div className="relative m-auto inline-block">
-                  <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={150} height={50}></Image>
+                  <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={150} height={150}></Image>
                   <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
                 </div>
               </Link>

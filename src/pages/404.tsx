@@ -4,8 +4,6 @@ import * as translations from "@/locale/locales/en.json";
 
 const styles: Record<string, React.CSSProperties> = {
   error: {
-    fontFamily:
-      'Inter, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
     height: "90vh",
     textAlign: "center",
     display: "flex",

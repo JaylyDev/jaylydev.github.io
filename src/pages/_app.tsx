@@ -13,6 +13,9 @@ import type { AppProps } from "next/app";
 import { useLanguageSync } from "@/components/LanguageSwitcher";
 import { LocaleProps } from "@/locale/i18n";
 import { useEffect } from "react";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
 export default function App({ Component, pageProps }: AppProps<LocaleProps>) {
   // Sync language preference with localStorage
@@ -26,5 +29,9 @@ export default function App({ Component, pageProps }: AppProps<LocaleProps>) {
     }
   }, [pageProps.hreflang, pageProps.lang]);
 
-  return <Component {...pageProps} />;
+  return (
+    <main className={`${inter.className} antialiased`}>
+      <Component {...pageProps} />
+    </main>
+  );
 }

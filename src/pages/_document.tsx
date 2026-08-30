@@ -1,6 +1,4 @@
 import { LocaleProps } from "@/locale/i18n";
-import { AppType } from "next/app";
-import { Enhancer } from "next/dist/shared/lib/utils";
 import { Html, Head, Main, NextScript, DocumentContext, DocumentInitialProps } from "next/document";
 import Document from "next/document";
 
@@ -46,10 +44,8 @@ class MyDocument extends Document<CustomDocumentProps> {
     return (
       <Html lang={hreflang ?? lang}>
         <Head />
-        <body className="antialiased">
-          <Main />
-          <NextScript />
-        </body>
+        <Main />
+        <NextScript />
       </Html>
     );
   }
