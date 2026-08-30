@@ -647,7 +647,7 @@ function TunnelTable({ tunnelKey, selectedVehicle, t }: TunnelTableProps): JSX.E
 
   const renderSchedule = (labelId: string, colorClass: string, periods: TollPeriod[]) => (
     <div>
-      <h4 className={`text-xl md:text-base font-medium mb-2 ${colorClass}`}>{t(labelId)}</h4>
+      <h3 className={`text-xl md:text-base font-medium mb-2 ${colorClass}`}>{t(labelId)}</h3>
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
@@ -692,7 +692,7 @@ function TunnelTable({ tunnelKey, selectedVehicle, t }: TunnelTableProps): JSX.E
 
   return (
     <div className="card-base-min mb-4">
-      <h3 className="text-2xl md:text-lg font-semibold border-b mb-4">{t("tollRates", tunnelName)}</h3>
+      <h2 className="text-2xl md:text-lg font-semibold border-b mb-4">{t("tollRates", tunnelName)}</h2>
       <div className="mb-6">
         {renderSchedule("weekdaySchedule", "text-blue-600", tunnel.timeVaryingTolls.weekdays.periods)}
       </div>
@@ -733,7 +733,7 @@ interface VehicleSelectorProps {
 function VehicleSelector({ t, selectedVehicle, setSelectedVehicle }: VehicleSelectorProps): JSX.Element {
   return (
     <div className="card-base-min mb-8">
-      <h3 className="text-xl md:text-lg font-semibold mb-2">{t("vehicleTypeSelection")}</h3>
+      <h2 className="text-xl md:text-lg font-semibold mb-2">{t("vehicleTypeSelection")}</h2>
       <div className="grid grid-cols-2 gap-4">
         {Object.entries(tollData.vehicleTypes).map(([key], index, array) => {
           if (!isValidVehicle(key)) return null;
