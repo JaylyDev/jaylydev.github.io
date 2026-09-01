@@ -15,7 +15,7 @@
     "@wooorm/starry-night": "^3.10.0",
     "autoprefixer": "10.4.21",
     "gray-matter": "^4.0.3",
-    "hast-util-to-string": "^3.0.0",
+    "hast-util-to-string": "^3.0.1",
     "highlight.js": "^11.10.0",
     "jszip": "^3.10.1",
     "nbtify": "^2.2.0",
