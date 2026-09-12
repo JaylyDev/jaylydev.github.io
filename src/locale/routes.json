@@ -13,6 +13,13 @@
             ]
         },
         {
+            "noindex": true,
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/insider/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/insider/" }
+            ]
+        },
+        {
             "paths": [
                 { "lang": "zh", "hreflang": "zh-TW", "path": "/zh/donate/" },
                 { "lang": "en", "path": "/donate/" }

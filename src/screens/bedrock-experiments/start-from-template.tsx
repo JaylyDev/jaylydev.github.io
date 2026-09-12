@@ -134,7 +134,7 @@ const StartFromTemplate: React.FC = () => {
         levelData.RandomSeed = BigInt.asIntN(
           64,
           BigInt(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) *
-            BigInt(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER))
+            BigInt(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)),
         );
 
         const modifiedBuffer = await write(parsed, { endian: "little" });
@@ -144,7 +144,7 @@ const StartFromTemplate: React.FC = () => {
         throw new Error("Failed to create modified NBT data");
       }
     },
-    [experimentsData]
+    [experimentsData],
   );
 
   const handleTemplateSelect = async (templateId: string) => {
@@ -215,7 +215,7 @@ const StartFromTemplate: React.FC = () => {
       templateZip.file("levelname.txt", selectedTemplate.name);
       templateZip.file(
         "world_icon.jpeg",
-        fetch(selectedTemplate.iconPath).then((res) => res.blob())
+        fetch(selectedTemplate.iconPath).then((res) => res.blob()),
       );
       worldTemplateZip.forEach((relativePath, file) => {
         templateZip.file(relativePath, file.async("arraybuffer"));
@@ -240,88 +240,86 @@ const StartFromTemplate: React.FC = () => {
   }, [originalLevelDat, templateZip, experiments, selectedTemplate, experimentsData]);
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Start from Template</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            {!selectedTemplate
-              ? "Choose a world template to start editing experiments"
-              : `Editing experiments for ${selectedTemplate.name}`}
-          </p>
-        </div>
+    <div className="max-w-6xl px-4 py-8 mx-auto">
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Start from Template</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300">
+          {!selectedTemplate
+            ? "Choose a world template to start editing experiments"
+            : `Editing experiments for ${selectedTemplate.name}`}
+        </p>
+      </div>
 
-        {error && <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">{error}</div>}
+      {error && <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">{error}</div>}
 
-        {success && (
-          <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">{success}</div>
-        )}
+      {success && (
+        <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">{success}</div>
+      )}
 
-        {!selectedTemplate ? (
-          <Card className="dark:bg-gray-900 mb-8">
-            <CardHeader>
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Choose a Template</h2>
+      {!selectedTemplate ? (
+        <Card className="dark:bg-gray-900 mb-8">
+          <CardHeader>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Choose a Template</h2>
+          </CardHeader>
+          <CardBody>
+            <TemplateGrid
+              templates={templates}
+              isLoading={isLoading}
+              onTemplateSelect={handleTemplateSelect}
+              isProcessing={isProcessing}
+            />
+          </CardBody>
+        </Card>
+      ) : (
+        <div className="space-y-6">
+          <Card className="dark:bg-gray-900">
+            <CardHeader className="flex flex-row justify-between items-center">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                Template: {selectedTemplate.name}
+              </h2>
+              <Button
+                variant="ghost"
+                onPress={() => {
+                  setSelectedTemplate(null);
+                  setTemplateZip(null);
+                  setOriginalLevelDat(null);
+                  setExperiments({});
+                  setError(null);
+                  setSuccess(null);
+                }}
+                disabled={isProcessing}
+              >
+                Choose Different Template
+              </Button>
             </CardHeader>
             <CardBody>
-              <TemplateGrid
-                templates={templates}
-                isLoading={isLoading}
-                onTemplateSelect={handleTemplateSelect}
-                isProcessing={isProcessing}
+              <ExperimentsDisplay
+                experimentsData={experimentsData}
+                experiments={experiments}
+                onExperimentToggle={handleExperimentToggle}
               />
             </CardBody>
           </Card>
-        ) : (
-          <div className="space-y-6">
-            <Card className="dark:bg-gray-900">
-              <CardHeader className="flex flex-row justify-between items-center">
-                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
-                  Template: {selectedTemplate.name}
-                </h2>
-                <Button
-                  variant="ghost"
-                  onPress={() => {
-                    setSelectedTemplate(null);
-                    setTemplateZip(null);
-                    setOriginalLevelDat(null);
-                    setExperiments({});
-                    setError(null);
-                    setSuccess(null);
-                  }}
-                  disabled={isProcessing}
-                >
-                  Choose Different Template
-                </Button>
-              </CardHeader>
-              <CardBody>
-                <ExperimentsDisplay
-                  experimentsData={experimentsData}
-                  experiments={experiments}
-                  onExperimentToggle={handleExperimentToggle}
-                />
-              </CardBody>
-            </Card>
 
-            <div className="flex justify-center gap-4">
-              <Button color="primary" size="lg" onPress={handleDownload} disabled={isProcessing || !originalLevelDat}>
-                {isProcessing ? "Creating World..." : "Download Modified World"}
-              </Button>
-            </div>
+          <div className="flex justify-center gap-4">
+            <Button color="primary" size="lg" onPress={handleDownload} disabled={isProcessing || !originalLevelDat}>
+              {isProcessing ? "Creating World..." : "Download Modified World"}
+            </Button>
           </div>
-        )}
-
-        <div className="text-center mt-8">
-          <Button
-            className="text-lg"
-            variant="ghost"
-            onPress={() => router.push("/bedrock-experiments")}
-            disabled={isProcessing}
-          >
-            Back to Experiments Editor
-          </Button>
         </div>
+      )}
+
+      <div className="text-center mt-8">
+        <Button
+          className="text-lg"
+          variant="ghost"
+          onPress={() => router.push("/bedrock-experiments")}
+          disabled={isProcessing}
+        >
+          Back to Experiments Editor
+        </Button>
       </div>
-    </main>
+    </div>
   );
 };
 
