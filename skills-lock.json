@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "heroui-migration": {
+      "source": "heroui-inc/heroui",
+      "sourceType": "github",
+      "skillPath": "skills/heroui-migration/SKILL.md",
+      "computedHash": "ff03a6828cfa9556accc64e5e9a46d4b824de331882162b7a36743df9ce83e1a"
+    },
+    "heroui-react": {
+      "source": "heroui-inc/heroui",
+      "sourceType": "github",
+      "skillPath": "skills/heroui-react/SKILL.md",
+      "computedHash": "c3633cb324aef2a51a9828c96776897ec2273d8d092cfcfb4dfa754006c7b8df"
+    }
+  }
+}
