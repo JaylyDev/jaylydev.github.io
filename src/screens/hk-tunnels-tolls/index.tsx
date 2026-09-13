@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
 import { useState, useEffect, useMemo, useRef, useCallback, JSX, ReactNode } from "react";
-import { Button, ButtonGroup, HeroUIProvider } from "@heroui/react";
+import { Button, ButtonGroup } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 import { createTranslateFunction, getHreflang, LocaleProps, TranslateFunction } from "@/locale/i18n";
 import publicHolidayData from "./data/public_holidays.json";
@@ -750,7 +750,6 @@ function VehicleSelector({ t, selectedVehicle, setSelectedVehicle }: VehicleSele
           return (
             <Button
               key={key}
-              color={selectedVehicle === key ? "primary" : "default"}
               size="lg"
               className={`text-xl md:text-lg ${
                 array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
@@ -780,7 +779,7 @@ function HKTunnelsTollsApp({
   const [isClient, setIsClient] = useState<boolean>(false);
   const [sortMode, setSortMode] = useState<SortMode>(SortMode.Default);
   const [userCoords, setUserCoords] = useState<Coordinates | null>(null);
-  const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
+  const [ isLoadingLocation, setIsLoadingLocation] = useState<boolean>(false);
   const [journeyReadings, setJourneyReadings] = useState<Record<string, JourneyReading> | null>(null);
   const [irnSpeeds, setIrnSpeeds] = useState<Record<string, number> | null>(null);
 
@@ -1074,17 +1073,15 @@ function HKTunnelsTollsApp({
           </h2>
           <ButtonGroup>
             <Button
-              color={sortMode === SortMode.Default ? "primary" : "default"}
               onPress={() => setSortMode(SortMode.Default)}
               className="text-xl md:text-lg"
             >
               {t("sortDefault")}
             </Button>
             <Button
-              color={sortMode === SortMode.Nearest || isLoadingLocation ? "primary" : "default"}
-              className={`text-xl md:text-lg ${userCoords || isLoadingLocation ? "" : "hk-tunnel-glow"}`}
+              className={`text-xl md:text-lg ${userCoords ||  isLoadingLocation ? "" : "hk-tunnel-glow"}`}
               onPress={requestNearestSort}
-              isLoading={isLoadingLocation}
+              isPending={isLoadingLocation}
             >
               {t("sortNearest")}
             </Button>
@@ -1250,7 +1247,7 @@ export default function Page({
       </Head>
       <StatsCollection />
       <SiteHeader t={t} icon="/hk-tunnels-tolls/icon.png" lang={lang} localizedRoutes={localizedRoutes} />
-      <HeroUIProvider>
+      
         <ThemeProvider>
           <HKTunnelsTollsApp
             t={t}
@@ -1261,7 +1258,7 @@ export default function Page({
             iosGuideHtml={iosGuideHtml}
           />
         </ThemeProvider>
-      </HeroUIProvider>
+      
       <SiteFooter t={t} lang={lang} localizedRoutes={localizedRoutes} />
     </>
   );

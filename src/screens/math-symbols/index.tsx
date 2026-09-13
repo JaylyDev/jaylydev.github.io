@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
-import { HeroUIProvider } from "@heroui/react";
+
 import { ThemeProvider } from "next-themes";
 import { useState, useMemo, JSX } from "react";
 import symbolsData from "./data/symbols.json";
@@ -144,12 +144,12 @@ export default function Page({ texts, lang }: ScreenLocaleProps): JSX.Element {
       </Head>
       <StatsCollection />
       <SiteHeader t={t} lang={lang} />
-      <HeroUIProvider>
+      
         <ThemeProvider>
           <MathEquationSymbolsApp />
           <BackToTopButton />
         </ThemeProvider>
-      </HeroUIProvider>
+      
       <SiteFooter t={t} lang={lang} />
     </>
   );
