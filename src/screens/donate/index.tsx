@@ -1,10 +1,11 @@
+import React from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { createTranslateFunction, getHreflang, ScreenLocaleProps, TranslateFunction } from "@/locale/i18n";
 import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 
-function DonationPage({ t }: { t: TranslateFunction }): JSX.Element {
+function DonationPage({ t }: { t: TranslateFunction }): React.JSX.Element {
   const kofiIframeStyle: React.CSSProperties = {
     border: "none",
     width: "100%",
