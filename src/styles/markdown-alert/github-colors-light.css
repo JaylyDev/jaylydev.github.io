@@ -1,8 +1,8 @@
 :root {
-  --color-note: #0969da;
-  --color-tip: #1a7f37;
-  --color-warning: #9a6700;
-  --color-severe: #bc4c00;
-  --color-caution: #d1242f;
-  --color-important: #8250df;
+  --color-note: light-dark(#0969da, #2f81f7);
+  --color-tip: light-dark(#1a7f37, #3fb950);
+  --color-warning: light-dark(#9a6700, #d29922);
+  --color-severe: light-dark(#bc4c00, #db6d28);
+  --color-caution: light-dark(#d1242f, #f85149);
+  --color-important: light-dark(#8250df, #a371f7);
 }
