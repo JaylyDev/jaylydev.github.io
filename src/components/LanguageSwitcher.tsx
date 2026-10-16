@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import languages from "../locale/languages.json";
 import { RouteLanguageInfo, STORAGE_KEY, SUPPORTED_LOCALES } from "../locale/i18n";
 import { useRouter } from "next/router";
@@ -70,7 +70,7 @@ export function useLanguageSync(): void {
  * @param localizedRoutes - List of available language routes for current page
  * @param currentLocale - Current page locale
  */
-export function LanguageSwitcher({ currentLocale, localizedRoutes }: LanguageSwitcherProps): JSX.Element | null {
+export function LanguageSwitcher({ currentLocale, localizedRoutes }: LanguageSwitcherProps): React.JSX.Element | null {
   const [message, setMessage] = useState<string | undefined>();
   const [switchButtonText, setSwitchButtonText] = useState<string | undefined>();
   const [showBanner, setShowBanner] = useState<boolean>(false);

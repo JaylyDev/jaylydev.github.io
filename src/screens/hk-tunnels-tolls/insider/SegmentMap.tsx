@@ -37,7 +37,11 @@ function getSegmentColor(speed: number | null, limit: number): string {
   return "#dc2626";
 }
 
-export default function SegmentMap({ irnSpeeds, t, selectedTunnelKey: initialTunnel = "all" }: SegmentMapProps): JSX.Element {
+export default function SegmentMap({
+  irnSpeeds,
+  t,
+  selectedTunnelKey: initialTunnel = "all",
+}: SegmentMapProps): React.JSX.Element {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<import("leaflet").Map | null>(null);
   const layerGroupRef = useRef<import("leaflet").LayerGroup | null>(null);
@@ -47,23 +51,27 @@ export default function SegmentMap({ irnSpeeds, t, selectedTunnelKey: initialTun
     const list: IrnSegmentWithRoute[] = [];
     const seen = new Set<string>();
 
-    (Object.entries(registryInfo.tunnels) as [HKTunnelIdentifier, (typeof registryInfo.tunnels)[HKTunnelIdentifier]][]).forEach(([tKey, tunnel]) => {
+    (
+      Object.entries(registryInfo.tunnels) as [HKTunnelIdentifier, (typeof registryInfo.tunnels)[HKTunnelIdentifier]][]
+    ).forEach(([tKey, tunnel]) => {
       const tunnelAny = tunnel as Record<string, unknown>;
-      const limit = (typeof tunnelAny.maxLegalSpeedKmh === "number" ? tunnelAny.maxLegalSpeedKmh : 70);
-      const routes = Array.isArray(tunnelAny.journeyRoutes) ? (tunnelAny.journeyRoutes as Record<string, unknown>[]) : [];
-      
+      const limit = typeof tunnelAny.maxLegalSpeedKmh === "number" ? tunnelAny.maxLegalSpeedKmh : 70;
+      const routes = Array.isArray(tunnelAny.journeyRoutes)
+        ? (tunnelAny.journeyRoutes as Record<string, unknown>[])
+        : [];
+
       routes.forEach((route) => {
         const routeLimit = typeof route.speedLimitKmh === "number" ? route.speedLimitKmh : limit;
         const direction = typeof route.direction === "string" ? route.direction : "unknown";
         const irnSegs = Array.isArray(route.irnSegments) ? (route.irnSegments as Record<string, unknown>[]) : [];
-        
+
         irnSegs.forEach((seg) => {
           const id = String(seg.id);
           const name = String(seg.name || "");
           const type = (seg.type === "bore" ? "bore" : "approach") as "approach" | "bore";
           const path = Array.isArray(seg.path) ? (seg.path as [number, number][]) : [];
           if (path.length === 0) return;
-          
+
           const key = `${tKey}-${direction}-${id}`;
           if (!seen.has(key)) {
             seen.add(key);
@@ -146,7 +154,7 @@ export default function SegmentMap({ irnSpeeds, t, selectedTunnelKey: initialTun
         // Tooltip on hover
         polyline.bindTooltip(
           `<b>#${seg.id}</b> ${seg.name ? `(${seg.name})` : ""}: <b>${speed != null ? `${speed} km/h` : "N/A"}</b> (Tunnel Bore)`,
-          { sticky: true }
+          { sticky: true },
         );
 
         // Detailed popup on click
@@ -200,7 +208,12 @@ export default function SegmentMap({ irnSpeeds, t, selectedTunnelKey: initialTun
             className="rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm px-2.5 py-1 text-gray-900 dark:text-gray-100"
           >
             <option value="all">All Tunnels</option>
-            {(Object.entries(registryInfo.tunnels) as [HKTunnelIdentifier, (typeof registryInfo.tunnels)[HKTunnelIdentifier]][]).map(([key, tunnel]) => (
+            {(
+              Object.entries(registryInfo.tunnels) as [
+                HKTunnelIdentifier,
+                (typeof registryInfo.tunnels)[HKTunnelIdentifier],
+              ][]
+            ).map(([key, tunnel]) => (
               <option key={key} value={key}>
                 {resolveLocalizedString(tunnel.name as LocalizedString, t)}
               </option>

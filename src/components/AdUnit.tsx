@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
-export function InArticleAdUnit(): JSX.Element {
+export function InArticleAdUnit(): React.JSX.Element {
   const insRef = useRef<HTMLModElement>(null);
   const loadedRef = useRef(false);
 
