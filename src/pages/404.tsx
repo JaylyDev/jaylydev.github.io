@@ -26,7 +26,7 @@ export default function Custom404() {
       <StatsCollection />
       <SiteHeader t={t} />
       <div className="next-error">
-        <div className="leading-48">
+        <div className="leading-[50px] flex flex-row">
           {statusCode ? <h1>{statusCode}</h1> : null}
           <div className="next-error-wrap">
             <h2>{title}.</h2>

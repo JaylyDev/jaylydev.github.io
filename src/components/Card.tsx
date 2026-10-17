@@ -25,16 +25,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
       <div className="border-b border-black dark:border-white mb-2"></div>
       {media && (
         <div className="flex justify-center items-center">
-          <img
-            src={media}
-            alt="media"
-            style={{
-              maxHeight: "150px",
-              maxWidth: "auto",
-              width: "100%",
-              height: "100%",
-            }}
-          />
+          <img className="max-h-[150px] rounded-md" src={media} alt="media" />
         </div>
       )}
       {description.split("\n").map((line, index, array) => (

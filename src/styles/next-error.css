@@ -7,28 +7,20 @@
   flex-direction: column;
 }
 
-.next-error-h1,
-.next-error > h1 {
-  border-right: 1px solid
-    light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+.next-error h1 {
   display: inline-block;
   margin: 0 20px 0 0;
   padding-right: 23px;
   font-size: 24px;
   font-weight: 500;
   vertical-align: top;
+  border-right: 1px solid
+    light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
 }
 
-.next-error > h2 {
+.next-error h2 {
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.5;
   margin: 0;
   padding: 0;
-}
-
-.next-error > .next-error-wrap {
-  display: inline-block;
-  vertical-align: top;
-  line-height: 1.5;
 }
