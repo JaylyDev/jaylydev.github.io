@@ -302,7 +302,12 @@ const StartFromTemplate: React.FC = () => {
           </Card>
 
           <div className="flex justify-center gap-4">
-            <Button  size="lg" onPress={handleDownload} isDisabled={isProcessing || !originalLevelDat}>
+            <Button
+              size="lg"
+              onPress={handleDownload}
+              isPending={isProcessing}
+              isDisabled={!originalLevelDat}
+            >
               {isProcessing ? "Creating World..." : "Download Modified World"}
             </Button>
           </div>

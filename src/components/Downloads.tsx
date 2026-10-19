@@ -5,11 +5,6 @@ import {
   Link,
   ProgressBar,
   Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
 } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 
@@ -47,8 +42,13 @@ export interface DownloadRow {
   download: React.ReactNode;
 }
 
+interface DownloadColumn {
+  key: Exclude<keyof DownloadRow, "key">;
+  label: string;
+}
+
 export function DownloadSection({ downloads }: DownloadProps) {
-  const columns = [
+  const columns: DownloadColumn[] = [
     { key: "version", label: "Version" },
     { key: "supports", label: "Supports" },
     { key: "changelog", label: "Changelog" },
@@ -62,16 +62,16 @@ export function DownloadSection({ downloads }: DownloadProps) {
       supports: item.supports,
       changelog: item.changelog_url ? (
         <Link href={item.changelog_url}>
-          <Button >Changelog</Button>
+          <Button>Changelog</Button>
         </Link>
       ) : (
-        <Button isDisabled >
+        <Button isDisabled variant="tertiary">
           Changelog
         </Button>
       ),
       download: (
         <Link href={item.url}>
-          <Button >
+          <Button className="bg-success text-success-foreground hover:bg-success-hover">
             <strong>Download</strong>
           </Button>
         </Link>
@@ -98,19 +98,33 @@ export function DownloadSection({ downloads }: DownloadProps) {
         <div className="download-section">
           <p>Downloads</p>
           {value < 100 ? (
-            <ProgressBar aria-label="Fetching Downloads..." size="md" value={value} />
+            <ProgressBar aria-label="Fetching Downloads..." size="md" value={value}>
+              <ProgressBar.Track>
+                <ProgressBar.Fill />
+              </ProgressBar.Track>
+            </ProgressBar>
           ) : (
-            <Table aria-label="Example static collection table">
-              <TableHeader columns={columns}>
-                {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-              </TableHeader>
-              <TableBody items={rows}>
-                {(item) => (
-                  <TableRow key={item.key}>
-                    {(columnKey) => <TableCell>{item[String(columnKey) as keyof DownloadRow] as React.ReactNode}</TableCell>}
-                  </TableRow>
-                )}
-              </TableBody>
+            <Table>
+              <Table.ScrollContainer>
+                <Table.Content aria-label="Downloads">
+                  <Table.Header columns={columns}>
+                    {(column) => (
+                      <Table.Column id={column.key} isRowHeader={column.key === "version"}>
+                        {column.label}
+                      </Table.Column>
+                    )}
+                  </Table.Header>
+                  <Table.Body items={rows}>
+                    {(item) => (
+                      <Table.Row id={item.key}>
+                        <Table.Collection items={columns}>
+                          {(column) => <Table.Cell>{item[column.key]}</Table.Cell>}
+                        </Table.Collection>
+                      </Table.Row>
+                    )}
+                  </Table.Body>
+                </Table.Content>
+              </Table.ScrollContainer>
             </Table>
           )}
         </div>

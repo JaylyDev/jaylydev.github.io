@@ -52,7 +52,7 @@ export const ExperimentsDisplay: React.FC<ExperimentsDisplayProps> = ({
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Experiment Settings</h3>
-        <Chip  variant="tertiary">
+        <Chip color="accent" variant="soft">
           {enabledCount}/{totalCount} enabled
         </Chip>
       </div>
@@ -89,10 +89,13 @@ export const ExperimentsDisplay: React.FC<ExperimentsDisplayProps> = ({
                   <Switch
                     isSelected={experiments[experiment.id] || false}
                     onChange={(enabled) => onExperimentToggle(experiment.id, enabled)}
+                    aria-label={experiment.title}
                   >
-                    <Switch.Control>
-                      <Switch.Thumb />
-                    </Switch.Control>
+                    <Switch.Content>
+                      <Switch.Control>
+                        <Switch.Thumb />
+                      </Switch.Control>
+                    </Switch.Content>
                   </Switch>
                 </div>
               ))}

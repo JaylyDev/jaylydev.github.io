@@ -1082,13 +1082,15 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
           </h3>
           <ButtonGroup>
             <Button
+              variant={sortMode === SortMode.Default ? "primary" : "tertiary"}
               onPress={() => setSortMode(SortMode.Default)}
               className="text-xl md:text-lg"
             >
               {t("sortDefault")}
             </Button>
             <Button
-              className={`text-xl md:text-lg ${userCoords ||  isLoadingLocation ? "" : "hk-tunnel-glow"}`}
+              variant={sortMode === SortMode.Nearest || isLoadingLocation ? "primary" : "tertiary"}
+              className={`text-xl md:text-lg ${userCoords || isLoadingLocation ? "" : "hk-tunnel-glow"}`}
               onPress={requestNearestSort}
               isPending={isLoadingLocation}
             >
@@ -1140,8 +1142,9 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
             return (
               <Button
                 key={key}
+                variant={selectedVehicle === key ? "primary" : "tertiary"}
                 size="lg"
-                className={`text-xl md:text-lg ${
+                className={`w-full text-xl md:text-lg ${
                   array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
                 }`}
                 onPress={() => setSelectedVehicle(key)}

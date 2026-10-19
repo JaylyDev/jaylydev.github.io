@@ -353,7 +353,7 @@ const ExperimentsEditor: React.FC = () => {
               onChange={handleFileUpload}
               disabled={isProcessing}
               placeholder="Upload world file"
-              className="dark:text-white"
+              className="dark:text-white w-full"
             />
           </div>
 
@@ -392,9 +392,9 @@ const ExperimentsEditor: React.FC = () => {
 
       {levelDat && (
         <Card className="dark:bg-gray-900">
-          <Card.Header className="flex justify-between items-center">
+          <Card.Header className="flex-row justify-between items-center">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Experiment Settings</h3>
-            <Chip  variant="tertiary">
+            <Chip color="accent" variant="soft">
               {enabledCount}/{totalCount} enabled
             </Chip>
           </Card.Header>
@@ -424,10 +424,13 @@ const ExperimentsEditor: React.FC = () => {
                       <Switch
                         isSelected={experiments[experiment.id]}
                         onChange={(enabled) => handleExperimentToggle(experiment.id, enabled)}
+                        aria-label={experiment.title}
                       >
-                        <Switch.Control>
-                          <Switch.Thumb />
-                        </Switch.Control>
+                        <Switch.Content>
+                          <Switch.Control>
+                            <Switch.Thumb />
+                          </Switch.Control>
+                        </Switch.Content>
                       </Switch>
                     </div>
                   ))}
@@ -438,7 +441,7 @@ const ExperimentsEditor: React.FC = () => {
             <Separator className="dark:border-gray-700" />
 
             <div className="flex justify-center">
-              <Button  size="lg" onPress={handleDownload} isDisabled={isProcessing} className="min-w-48">
+              <Button size="lg" onPress={handleDownload} isPending={isProcessing} className="min-w-48 data-[pending=true]:opacity-100">
                 {isProcessing ? "Processing..." : "Download Modified World"}
               </Button>
             </div>

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
 import { useState, useEffect, useCallback, JSX } from "react";
-import { Button, Switch, Card, Separator, Chip } from "@heroui/react";
+import { Button, Switch, SwitchProps, Card, Separator, Chip } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 import { createTranslateFunction, LocaleProps, TranslateFunction } from "@/locale/i18n";
 import { v4 as uuidv4 } from "uuid";
@@ -467,6 +467,25 @@ function generateManifestJSON(
   return manifest;
 }
 
+const SUCCESS_SWITCH = "[--switch-control-bg-checked:var(--success)] [--switch-control-bg-checked-hover:var(--success-hover)]";
+const WARNING_SWITCH = "[--switch-control-bg-checked:var(--warning)] [--switch-control-bg-checked-hover:var(--warning-hover)]";
+const SUCCESS_SOFT_BUTTON = "bg-success-soft text-success-soft-foreground hover:bg-success-soft-hover";
+const ACCENT_SOFT_BUTTON = "bg-accent-soft text-accent-soft-foreground hover:bg-accent-soft-hover";
+
+type ToggleSwitchProps = Omit<SwitchProps, "children">;
+
+function ToggleSwitch(props: ToggleSwitchProps): JSX.Element {
+  return (
+    <Switch {...props}>
+      <Switch.Content>
+        <Switch.Control>
+          <Switch.Thumb />
+        </Switch.Control>
+      </Switch.Content>
+    </Switch>
+  );
+}
+
 interface VersionInputProps {
   label: string;
   field: VersionField;
@@ -570,7 +589,12 @@ function VersionInput({
         )}
         {!forceString ? (
           <div className="flex items-center gap-1.5 ml-2">
-            <Switch size="sm" isSelected={isString} onChange={handleFormatChange} />
+            <ToggleSwitch
+              size="sm"
+              isSelected={isString}
+              onChange={handleFormatChange}
+              aria-label={t("version.format.string")}
+            />
             <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
               {isString
                 ? t("version.format.string")
@@ -611,7 +635,7 @@ function UuidField({ label, value, onChange, t }: UuidFieldProps): JSX.Element {
           onChange={(e) => onChange(e.target.value)}
           className="flex-1 px-3 py-1.5 border rounded-lg text-sm font-mono dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
         />
-        <Button size="sm" variant="tertiary"  onPress={() => onChange(uuidv4())}>
+        <Button size="sm" variant="tertiary" className={SUCCESS_SOFT_BUTTON} onPress={() => onChange(uuidv4())}>
           {t("fields.regenerate")}
         </Button>
       </div>
@@ -672,7 +696,7 @@ function ModuleEditor({ modules, onChange, packKind, t, formatVersion }: ModuleE
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{t("modules.title")}</h3>
-        <Button size="sm" variant="tertiary"  onPress={addModule}>
+        <Button size="sm" variant="tertiary" className={SUCCESS_SOFT_BUTTON} onPress={addModule}>
           + {t("modules.add")}
         </Button>
       </div>
@@ -698,7 +722,7 @@ function ModuleEditor({ modules, onChange, packKind, t, formatVersion }: ModuleE
               </select>
             </div>
             {modules.length > 1 && (
-              <Button size="sm" variant="tertiary"  onPress={() => removeModule(index)}>
+              <Button size="sm" variant="ghost" className="text-danger" onPress={() => removeModule(index)}>
                 ✕
               </Button>
             )}
@@ -788,18 +812,19 @@ function CapabilitiesEditor({
           const isDisabled = cap.requiresScript && !hasScriptModule;
           return (
             <div key={cap.key} className="flex items-center gap-3">
-              <Switch
+              <ToggleSwitch
                 size="sm"
                 isSelected={capabilities.includes(cap.key)}
                 isDisabled={isDisabled}
                 onChange={() => toggle(cap.key)}
-                
+                className={SUCCESS_SWITCH}
+                aria-label={cap.label}
               />
               <span
                 className={`text-sm ${isDisabled ? "text-gray-400 dark:text-gray-600" : "text-gray-700 dark:text-gray-300"}`}
               >
                 {cap.label + " (" + cap.key + ")"}
-                {isDisabled && <span className="text-xs ml-1">({cap. disabledNote})</span>}
+                {isDisabled && <span className="text-xs ml-1">({cap.disabledNote})</span>}
               </span>
             </div>
           );
@@ -892,7 +917,13 @@ function ScriptApiDepsEditor({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Switch size="sm" isSelected={showPreview} onChange={onShowPreviewChange}  />
+          <ToggleSwitch
+            size="sm"
+            isSelected={showPreview}
+            onChange={onShowPreviewChange}
+            className={WARNING_SWITCH}
+            aria-label={t("scriptapi.showPreview")}
+          />
           <span className="text-xs text-gray-500 dark:text-gray-400">{t("scriptapi.showPreview")}</span>
         </div>
       </div>
@@ -914,11 +945,12 @@ function ScriptApiDepsEditor({
                 : "border-gray-200 dark:border-gray-700"
             }`}
           >
-            <Switch
+            <ToggleSwitch
               size="sm"
               isSelected={isSelected(name)}
               onChange={() => toggleModule(name, versions)}
-              
+              className={SUCCESS_SWITCH}
+              aria-label={name}
             />
             <span className="text-sm font-mono flex-1 text-gray-800 dark:text-gray-200">{name}</span>
             {isSelected(name) && versions.length > 0 && (
@@ -971,7 +1003,7 @@ function PackDepsEditor({ deps, onChange, t, formatVersion }: PackDepsEditorProp
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{t("dependencies.title")}</h3>
-        <Button size="sm" variant="tertiary"  onPress={addDep}>
+        <Button size="sm" variant="tertiary" className={SUCCESS_SOFT_BUTTON} onPress={addDep}>
           + {t("dependencies.add")}
         </Button>
       </div>
@@ -983,7 +1015,7 @@ function PackDepsEditor({ deps, onChange, t, formatVersion }: PackDepsEditorProp
         >
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t("dependencies.uuid")}</span>
-            <Button size="sm" variant="tertiary"  onPress={() => removeDep(index)}>
+            <Button size="sm" variant="ghost" className="text-danger" onPress={() => removeDep(index)}>
               ✕
             </Button>
           </div>
@@ -1036,7 +1068,7 @@ function SubpacksEditor({ subpacks, onChange, formatVersion, t }: SubpacksEditor
             </a>
           </p>
         </div>
-        <Button size="sm" variant="tertiary"  onPress={addSubpack}>
+        <Button size="sm" variant="tertiary" className={SUCCESS_SOFT_BUTTON} onPress={addSubpack}>
           + {t("subpacks.add")}
         </Button>
       </div>
@@ -1047,7 +1079,7 @@ function SubpacksEditor({ subpacks, onChange, formatVersion, t }: SubpacksEditor
           className="p-3 border rounded-lg dark:border-gray-700 space-y-2 bg-gray-50 dark:bg-gray-800/50"
         >
           <div className="flex items-center justify-end">
-            <Button size="sm" variant="tertiary"  onPress={() => removeSubpack(index)}>
+            <Button size="sm" variant="ghost" className="text-danger" onPress={() => removeSubpack(index)}>
               ✕
             </Button>
           </div>
@@ -1169,7 +1201,7 @@ function SettingsEditor({ settings, onChange, t }: SettingsEditorProps): JSX.Ele
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{t("settings.title")}</h3>
-            <Chip size="sm"  variant="tertiary">
+            <Chip size="sm" color="warning" variant="soft">
               Preview
             </Chip>
           </div>
@@ -1180,7 +1212,7 @@ function SettingsEditor({ settings, onChange, t }: SettingsEditorProps): JSX.Ele
             </a>
           </p>
         </div>
-        <Button size="sm" variant="tertiary"  onPress={addSetting}>
+        <Button size="sm" variant="tertiary" className={SUCCESS_SOFT_BUTTON} onPress={addSetting}>
           + {t("settings.add")}
         </Button>
       </div>
@@ -1204,7 +1236,7 @@ function SettingsEditor({ settings, onChange, t }: SettingsEditorProps): JSX.Ele
                 <option value="dropdown">Dropdown</option>
               </select>
             </div>
-            <Button size="sm" variant="tertiary"  onPress={() => removeSetting(index)}>
+            <Button size="sm" variant="ghost" className="text-danger" onPress={() => removeSetting(index)}>
               ✕
             </Button>
           </div>
@@ -1276,11 +1308,12 @@ function SettingsEditor({ settings, onChange, t }: SettingsEditorProps): JSX.Ele
           {setting.type === "toggle" && (
             <div className="flex items-center gap-2">
               <label className="text-xs font-medium text-gray-600 dark:text-gray-400">{t("settings.default")}</label>
-              <Switch
+              <ToggleSwitch
                 size="sm"
                 isSelected={setting.defaultBool}
                 onChange={(v) => updateSetting(index, { defaultBool: v })}
-                
+                className={SUCCESS_SWITCH}
+                aria-label={t("settings.default")}
               />
             </div>
           )}
@@ -1502,20 +1535,22 @@ function PackEditor({
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 <div className="flex items-center gap-3">
-                  <Switch
+                  <ToggleSwitch
                     size="sm"
                     isSelected={state.allowRandomSeed}
                     onChange={(v) => update("allowRandomSeed", v)}
-                    
+                    className={SUCCESS_SWITCH}
+                    aria-label={t("fields.allowRandomSeed")}
                   />
                   <span className="text-sm text-gray-700 dark:text-gray-300">{t("fields.allowRandomSeed")}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Switch
+                  <ToggleSwitch
                     size="sm"
                     isSelected={state.lockTemplateOptions}
                     onChange={(v) => update("lockTemplateOptions", v)}
-                    
+                    className={SUCCESS_SWITCH}
+                    aria-label={t("fields.lockTemplateOptions")}
                   />
                   <span className="text-sm text-gray-700 dark:text-gray-300">{t("fields.lockTemplateOptions")}</span>
                 </div>
@@ -1523,7 +1558,7 @@ function PackEditor({
 
               {/* Base Game Version (optional) */}
               <div className="flex items-center gap-3 pt-1">
-                <Switch
+                <ToggleSwitch
                   size="sm"
                   isSelected={state.baseGameVersion !== null}
                   onChange={(v) => {
@@ -1533,7 +1568,8 @@ function PackEditor({
                       update("baseGameVersion", null);
                     }
                   }}
-                  
+                  className={SUCCESS_SWITCH}
+                  aria-label={t("fields.baseGameVersion")}
                 />
                 <span className="text-sm text-gray-700 dark:text-gray-300">{t("fields.baseGameVersion")}</span>
               </div>
@@ -1723,13 +1759,13 @@ function ManifestOutput({ manifest, label, t }: ManifestOutputProps): JSX.Elemen
 
   return (
     <Card className="dark:bg-gray-900 mb-6">
-      <Card.Header className="flex justify-between items-center">
+      <Card.Header className="flex-row justify-between items-center">
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">{label}</h3>
         <div className="flex gap-2">
-          <Button size="sm" variant="tertiary" onPress={copyToClipboard}>
+          <Button size="sm" variant="tertiary" className={copied ? SUCCESS_SOFT_BUTTON : undefined} onPress={copyToClipboard}>
             {copied ? t("output.copied") : t("output.copy")}
           </Button>
-          <Button size="sm" variant="tertiary"  onPress={downloadFile}>
+          <Button size="sm" variant="tertiary" className={ACCENT_SOFT_BUTTON} onPress={downloadFile}>
             {t("output.download")}
           </Button>
         </div>
@@ -1842,6 +1878,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                 <Button
                   size="sm"
                   variant={formatVersion === 2 ? "primary" : "tertiary"}
+                  className={formatVersion === 2 ? "bg-success text-success-foreground hover:bg-success-hover" : undefined}
                   onPress={() => setFormatVersion(2)}
                 >
                   V2 (Stable)
@@ -1849,6 +1886,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                 <Button
                   size="sm"
                   variant={formatVersion === 3 ? "primary" : "tertiary"}
+                  className={formatVersion === 3 ? "bg-warning text-warning-foreground hover:bg-warning-hover" : undefined}
                   onPress={() => setFormatVersion(3)}
                 >
                   V3 (Preview)
