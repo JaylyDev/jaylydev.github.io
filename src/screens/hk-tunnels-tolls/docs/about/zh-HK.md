@@ -1,6 +1,6 @@
 ## 關於這個網站
 
-即時查詢香港各條過海隧道與陸上隧道的實時收費及最新交通路況。本網站根據您的裝置時間自動計算當前分時段收費，並同步整合運輸署即時路況與行車時間數據，助駕駛人士、的士司機及商用車輛一按即睇，輕鬆比較最佳路線與隧道費。
+即時查詢香港各條過海隧道與陸上隧道的實時收費及最新交通路況。本網站根據運輸署數據計算當前分時段收費、即時路況何行車時間數據，助駕駛人士、的士司機及商用車輛一按即睇，輕鬆比較最佳路線與隧道費。
 
 ## 關於隧道交通狀況
 
@@ -12,7 +12,7 @@
 - **雙向行車監測：** 提供全港主要隧道（如往九龍 / 往港島 / 往新界等）的分向獨立路況數據，涵蓋三條過海隧道（西隧、紅隧、東隧）以及各主要陸上隧道（大欖隧道、大老山隧道、香港仔隧道、城門隧道、獅子山隧道及尖山隧道）。
 
 > [!NOTE]
-> 交通數據每 1 至 2 分鐘自動從運輸署開放數據平台更新，以確保提供最新路況資訊。
+> 交通數據每分鐘自動從運輸署開放數據平台更新，以確保提供最新路況資訊。
 
 ## 關於隧道收費
 
@@ -36,4 +36,10 @@
 
 ### 相關連結
 
-- [資料來源與收費政策詳情](https://jaylydev.github.io/posts/查看香港實時隧道收費/#資料來源)
+- [運輸署 - 行車隧道的收費](https://www.td.gov.hk/tc/transport_in_hong_kong/tunnels_and_bridges_n/toll_matters/toll_rates_of_road_tunnels_and_lantau_link/index.html)
+- [香港公眾假期數據 | DATA.GOV.HK](https://data.gov.hk/tc-data/dataset/hk-dpo-statistic-cal)
+- [運輸署 - 過海隧道收費方案](https://www.td.gov.hk/tc/transport_in_hong_kong/tunnels_and_bridges_n/tvt/index.html)
+- [不同時段不同收費隧道費時間表](https://www.td.gov.hk/filemanager/tc/content_5014/Toll%20Schedule%20for%20Time-varying%20Toll_chi.pdf)
+- [運輸署 - 大欖隧道收費方案](https://www.td.gov.hk/tc/transport_in_hong_kong/tunnels_and_bridges_n/tlt/index.html)
+- [開放數據平台 - 主要幹道及道路交通數據](https://data.gov.hk/tc-data/dataset/hk-td-sm_4-traffic-data-strategic-major-roads)
+- [開放數據平台 - 道路網絡 (第二代)](https://data.gov.hk/tc-data/dataset/hk-td-tis_15-road-network-v2)
