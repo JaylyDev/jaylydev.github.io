@@ -4,16 +4,15 @@ import "@/styles/articles.css";
 import "@/styles/components/card.css";
 import "@/styles/github-markdown.css";
 import "@/styles/highlight.js/github.css";
+import "@/styles/next-error.css";
 import "@/styles/posts.css";
 import "@/styles/markdown-alert/github-base.css";
-import "@/styles/markdown-alert/github-colors-dark-class.css";
-import "@/styles/markdown-alert/github-colors-dark-media.css";
-import "@/styles/markdown-alert/github-colors-light.css";
 import type { AppProps } from "next/app";
 import { useLanguageSync } from "@/components/LanguageSwitcher";
 import { LocaleProps } from "@/locale/i18n";
 import { useEffect } from "react";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
@@ -30,8 +29,10 @@ export default function App({ Component, pageProps }: AppProps<LocaleProps>) {
   }, [pageProps.hreflang, pageProps.lang]);
 
   return (
-    <main className={`${inter.className} antialiased`}>
-      <Component {...pageProps} />
-    </main>
+    <ThemeProvider>
+      <main className={`${inter.className} antialiased`}>
+        <Component {...pageProps} />
+      </main>
+    </ThemeProvider>
   );
 }

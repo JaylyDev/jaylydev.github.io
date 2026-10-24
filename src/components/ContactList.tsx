@@ -1,4 +1,4 @@
-import { Link, Image } from "@heroui/react";
+import { Link, } from "@heroui/react";
 
 interface IContentGridParam {
   href: string;
@@ -17,7 +17,7 @@ function ContentGrid(params: IContentGridParam) {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Image src={params.src} alt={params.alt} width={params.size} height={params.size}></Image>
+      <img src={params.src} alt={params.alt} width={params.size} height={params.size}></img>
       <h2 className="mb-3 text-2xl font-semibold text-white">
         {params.title + " "}
         <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">

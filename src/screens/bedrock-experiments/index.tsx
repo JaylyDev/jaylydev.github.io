@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, JSX } from "react";
 import Head from "next/head";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
-import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroUIProvider } from "@heroui/react";
+import { Button, Card, Switch, Input, Separator, Chip } from "@heroui/react";
 import Link from "next/link";
 import JSZip from "jszip";
 import { Int8, ByteTag, Tag, read, write } from "nbtify";
@@ -326,10 +326,10 @@ const ExperimentsEditor: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-6">
       <Card className="dark:bg-gray-900">
-        <CardHeader>
+        <Card.Header>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Minecraft Bedrock Experiments Editor</h1>
-        </CardHeader>
-        <CardBody className="space-y-4">
+        </Card.Header>
+        <Card.Content className="space-y-4">
           <p className="text-gray-700 dark:text-gray-300">
             An online tool to enable and disable experimental features to test work-in-progress features in your
             Minecraft Bedrock world outside of the game.
@@ -345,24 +345,26 @@ const ExperimentsEditor: React.FC = () => {
             with your selected experimental features enabled or disabled.
           </div>
 
-          <Input
-            type="file"
-            accept=".mcworld,.zip"
-            onChange={handleFileUpload}
-            disabled={isProcessing}
-            label="Select .mcworld or .zip file"
-            placeholder="Choose your world file..."
-            className="dark:text-white"
-          />
+          <div className="mb-4">
+            <p className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Select a Minecraft World (.mcworld) or Zip file</p>
+            <Input
+              type="file"
+              accept=".mcworld,.zip"
+              onChange={handleFileUpload}
+              disabled={isProcessing}
+              placeholder="Upload world file"
+              className="dark:text-white w-full"
+            />
+          </div>
 
-          <Divider />
+          <Separator />
 
           <div className="text-center">
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               Don&apos;t have a world file? Start with a template!
             </p>
             <Link href="/bedrock-experiments/start-from-template">
-              <Button className="text-lg" color="secondary" variant="flat" size="lg" disabled={isProcessing}>
+              <Button className="text-lg"  variant="tertiary" size="lg" isDisabled={isProcessing}>
                 Start from Template
               </Button>
             </Link>
@@ -385,18 +387,18 @@ const ExperimentsEditor: React.FC = () => {
               Processing file...
             </div>
           )}
-        </CardBody>
+        </Card.Content>
       </Card>
 
       {levelDat && (
         <Card className="dark:bg-gray-900">
-          <CardHeader className="flex justify-between items-center">
+          <Card.Header className="flex-row justify-between items-center">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Experiment Settings</h3>
-            <Chip color="primary" variant="flat">
+            <Chip color="accent" variant="soft">
               {enabledCount}/{totalCount} enabled
             </Chip>
-          </CardHeader>
-          <CardBody className="space-y-6">
+          </Card.Header>
+          <Card.Content className="space-y-6">
             <p className="text-gray-700 dark:text-gray-300">
               Available experimental features for Minecraft {experimentsData?.minecraft_version}
             </p>
@@ -421,23 +423,29 @@ const ExperimentsEditor: React.FC = () => {
                       </div>
                       <Switch
                         isSelected={experiments[experiment.id]}
-                        onValueChange={(enabled) => handleExperimentToggle(experiment.id, enabled)}
-                        color="primary"
-                      />
+                        onChange={(enabled) => handleExperimentToggle(experiment.id, enabled)}
+                        aria-label={experiment.title}
+                      >
+                        <Switch.Content>
+                          <Switch.Control>
+                            <Switch.Thumb />
+                          </Switch.Control>
+                        </Switch.Content>
+                      </Switch>
                     </div>
                   ))}
                 </div>
               </div>
             ))}
 
-            <Divider className="dark:border-gray-700" />
+            <Separator className="dark:border-gray-700" />
 
             <div className="flex justify-center">
-              <Button color="primary" size="lg" onPress={handleDownload} disabled={isProcessing} className="min-w-48">
+              <Button size="lg" onPress={handleDownload} isPending={isProcessing} className="min-w-48 data-[pending=true]:opacity-100">
                 {isProcessing ? "Processing..." : "Download Modified World"}
               </Button>
             </div>
-          </CardBody>
+          </Card.Content>
         </Card>
       )}
     </div>
@@ -461,11 +469,11 @@ export default function Page({ texts, lang }: ScreenLocaleProps): JSX.Element {
       <StatsCollection />
       <SiteHeader t={t} lang={lang} />
       <InArticleAdUnit />
-      <HeroUIProvider>
+      
         <ThemeProvider>
           <ExperimentsEditor />
         </ThemeProvider>
-      </HeroUIProvider>
+      
       <SiteFooter t={t} lang={lang} />
     </>
   );

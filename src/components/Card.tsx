@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Link } from "@heroui/react";
+import { Link } from "@heroui/react";
 
 interface CardProps {
   title: string;
@@ -12,10 +12,10 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ title, description, links, image, media }) => {
   return (
     <div className="max-w-[550px] card-base">
-      <div className="p-1 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex gap-3">
+      <div className="p-1 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-lg flex gap-3">
         {image && (
-          <div className="relative shadow-black/5 shadow-none rounded-small" style={{ maxWidth: 40 }}>
-            {image && <Image src={image.src} alt={image.alt} height={40} width={40} data-loaded={true}></Image>}
+          <div className="relative shadow-black/5 shadow-none rounded-sm max-w-[40px]">
+            {image && <img src={image.src} alt={image.alt} height={40} width={40} data-loaded={true}></img>}
           </div>
         )}
         <div className="flex flex-col">
@@ -25,16 +25,7 @@ const Card: React.FC<CardProps> = ({ title, description, links, image, media }) 
       <div className="border-b border-black dark:border-white mb-2"></div>
       {media && (
         <div className="flex justify-center items-center">
-          <Image
-            src={media}
-            alt="media"
-            style={{
-              maxHeight: "150px",
-              maxWidth: "auto",
-              width: "100%",
-              height: "100%",
-            }}
-          />
+          <img className="max-h-[150px] rounded-md" src={media} alt="media" />
         </div>
       )}
       {description.split("\n").map((line, index, array) => (

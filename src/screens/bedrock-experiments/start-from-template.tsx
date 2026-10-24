@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, JSX } from "react";
 import Head from "next/head";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
-import { Button, Card, CardBody, CardHeader, HeroUIProvider } from "@heroui/react";
+import { Button, Card } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 import { useRouter } from "next/router";
 import { TemplateGrid } from "@/components/TemplateGrid";
@@ -258,27 +258,27 @@ const StartFromTemplate: React.FC = () => {
 
       {!selectedTemplate ? (
         <Card className="dark:bg-gray-900 mb-8">
-          <CardHeader>
+          <Card.Header>
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Choose a Template</h2>
-          </CardHeader>
-          <CardBody>
+          </Card.Header>
+          <Card.Content>
             <TemplateGrid
               templates={templates}
               isLoading={isLoading}
               onTemplateSelect={handleTemplateSelect}
               isProcessing={isProcessing}
             />
-          </CardBody>
+          </Card.Content>
         </Card>
       ) : (
         <div className="space-y-6">
           <Card className="dark:bg-gray-900">
-            <CardHeader className="flex flex-row justify-between items-center">
+            <Card.Header className="flex flex-row justify-between items-center">
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
                 Template: {selectedTemplate.name}
               </h2>
               <Button
-                variant="ghost"
+                variant="outline"
                 onPress={() => {
                   setSelectedTemplate(null);
                   setTemplateZip(null);
@@ -287,22 +287,27 @@ const StartFromTemplate: React.FC = () => {
                   setError(null);
                   setSuccess(null);
                 }}
-                disabled={isProcessing}
+                 isDisabled={isProcessing}
               >
                 Choose Different Template
               </Button>
-            </CardHeader>
-            <CardBody>
+            </Card.Header>
+            <Card.Content>
               <ExperimentsDisplay
                 experimentsData={experimentsData}
                 experiments={experiments}
                 onExperimentToggle={handleExperimentToggle}
               />
-            </CardBody>
+            </Card.Content>
           </Card>
 
           <div className="flex justify-center gap-4">
-            <Button color="primary" size="lg" onPress={handleDownload} disabled={isProcessing || !originalLevelDat}>
+            <Button
+              size="lg"
+              onPress={handleDownload}
+              isPending={isProcessing}
+              isDisabled={!originalLevelDat}
+            >
               {isProcessing ? "Creating World..." : "Download Modified World"}
             </Button>
           </div>
@@ -312,9 +317,9 @@ const StartFromTemplate: React.FC = () => {
       <div className="text-center mt-8">
         <Button
           className="text-lg"
-          variant="ghost"
+          variant="outline"
           onPress={() => router.push("/bedrock-experiments")}
-          disabled={isProcessing}
+           isDisabled={isProcessing}
         >
           Back to Experiments Editor
         </Button>
@@ -340,11 +345,11 @@ export default function Page({ texts, lang }: ScreenLocaleProps): JSX.Element {
       <StatsCollection />
       <SiteHeader t={t} lang={lang} />
       <InArticleAdUnit />
-      <HeroUIProvider>
+      
         <ThemeProvider>
           <StartFromTemplate />
         </ThemeProvider>
-      </HeroUIProvider>
+      
       <SiteFooter t={t} lang={lang} />
     </>
   );

@@ -1,17 +1,11 @@
 .content {
   margin: auto;
   width: 60%;
-  border: 5px solid black;
+  border: 5px solid light-dark(black, white);
   min-width: 320px;
   max-width: 1000px;
   padding: 15px;
   margin-bottom: 20px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .content {
-    border: 5px solid white;
-  }
 }
 
 .content blockquote {

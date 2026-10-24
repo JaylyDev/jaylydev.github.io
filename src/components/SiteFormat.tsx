@@ -35,29 +35,26 @@ export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGloba
       <header className="header">
         <div className="relative flex min-h-15 items-center justify-between py-1.5 px-6 md:hidden">
           <Link rel="apple-touch-icon" href={`${localePrefix}/`}>
-            <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={50} height={50}></Image>
+            <img src={icon || "/icon.png"} alt={"Jayly Logo"} width={50} height={50}></img>
           </Link>
         </div>
-        <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
-          <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">
-            <div
-              aria-label="Logo"
-              className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            ></div>
-            <div className="hidden md:ml-4 md:block order-2">
+        <div className="hidden md:block py-2 px-6">
+          <div className="mt-0 flex items-center justify-between pt-0">
+            <div aria-label="Logo" className="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="ml-4 order-2">
               <Link
                 rel="apple-touch-icon"
                 href={`${localePrefix}/`}
                 className="flex flex-none select-none items-center h-12 w-12"
               >
                 <div className="relative m-auto inline-block">
-                  <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={150} height={150}></Image>
+                  <img src={icon || "/icon.png"} alt={"Jayly Logo"} width={150} height={150}></img>
                   <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
                 </div>
               </Link>
             </div>
             {/* Subheadings */}
-            <div className="md:ml-4 md:block order-3">
+            <div className="ml-4 block order-3">
               <Link href={`${localePrefix}/#home`} className="header-subheading">
                 {t("header.home")}
               </Link>

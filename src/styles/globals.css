@@ -1,17 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "@heroui/styles";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: light dark;
+  --background: light-dark(#ffffff, #0a0a0a);
+  --foreground: light-dark(#171717, #ededed);
 }
 
 @font-face {
@@ -68,17 +61,11 @@ a.header-subheading:hover {
 .post-content {
   margin: auto;
   width: 60%;
-  border: 5px solid black;
+  border: 5px solid light-dark(black, white);
   min-width: 320px;
   max-width: 1000px;
   padding: 15px;
   margin-bottom: 20px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .post-content {
-    border: 5px solid white;
-  }
 }
 
 .header {
@@ -88,6 +75,7 @@ a.header-subheading:hover {
   color: black;
   background-color: white;
   box-shadow: 0 4px 13px -3px rgba(0, 0, 0, 0.10196);
+  font-weight: normal !important;
 }
 
 /* Pulsing ring to nudge users toward the "Nearest" sort until location is granted */

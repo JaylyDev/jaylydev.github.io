@@ -28,14 +28,14 @@ interface Project {
 function PreviewLatestYTVideo() {
   return (
     <div className="flex min-h-fit flex-col items-center p-12" id="youtube">
-      <Image
+      <img
         className="hidden dark:block"
         src="/assets/yt_logo_rgb_dark.png"
         alt="dark-mode-image"
         width={302}
         height={68}
       />
-      <Image
+      <img
         className="mb-4 block dark:hidden"
         src="/assets/yt_logo_rgb_light.png"
         alt="light-mode-image"

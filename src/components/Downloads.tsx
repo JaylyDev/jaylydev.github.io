@@ -2,16 +2,9 @@
 import React from "react";
 import {
   Button,
-  getKeyValue,
   Link,
-  Progress,
+  ProgressBar,
   Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-  HeroUIProvider,
 } from "@heroui/react";
 import { ThemeProvider } from "next-themes";
 
@@ -31,8 +24,6 @@ export function DownloadButton(): React.JSX.Element {
   return (
     <Button
       className="download-button"
-      color="primary"
-      radius="full"
       size="lg"
       onPress={() => {
         window.scrollTo({ behavior: "smooth", top: document.body.scrollHeight });
@@ -43,31 +34,44 @@ export function DownloadButton(): React.JSX.Element {
   );
 }
 
+export interface DownloadRow {
+  key: string;
+  version: string;
+  supports: string;
+  changelog: React.ReactNode;
+  download: React.ReactNode;
+}
+
+interface DownloadColumn {
+  key: Exclude<keyof DownloadRow, "key">;
+  label: string;
+}
+
 export function DownloadSection({ downloads }: DownloadProps) {
-  const columns = [
+  const columns: DownloadColumn[] = [
     { key: "version", label: "Version" },
     { key: "supports", label: "Supports" },
     { key: "changelog", label: "Changelog" },
     { key: "download", label: "Download" },
   ];
 
-  const rows = downloads.map((item, index) => {
+  const rows: DownloadRow[] = downloads.map((item, index) => {
     return {
       key: index.toString(),
       version: item.title + (item.channel ? ` (${item.channel})` : ""),
       supports: item.supports,
       changelog: item.changelog_url ? (
         <Link href={item.changelog_url}>
-          <Button color="primary">Changelog</Button>
+          <Button>Changelog</Button>
         </Link>
       ) : (
-        <Button disabled color="default">
+        <Button isDisabled variant="tertiary">
           Changelog
         </Button>
       ),
       download: (
         <Link href={item.url}>
-          <Button color="success">
+          <Button className="bg-success text-success-foreground hover:bg-success-hover">
             <strong>Download</strong>
           </Button>
         </Link>
@@ -89,28 +93,42 @@ export function DownloadSection({ downloads }: DownloadProps) {
   }, [value]);
 
   return (
-    <HeroUIProvider>
+    
       <ThemeProvider>
         <div className="download-section">
           <p>Downloads</p>
           {value < 100 ? (
-            <Progress label="Fetching Downloads..." size="md" value={value} color="success" showValueLabel={true} />
+            <ProgressBar aria-label="Fetching Downloads..." size="md" value={value}>
+              <ProgressBar.Track>
+                <ProgressBar.Fill />
+              </ProgressBar.Track>
+            </ProgressBar>
           ) : (
-            <Table aria-label="Example static collection table">
-              <TableHeader columns={columns}>
-                {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-              </TableHeader>
-              <TableBody items={rows} emptyContent="No rows to display.">
-                {(item) => (
-                  <TableRow key={item.key}>
-                    {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-                  </TableRow>
-                )}
-              </TableBody>
+            <Table>
+              <Table.ScrollContainer>
+                <Table.Content aria-label="Downloads">
+                  <Table.Header columns={columns}>
+                    {(column) => (
+                      <Table.Column id={column.key} isRowHeader={column.key === "version"}>
+                        {column.label}
+                      </Table.Column>
+                    )}
+                  </Table.Header>
+                  <Table.Body items={rows}>
+                    {(item) => (
+                      <Table.Row id={item.key}>
+                        <Table.Collection items={columns}>
+                          {(column) => <Table.Cell>{item[column.key]}</Table.Cell>}
+                        </Table.Collection>
+                      </Table.Row>
+                    )}
+                  </Table.Body>
+                </Table.Content>
+              </Table.ScrollContainer>
             </Table>
           )}
         </div>
       </ThemeProvider>
-    </HeroUIProvider>
+    
   );
 }

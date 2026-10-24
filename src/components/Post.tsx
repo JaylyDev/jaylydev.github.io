@@ -38,7 +38,7 @@ export function PublicPosts({ posts, t }: PublicPostsProps) {
       ))}
       {posts.length > postsToShow && ( // Check if there are more posts to load
         <center>
-          <Button color="primary" onPress={handleLoadMore}>
+          <Button  onPress={handleLoadMore}>
             Load More Posts
           </Button>
         </center>
