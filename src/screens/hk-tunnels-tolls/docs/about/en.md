@@ -26,8 +26,8 @@ Major Hong Kong toll tunnels operate under either time-varying toll schedules or
 
 ### Vehicle Classification Toll Guidelines
 
-- **Private Cars:** Subject to time-varying tolls across the three Cross-Harbour Tunnels (WHC, CHT, EHC) and Tai Lam Tunnel, with rates adjusting dynamically throughout the day.
-- **Motorcycles (including Motor Tricycles):** Charged at 40% of the private car rate for the corresponding time slot across cross-harbour tunnels and Tai Lam Tunnel.
+- **Private Cars:** Subject to time-varying tolls across the three Cross-Harbour Tunnels and Tai Lam Tunnel: Western Harbour Crossing (WHC) charges $60 peak, $30 regular, and $20 off-peak on weekdays; Cross-Harbour Tunnel (CHT) and Eastern Harbour Crossing (EHC) charge $40 peak, $30 regular, and $20 off-peak on weekdays (all three cross-harbour tunnels charge $25 daytime regular and $20 off-peak on Sundays and public holidays); Tai Lam Tunnel charges $45 peak, $30 regular, and $18 off-peak on weekdays, and $18 all day on Sundays and public holidays.
+- **Motorcycles (including Motor Tricycles):** Charged at 40% of the private car rate for the corresponding time slot across cross-harbour tunnels and Tai Lam Tunnel (WHC $8 to $24, CHT and EHC $8 to $16, Tai Lam Tunnel $7.2 to $18).
 - **Taxis:** Charged a flat rate of $25 all day across the three cross-harbour tunnels. If passengers do not board at a designated cross-harbour taxi stand, both outbound ($25) and return ($25) tolls apply (total $50); Tai Lam Tunnel taxi toll is $28.
 - **Commercial Vehicles (Goods Vehicles, Minibuses, Buses):** Charged a flat rate of $50 all day across the three cross-harbour tunnels; Tai Lam Tunnel commercial vehicle toll is $43.
 - **Goods Vehicle Classifications:**

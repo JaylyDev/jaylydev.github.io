@@ -1005,19 +1005,11 @@ function HKTunnelsTollsApp({
       evaluate(node);
     };
 
-    const cleanAutoPlacedInCards = () => {
-      document.querySelectorAll('[data-no-auto-ads="true"] .google-auto-placed').forEach((node) => {
-        node.remove();
-      });
-    };
-
     const rootObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) mutation.addedNodes.forEach(watch);
-      cleanAutoPlacedInCards();
     });
-    rootObserver.observe(root, { childList: true, subtree: true });
+    rootObserver.observe(root, { childList: true });
     Array.from(root.children).forEach(watch);
-    cleanAutoPlacedInCards();
 
     return () => {
       rootObserver.disconnect();
@@ -1147,7 +1139,8 @@ function HKTunnelsTollsApp({
         if (tunnels.length === 0) return null;
         return (
           <div key={group.category}>
-            <div className="card-base-min mb-4" data-no-auto-ads="true">
+            {/* Stable id so the card can be listed as an Auto ads "excluded area" in AdSense */}
+            <div className="card-base-min mb-4" id={`tunnels-${group.category}`}>
               {groupIndex === 0 && (
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <h2 className="text-xl md:text-lg font-semibold">
@@ -1249,75 +1242,22 @@ export default function Page({
 }: HKTunnelsTollsScreenProps): JSX.Element {
   const t = createTranslateFunction(texts);
   const hreflang = getHreflang(lang, localizedRoutes, true);
-  const faqSchema = [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      name: t("pageHeading"),
-      description: t("pageDescription"),
-      applicationCategory: "TravelApplication",
-      operatingSystem: "All",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "HKD",
-      },
+  const canonicalUrl =
+    lang === "zh" ? "https://jaylydev.github.io/zh/hk-tunnels-tolls/" : "https://jaylydev.github.io/hk-tunnels-tolls/";
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: t("pageHeading"),
+    description: t("pageDescription"),
+    url: canonicalUrl,
+    applicationCategory: "TravelApplication",
+    operatingSystem: "All",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "HKD",
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: t("faq.whc.question"),
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: t("faq.whc.answer"),
-          },
-        },
-        {
-          "@type": "Question",
-          name: t("faq.cht.question"),
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: t("faq.cht.answer"),
-          },
-        },
-        {
-          "@type": "Question",
-          name: t("faq.ehc.question"),
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: t("faq.ehc.answer"),
-          },
-        },
-        {
-          "@type": "Question",
-          name: t("faq.taiLam.question"),
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: t("faq.taiLam.answer"),
-          },
-        },
-        {
-          "@type": "Question",
-          name: t("faq.fixed.question"),
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: t("faq.fixed.answer"),
-          },
-        },
-        {
-          "@type": "Question",
-          name: t("faq.all.question"),
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: t("faq.all.answer"),
-          },
-        },
-      ],
-    },
-  ];
+  };
 
   const [isAppleDevice, setIsAppleDevice] = useState<boolean>(false);
   const [isPWA, setIsPWA] = useState<boolean>(false);
@@ -1341,6 +1281,7 @@ export default function Page({
       <Head>
         <title>{t("pageTitle")}</title>
         <meta name="description" content={t("pageDescription")} />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content={t("pageTitle")} />
         <meta property="og:description" content={t("pageDescription")} />
         <meta property="og:type" content="website" />
@@ -1356,7 +1297,7 @@ export default function Page({
         <meta property="twitter:card" content="summary" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema).replace(/</g, "\\u003c") }}
         />
       </Head>
       <StatsCollection />
