@@ -457,13 +457,23 @@ function getCurrentTollForTunnel(
   isClient: boolean,
   t: TranslateFunction,
 ): CurrentTollResult {
-  if (!currentTime || !isClient) return { message: t("loading") };
   const vehicle = tollData.vehicleTypes[selectedVehicle];
   const tunnel = tollData.tunnels[tunnelKey];
   if (vehicle.fixedTolls && tunnelKey in vehicle.fixedTolls) {
     return { message: `$${vehicle.fixedTolls[tunnelKey as keyof typeof vehicle.fixedTolls]}` };
   }
   if (!tunnel || !("timeVaryingTolls" in tunnel)) return { message: t("unableToCalculate") };
+  if (!currentTime || !isClient) {
+    const numericTolls = tunnel.timeVaryingTolls.weekdays.periods
+      .map((p) => p.toll)
+      .filter((val): val is number => typeof val === "number");
+    const minToll = Math.min(...numericTolls);
+    const maxToll = Math.max(...numericTolls);
+    const mult = "multiplier" in vehicle ? vehicle.multiplier : 1;
+    const minVal = Math.round(minToll * mult * 10) / 10;
+    const maxVal = Math.round(maxToll * mult * 10) / 10;
+    return { message: minVal === maxVal ? `$${minVal}` : `$${minVal} - $${maxVal}` };
+  }
   const { isHolidaySchedule, currentTimeStr } = getScheduleContext(currentTime, isPublicHoliday);
   const timeSlots = isHolidaySchedule ? tunnel.timeVaryingTolls.sundays_and_holidays : tunnel.timeVaryingTolls.weekdays;
   for (const period of timeSlots.periods) {
@@ -710,6 +720,61 @@ function TunnelTable({ tunnelKey, selectedVehicle, t }: TunnelTableProps): JSX.E
   );
 }
 
+interface FixedTunnelsTableProps {
+  t: TranslateFunction;
+}
+
+function FixedTunnelsTable({ t }: FixedTunnelsTableProps): JSX.Element {
+  const fixedTunnelKeys = Object.keys(tollData.tunnels).filter(
+    (key): key is HKTunnelIdentifier => isValidTunnel(key) && !("timeVaryingTolls" in tollData.tunnels[key]),
+  );
+  const vehicleKeys = Object.keys(tollData.vehicleTypes).filter(isValidVehicle);
+
+  return (
+    <div className="card-base-min mb-4">
+      <h2 className="text-2xl md:text-lg font-semibold border-b mb-4">{t("fixedTollRatesTitle")}</h2>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                {t("tableHeaderTunnel")}
+              </th>
+              {vehicleKeys.map((vKey) => (
+                <th key={vKey} className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                  {resolveLocalizedString(registryInfo.vehicleTypes[vKey].name, t)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {fixedTunnelKeys.map((tKey) => {
+              const tName = resolveLocalizedString(registryInfo.tunnels[tKey].name, t);
+              return (
+                <tr key={tKey}>
+                  <td className="px-4 py-3 whitespace-nowrap font-medium">{tName}</td>
+                  {vehicleKeys.map((vKey) => {
+                    const vData = tollData.vehicleTypes[vKey];
+                    const amount =
+                      vData.fixedTolls && tKey in vData.fixedTolls
+                        ? vData.fixedTolls[tKey as keyof typeof vData.fixedTolls]
+                        : 0;
+                    return (
+                      <td key={vKey} className="px-4 py-3 whitespace-nowrap">
+                        {`$${amount}`}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 interface IosHomeScreenGuideProps {
   iosGuideHtml: string;
 }
@@ -741,9 +806,9 @@ interface VehicleSelectorProps {
 
 function VehicleSelector({ t, selectedVehicle, setSelectedVehicle }: VehicleSelectorProps): JSX.Element {
   return (
-    <div className="card-base-min mb-8">
-      <h2 className="text-xl md:text-lg font-semibold mb-2">{t("vehicleTypeSelection")}</h2>
-      <div className="grid grid-cols-2 gap-4">
+    <div className="card-base-min mb-4">
+      <h2 className="text-lg md:text-base font-semibold mb-2">{t("vehicleTypeSelection")}</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
         {Object.entries(tollData.vehicleTypes).map(([key], index, array) => {
           if (!isValidVehicle(key)) return null;
           const vehicle = resolveLocalizedString(registryInfo.vehicleTypes[key].name, t);
@@ -751,9 +816,9 @@ function VehicleSelector({ t, selectedVehicle, setSelectedVehicle }: VehicleSele
             <Button
               key={key}
               color={selectedVehicle === key ? "primary" : "default"}
-              size="lg"
-              className={`text-xl md:text-lg ${
-                array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
+              size="md"
+              className={`text-lg md:text-base ${
+                array.length % 2 === 1 && index === array.length - 1 ? "col-span-2 sm:col-span-1" : ""
               }`}
               onPress={() => setSelectedVehicle(key)}
             >
@@ -940,11 +1005,19 @@ function HKTunnelsTollsApp({
       evaluate(node);
     };
 
+    const cleanAutoPlacedInCards = () => {
+      document.querySelectorAll('[data-no-auto-ads="true"] .google-auto-placed').forEach((node) => {
+        node.remove();
+      });
+    };
+
     const rootObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) mutation.addedNodes.forEach(watch);
+      cleanAutoPlacedInCards();
     });
-    rootObserver.observe(root, { childList: true });
+    rootObserver.observe(root, { childList: true, subtree: true });
     Array.from(root.children).forEach(watch);
+    cleanAutoPlacedInCards();
 
     return () => {
       rootObserver.disconnect();
@@ -1065,75 +1138,74 @@ function HKTunnelsTollsApp({
       <h1 className="text-center m-2 md:m-4 text-3xl md:text-4xl font-bold md:p-2">{t("pageHeading")}</h1>
       {isAppleDevice && !isPWA && <IosShareButton t={t} />}
 
-      {/* Current Toll Display */}
-      <div className="card-base-min mb-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-xl md:text-lg font-semibold">
-            {t("currentToll")} - {vehicleName}{" "}
-            {vehicleDescription ? `(${resolveLocalizedString(vehicleDescription, t)})` : ""}
-          </h2>
-          <ButtonGroup>
-            <Button
-              color={sortMode === SortMode.Default ? "primary" : "default"}
-              onPress={() => setSortMode(SortMode.Default)}
-              className="text-xl md:text-lg"
-            >
-              {t("sortDefault")}
-            </Button>
-            <Button
-              color={sortMode === SortMode.Nearest || isLoadingLocation ? "primary" : "default"}
-              className={`text-xl md:text-lg ${userCoords || isLoadingLocation ? "" : "hk-tunnel-glow"}`}
-              onPress={requestNearestSort}
-              isLoading={isLoadingLocation}
-            >
-              {t("sortNearest")}
-            </Button>
-          </ButtonGroup>
-        </div>
-        <div className="mt-2 space-y-4">
-          {groupedTunnels.map((group) => {
-            const tunnels = group.tunnels;
-            if (tunnels.length === 0) return null;
-            return (
-              <div key={group.category}>
-                <div className="border-b border-black/20 dark:border-white/20 pb-1 mb-2">
-                  <span className="text-2xl md:text-lg font-bold">{t(group.labelId)}</span>
-                </div>
-                <div className="space-y-2">
-                  {tunnels.map(({ key }) => (
-                    <HKTollCard
-                      key={key}
-                      tunnelKey={key}
-                      priceAlert={getPriceChangeAlertForTunnel(key)}
-                      vehicle={selectedVehicle}
-                      currentDate={currentTime}
-                      isPublicHoliday={isPublicHoliday}
-                      isClient={isClient}
-                      journeyReadings={journeyReadings}
-                      irnSpeeds={irnSpeeds}
-                      sortMode={sortMode}
-                      userCoords={userCoords}
-                      t={t}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Selection Controls */}
       <VehicleSelector t={t} selectedVehicle={selectedVehicle} setSelectedVehicle={setSelectedVehicle} />
 
-      {/* Advertisement */}
-      <InArticleAdUnit />
+      {/* Current Toll Display (Harbour Tunnels -> In-Article Ad -> Other Tunnels) */}
+      {groupedTunnels.map((group, groupIndex) => {
+        const tunnels = group.tunnels;
+        if (tunnels.length === 0) return null;
+        return (
+          <div key={group.category}>
+            <div className="card-base-min mb-4" data-no-auto-ads="true">
+              {groupIndex === 0 && (
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <h2 className="text-xl md:text-lg font-semibold">
+                    {t("currentToll")} - {vehicleName}{" "}
+                    {vehicleDescription ? `(${resolveLocalizedString(vehicleDescription, t)})` : ""}
+                  </h2>
+                  <ButtonGroup>
+                    <Button
+                      color={sortMode === SortMode.Default ? "primary" : "default"}
+                      onPress={() => setSortMode(SortMode.Default)}
+                      className="text-xl md:text-lg"
+                    >
+                      {t("sortDefault")}
+                    </Button>
+                    <Button
+                      color={sortMode === SortMode.Nearest || isLoadingLocation ? "primary" : "default"}
+                      className={`text-xl md:text-lg ${userCoords || isLoadingLocation ? "" : "hk-tunnel-glow"}`}
+                      onPress={requestNearestSort}
+                      isLoading={isLoadingLocation}
+                    >
+                      {t("sortNearest")}
+                    </Button>
+                  </ButtonGroup>
+                </div>
+              )}
+              <div className="border-b border-black/20 dark:border-white/20 pb-1 mb-2">
+                <span className="text-2xl md:text-lg font-bold">{t(group.labelId)}</span>
+              </div>
+              <div className="space-y-2">
+                {tunnels.map(({ key }) => (
+                  <HKTollCard
+                    key={key}
+                    tunnelKey={key}
+                    priceAlert={getPriceChangeAlertForTunnel(key)}
+                    vehicle={selectedVehicle}
+                    currentDate={currentTime}
+                    isPublicHoliday={isPublicHoliday}
+                    isClient={isClient}
+                    journeyReadings={journeyReadings}
+                    irnSpeeds={irnSpeeds}
+                    sortMode={sortMode}
+                    userCoords={userCoords}
+                    t={t}
+                  />
+                ))}
+              </div>
+            </div>
+            {groupIndex === 0 && <InArticleAdUnit />}
+          </div>
+        );
+      })}
 
       {/* Individual Tunnel Tables */}
       {Object.keys(tollData.tunnels).map((key) => {
         if (!isValidTunnel(key)) return null;
         return <TunnelTable key={key} tunnelKey={key} selectedVehicle={selectedVehicle} t={t} />;
       })}
+      <FixedTunnelsTable t={t} />
 
       {/* About, Notes and Links */}
       <div>
@@ -1177,36 +1249,75 @@ export default function Page({
 }: HKTunnelsTollsScreenProps): JSX.Element {
   const t = createTranslateFunction(texts);
   const hreflang = getHreflang(lang, localizedRoutes, true);
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: t("faq.whc.question"),
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: t("faq.whc.answer"),
-        },
+  const faqSchema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: t("pageHeading"),
+      description: t("pageDescription"),
+      applicationCategory: "TravelApplication",
+      operatingSystem: "All",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "HKD",
       },
-      {
-        "@type": "Question",
-        name: t("faq.cht.question"),
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: t("faq.cht.answer"),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: t("faq.whc.question"),
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: t("faq.whc.answer"),
+          },
         },
-      },
-      {
-        "@type": "Question",
-        name: t("faq.all.question"),
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: t("faq.all.answer"),
+        {
+          "@type": "Question",
+          name: t("faq.cht.question"),
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: t("faq.cht.answer"),
+          },
         },
-      },
-    ],
-  };
+        {
+          "@type": "Question",
+          name: t("faq.ehc.question"),
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: t("faq.ehc.answer"),
+          },
+        },
+        {
+          "@type": "Question",
+          name: t("faq.taiLam.question"),
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: t("faq.taiLam.answer"),
+          },
+        },
+        {
+          "@type": "Question",
+          name: t("faq.fixed.question"),
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: t("faq.fixed.answer"),
+          },
+        },
+        {
+          "@type": "Question",
+          name: t("faq.all.question"),
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: t("faq.all.answer"),
+          },
+        },
+      ],
+    },
+  ];
 
   const [isAppleDevice, setIsAppleDevice] = useState<boolean>(false);
   const [isPWA, setIsPWA] = useState<boolean>(false);

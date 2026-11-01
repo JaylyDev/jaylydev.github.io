@@ -33,6 +33,10 @@ Major Hong Kong toll tunnels operate under either time-varying toll schedules or
 - **Goods Vehicle Classifications:**
   - **Light Goods Vehicles (LGV):** Goods vehicles and special purpose vehicles not exceeding 5.5 tonnes.
   - **Medium / Heavy Goods Vehicles (MGV / HGV):** Goods vehicles and special purpose vehicles exceeding 5.5 tonnes (excluding articulated vehicles).
+- **Fixed-Toll Tunnels (All-Day Flat Rates):**
+  - **Tate's Cairn Tunnel:** Private cars and taxis $20, motorcycles $15, light goods vehicles $24, medium and heavy goods vehicles $28.
+  - **Lion Rock Tunnel, Shing Mun Tunnels, Aberdeen Tunnel, and Eagle's Nest Tunnel:** Flat rate of $8 all day across all vehicle types.
+- **HKeToll Time-of-Detection Rule:** Time-varying tolls are determined by the exact minute a vehicle passes under the tunnel's HKeToll gantry sensor and are deducted automatically without stopping.
 
 ### Related Links
 

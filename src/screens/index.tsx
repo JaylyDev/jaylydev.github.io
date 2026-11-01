@@ -110,6 +110,20 @@ function CurrentProjects({ t }: TranslateProps): JSX.Element {
       },
       media: "/assets/nbt_to_mcstructure_demo.gif",
     },
+    {
+      title: t("hkTunnelsTolls.title"),
+      description: t("hkTunnelsTolls.description"),
+      links: [
+        {
+          url: t("hkTunnelsTolls.url"),
+          text: t("hkTunnelsTolls.linkHomepage"),
+        },
+      ],
+      image: {
+        src: "/hk-tunnels-tolls/icon.png",
+        alt: t("hkTunnelsTolls.title"),
+      },
+    },
   ];
 
   const ProjectElements = projects.map((project, index) => <ProjectCard key={index} {...project} />);
