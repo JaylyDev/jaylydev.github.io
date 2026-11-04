@@ -9,6 +9,6 @@ gtag("js", new Date());
 const userAgent = navigator.userAgent || "";
 const botUserAgent = /bot|crawl|spider|headless|phantom|slurp|python|node-fetch|axios|curl|wget|lighthouse|pagespeed|gpt|claude|bytespider/i.test(userAgent);
 const screenResolution = window.screen.width + "x" + window.screen.height;
-const blockedResolutions = new Set(["1280x1200","800x600","1600x1600","3840x2160","0x0","1024x1024"]);
+const blockedResolutions = new Set(["1280x1200","800x600","1600x1600","3840x2160","0x0","1024x1024","1366x1366"]);
 const isBot = navigator.webdriver === true || botUserAgent || blockedResolutions.has(screenResolution);
 gtag("config", GA_MEASUREMENT_ID, { traffic_type: isBot ? "external" : "internal" });
