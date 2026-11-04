@@ -1,42 +1,41 @@
-## About this website
+## About HK Tunnels Tolls and Traffic website
 
-Hong Kong's cross-harbour tunnels and Tai Lam Tunnel operate on time-varying tolls. This tool connects your device clock with live Transport Department open data, letting you compare current toll rates, traffic flow, and journey times before you drive.
+Hong Kong's cross-harbour tunnels and Tai Lam Tunnel charge tolls that change depending on the time of day. This tool matches your device clock with live Transport Department data, so you can see current tolls, road conditions, and how long your trip will take before you leave.
 
 ## About tunnel traffic conditions
 
-The system connects in real time to the Hong Kong Transport Department's Journey Time Indication System and Intelligent Road Network detectors, updating roadway conditions every 1 to 2 minutes:
+The app pulls in live data from the Hong Kong Transport Department's Journey Time Indication System and Intelligent Road Network detectors, updating road conditions about every 1 to 2 minutes:
 
-- **Traffic Status Indication:** Dynamically indicates "Smooth", "Slow", "Congested", or "Closed" status based on detector speeds and cross-harbour transit times.
-- **Estimated Journey Time:** Displays estimated travel time in minutes from major approaches to tunnel exits, making it convenient to gauge cross-harbour duration.
-- **Average Speed and Statutory Speed Limit:** Calculates average driving speed inside tunnel tubes and compares it against statutory maximum speed limits, helping drivers evaluate road conditions.
-- **Directional Monitoring:** Provides independent traffic data for each direction (e.g., to Kowloon, to Hong Kong Island, and to the New Territories) across all three cross-harbour tunnels (WHC, CHT, EHC) and major land tunnels (Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnels, Lion Rock Tunnel, and Eagle's Nest Tunnel).
+- **Traffic Status:** Shows "Smooth", "Slow", "Congested", or "Closed" based on how fast cars are moving and how long it takes to cross the harbour.
+- **Estimated Driving Time:** Shows roughly how many minutes it takes from the main roads to each tunnel exit, so you can plan your trip.
+- **Speed and Speed Limits:** Shows your average speed inside the tunnels and compares it with the legal speed limit.
+- **Traffic in Every Direction:** Shows traffic for every way of travelling (towards Kowloon, towards Hong Kong Island, and towards the New Territories) for all three cross-harbour tunnels (WHC, CHT, EHC) and the main road tunnels (Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnels, Lion Rock Tunnel, and Eagle's Nest Tunnel).
 
 > [!NOTE]
-> Traffic data updates automatically every 1 to 2 minutes from the Transport Department's open data platform to maintain accurate road conditions.
+> Traffic data updates every 1 to 2 minutes from the Transport Department's open data platform, so road conditions stay accurate.
 
 ## About tunnel tolls
 
-Major toll tunnels in Hong Kong implement time-varying toll or flat-rate toll schemes, supported by "HKeToll" free-flow electronic tolling services, with tolls automatically deducted from electronic toll accounts.
+Most toll tunnels in Hong Kong change their price depending on the time of day, while others charge a set price all day. All of them use "HKeToll", an electronic system that takes payment automatically as you drive through with no need to stop.
 
-### Toll schemes and time period divisions
+### How tolls are split by time of day
 
-- **Weekday toll periods (Monday to Saturday):** Divided into "Peak Periods", "Regular Periods", and "Off-Peak Periods".
-- **Sundays and public holidays:** Include daytime regular periods and off-peak periods, with overall rates more concessionary than weekdays.
-- **Transitional toll arrangements:** To safeguard road safety and provide orderly transition between price tiers, private cars have transitional toll arrangements during period switches, adjusting by $2 every 2 minutes; motorcycles adjust proportionally by $0.8 every 2 minutes.
+- **Weekdays (Monday to Saturday):** Prices change between "Peak" (busy), "Regular", and "Off-Peak" times.
+- **Sundays and public holidays:** Sundays and public holidays only have fixed prices for the entire day unlike weekdays, and are usually cheaper.
 
-### Vehicle classification toll notes
+### Tolls by vehicle type
 
-- **Private cars:** Subject to time-varying tolls at the three cross-harbour tunnels and Tai Lam Tunnel.
-- **Motorcycles (including motor tricycles):** Charged at 40% of the private car toll for the corresponding time slot at cross-harbour tunnels and Tai Lam Tunnel.
-- **Taxis:** Charged a flat toll of $25 all day across all three cross-harbour tunnels. If passengers do not board at a cross-harbour taxi stand, they must pay both the outbound ($25) and return ($25) tunnel tolls, totaling $50; Tai Lam Tunnel taxi toll is $28.
-- **Commercial vehicles (goods vehicles, minibuses, buses):** Charged a flat toll of $50 all day across the three cross-harbour tunnels; Tai Lam Tunnel commercial vehicle toll is $43.
-- **Goods vehicle classification standards:**
-  - **Light Goods Vehicles:** Refers to goods vehicles and special purpose vehicles with a gross vehicle weight not exceeding 5.5 tonnes.
-  - **Medium and Heavy Goods Vehicles:** Refers to goods vehicles and special purpose vehicles with a gross vehicle weight exceeding 5.5 tonnes (excluding articulated vehicles).
-- **Fixed-toll tunnels (flat rates all day):**
+- **Private cars:** Pay changing tolls at the three cross-harbour tunnels and Tai Lam Tunnel.
+- **Motorcycles (including motor tricycles):** Pay 40% of the private car toll for the same time slot, at both the cross-harbour tunnels and Tai Lam Tunnel.
+- **Taxis:** A flat $25 all day across the three cross-harbour tunnels. If you don't start your ride at a cross-harbour taxi stand, you pay both ways: out ($25) and back ($25), totalling $50. Tai Lam Tunnel taxis cost $28.
+- **Commercial vehicles (goods vehicles, minibuses, buses):** A flat $50 all day across the three cross-harbour tunnels; Tai Lam Tunnel commercial vehicles cost $43.
+- **How goods vehicles are grouped:**
+  - **Light Goods Vehicles:** Goods and special-purpose vehicles weighing 5.5 tonnes or less.
+  - **Medium and Heavy Goods Vehicles:** Goods and special-purpose vehicles weighing more than 5.5 tonnes (excluding articulated vehicles).
+- **Tunnels with a set price all day:**
   - **Tate's Cairn Tunnel:** Private cars and taxis $20, motorcycles $15, light goods vehicles $24, medium and heavy goods vehicles $28.
-  - **Lion Rock Tunnel, Shing Mun Tunnels, Aberdeen Tunnel, and Eagle's Nest Tunnel:** Flat toll of $8 all day across all vehicle types.
-- **HKeToll deduction criteria:** Tunnel tolls are based on the exact time the vehicle passes under the "HKeToll" toll gantry sensor, automatically deducted from the designated electronic toll account without stopping.
+  - **Lion Rock Tunnel, Shing Mun Tunnels, Aberdeen Tunnel, and Eagle's Nest Tunnel:** A flat $8 all day for every vehicle type.
+- **How HKeToll takes payment:** The toll is based on the exact moment your car passes under the "HKeToll" sensor, then taken automatically from your electronic toll account with no need to stop.
 
 ### Related links
 
