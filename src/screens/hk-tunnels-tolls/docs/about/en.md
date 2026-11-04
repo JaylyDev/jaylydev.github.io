@@ -1,4 +1,4 @@
-## About HK Tunnels Tolls and Traffic website
+## About HK Tunnels Tolls and Traffic Status website
 
 Hong Kong's cross-harbour tunnels and Tai Lam Tunnel charge tolls that change depending on the time of day. This tool matches your device clock with live Transport Department data, so you can see current tolls, road conditions, and how long your trip will take before you leave.
 
