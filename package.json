@@ -13,7 +13,7 @@
     "@heroui/react": "^2.7.8",
     "@jsdevtools/rehype-toc": "^3.0.2",
     "@types/leaflet": "^1.9.22",
-    "@wooorm/starry-night": "^3.10.0",
+    "@wooorm/starry-night": "^3.11.0",
     "autoprefixer": "10.6.2",
     "gray-matter": "^4.0.3",
     "hast-util-to-string": "^3.0.1",
