@@ -1,5 +1,5 @@
 {
-    "minecraft_version": "26.50",
+    "minecraft_version": "26.70",
     "categories": [
         {
             "name": "Gameplay",
@@ -83,9 +83,27 @@
         },
         {
             "id": "creator_world_clocks",
-            "title": "Creator World Clocks Features (since 26.50)",
+            "title": "Creator World Clocks Features (26.50 only)",
             "description": "Enables the use of world clocks for creators.",
+            "category": "Deprecated"
+        },
+        {
+            "id": "poi",
+            "title": "Points of Interest (POI) (since 26.50)",
+            "description": "Adds poi to locate command and Script API",
             "category": "Add-On Creators"
+        },
+        {
+            "id": "y_2026_drop_4",
+            "title": "Drop 4 of 2026 (26.60 only)",
+            "description": "Venture into a frozen new cave and brave its icy hazards",
+            "category": "Deprecated"
+        },
+        {
+            "id": "nether_spawning_balance",
+            "title": "Nether Spawning Rebalancing (since 26.70)",
+            "description": "Adjusts Nether mob density and fortress spawning to more closely resemble Java Edition",
+            "category": "Gameplay"
         }
     ]
 }
