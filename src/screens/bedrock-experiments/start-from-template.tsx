@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback, JSX } from "react";
 import Head from "next/head";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
-import { Button, Card, CardBody, CardHeader, HeroUIProvider } from "@heroui/react";
-import { ThemeProvider } from "next-themes";
+import { Button } from "@/components/ui/Button";
+import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 import { useRouter } from "next/router";
 import { TemplateGrid } from "@/components/TemplateGrid";
 import { ExperimentsData, ExperimentsDisplay, ExperimentsState } from "@/components/ExperimentsDisplay";
@@ -279,7 +279,7 @@ const StartFromTemplate: React.FC = () => {
               </h2>
               <Button
                 variant="ghost"
-                onPress={() => {
+                onClick={() => {
                   setSelectedTemplate(null);
                   setTemplateZip(null);
                   setOriginalLevelDat(null);
@@ -302,7 +302,7 @@ const StartFromTemplate: React.FC = () => {
           </Card>
 
           <div className="flex justify-center gap-4">
-            <Button color="primary" size="lg" onPress={handleDownload} disabled={isProcessing || !originalLevelDat}>
+            <Button color="primary" size="lg" onClick={handleDownload} disabled={isProcessing || !originalLevelDat}>
               {isProcessing ? "Creating World..." : "Download Modified World"}
             </Button>
           </div>
@@ -313,7 +313,7 @@ const StartFromTemplate: React.FC = () => {
         <Button
           className="text-lg"
           variant="ghost"
-          onPress={() => router.push("/bedrock-experiments")}
+          onClick={() => router.push("/bedrock-experiments")}
           disabled={isProcessing}
         >
           Back to Experiments Editor
@@ -340,11 +340,7 @@ export default function Page({ texts, lang }: ScreenLocaleProps): JSX.Element {
       <StatsCollection />
       <SiteHeader t={t} lang={lang} />
       <InArticleAdUnit />
-      <HeroUIProvider>
-        <ThemeProvider>
-          <StartFromTemplate />
-        </ThemeProvider>
-      </HeroUIProvider>
+      <StartFromTemplate />
       <SiteFooter t={t} lang={lang} />
     </>
   );

@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useCallback, JSX } from "react";
 import Head from "next/head";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
-import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroUIProvider } from "@heroui/react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardBody, CardHeader } from "@/components/ui/Card";
+import { Switch } from "@/components/ui/Switch";
+import { Chip } from "@/components/ui/Chip";
 import Link from "next/link";
 import JSZip from "jszip";
 import { Int8, ByteTag, Tag, read, write } from "nbtify";
-import { ThemeProvider } from "next-themes";
 import { InArticleAdUnit } from "@/components/AdUnit";
 import { createTranslateFunction, ScreenLocaleProps } from "@/locale/i18n";
 
@@ -345,17 +347,21 @@ const ExperimentsEditor: React.FC = () => {
             with your selected experimental features enabled or disabled.
           </div>
 
-          <Input
-            type="file"
-            accept=".mcworld,.zip"
-            onChange={handleFileUpload}
-            disabled={isProcessing}
-            label="Select .mcworld or .zip file"
-            placeholder="Choose your world file..."
-            className="dark:text-white"
-          />
+          <div className="flex flex-col gap-1.5 rounded-xl bg-[#f4f4f5] dark:bg-[#27272a] px-3 py-2 shadow-sm">
+            <label htmlFor="world-file-input" className="text-xs text-[#71717a] dark:text-[#a1a1aa]">
+              Select .mcworld or .zip file
+            </label>
+            <input
+              id="world-file-input"
+              type="file"
+              accept=".mcworld,.zip"
+              onChange={handleFileUpload}
+              disabled={isProcessing}
+              className="w-full text-sm bg-transparent text-gray-900 dark:text-white file:cursor-pointer file:bg-transparent file:border-0 file:mr-2 file:text-sm file:text-gray-900 dark:file:text-white focus:outline-none disabled:opacity-50"
+            />
+          </div>
 
-          <Divider />
+          <hr className="border-t border-black/15 dark:border-white/15" />
 
           <div className="text-center">
             <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -392,7 +398,7 @@ const ExperimentsEditor: React.FC = () => {
         <Card className="dark:bg-gray-900">
           <CardHeader className="flex justify-between items-center">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Experiment Settings</h3>
-            <Chip color="primary" variant="flat">
+            <Chip color="primary">
               {enabledCount}/{totalCount} enabled
             </Chip>
           </CardHeader>
@@ -430,10 +436,10 @@ const ExperimentsEditor: React.FC = () => {
               </div>
             ))}
 
-            <Divider className="dark:border-gray-700" />
+            <hr className="border-t border-black/15 dark:border-gray-700" />
 
             <div className="flex justify-center">
-              <Button color="primary" size="lg" onPress={handleDownload} disabled={isProcessing} className="min-w-48">
+              <Button color="primary" size="lg" onClick={handleDownload} disabled={isProcessing} className="min-w-48">
                 {isProcessing ? "Processing..." : "Download Modified World"}
               </Button>
             </div>
@@ -461,11 +467,7 @@ export default function Page({ texts, lang }: ScreenLocaleProps): JSX.Element {
       <StatsCollection />
       <SiteHeader t={t} lang={lang} />
       <InArticleAdUnit />
-      <HeroUIProvider>
-        <ThemeProvider>
-          <ExperimentsEditor />
-        </ThemeProvider>
-      </HeroUIProvider>
+      <ExperimentsEditor />
       <SiteFooter t={t} lang={lang} />
     </>
   );

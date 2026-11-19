@@ -1,8 +1,6 @@
 import React from "react";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { createTranslateFunction, getHreflang, ScreenLocaleProps, TranslateFunction } from "@/locale/i18n";
-import { HeroUIProvider } from "@heroui/react";
-import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 
 function DonationPage({ t }: { t: TranslateFunction }): React.JSX.Element {
@@ -67,11 +65,7 @@ export default function Page({ texts, lang, localizedRoutes }: ScreenLocaleProps
       </Head>
       <StatsCollection />
       <SiteHeader t={t} lang={lang} localizedRoutes={localizedRoutes} />
-      <HeroUIProvider>
-        <ThemeProvider>
-          <DonationPage t={t} />
-        </ThemeProvider>
-      </HeroUIProvider>
+      <DonationPage t={t} />
       <SiteFooter t={t} lang={lang} localizedRoutes={localizedRoutes} showKofi={false} />
     </>
   );

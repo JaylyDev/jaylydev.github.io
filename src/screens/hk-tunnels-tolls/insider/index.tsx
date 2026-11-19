@@ -2,8 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
 import { useState, useEffect, useMemo, useRef, useCallback, JSX, ReactNode } from "react";
-import { Button, ButtonGroup, HeroUIProvider } from "@heroui/react";
-import { ThemeProvider } from "next-themes";
+import { Button, ButtonGroup } from "@/components/ui/Button";
 import { createTranslateFunction, getHreflang, LocaleProps, TranslateFunction } from "@/locale/i18n";
 import publicHolidayData from "../data/public_holidays.json";
 import registryInfo from "../data/registry.insider.json";
@@ -1083,7 +1082,7 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
           <ButtonGroup>
             <Button
               color={sortMode === SortMode.Default ? "primary" : "default"}
-              onPress={() => setSortMode(SortMode.Default)}
+              onClick={() => setSortMode(SortMode.Default)}
               className="text-xl md:text-lg"
             >
               {t("sortDefault")}
@@ -1091,7 +1090,7 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
             <Button
               color={sortMode === SortMode.Nearest || isLoadingLocation ? "primary" : "default"}
               className={`text-xl md:text-lg ${userCoords || isLoadingLocation ? "" : "hk-tunnel-glow"}`}
-              onPress={requestNearestSort}
+              onClick={requestNearestSort}
               isLoading={isLoadingLocation}
             >
               {t("sortNearest")}
@@ -1147,7 +1146,7 @@ function HKTunnelsTollsInsiderApp({ t, lang }: HKTunnelsTollsInsiderAppProps): J
                 className={`text-xl md:text-lg ${
                   array.length % 2 === 1 && index === array.length - 1 ? "col-span-2" : ""
                 }`}
-                onPress={() => setSelectedVehicle(key)}
+                onClick={() => setSelectedVehicle(key)}
               >
                 {vehicle}
               </Button>
@@ -1208,11 +1207,7 @@ export default function Page({ texts, lang, localizedRoutes }: LocaleProps): JSX
       </Head>
       <StatsCollection />
       <SiteHeader t={t} icon="/hk-tunnels-tolls/icon.png" lang={lang} localizedRoutes={localizedRoutes} />
-      <HeroUIProvider>
-        <ThemeProvider>
-          <HKTunnelsTollsInsiderApp t={t} lang={lang} />
-        </ThemeProvider>
-      </HeroUIProvider>
+      <HKTunnelsTollsInsiderApp t={t} lang={lang} />
       <SiteFooter t={t} lang={lang} localizedRoutes={localizedRoutes} />
     </>
   );

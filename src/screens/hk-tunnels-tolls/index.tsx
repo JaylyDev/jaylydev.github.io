@@ -1,8 +1,7 @@
 import Head from "next/head";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
 import { useState, useEffect, useMemo, useRef, useCallback, JSX, ReactNode } from "react";
-import { Button, ButtonGroup, HeroUIProvider } from "@heroui/react";
-import { ThemeProvider } from "next-themes";
+import { Button, ButtonGroup } from "@/components/ui/Button";
 import { createTranslateFunction, getHreflang, LocaleProps, TranslateFunction } from "@/locale/i18n";
 import publicHolidayData from "./data/public_holidays.json";
 import registryInfo from "./data/registry.json";
@@ -820,7 +819,7 @@ function VehicleSelector({ t, selectedVehicle, setSelectedVehicle }: VehicleSele
               className={`text-lg md:text-base ${
                 array.length % 2 === 1 && index === array.length - 1 ? "col-span-2 sm:col-span-1" : ""
               }`}
-              onPress={() => setSelectedVehicle(key)}
+              onClick={() => setSelectedVehicle(key)}
             >
               {vehicle}
             </Button>
@@ -1150,7 +1149,7 @@ function HKTunnelsTollsApp({
                   <ButtonGroup>
                     <Button
                       color={sortMode === SortMode.Default ? "primary" : "default"}
-                      onPress={() => setSortMode(SortMode.Default)}
+                      onClick={() => setSortMode(SortMode.Default)}
                       className="text-xl md:text-lg"
                     >
                       {t("sortDefault")}
@@ -1158,7 +1157,7 @@ function HKTunnelsTollsApp({
                     <Button
                       color={sortMode === SortMode.Nearest || isLoadingLocation ? "primary" : "default"}
                       className={`text-xl md:text-lg ${userCoords || isLoadingLocation ? "" : "hk-tunnel-glow"}`}
-                      onPress={requestNearestSort}
+                      onClick={requestNearestSort}
                       isLoading={isLoadingLocation}
                     >
                       {t("sortNearest")}
@@ -1302,18 +1301,14 @@ export default function Page({
       </Head>
       <StatsCollection />
       <SiteHeader t={t} icon="/hk-tunnels-tolls/icon.png" lang={lang} localizedRoutes={localizedRoutes} />
-      <HeroUIProvider>
-        <ThemeProvider>
-          <HKTunnelsTollsApp
-            t={t}
-            lang={lang}
-            isAppleDevice={isAppleDevice}
-            isPWA={isPWA}
-            aboutHtml={aboutHtml}
-            iosGuideHtml={iosGuideHtml}
-          />
-        </ThemeProvider>
-      </HeroUIProvider>
+      <HKTunnelsTollsApp
+        t={t}
+        lang={lang}
+        isAppleDevice={isAppleDevice}
+        isPWA={isPWA}
+        aboutHtml={aboutHtml}
+        iosGuideHtml={iosGuideHtml}
+      />
       <SiteFooter t={t} lang={lang} localizedRoutes={localizedRoutes} />
     </>
   );

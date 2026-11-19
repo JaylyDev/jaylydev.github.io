@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import Head from "next/head";
-import { Link, Button } from "@heroui/react";
+import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 import { displayDate } from "@/utilities/dateDisplay";
 import { PostProps, PublicPost } from "@/utilities/getPublicPosts";
 import { Subheading } from "./SiteFormat";
@@ -38,7 +39,7 @@ export function PublicPosts({ posts, t }: PublicPostsProps) {
       ))}
       {posts.length > postsToShow && ( // Check if there are more posts to load
         <center>
-          <Button color="primary" onPress={handleLoadMore}>
+          <Button color="primary" onClick={handleLoadMore}>
             Load More Posts
           </Button>
         </center>
