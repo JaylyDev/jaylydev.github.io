@@ -1,8 +1,10 @@
 import Head from "next/head";
 import { StatsCollection, SiteFooter, SiteHeader } from "@/components/SiteFormat";
 import { useState, useEffect, useCallback, JSX } from "react";
-import { Button, HeroUIProvider, Switch, Card, CardBody, CardHeader, Divider, Chip } from "@heroui/react";
-import { ThemeProvider } from "next-themes";
+import { Button } from "@/components/ui/Button";
+import { Switch } from "@/components/ui/Switch";
+import { Card, CardBody, CardHeader } from "@/components/ui/Card";
+import { Chip } from "@/components/ui/Chip";
 import { createTranslateFunction, LocaleProps, TranslateFunction } from "@/locale/i18n";
 import { v4 as uuidv4 } from "uuid";
 import { InArticleAdUnit } from "@/components/AdUnit";
@@ -611,7 +613,7 @@ function UuidField({ label, value, onChange, t }: UuidFieldProps): JSX.Element {
           onChange={(e) => onChange(e.target.value)}
           className="flex-1 px-3 py-1.5 border rounded-lg text-sm font-mono dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
         />
-        <Button size="sm" variant="flat" color="success" onPress={() => onChange(uuidv4())}>
+        <Button size="sm" variant="flat" color="success" onClick={() => onChange(uuidv4())}>
           {t("fields.regenerate")}
         </Button>
       </div>
@@ -672,7 +674,7 @@ function ModuleEditor({ modules, onChange, packKind, t, formatVersion }: ModuleE
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{t("modules.title")}</h3>
-        <Button size="sm" variant="flat" color="success" onPress={addModule}>
+        <Button size="sm" variant="flat" color="success" onClick={addModule}>
           + {t("modules.add")}
         </Button>
       </div>
@@ -698,7 +700,7 @@ function ModuleEditor({ modules, onChange, packKind, t, formatVersion }: ModuleE
               </select>
             </div>
             {modules.length > 1 && (
-              <Button size="sm" variant="light" color="danger" onPress={() => removeModule(index)}>
+              <Button size="sm" variant="light" color="danger" onClick={() => removeModule(index)}>
                 ✕
               </Button>
             )}
@@ -971,7 +973,7 @@ function PackDepsEditor({ deps, onChange, t, formatVersion }: PackDepsEditorProp
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{t("dependencies.title")}</h3>
-        <Button size="sm" variant="flat" color="success" onPress={addDep}>
+        <Button size="sm" variant="flat" color="success" onClick={addDep}>
           + {t("dependencies.add")}
         </Button>
       </div>
@@ -983,7 +985,7 @@ function PackDepsEditor({ deps, onChange, t, formatVersion }: PackDepsEditorProp
         >
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t("dependencies.uuid")}</span>
-            <Button size="sm" variant="light" color="danger" onPress={() => removeDep(index)}>
+            <Button size="sm" variant="light" color="danger" onClick={() => removeDep(index)}>
               ✕
             </Button>
           </div>
@@ -1036,7 +1038,7 @@ function SubpacksEditor({ subpacks, onChange, formatVersion, t }: SubpacksEditor
             </a>
           </p>
         </div>
-        <Button size="sm" variant="flat" color="success" onPress={addSubpack}>
+        <Button size="sm" variant="flat" color="success" onClick={addSubpack}>
           + {t("subpacks.add")}
         </Button>
       </div>
@@ -1047,7 +1049,7 @@ function SubpacksEditor({ subpacks, onChange, formatVersion, t }: SubpacksEditor
           className="p-3 border rounded-lg dark:border-gray-700 space-y-2 bg-gray-50 dark:bg-gray-800/50"
         >
           <div className="flex items-center justify-end">
-            <Button size="sm" variant="light" color="danger" onPress={() => removeSubpack(index)}>
+            <Button size="sm" variant="light" color="danger" onClick={() => removeSubpack(index)}>
               ✕
             </Button>
           </div>
@@ -1169,7 +1171,7 @@ function SettingsEditor({ settings, onChange, t }: SettingsEditorProps): JSX.Ele
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{t("settings.title")}</h3>
-            <Chip size="sm" color="warning" variant="flat">
+            <Chip size="sm" color="warning">
               Preview
             </Chip>
           </div>
@@ -1180,7 +1182,7 @@ function SettingsEditor({ settings, onChange, t }: SettingsEditorProps): JSX.Ele
             </a>
           </p>
         </div>
-        <Button size="sm" variant="flat" color="success" onPress={addSetting}>
+        <Button size="sm" variant="flat" color="success" onClick={addSetting}>
           + {t("settings.add")}
         </Button>
       </div>
@@ -1204,7 +1206,7 @@ function SettingsEditor({ settings, onChange, t }: SettingsEditorProps): JSX.Ele
                 <option value="dropdown">Dropdown</option>
               </select>
             </div>
-            <Button size="sm" variant="light" color="danger" onPress={() => removeSetting(index)}>
+            <Button size="sm" variant="light" color="danger" onClick={() => removeSetting(index)}>
               ✕
             </Button>
           </div>
@@ -1568,7 +1570,7 @@ function PackEditor({
           )}
         </div>
 
-        <Divider className="dark:border-gray-700" />
+        <hr className="border-t border-black/15 dark:border-gray-700" />
 
         {/* Modules */}
         <ModuleEditor
@@ -1579,7 +1581,7 @@ function PackEditor({
           formatVersion={formatVersion}
         />
 
-        <Divider className="dark:border-gray-700" />
+        <hr className="border-t border-black/15 dark:border-gray-700" />
 
         {/* Capabilities */}
         {(packKind === "behavior" || packKind === "resource") && (
@@ -1591,7 +1593,7 @@ function PackEditor({
               hasScriptModule={hasScriptModule}
               t={t}
             />
-            <Divider className="dark:border-gray-700" />
+            <hr className="border-t border-black/15 dark:border-gray-700" />
           </>
         )}
 
@@ -1604,7 +1606,7 @@ function PackEditor({
               t={t}
               formatVersion={formatVersion}
             />
-            <Divider className="dark:border-gray-700" />
+            <hr className="border-t border-black/15 dark:border-gray-700" />
           </>
         )}
 
@@ -1621,7 +1623,7 @@ function PackEditor({
               t={t}
               formatVersion={formatVersion}
             />
-            <Divider className="dark:border-gray-700" />
+            <hr className="border-t border-black/15 dark:border-gray-700" />
           </>
         )}
 
@@ -1634,19 +1636,19 @@ function PackEditor({
               formatVersion={formatVersion}
               t={t}
             />
-            <Divider className="dark:border-gray-700" />
+            <hr className="border-t border-black/15 dark:border-gray-700" />
           </>
         )}
 
         {/* Settings (V3 only) */}
         {formatVersion === 3 && (
           <>
-            <Divider className="dark:border-gray-700" />
+            <hr className="border-t border-black/15 dark:border-gray-700" />
             <SettingsEditor settings={state.settings} onChange={(v) => update("settings", v)} t={t} />
           </>
         )}
 
-        <Divider className="dark:border-gray-700" />
+        <hr className="border-t border-black/15 dark:border-gray-700" />
 
         {/* Metadata */}
         <MetadataEditor metadata={state.metadata} onChange={(v) => update("metadata", v)} t={t} />
@@ -1726,10 +1728,10 @@ function ManifestOutput({ manifest, label, t }: ManifestOutputProps): JSX.Elemen
       <CardHeader className="flex justify-between items-center">
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">{label}</h3>
         <div className="flex gap-2">
-          <Button size="sm" variant="flat" color={copied ? "success" : "default"} onPress={copyToClipboard}>
+          <Button size="sm" variant="flat" color={copied ? "success" : "default"} onClick={copyToClipboard}>
             {copied ? t("output.copied") : t("output.copy")}
           </Button>
-          <Button size="sm" variant="flat" color="primary" onPress={downloadFile}>
+          <Button size="sm" variant="flat" color="primary" onClick={downloadFile}>
             {t("output.download")}
           </Button>
         </div>
@@ -1843,7 +1845,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                   size="sm"
                   color={formatVersion === 2 ? "success" : "default"}
                   variant={formatVersion === 2 ? "solid" : "flat"}
-                  onPress={() => setFormatVersion(2)}
+                  onClick={() => setFormatVersion(2)}
                 >
                   V2 (Stable)
                 </Button>
@@ -1851,7 +1853,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                   size="sm"
                   color={formatVersion === 3 ? "warning" : "default"}
                   variant={formatVersion === 3 ? "solid" : "flat"}
-                  onPress={() => setFormatVersion(3)}
+                  onClick={() => setFormatVersion(3)}
                 >
                   V3 (Preview)
                 </Button>
@@ -1867,7 +1869,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                 size="sm"
                 color={packType === "behavior" ? "primary" : "default"}
                 variant={packType === "behavior" ? "solid" : "flat"}
-                onPress={() => setPackType("behavior")}
+                onClick={() => setPackType("behavior")}
               >
                 {t("packType.behavior")}
               </Button>
@@ -1875,7 +1877,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                 size="sm"
                 color={packType === "resource" ? "primary" : "default"}
                 variant={packType === "resource" ? "solid" : "flat"}
-                onPress={() => setPackType("resource")}
+                onClick={() => setPackType("resource")}
               >
                 {t("packType.resource")}
               </Button>
@@ -1883,7 +1885,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                 size="sm"
                 color={packType === "addons" ? "primary" : "default"}
                 variant={packType === "addons" ? "solid" : "flat"}
-                onPress={() => setPackType("addons")}
+                onClick={() => setPackType("addons")}
               >
                 {t("packType.addons")}
               </Button>
@@ -1891,7 +1893,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                 size="sm"
                 color={packType === "world_template" ? "primary" : "default"}
                 variant={packType === "world_template" ? "solid" : "flat"}
-                onPress={() => setPackType("world_template")}
+                onClick={() => setPackType("world_template")}
               >
                 {t("packType.world_template")}
               </Button>
@@ -1899,7 +1901,7 @@ function ManifestGeneratorApp({ t, guideHtml }: ManifestGeneratorAppProps): JSX.
                 size="sm"
                 color={packType === "skin_pack" ? "primary" : "default"}
                 variant={packType === "skin_pack" ? "solid" : "flat"}
-                onPress={() => setPackType("skin_pack")}
+                onClick={() => setPackType("skin_pack")}
               >
                 {t("packType.skin_pack")}
               </Button>
@@ -2008,11 +2010,7 @@ export default function Page({ texts, lang, localizedRoutes, guideHtml }: Manife
       </Head>
       <StatsCollection />
       <SiteHeader t={t} lang={lang} localizedRoutes={localizedRoutes} />
-      <HeroUIProvider>
-        <ThemeProvider>
-          <ManifestGeneratorApp t={t} guideHtml={guideHtml} />
-        </ThemeProvider>
-      </HeroUIProvider>
+      <ManifestGeneratorApp t={t} guideHtml={guideHtml} />
       <SiteFooter t={t} lang={lang} localizedRoutes={localizedRoutes} />
     </>
   );

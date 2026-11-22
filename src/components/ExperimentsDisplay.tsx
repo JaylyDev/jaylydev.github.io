@@ -1,5 +1,6 @@
 import React from "react";
-import { Switch, Chip } from "@heroui/react";
+import { Switch } from "@/components/ui/Switch";
+import { Chip } from "@/components/ui/Chip";
 
 export interface Experiment {
   id: string;
@@ -52,7 +53,7 @@ export const ExperimentsDisplay: React.FC<ExperimentsDisplayProps> = ({
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Experiment Settings</h3>
-        <Chip color="primary" variant="flat">
+        <Chip color="primary">
           {enabledCount}/{totalCount} enabled
         </Chip>
       </div>

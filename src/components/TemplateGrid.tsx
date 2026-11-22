@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardHeader, Image, Spinner } from "@heroui/react";
+import { Card, CardBody, CardHeader } from "@/components/ui/Card";
 
 interface Template {
   id: string;
@@ -23,7 +23,11 @@ export const TemplateGrid: React.FC<TemplateGridProps> = ({
   if (isLoading) {
     return (
       <div className="flex justify-center items-center py-12">
-        <Spinner size="lg" />
+        <span
+          role="status"
+          aria-label="Loading"
+          className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-[#006FEE] border-t-transparent"
+        />
       </div>
     );
   }
@@ -43,15 +47,18 @@ export const TemplateGrid: React.FC<TemplateGridProps> = ({
           key={template.id}
           className="hover:shadow-lg transition-shadow cursor-pointer"
           isPressable
-          onPress={() => !isProcessing && onTemplateSelect(template.id)}
+          onClick={() => !isProcessing && onTemplateSelect(template.id)}
         >
           <CardHeader className="pb-0">
             <div className="w-full aspect-video relative mb-2">
-              <Image
+              <img
                 src={template.iconPath}
                 alt={template.name}
                 className="w-full h-full object-cover rounded-lg"
-                fallbackSrc="/bedrock-experiments/assets/default-world-icon.jpeg"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/bedrock-experiments/assets/default-world-icon.jpeg";
+                }}
               />
             </div>
           </CardHeader>

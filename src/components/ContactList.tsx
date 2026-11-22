@@ -1,5 +1,3 @@
-import { Link, Image } from "@heroui/react";
-
 interface IContentGridParam {
   href: string;
   src: string;
@@ -11,13 +9,13 @@ interface IContentGridParam {
 
 function ContentGrid(params: IContentGridParam) {
   return (
-    <Link
+    <a
       href={params.href}
       className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Image src={params.src} alt={params.alt} width={params.size} height={params.size}></Image>
+      <img src={params.src} alt={params.alt} width={params.size} height={params.size} />
       <h2 className="mb-3 text-2xl font-semibold text-white">
         {params.title + " "}
         <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
@@ -25,7 +23,7 @@ function ContentGrid(params: IContentGridParam) {
         </span>
       </h2>
       <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{params.children}</p>
-    </Link>
+    </a>
   );
 }
 
