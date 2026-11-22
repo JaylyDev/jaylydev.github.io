@@ -45,8 +45,8 @@ export function InArticleAdUnit(): React.JSX.Element {
   return (
     <ins
       ref={insRef}
-      className="adsbygoogle w-full min-h-48"
-      style={{ display: "block", textAlign: "center", margin: "20px 0" }}
+      className="adsbygoogle w-full"
+      style={{ display: "block", textAlign: "center", margin: "12px 0" }}
       data-ad-layout="in-article"
       data-ad-format="fluid"
       data-ad-client="ca-pub-2533146760921020"

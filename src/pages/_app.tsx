@@ -10,6 +10,7 @@ import "@/styles/markdown-alert/github-colors-dark-class.css";
 import "@/styles/markdown-alert/github-colors-dark-media.css";
 import "@/styles/markdown-alert/github-colors-light.css";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useLanguageSync } from "@/components/LanguageSwitcher";
 import { LocaleProps } from "@/locale/i18n";
 import { useEffect } from "react";
@@ -30,8 +31,13 @@ export default function App({ Component, pageProps }: AppProps<LocaleProps>) {
   }, [pageProps.hreflang, pageProps.lang]);
 
   return (
-    <main className={`${inter.className} antialiased`}>
-      <Component {...pageProps} />
-    </main>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <main className={`${inter.className} antialiased`}>
+        <Component {...pageProps} />
+      </main>
+    </>
   );
 }

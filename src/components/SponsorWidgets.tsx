@@ -70,7 +70,7 @@ export function SponsorWidget({
     <div
       className={
         "grid relative rounded-2xl border-2 cursor-pointer overflow-hidden" +
-        (backgroundImage ? " min-[435px]:grid-cols-[auto_1fr]" : " px-3 py-2 min-w-[300px]") +
+        (backgroundImage ? " min-[435px]:grid-cols-[auto_1fr]" : " px-3 py-2 w-full max-w-[300px]") +
         (className ? ` ${className}` : "")
       }
       style={containerStyle}

@@ -112,16 +112,40 @@ a.header-subheading:hover {
 }
 
 .language-notice {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
   background-color: lightskyblue;
   color: black;
-  columns: 2;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
 }
 
-.language-notice button {
-  padding: 0.5em;
+.language-notice button,
+.language-notice a.switch-button {
+  padding: 0.45em 0.75em;
   border: none;
   color: black;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
+  text-decoration: none;
+}
+
+.hk-below-fold-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+.hk-table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+  margin: 0 !important;
+  min-height: 0 !important;
 }
