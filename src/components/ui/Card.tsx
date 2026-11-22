@@ -21,7 +21,7 @@ export function Card({ children, className = "", isPressable = false, onClick }:
       <button
         type="button"
         onClick={onClick}
-        className={`${CARD_BASE} w-full text-left cursor-pointer transition-transform duration-150 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#006FEE] focus-visible:outline-offset-2 ${className}`}
+        className={`${CARD_BASE} w-full text-left cursor-pointer hover:bg-[#f4f4f5] dark:hover:bg-[#27272a] transition-all duration-150 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#006FEE] focus-visible:outline-offset-2 ${className}`}
       >
         {children}
       </button>

@@ -347,19 +347,22 @@ const ExperimentsEditor: React.FC = () => {
             with your selected experimental features enabled or disabled.
           </div>
 
-          <div className="flex flex-col gap-1.5 rounded-xl bg-[#f4f4f5] dark:bg-[#27272a] px-3 py-2 shadow-sm">
-            <label htmlFor="world-file-input" className="text-xs text-[#71717a] dark:text-[#a1a1aa]">
-              Select .mcworld or .zip file
-            </label>
+          <label
+            htmlFor="world-file-input"
+            className={`flex flex-col gap-1.5 rounded-xl bg-[#f4f4f5] hover:bg-[#e4e4e7] dark:bg-[#27272a] dark:hover:bg-[#3f3f46] px-3 py-2 shadow-sm transition-colors duration-150 ${
+              isProcessing ? "opacity-50 pointer-events-none" : "cursor-pointer"
+            }`}
+          >
+            <span className="text-xs text-[#71717a] dark:text-[#a1a1aa]">Select .mcworld or .zip file</span>
             <input
               id="world-file-input"
               type="file"
               accept=".mcworld,.zip"
               onChange={handleFileUpload}
               disabled={isProcessing}
-              className="w-full text-sm bg-transparent text-gray-900 dark:text-white file:cursor-pointer file:bg-transparent file:border-0 file:mr-2 file:text-sm file:text-gray-900 dark:file:text-white focus:outline-none disabled:opacity-50"
+              className="w-full text-sm bg-transparent text-gray-900 dark:text-white cursor-pointer file:cursor-pointer file:bg-transparent file:border-0 file:mr-2 file:text-sm file:text-gray-900 dark:file:text-white focus:outline-none disabled:pointer-events-none"
             />
-          </div>
+          </label>
 
           <hr className="border-t border-black/15 dark:border-white/15" />
 
