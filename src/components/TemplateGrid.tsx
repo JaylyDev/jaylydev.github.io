@@ -41,7 +41,7 @@ export const TemplateGrid: React.FC<TemplateGridProps> = ({
       {templates.map((template) => (
         <Card
           key={template.id}
-          className="hover:shadow-lg transition-shadow cursor-pointer"
+          className="!cursor-pointer transition-all hover:shadow-lg bg-gray-100 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700 hover:brightness-105 [&_*]:!cursor-pointer"
           isPressable
           onPress={() => !isProcessing && onTemplateSelect(template.id)}
         >
