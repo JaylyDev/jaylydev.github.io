@@ -13,6 +13,66 @@
             ]
         },
         {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/tai-lam-tunnel/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/tai-lam-tunnel/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/western-harbour-crossing/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/western-harbour-crossing/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/cross-harbour-tunnel/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/cross-harbour-tunnel/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/eastern-harbour-crossing/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/eastern-harbour-crossing/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/tates-cairn-tunnel/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/tates-cairn-tunnel/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/lion-rock-tunnel/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/lion-rock-tunnel/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/aberdeen-tunnel/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/aberdeen-tunnel/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/shing-mun-tunnels/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/shing-mun-tunnels/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/eagles-nest-tunnel/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/eagles-nest-tunnel/" }
+            ]
+        },
+        {
+            "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/tseung-kwan-o-tunnel/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/tseung-kwan-o-tunnel/" }
+            ]
+        },
+        {
             "noindex": true,
             "paths": [
                 { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/insider/" },

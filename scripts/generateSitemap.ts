@@ -4,7 +4,7 @@ import { getPublicPosts } from "../src/utilities/getPublicPosts";
 import routesConfig from "../src/locale/routes.json";
 
 const SITE_URL = "https://jaylydev.github.io";
-const OUTPUT_DIR = path.join(process.cwd(), "out/api");
+const OUTPUT_DIR = path.join(process.cwd(), "out");
 
 interface PathRoute {
   lang: string;
@@ -87,26 +87,40 @@ function generatePostsSitemap(): UrlEntry[] {
   return urls;
 }
 
+function buildAlternates(paths: PathRoute[]): UrlAlternate[] | undefined {
+  if (paths.length <= 1) return undefined;
+  const alternates: UrlAlternate[] = [];
+  for (const p of paths) {
+    const code = p.hreflang || p.lang;
+    alternates.push({ hreflang: code, href: `${SITE_URL}${p.path}` });
+    if (code === "zh-HK") {
+      alternates.push({ hreflang: "zh-Hant", href: `${SITE_URL}${p.path}` });
+    }
+  }
+  const zhHkRoute = paths.find((p) => p.hreflang === "zh-HK");
+  const enRoute = paths.find((p) => p.lang === "en");
+  const defaultRoute = zhHkRoute ?? enRoute ?? paths[0];
+  alternates.push({ hreflang: "x-default", href: `${SITE_URL}${defaultRoute.path}` });
+  return alternates;
+}
+
 /**
  * Generate sitemap for localized webpages
  */
 function generateLocalizedSitemap(): UrlEntry[] {
   const routes = routesConfig.routes as Route[];
   const urls: UrlEntry[] = [];
+  const today = new Date().toISOString();
 
   for (const route of routes) {
     if (route.noindex) continue;
     // Create URL entries for each language version
+    const alternates = buildAlternates(route.paths);
     for (const pathConfig of route.paths) {
-      const alternates = route.paths.map((p) => ({
-        hreflang: p.hreflang || p.lang,
-        href: `${SITE_URL}${p.path}`,
-      }));
-
       urls.push({
         loc: `${SITE_URL}${pathConfig.path}`,
-        lastmod: new Date().toString(),
-        alternates: alternates.length > 1 ? alternates : undefined,
+        lastmod: today,
+        alternates,
       });
     }
   }
@@ -129,7 +143,7 @@ export function generateSitemaps() {
   const sitemapXML = generateXML(allUrls);
 
   // Write sitemap to file
-  const outputPath = path.join(OUTPUT_DIR, "sitemap.xml");
+  const outputPath = path.join(OUTPUT_DIR, "sitemap-pages.xml");
   fs.writeFileSync(outputPath, sitemapXML, "utf8");
 
   console.log(`Generated sitemap with ${allUrls.length} URLs`);
@@ -137,5 +151,3 @@ export function generateSitemaps() {
   console.log(`   - ${postsUrls.length} posts`);
   console.log(`Sitemap saved to: ${outputPath}`);
 }
-
-generateSitemaps();

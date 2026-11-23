@@ -1,6 +1,6 @@
 ## About HK Tunnels Tolls and Traffic Status website
 
-Hong Kong's cross-harbour tunnels and Tai Lam Tunnel charge tolls that change depending on the time of day. This tool matches your device clock with live Transport Department data, so you can see current tolls, road conditions, and how long your trip will take before you leave.
+Under Hong Kong's three cross-harbour tunnels traffic rationalisation and time-varying toll scheme, tolls at the Western Harbour Crossing (WHC), Cross-Harbour Tunnel (CHT), Eastern Harbour Crossing (EHC), and Tai Lam Tunnel vary by time of day. This tool syncs your device clock with live Transport Department XML feeds so you can check current tolls, next toll change countdowns, road conditions, and journey times before you drive.
 
 ## About tunnel traffic conditions
 
@@ -9,7 +9,7 @@ The app pulls in live data from the Hong Kong Transport Department's Journey Tim
 - **Traffic Status:** Shows "Smooth", "Slow", "Congested", or "Closed" based on how fast cars are moving and how long it takes to cross the harbour.
 - **Estimated Driving Time:** Shows roughly how many minutes it takes from the main roads to each tunnel exit, so you can plan your trip.
 - **Speed and Speed Limits:** Shows your average speed inside the tunnels and compares it with the legal speed limit.
-- **Traffic in Every Direction:** Shows traffic for every way of travelling (towards Kowloon, towards Hong Kong Island, and towards the New Territories) for all three cross-harbour tunnels (WHC, CHT, EHC) and the main road tunnels (Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnels, Lion Rock Tunnel, and Eagle's Nest Tunnel).
+- **Traffic in Every Direction:** Shows traffic for every direction (towards Kowloon, towards Hong Kong Island, and towards the New Territories) across all three cross-harbour tunnels (Western Harbour Crossing, Cross-Harbour Tunnel, Eastern Harbour Crossing) and major road tunnels (Tai Lam Tunnel, Tate's Cairn Tunnel, Aberdeen Tunnel, Shing Mun Tunnels, Lion Rock Tunnel, and Tsing Sha Control Area / Eagle's Nest Tunnel).
 
 > [!NOTE]
 > Traffic data updates every 1 to 2 minutes from the Transport Department's open data platform, so road conditions stay accurate.

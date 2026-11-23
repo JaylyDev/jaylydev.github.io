@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import languages from "../locale/languages.json";
 import { RouteLanguageInfo, STORAGE_KEY, SUPPORTED_LOCALES } from "../locale/i18n";
-import { useRouter } from "next/router";
 
 export interface LanguageSwitcherProps {
   currentLocale: string;
@@ -75,7 +75,7 @@ export function LanguageSwitcher({ currentLocale, localizedRoutes }: LanguageSwi
   const [switchButtonText, setSwitchButtonText] = useState<string | undefined>();
   const [showBanner, setShowBanner] = useState<boolean>(false);
   const [targetPath, setTargetPath] = useState<string>("");
-  const router = useRouter();
+  const [targetHreflang, setTargetHreflang] = useState<string>("");
 
   useEffect(() => {
     // Only proceed if we have available languages
@@ -103,19 +103,26 @@ export function LanguageSwitcher({ currentLocale, localizedRoutes }: LanguageSwi
         setMessage(msg);
         setSwitchButtonText(btnText);
         setTargetPath(targetRoute.path);
+        setTargetHreflang(targetRoute.hreflang || targetRoute.lang);
         setShowBanner(!!msg && !!btnText);
       }
     }
   }, [localizedRoutes, currentLocale]);
 
   return showBanner ? (
-    <div className="language-notice flex items-center justify-between gap-2 px-6 py-2 md:px-12">
-      <p>{message}</p>
-      <div className="grid grid-flow-col">
-        <button className="switch-button bg-white min-w-16" onClick={() => router.push(targetPath)}>
+    <div className="language-notice flex items-center justify-between gap-2 px-4 py-2 md:px-12">
+      <p className="text-sm sm:text-base">{message}</p>
+      <div className="flex items-center gap-2 shrink-0">
+        <Link
+          href={targetPath}
+          hrefLang={targetHreflang}
+          className="switch-button bg-white min-w-16 text-center text-sm font-medium"
+        >
           {switchButtonText}
-        </button>
+        </Link>
         <button
+          type="button"
+          aria-label="Dismiss language notice"
           onClick={() => {
             setShowBanner(false);
             localStorage.setItem(STORAGE_KEY, currentLocale);
