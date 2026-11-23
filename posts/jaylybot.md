@@ -8,6 +8,8 @@ description: JaylyBot provides a collection of utilities and tools for Minecraft
 
 JaylyBot provides a collection of utilities and tools for Minecraft Script APIs on Discord. It is a Discord bot used in over 350 servers to enhance your Minecraft Add-On development with Script API.
 
+> "Probably one of the few bots I have seen on Discord that I feel is truly worth the effort and time." - Visual1mpact
+
 This bot uses [TypeScript compiler](https://www.typescriptlang.org/), [discord.js](https://discord.js.org/), [Minecraft Scripting Libraries](https://github.com/Mojang/minecraft-scripting-libraries/) and type definitions for Minecraft Bedrock Script APIs, available through npm at [npmjs.com](https://npmjs.com/).
 
 ## Invite the Bot
