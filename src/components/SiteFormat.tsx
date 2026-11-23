@@ -35,36 +35,54 @@ export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGloba
   return (
     <>
       <header className="header">
-        <div className="flex items-center justify-between py-2 px-4 md:py-3 md:px-8">
+        <div className="flex items-center justify-between py-2 px-4 md:hidden">
           <Link href={`${localePrefix}/`} className="flex flex-none select-none items-center h-12 w-12">
             <Image src={icon || "/icon.png"} alt="Jayly Logo" width={48} height={48} priority />
           </Link>
-
-          {/* Subheadings */}
-          <nav aria-label="Main navigation" className="hidden md:flex items-center">
-            <Link href={`${localePrefix}/#home`} className="header-subheading">
-              {t("header.home")}
-            </Link>
-            <Link href={`${localePrefix}/#projects`} className="header-subheading">
-              {t("header.projects")}
-            </Link>
-            <Link href={`${localePrefix}/#posts`} className="header-subheading">
-              {t("header.posts")}
-            </Link>
-            <Link href={`${localePrefix}/#about`} className="header-subheading">
-              {t("header.about")}
-            </Link>
-          </nav>
-
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-expanded={mobileMenuOpen}
             aria-label="Toggle navigation menu"
-            className="md:hidden inline-flex items-center justify-center rounded-md border border-gray-300 px-2.5 py-1.5 text-sm font-medium text-gray-700"
+            className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2.5 py-1.5 text-sm font-medium text-gray-700"
           >
             {mobileMenuOpen ? "✕" : "☰"}
           </button>
+        </div>
+        <div className="border-t md:border-0 hidden md:block py-5 px-6 md:py-3 md:px-8">
+          <div className="md:mt-0 md:flex md:items-center md:justify-between md:pt-0">
+            <div
+              aria-label="Logo"
+              className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            ></div>
+            <div className="hidden md:ml-4 md:block order-2">
+              <Link
+                rel="apple-touch-icon"
+                href={`${localePrefix}/`}
+                className="flex flex-none select-none items-center h-12 w-12"
+              >
+                <div className="relative m-auto inline-block">
+                  <Image src={icon || "/icon.png"} alt={"Jayly Logo"} width={150} height={150}></Image>
+                  <div className="absolute right-0 top-0 -mr-2.5 -mt-1.5"></div>
+                </div>
+              </Link>
+            </div>
+            {/* Subheadings */}
+            <div className="md:ml-4 md:block order-3">
+              <Link href={`${localePrefix}/#home`} className="header-subheading">
+                {t("header.home")}
+              </Link>
+              <Link href={`${localePrefix}/#projects`} className="header-subheading">
+                {t("header.projects")}
+              </Link>
+              <Link href={`${localePrefix}/#posts`} className="header-subheading">
+                {t("header.posts")}
+              </Link>
+              <Link href={`${localePrefix}/#about`} className="header-subheading">
+                {t("header.about")}
+              </Link>
+            </div>
+          </div>
         </div>
 
         {mobileMenuOpen && (
