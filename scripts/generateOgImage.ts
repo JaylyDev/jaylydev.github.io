@@ -73,7 +73,7 @@ function renderSvg(text: OgLocaleText): string {
   </svg>`;
 }
 
-async function main(): Promise<void> {
+export async function generateOgImages(): Promise<void> {
   const icon = await sharp(ICON_PATH).resize(128, 128, { kernel: "nearest" }).toBuffer();
   for (const text of LOCALES) {
     const outputPath = path.join(OUTPUT_DIR, text.fileName);
@@ -84,5 +84,3 @@ async function main(): Promise<void> {
     console.log(`Generated ${outputPath}`);
   }
 }
-
-main();

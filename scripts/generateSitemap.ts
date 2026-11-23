@@ -151,5 +151,3 @@ export function generateSitemaps() {
   console.log(`   - ${postsUrls.length} posts`);
   console.log(`Sitemap saved to: ${outputPath}`);
 }
-
-generateSitemaps();
