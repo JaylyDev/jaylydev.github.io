@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, JSX } from "react";
+import React, { useEffect, useState, useCallback, useRef, JSX } from "react";
 import Head from "next/head";
 import { StatsCollection, SiteHeader, SiteFooter } from "@/components/SiteFormat";
 import { Button, Card, CardBody, CardHeader, Switch, Input, Divider, Chip, HeroUIProvider } from "@heroui/react";
@@ -46,6 +46,7 @@ const ExperimentsEditor: React.FC = () => {
   const [originalLevelDat, setOriginalLevelDat] = useState<ArrayBuffer | null>(null);
   const [experimentsData, setExperimentsData] = useState<ExperimentsData | null>(null);
   const [worldPath, setWorldPath] = useState<string>(""); // Path to world folder (empty for root)
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load experiments data
   useEffect(() => {
@@ -345,15 +346,36 @@ const ExperimentsEditor: React.FC = () => {
             with your selected experimental features enabled or disabled.
           </div>
 
-          <Input
-            type="file"
-            accept=".mcworld,.zip"
-            onChange={handleFileUpload}
-            disabled={isProcessing}
-            label="Select .mcworld or .zip file"
-            placeholder="Choose your world file..."
-            className="dark:text-white"
-          />
+          <div
+            className={`group rounded-xl transition-colors ${
+              isProcessing ? "cursor-not-allowed opacity-60" : "!cursor-pointer [&_*]:!cursor-pointer"
+            }`}
+            onClick={(event) => {
+              if (!isProcessing && event.target !== fileInputRef.current) {
+                fileInputRef.current?.click();
+              }
+            }}
+          >
+            <Input
+              ref={fileInputRef}
+              type="file"
+              accept=".mcworld,.zip"
+              onChange={handleFileUpload}
+              disabled={isProcessing}
+              label="Select .mcworld or .zip file"
+              placeholder="Choose your world file..."
+              className="dark:text-white !cursor-pointer"
+              classNames={{
+                base: "!cursor-pointer",
+                mainWrapper: "!cursor-pointer",
+                inputWrapper:
+                  "!cursor-pointer transition-colors bg-gray-200 hover:bg-gray-100 group-hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:group-hover:bg-gray-700",
+                innerWrapper: "!cursor-pointer",
+                label: "!cursor-pointer",
+                input: "!cursor-pointer file:cursor-pointer",
+              }}
+            />
+          </div>
 
           <Divider />
 
@@ -361,8 +383,14 @@ const ExperimentsEditor: React.FC = () => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               Don&apos;t have a world file? Start with a template!
             </p>
-            <Link href="/bedrock-experiments/start-from-template">
-              <Button className="text-lg" color="secondary" variant="flat" size="lg" disabled={isProcessing}>
+            <Link href="/bedrock-experiments/start-from-template" className="inline-block cursor-pointer no-underline">
+              <Button
+                className="text-lg cursor-pointer transition-all hover:brightness-110"
+                color="secondary"
+                variant="flat"
+                size="lg"
+                disabled={isProcessing}
+              >
                 Start from Template
               </Button>
             </Link>
