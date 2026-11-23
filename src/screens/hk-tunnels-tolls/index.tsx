@@ -10,7 +10,6 @@ import registryInfo from "./data/registry.json";
 import tollData from "./data/tolls.json";
 import {
   AlertBadge,
-  CompanionAppCard,
   FaqSection,
   FixedTunnelsTable,
   FreeTunnelsTable,
@@ -47,9 +46,8 @@ import {
   GITHUB_REPO_URL,
   HKTunnelIdentifier,
   HUB_FAQ_ITEMS,
-  OG_IMAGE_URL,
+  getOgImageUrl,
   SITE_URL,
-  TUNNEL_DETAIL_BY_SLUG,
   TUNNEL_SLUG_BY_REGISTRY_KEY,
   VehicleTypeIdentifier,
 } from "./tunnelData";
@@ -136,7 +134,7 @@ const TrafficRows = React.memo(function TrafficRows({
         const minutesLabel = reading && reading.minutes !== null ? String(reading.minutes) : "--";
         return (
           <div key={route.direction} className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-lg md:text-base text-gray-600 dark:text-gray-300">
+            <span className="text-xl md:text-base text-gray-600 dark:text-gray-300">
               {t(`direction.${route.direction}`)}
             </span>
             <div className="flex flex-wrap items-center gap-1.5">
@@ -176,10 +174,6 @@ const HKTollCard = React.memo(function HKTollCard(props: TollCardProps): JSX.Ele
   const tunnel = getTunnelInfo(tunnelKey);
   const slug = TUNNEL_SLUG_BY_REGISTRY_KEY[tunnelKey];
   const detailPath = getTunnelPagePath(slug, lang);
-  const detailMeta = TUNNEL_DETAIL_BY_SLUG[slug];
-  const isZh = lang === "zh";
-  const displayName = resolveLocalizedString(tunnel.name, t);
-  const officialName = detailMeta ? (isZh ? detailMeta.officialName.zh : detailMeta.officialName.en) : displayName;
 
   return (
     <div className="flex gap-3 border-b border-black/20 dark:border-white/20 pb-2 last:border-b-0">
@@ -193,18 +187,15 @@ const HKTollCard = React.memo(function HKTollCard(props: TollCardProps): JSX.Ele
           <div className="text-left min-w-0">
             <Link
               href={detailPath}
-              className="text-2xl sm:text-3xl md:text-2xl font-medium text-inherit hover:text-blue-600 dark:hover:text-blue-400 inline-flex items-baseline gap-1.5 flex-wrap"
+              className="block text-2xl sm:text-3xl md:text-2xl font-medium text-inherit hover:text-blue-600 dark:hover:text-blue-400"
             >
-              <span>{displayName}</span>
-              <span className="text-xs sm:text-sm font-normal text-blue-600 dark:text-blue-400">
-                {isZh ? "路況及收費表 →" : "Details & CCTV →"}
-              </span>
+              {resolveLocalizedString(tunnel.name, t)}
             </Link>
-            {officialName !== displayName && (
-              <p className="text-xs text-gray-500 dark:text-gray-400">{officialName}</p>
-            )}
+            <Link href={detailPath} className="text-sm text-blue-600 dark:text-blue-400">
+              {lang === "zh" ? "路況及收費表 →" : "Details & CCTV →"}
+            </Link>
           </div>
-          <p className="text-right text-3xl sm:text-5xl py-1 md:py-2 font-bold text-green-600 dark:text-green-400 shrink-0">
+          <p className="text-right text-5xl py-1 md:py-2 font-bold text-green-600 dark:text-green-400 shrink-0">
             {tollResult.message}
           </p>
         </div>
@@ -225,7 +216,7 @@ const HKTollCard = React.memo(function HKTollCard(props: TollCardProps): JSX.Ele
         )}
         {nextChange && (
           <div className="text-right pt-0.5">
-            <NextTollCountdown nextChange={nextChange} lang={lang} compact />
+            <NextTollCountdown nextChange={nextChange} lang={lang} />
           </div>
         )}
       </div>
@@ -301,7 +292,6 @@ function HKTunnelsTollsApp({
   aboutHtml,
   iosGuideHtml,
 }: HKTunnelsTollsAppProps): JSX.Element {
-  const isZh = lang === "zh";
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   const [tableVehicle, setTableVehicle] = useState<VehicleTypeIdentifier>("privateCar");
   const [sortMode, setSortMode] = useState<SortMode>(SortMode.Default);
@@ -510,12 +500,7 @@ function HKTunnelsTollsApp({
   return (
     <div className="max-w-4xl mx-auto px-3 sm:px-4">
       {/* Header */}
-      <h1 className="text-center mt-3 mb-1 md:m-4 text-3xl md:text-4xl font-bold md:p-2">{t("pageHeading")}</h1>
-      <p className="text-center text-sm text-gray-600 dark:text-gray-300 mb-3 px-2">
-        {isZh
-          ? "最新收費標準（已更新大欖隧道及三隧分流不同時段不同收費時間表）：即時查詢西區海底隧道（西隧）、紅磡海底隧道（紅隧）、東區海底隧道（東隧）、大老山隧道及青沙管制區收費與路況。"
-          : "Latest official toll schedules (updated for Tai Lam Tunnel & three cross-harbour time-varying tolls): live tolls and traffic status for WHC, CHT, EHC, Tate's Cairn, and Tsing Sha Control Area."}
-      </p>
+      <h1 className="text-center my-3 md:m-4 text-3xl md:text-4xl font-bold md:p-2">{t("pageHeading")}</h1>
       {isAppleDevice && !isPWA && <IosShareButton t={t} />}
 
       {/* Selection Controls */}
@@ -591,7 +576,6 @@ function HKTunnelsTollsApp({
       <FixedTunnelsTable t={t} lang={lang} />
       <FreeTunnelsTable lang={lang} />
       <FaqSection lang={lang} />
-      <CompanionAppCard lang={lang} />
 
       {/* About, Notes and Links */}
       <div>
@@ -657,7 +641,7 @@ export default function Page({
     description: t("pageDescription"),
     url: canonicalUrl,
     inLanguage: isZh ? "zh-HK" : "en",
-    image: OG_IMAGE_URL,
+    image: getOgImageUrl(lang),
     isAccessibleForFree: true,
     applicationCategory: "TravelApplication",
     operatingSystem: "All",
@@ -744,14 +728,14 @@ export default function Page({
         <meta property="og:type" content="website" />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content="JaylyMC" />
-        <meta property="og:image" content={OG_IMAGE_URL} />
+        <meta property="og:image" content={getOgImageUrl(lang)} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={hreflang} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t("pageTitle")} />
         <meta name="twitter:description" content={t("pageDescription")} />
-        <meta name="twitter:image" content={OG_IMAGE_URL} />
+        <meta name="twitter:image" content={getOgImageUrl(lang)} />
         <link rel="manifest" href={t("pwa.url")} crossOrigin="use-credentials" />
         <meta name="apple-mobile-web-app-title" content={t("appTitle")} />
         <meta name="apple-mobile-web-app-capable" content="yes" />

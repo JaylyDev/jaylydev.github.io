@@ -2,7 +2,10 @@ import registryInfo from "./data/registry.json";
 
 export const SITE_URL = "https://jaylydev.github.io";
 export const GITHUB_REPO_URL = "https://github.com/JaylyDev/jaylydev.github.io";
-export const OG_IMAGE_URL = `${SITE_URL}/hk-tunnels-tolls/og-image.png`;
+
+export function getOgImageUrl(lang: string): string {
+  return `${SITE_URL}/hk-tunnels-tolls/${lang === "zh" ? "og-image-zh.png" : "og-image.png"}`;
+}
 
 export type VehicleTypeIdentifier = keyof typeof registryInfo.vehicleTypes;
 export type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
@@ -27,6 +30,7 @@ export interface ExtraDirectionRoute {
   direction: string;
   speedLimitKmh: number;
   indicators: ExtraTrafficIndicator[];
+  irnSegmentIds?: string[];
 }
 
 export interface TunnelDetailConfig {
@@ -448,6 +452,13 @@ export const TUNNEL_DETAILS: TunnelDetailConfig[] = [
           { loc: "N09", dest: "TKOT", approachMinutes: 2 },
           { loc: "N10", dest: "TKOT", approachMinutes: 2 },
         ],
+        irnSegmentIds: ["101776"],
+      },
+      {
+        direction: "toTseungKwanO",
+        speedLimitKmh: 70,
+        indicators: [],
+        irnSegmentIds: ["101777"],
       },
     ],
   },

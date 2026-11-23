@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { RouteLanguageInfo, STORAGE_KEY } from "@/locale/i18n";
 import languages from "@/locale/languages.json";
@@ -39,31 +38,7 @@ export function LanguageSelector({ localizedRoutes, currentLocale }: LanguageSel
   }
 
   return (
-    <div className="language-selector flex items-center gap-2">
-      <nav aria-label="Language alternates" className="flex items-center gap-2">
-        {localizedRoutes.map((langInfo) => {
-          const label =
-            languages.language_names[langInfo.lang as keyof typeof languages.language_names] ||
-            langInfo.lang.toUpperCase();
-          if (langInfo.lang === currentLocale) {
-            return (
-              <span key={langInfo.lang} className="font-semibold text-gray-700 dark:text-gray-200">
-                {label}
-              </span>
-            );
-          }
-          return (
-            <Link
-              key={langInfo.lang}
-              href={langInfo.path}
-              hrefLang={langInfo.hreflang || langInfo.lang}
-              onClick={() => localStorage.setItem(STORAGE_KEY, langInfo.lang)}
-            >
-              {label}
-            </Link>
-          );
-        })}
-      </nav>
+    <div className="language-selector">
       <select
         value={selectedLang}
         onChange={handleLanguageChange}

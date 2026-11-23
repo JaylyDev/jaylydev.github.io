@@ -112,14 +112,8 @@ a.header-subheading:hover {
 }
 
 .language-notice {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 40;
   background-color: lightskyblue;
   color: black;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
 }
 
 .language-notice button,

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "tsx scripts/generateSitemap.ts",
+    "postbuild": "tsx scripts/generateSitemap.ts && tsx scripts/generateOgImage.ts",
     "start": "npx serve@latest out",
     "lint": "next lint"
   },

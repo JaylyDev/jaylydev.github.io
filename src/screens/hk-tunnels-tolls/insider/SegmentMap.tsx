@@ -5,7 +5,10 @@ import "leaflet/dist/leaflet.css";
 
 type LocalizedString = string | { id: string };
 
-type HKTunnelIdentifier = keyof typeof registryInfo.tunnels;
+// Tolled tunnels plus free tunnels (e.g. TKO) that only appear on this map
+const MAP_TUNNELS = { ...registryInfo.tunnels, ...registryInfo.mapOnlyTunnels };
+
+type HKTunnelIdentifier = keyof typeof MAP_TUNNELS;
 
 function resolveLocalizedString(value: LocalizedString, t: TranslateFunction): string {
   if (typeof value === "string") return value;
@@ -52,7 +55,7 @@ export default function SegmentMap({
     const seen = new Set<string>();
 
     (
-      Object.entries(registryInfo.tunnels) as [HKTunnelIdentifier, (typeof registryInfo.tunnels)[HKTunnelIdentifier]][]
+      Object.entries(MAP_TUNNELS) as [HKTunnelIdentifier, (typeof MAP_TUNNELS)[HKTunnelIdentifier]][]
     ).forEach(([tKey, tunnel]) => {
       const tunnelAny = tunnel as Record<string, unknown>;
       const limit = typeof tunnelAny.maxLegalSpeedKmh === "number" ? tunnelAny.maxLegalSpeedKmh : 70;
@@ -209,9 +212,9 @@ export default function SegmentMap({
           >
             <option value="all">All Tunnels</option>
             {(
-              Object.entries(registryInfo.tunnels) as [
+              Object.entries(MAP_TUNNELS) as [
                 HKTunnelIdentifier,
-                (typeof registryInfo.tunnels)[HKTunnelIdentifier],
+                (typeof MAP_TUNNELS)[HKTunnelIdentifier],
               ][]
             ).map(([key, tunnel]) => (
               <option key={key} value={key}>

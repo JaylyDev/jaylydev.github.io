@@ -3,7 +3,6 @@ import { TranslateFunction, RouteLanguageInfo as LocalizedRouteInfo } from "@/lo
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import languages from "@/locale/languages.json";
 import { LanguageSelector } from "./LanguageSelector";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { SponsorSection } from "./SponsorWidgets";
@@ -32,7 +31,6 @@ export interface IStatsCollectionParams {
 export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGlobalParams) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const localePrefix = lang && lang !== "en" ? `/${lang}` : "";
-  const alternateRoutes = (localizedRoutes ?? []).filter((route) => route.lang !== lang);
 
   return (
     <>
@@ -56,49 +54,17 @@ export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGloba
             <Link href={`${localePrefix}/#about`} className="header-subheading">
               {t("header.about")}
             </Link>
-            {alternateRoutes.map((route) => {
-              const langName =
-                languages.language_names[route.lang as keyof typeof languages.language_names] ||
-                route.lang.toUpperCase();
-              return (
-                <Link
-                  key={route.lang}
-                  href={route.path}
-                  hrefLang={route.hreflang || route.lang}
-                  className="ml-3 rounded border border-gray-300 px-2.5 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100 no-underline"
-                >
-                  {langName}
-                </Link>
-              );
-            })}
           </nav>
 
-          <div className="flex items-center gap-2 md:hidden">
-            {alternateRoutes.map((route) => {
-              const langName =
-                languages.language_names[route.lang as keyof typeof languages.language_names] ||
-                route.lang.toUpperCase();
-              return (
-                <Link
-                  key={route.lang}
-                  href={route.path}
-                  hrefLang={route.hreflang || route.lang}
-                  className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-700 no-underline"
-                >
-                  {langName}
-                </Link>
-              );
-            })}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
-              aria-expanded={mobileMenuOpen}
-              aria-label="Toggle navigation menu"
-              className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2.5 py-1.5 text-sm font-medium text-gray-700"
-            >
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle navigation menu"
+            className="md:hidden inline-flex items-center justify-center rounded-md border border-gray-300 px-2.5 py-1.5 text-sm font-medium text-gray-700"
+          >
+            {mobileMenuOpen ? "✕" : "☰"}
+          </button>
         </div>
 
         {mobileMenuOpen && (

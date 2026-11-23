@@ -507,52 +507,65 @@ export function readingForRoute(
     };
   }
 
-  const validBoreSpeeds: number[] = [];
-  if (route.irnSegments && route.irnSegments.length > 0 && irnSpeeds) {
-    for (const seg of route.irnSegments) {
-      if (seg.type === "bore") {
-        const spd = irnSpeeds[seg.id];
-        if (typeof spd === "number" && spd > 0) validBoreSpeeds.push(spd);
-      }
-    }
-  }
+  const boreIds = (route.irnSegments ?? []).filter((seg) => seg.type === "bore").map((seg) => seg.id);
+  return readingFromIrnSpeeds(tunnel.lengthKm, routeLimit, floorMinutes, boreIds, irnSpeeds);
+}
 
-  if (validBoreSpeeds.length > 0) {
-    const govSpeed = validBoreSpeeds.reduce((a, b) => a + b, 0) / validBoreSpeeds.length;
-    const status =
-      govSpeed >= routeLimit * 0.75
-        ? TrafficStatus.Smooth
-        : govSpeed >= routeLimit * 0.4
-          ? TrafficStatus.Slow
-          : TrafficStatus.Congested;
-    const minutes = Math.max(floorMinutes, Math.round((tunnel.lengthKm / Math.min(govSpeed, routeLimit)) * 60));
+/**
+ * Builds a reading from the average speed-map speed of the given in-tunnel segments.
+ * @param lengthKm Tunnel length in km
+ * @param routeLimit Speed limit in km/h
+ * @param floorMinutes Free-flow traversal time, the lowest minutes shown
+ * @param segmentIds IRN segment ids inside the tunnel
+ * @param irnSpeeds Live speeds by segment id
+ * @returns The reading, or null when no segment has a valid speed
+ */
+function readingFromIrnSpeeds(
+  lengthKm: number,
+  routeLimit: number,
+  floorMinutes: number,
+  segmentIds: string[],
+  irnSpeeds: Record<string, number> | null,
+): JourneyReading | null {
+  if (!irnSpeeds) return null;
+  const speeds = segmentIds.map((id) => irnSpeeds[id]).filter((spd) => typeof spd === "number" && spd > 0);
+  if (speeds.length === 0) return null;
 
-    return {
-      status,
-      minutes,
-      speedKmh: Math.round(govSpeed),
-      speedLimitKmh: routeLimit,
-    };
-  }
+  const govSpeed = speeds.reduce((a, b) => a + b, 0) / speeds.length;
+  const status =
+    govSpeed >= routeLimit * 0.75
+      ? TrafficStatus.Smooth
+      : govSpeed >= routeLimit * 0.4
+        ? TrafficStatus.Slow
+        : TrafficStatus.Congested;
+  const minutes = Math.max(floorMinutes, Math.round((lengthKm / Math.min(govSpeed, routeLimit)) * 60));
 
-  return null;
+  return {
+    status,
+    minutes,
+    speedKmh: Math.round(govSpeed),
+    speedLimitKmh: routeLimit,
+  };
 }
 
 export function readingForExtraRoute(
   lengthKm: number,
   route: ExtraDirectionRoute,
   journeyReadings: Record<string, JourneyReading> | null,
+  irnSpeeds: Record<string, number> | null,
 ): JourneyReading | null {
-  if (!journeyReadings || route.indicators.length === 0) return null;
   const floorMinutes = Math.max(1, Math.round((lengthKm * 1000) / (route.speedLimitKmh / 3.6) / 60));
   const validItems: CandidateItem[] = [];
-  for (const ind of route.indicators) {
-    const raw = journeyReadings[journeyKey(ind.loc, ind.dest)];
+  for (const ind of journeyReadings ? route.indicators : []) {
+    const raw = journeyReadings?.[journeyKey(ind.loc, ind.dest)];
     if (raw && raw.minutes !== null && raw.minutes > 0) {
       validItems.push({ netMinutes: Math.max(floorMinutes, raw.minutes - ind.approachMinutes), status: raw.status });
     }
   }
-  if (validItems.length === 0) return null;
+  // Journey-time boards first; directions without boards fall back to the speed map
+  if (validItems.length === 0) {
+    return readingFromIrnSpeeds(lengthKm, route.speedLimitKmh, floorMinutes, route.irnSegmentIds ?? [], irnSpeeds);
+  }
   let best = validItems[0];
   for (const item of validItems) {
     if (item.netMinutes < best.netMinutes) best = item;

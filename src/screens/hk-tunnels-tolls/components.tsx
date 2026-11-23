@@ -56,7 +56,7 @@ export interface AlertBadgeProps {
 export function AlertBadge({ background, text, className = "", children }: AlertBadgeProps): JSX.Element {
   return (
     <span
-      className={`text-base sm:text-lg ${background} ${text} px-2.5 py-0.5 rounded-md font-medium inline-block text-center ${className}`}
+      className={`text-[1.45rem] md:text-lg ${background} ${text} px-3 rounded-md font-medium inline-block text-center ${className}`}
     >
       {children}
     </span>
@@ -121,10 +121,9 @@ export const VehicleSelector = React.memo(function VehicleSelector({
 export interface NextTollCountdownProps {
   nextChange: NextTollChangeInfo | null;
   lang: string;
-  compact?: boolean;
 }
 
-export function NextTollCountdown({ nextChange, lang, compact = false }: NextTollCountdownProps): JSX.Element | null {
+export function NextTollCountdown({ nextChange, lang }: NextTollCountdownProps): JSX.Element | null {
   if (!nextChange) return null;
   const isZh = lang === "zh";
   const isIncrease = nextChange.direction === TollChangeDirection.Increase;
@@ -138,9 +137,9 @@ export function NextTollCountdown({ nextChange, lang, compact = false }: NextTol
   const durationLabel = isZh
     ? hours > 0
       ? mins > 0
-        ? `${hours} 小時 ${mins} 分鐘`
-        : `${hours} 小時`
-      : `${mins} 分鐘`
+        ? `${hours}小時${mins}分`
+        : `${hours}小時`
+      : `${mins}分`
     : hours > 0
       ? mins > 0
         ? `${hours}h ${mins}m`
@@ -148,15 +147,11 @@ export function NextTollCountdown({ nextChange, lang, compact = false }: NextTol
       : `${mins} min`;
 
   const text = isZh
-    ? compact
-      ? `${nextChange.targetTime} (${durationLabel}後) ${arrow} HK${nextChange.nextTollDisplay}`
-      : `距離下次轉價還有 ${durationLabel} (${nextChange.targetTime}) → ${arrow} HK${nextChange.nextTollDisplay}`
-    : compact
-      ? `${nextChange.targetTime} (in ${durationLabel}) ${arrow} HK${nextChange.nextTollDisplay}`
-      : `Next toll change in ${durationLabel} (${nextChange.targetTime}) → ${arrow} HK${nextChange.nextTollDisplay}`;
+    ? `${nextChange.targetTime} (${durationLabel}後) ${arrow} ${nextChange.nextTollDisplay}`
+    : `${nextChange.targetTime} (in ${durationLabel}) ${arrow} ${nextChange.nextTollDisplay}`;
 
   return (
-    <span className={`inline-block rounded-md px-2.5 py-0.5 text-sm md:text-sm font-medium ${colorClasses}`}>
+    <span className={`inline-block rounded-md px-3 text-xl md:text-lg font-medium ${colorClasses}`}>
       {text}
     </span>
   );
@@ -296,11 +291,11 @@ export const SingleTunnelVehicleTable = React.memo(function SingleTunnelVehicleT
   const isTimeVarying = Boolean(tunnel && "timeVaryingTolls" in tunnel);
 
   const getRateSummary = (vKey: VehicleTypeIdentifier): string => {
-    if (isFree || !tunnelKey) return isZh ? "HK$0（免費）" : "HK$0 (Free)";
+    if (isFree || !tunnelKey) return isZh ? "$0（免費）" : "$0 (Free)";
     const vData = tollData.vehicleTypes[vKey];
     if (vData.fixedTolls && tunnelKey in vData.fixedTolls) {
       const amount = vData.fixedTolls[tunnelKey as keyof typeof vData.fixedTolls];
-      return isZh ? `HK$${amount}（全日劃一）` : `HK$${amount} (All day flat)`;
+      return isZh ? `$${amount}（全日劃一）` : `$${amount} (All day flat)`;
     }
     if (tunnelKey) {
       const entry = tollData.tunnels[tunnelKey];
@@ -311,7 +306,7 @@ export const SingleTunnelVehicleTable = React.memo(function SingleTunnelVehicleT
         const mult = "multiplier" in vData ? vData.multiplier : 1;
         const min = Math.round(Math.min(...nums) * mult * 10) / 10;
         const max = Math.round(Math.max(...nums) * mult * 10) / 10;
-        return isZh ? `HK$${min} - HK$${max}（按時段變動）` : `HK$${min} - HK$${max} (Time-varying)`;
+        return isZh ? `$${min} - $${max}（按時段變動）` : `$${min} - $${max} (Time-varying)`;
       }
     }
     return "-";
@@ -439,12 +434,12 @@ export const FreeTunnelsTable = React.memo(function FreeTunnelsTable({ lang }: F
   return (
     <section className="card-base-min mb-4 hk-below-fold-section" id="free-government-tunnels">
       <h2 className="text-xl md:text-lg font-semibold border-b pb-1 mb-3">
-        {isZh ? "香港免費政府隧道一覽（HK$0）" : "Free Government Tunnels in Hong Kong (HK$0)"}
+        {isZh ? "香港免費政府隧道一覽（$0）" : "Free Government Tunnels in Hong Kong ($0)"}
       </h2>
       <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
         {isZh
-          ? "以下 8 條香港政府行車隧道全日免費通行（所有車輛類型 HK$0），無須繳付隧道費："
-          : "The following 8 Hong Kong government road tunnels are completely toll-free (HK$0) all day for every vehicle class:"}
+          ? "以下 8 條香港政府行車隧道全日免費通行（所有車輛類型 $0），無須繳付隧道費："
+          : "The following 8 Hong Kong government road tunnels are completely toll-free ($0) all day for every vehicle class:"}
       </p>
       <div className="hk-table-scroll">
         <table className="w-full min-w-[440px] text-sm sm:text-base">
@@ -474,7 +469,7 @@ export const FreeTunnelsTable = React.memo(function FreeTunnelsTable({ lang }: F
                   )}
                 </td>
                 <td className="px-3 sm:px-4 py-3 whitespace-nowrap font-semibold text-green-700 dark:text-green-400">
-                  {isZh ? "HK$0 免費" : "HK$0 Free"}
+                  {isZh ? "$0 免費" : "$0 Free"}
                 </td>
                 <td className="px-3 sm:px-4 py-3">
                   <div>{isZh ? entry.connectingRoads.zh : entry.connectingRoads.en}</div>
@@ -511,35 +506,6 @@ export const FaqSection = React.memo(function FaqSection({ lang }: FaqSectionPro
             </p>
           </div>
         ))}
-      </div>
-    </section>
-  );
-});
-
-export interface CompanionAppCardProps {
-  lang: string;
-}
-
-export const CompanionAppCard = React.memo(function CompanionAppCard({ lang }: CompanionAppCardProps): JSX.Element {
-  const isZh = lang === "zh";
-  const blogHref = isZh ? "/posts/查看香港實時隧道收費/" : "/posts/hk-toll-rate/";
-
-  return (
-    <section className="card-base-min mb-4 hk-below-fold-section">
-      <h2 className="text-xl md:text-lg font-semibold border-b pb-1 mb-3">
-        {isZh ? "使用教學與 iOS 捷徑" : "Usage Guide & iOS Shortcuts"}
-      </h2>
-      <div className="text-sm sm:text-base text-gray-700 dark:text-gray-300 space-y-1">
-        <p>
-          {isZh
-            ? "除了網頁版即開即睇，你亦可瀏覽詳細圖文使用教學（含 iOS 主畫面捷徑及 Siri 語音查詢設定）。"
-            : "In addition to this instant web tool, read our full setup guide covering iOS Home Screen shortcuts and vehicle classes."}
-        </p>
-        <p>
-          <Link href={blogHref} className="font-medium">
-            {isZh ? "閱讀《查看香港實時隧道收費》完整教學 →" : "Read the Hong Kong Tunnel Tolls Guide →"}
-          </Link>
-        </p>
       </div>
     </section>
   );
