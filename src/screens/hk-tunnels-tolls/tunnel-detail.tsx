@@ -23,6 +23,7 @@ import {
   getHongKongDate,
   getNextTollChange,
   getTunnelInfo,
+  isCkbFullOpen,
   isValidVehicle,
   JourneyReading,
   readingForExtraRoute,
@@ -114,7 +115,7 @@ function TunnelDetailBody({ config, lang, t }: TunnelDetailBodyProps): JSX.Eleme
       const info = getTunnelInfo(config.registryKey);
       return info.journeyRoutes.map((route) => ({
         direction: route.direction,
-        reading: readingForRoute(info, route, journeyReadings, irnSpeeds),
+        reading: readingForRoute(info, route, journeyReadings, irnSpeeds, currentTime),
       }));
     }
     if (config.extraRoutes) {
@@ -124,7 +125,7 @@ function TunnelDetailBody({ config, lang, t }: TunnelDetailBodyProps): JSX.Eleme
       }));
     }
     return [];
-  }, [config.registryKey, config.extraRoutes, config.lengthKm, journeyReadings, irnSpeeds]);
+  }, [config.registryKey, config.extraRoutes, config.lengthKm, journeyReadings, irnSpeeds, currentTime]);
 
   const hubPath = getHubPagePath(lang);
   const shortName = isZh ? config.shortName.zh : config.shortName.en;
@@ -160,25 +161,35 @@ function TunnelDetailBody({ config, lang, t }: TunnelDetailBodyProps): JSX.Eleme
             aria-hidden="true"
           />
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-black/15 dark:border-white/15 pb-2 mb-3">
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold">{officialName}</h2>
-                <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-                  {isZh
-                    ? `全長 ${config.lengthKm} 公里 | 限速 ${config.speedLimitKmh} km/h`
-                    : `Length ${config.lengthKm} km | Speed limit ${config.speedLimitKmh} km/h`}
-                </span>
+            <div className="border-b border-black/15 dark:border-white/15 pb-2 mb-3">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <h2 className="text-xl sm:text-2xl font-bold">{officialName}</h2>
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                    {isZh
+                      ? `全長 ${config.lengthKm} 公里 | 限速 ${config.speedLimitKmh} km/h`
+                      : `Length ${config.lengthKm} km | Speed limit ${config.speedLimitKmh} km/h`}
+                  </span>
+                </div>
+                <p className="text-5xl font-bold text-green-600 dark:text-green-400 text-right shrink-0">
+                  {tollResult.message}
+                </p>
               </div>
-              <div className="text-right">
-                <p className="text-5xl font-bold text-green-600 dark:text-green-400">{tollResult.message}</p>
-                {tollResult.isTransitionTime && (
-                  <div className="mt-1">
+              {(tollResult.isTransitionTime ||
+                (config.registryKey === "central_kowloon_bypass" && !isCkbFullOpen(currentTime))) && (
+                <div className="mt-1.5 flex flex-wrap justify-end gap-1.5">
+                  {tollResult.isTransitionTime && (
                     <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
                       {t("transitionPeriod")}
                     </AlertBadge>
-                  </div>
-                )}
-              </div>
+                  )}
+                  {config.registryKey === "central_kowloon_bypass" && !isCkbFullOpen(currentTime) && (
+                    <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
+                      {t("ckbTollStartNotice")}
+                    </AlertBadge>
+                  )}
+                </div>
+              )}
             </div>
 
             {showCountdownRow && (
@@ -193,7 +204,7 @@ function TunnelDetailBody({ config, lang, t }: TunnelDetailBodyProps): JSX.Eleme
               </div>
             )}
 
-            {/* Bidirectional live traffic status, journey time, and average speed */}
+            {/* Bidirectional live traffic status and journey time */}
             <div className="space-y-2">
               <h3 className="text-base font-semibold">{t("traffic.heading")}</h3>
               {directionItems.length > 0 ? (
@@ -204,10 +215,6 @@ function TunnelDetailBody({ config, lang, t }: TunnelDetailBodyProps): JSX.Eleme
                     const pulse = reading ? "" : "animate-pulse";
                     const statusLabel = reading ? t(TRAFFIC_LABEL_IDS[status]) : "-";
                     const minutesLabel = reading && reading.minutes !== null ? String(reading.minutes) : "--";
-                    const speedLabel =
-                      reading && reading.speedKmh !== null && reading.speedKmh !== undefined
-                        ? t("traffic.speed", String(reading.speedKmh))
-                        : null;
                     return (
                       <div
                         key={direction}
@@ -221,11 +228,6 @@ function TunnelDetailBody({ config, lang, t }: TunnelDetailBodyProps): JSX.Eleme
                           <AlertBadge background={colors.background} text={colors.text} className={pulse}>
                             {t("traffic.minutes", minutesLabel)}
                           </AlertBadge>
-                          {speedLabel && (
-                            <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800">
-                              {speedLabel}
-                            </span>
-                          )}
                         </div>
                       </div>
                     );
@@ -271,6 +273,7 @@ function TunnelDetailBody({ config, lang, t }: TunnelDetailBodyProps): JSX.Eleme
       <SingleTunnelVehicleTable
         tunnelKey={config.registryKey}
         isFree={config.isFree}
+        currentTime={currentTime}
         lang={lang}
         t={t}
       />

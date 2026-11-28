@@ -15,6 +15,7 @@ import {
   VehicleTypeIdentifier,
 } from "./tunnelData";
 import {
+  isCkbFullOpen,
   isValidTunnel,
   isValidVehicle,
   NextTollChangeInfo,
@@ -275,6 +276,7 @@ export const TunnelTable = React.memo(function TunnelTable({
 export interface SingleTunnelVehicleTableProps {
   tunnelKey: HKTunnelIdentifier | null;
   isFree: boolean;
+  currentTime: Date | null;
   lang: string;
   t: TranslateFunction;
 }
@@ -282,6 +284,7 @@ export interface SingleTunnelVehicleTableProps {
 export const SingleTunnelVehicleTable = React.memo(function SingleTunnelVehicleTable({
   tunnelKey,
   isFree,
+  currentTime,
   lang,
   t,
 }: SingleTunnelVehicleTableProps): JSX.Element {
@@ -292,6 +295,9 @@ export const SingleTunnelVehicleTable = React.memo(function SingleTunnelVehicleT
 
   const getRateSummary = (vKey: VehicleTypeIdentifier): string => {
     if (isFree || !tunnelKey) return isZh ? "$0（免費）" : "$0 (Free)";
+    if (tunnelKey === "central_kowloon_bypass" && !isCkbFullOpen(currentTime)) {
+      return isZh ? "$0（免費）" : "$0 (Free)";
+    }
     const vData = tollData.vehicleTypes[vKey];
     if (vData.fixedTolls && tunnelKey in vData.fixedTolls) {
       const amount = vData.fixedTolls[tunnelKey as keyof typeof vData.fixedTolls];
@@ -365,11 +371,13 @@ export const SingleTunnelVehicleTable = React.memo(function SingleTunnelVehicleT
 export interface FixedTunnelsTableProps {
   t: TranslateFunction;
   lang: string;
+  currentTime: Date | null;
 }
 
 export const FixedTunnelsTable = React.memo(function FixedTunnelsTable({
   t,
   lang,
+  currentTime,
 }: FixedTunnelsTableProps): JSX.Element {
   const fixedTunnelKeys = Object.keys(tollData.tunnels).filter(
     (key): key is HKTunnelIdentifier => isValidTunnel(key) && !("timeVaryingTolls" in tollData.tunnels[key]),
@@ -405,9 +413,11 @@ export const FixedTunnelsTable = React.memo(function FixedTunnelsTable({
                   {vehicleKeys.map((vKey) => {
                     const vData = tollData.vehicleTypes[vKey];
                     const amount =
-                      vData.fixedTolls && tKey in vData.fixedTolls
-                        ? vData.fixedTolls[tKey as keyof typeof vData.fixedTolls]
-                        : 0;
+                      tKey === "central_kowloon_bypass" && !isCkbFullOpen(currentTime)
+                        ? 0
+                        : vData.fixedTolls && tKey in vData.fixedTolls
+                          ? vData.fixedTolls[tKey as keyof typeof vData.fixedTolls]
+                          : 0;
                     return (
                       <td key={vKey} className="px-3 sm:px-4 py-3 whitespace-nowrap">
                         {`$${amount}`}

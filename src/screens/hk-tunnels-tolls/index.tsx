@@ -27,6 +27,7 @@ import {
   getHongKongDate,
   getNextTollChange,
   getTunnelInfo,
+  isCkbFullOpen,
   isValidTunnel,
   isValidVehicle,
   JourneyReading,
@@ -90,6 +91,7 @@ interface TrafficRowsProps {
   tunnelKey: HKTunnelIdentifier;
   journeyReadings: Record<string, JourneyReading> | null;
   irnSpeeds: Record<string, number> | null;
+  currentDate: Date | null;
   sortMode: SortMode;
   userCoords: Coordinates | null;
   t: TranslateFunction;
@@ -99,6 +101,7 @@ const TrafficRows = React.memo(function TrafficRows({
   tunnelKey,
   journeyReadings,
   irnSpeeds,
+  currentDate,
   sortMode,
   userCoords,
   t,
@@ -121,7 +124,7 @@ const TrafficRows = React.memo(function TrafficRows({
 
   const rows = activeRoutes.map((route) => ({
     route,
-    reading: readingForRoute(tunnel, route, journeyReadings, irnSpeeds),
+    reading: readingForRoute(tunnel, route, journeyReadings, irnSpeeds, currentDate),
   }));
 
   return (
@@ -203,6 +206,7 @@ const HKTollCard = React.memo(function HKTollCard(props: TollCardProps): JSX.Ele
           tunnelKey={tunnelKey}
           journeyReadings={journeyReadings}
           irnSpeeds={irnSpeeds}
+          currentDate={currentDate}
           sortMode={sortMode}
           userCoords={userCoords}
           t={t}
@@ -211,6 +215,13 @@ const HKTollCard = React.memo(function HKTollCard(props: TollCardProps): JSX.Ele
           <div className="text-right py-1">
             <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
               {t("transitionPeriod")}
+            </AlertBadge>
+          </div>
+        )}
+        {tunnelKey === "central_kowloon_bypass" && !isCkbFullOpen(currentDate) && (
+          <div className="text-right py-1">
+            <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
+              {t("ckbTollStartNotice")}
             </AlertBadge>
           </div>
         )}
@@ -573,7 +584,7 @@ function HKTunnelsTollsApp({
       {timeVaryingTunnelKeys.map((key) => (
         <TunnelTable key={key} tunnelKey={key} selectedVehicle={tableVehicle} lang={lang} t={t} />
       ))}
-      <FixedTunnelsTable t={t} lang={lang} />
+      <FixedTunnelsTable t={t} lang={lang} currentTime={currentTime} />
       <FreeTunnelsTable lang={lang} />
       <FaqSection lang={lang} />
 
@@ -654,14 +665,14 @@ export default function Page({
       ? [
           "三隧分流（西區海底隧道、紅磡海底隧道、東區海底隧道）不同時段不同收費即時計算",
           "大欖隧道分時段收費及下次轉價倒數提示",
-          "運輸署實時過海行車時間、平均車速及車龍狀態",
-          "全港 9 條收費隧道及 8 條免費政府隧道完整收費時間表",
+          "運輸署實時過海行車時間及車龍狀態",
+          "全港 10 條收費隧道及 8 條免費政府隧道完整收費時間表",
         ]
       : [
           "Live time-varying toll calculator for WHC, CHT, EHC, and Tai Lam Tunnel",
           "Next toll rate change countdown indicator",
-          "Real-time Transport Department XML journey times and traffic speeds",
-          "Complete schedules for all 9 tolled tunnels and 8 free government tunnels",
+          "Real-time Transport Department XML journey times and traffic status",
+          "Complete schedules for all 10 tolled tunnels and 8 free government tunnels",
         ],
     sameAs: sameAsLinks,
     offers: {

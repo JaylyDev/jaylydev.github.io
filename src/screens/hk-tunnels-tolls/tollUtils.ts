@@ -22,6 +22,7 @@ export interface IrnSegment {
   id: string;
   name: string;
   type: "approach" | "bore";
+  effectiveFrom?: string;
 }
 
 export interface DirectionRoute {
@@ -73,7 +74,6 @@ export enum TollChangeDirection {
 export interface JourneyReading {
   status: TrafficStatus;
   minutes: number | null;
-  speedKmh?: number | null;
   speedLimitKmh?: number | null;
 }
 
@@ -132,6 +132,12 @@ interface CandidateItem {
 const JOURNEY_TIME_URL = "https://resource.data.one.gov.hk/td/jss/Journeytimev2.xml";
 const IRN_SPEED_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/irnAvgSpeed-all.xml";
 const REFRESH_MS = 120000;
+// Central Kowloon Bypass full commissioning and HK$8 toll start at 2026-12-06 07:00 HKT.
+export const CKB_FULL_OPEN_MS = Date.parse("2026-12-06T07:00:00+08:00");
+
+export function isCkbFullOpen(currentTime: Date | null): boolean {
+  return currentTime !== null && currentTime.getTime() >= CKB_FULL_OPEN_MS;
+}
 
 export function getTunnelInfo(key: HKTunnelIdentifier): TunnelInfo {
   return registryInfo.tunnels[key] as TunnelInfo;
@@ -240,6 +246,9 @@ export function getCurrentTollForTunnel(
 ): CurrentTollResult {
   const vehicle = tollData.vehicleTypes[selectedVehicle];
   const tunnel = tollData.tunnels[tunnelKey];
+  if (tunnelKey === "central_kowloon_bypass" && !isCkbFullOpen(currentTime)) {
+    return { message: "$0" };
+  }
   if (vehicle.fixedTolls && tunnelKey in vehicle.fixedTolls) {
     return { message: `$${vehicle.fixedTolls[tunnelKey as keyof typeof vehicle.fixedTolls]}` };
   }
@@ -465,6 +474,7 @@ export function readingForRoute(
   route: DirectionRoute,
   journeyReadings: Record<string, JourneyReading> | null,
   irnSpeeds: Record<string, number> | null,
+  currentTime: Date | null = null,
 ): JourneyReading | null {
   const routeLimit = route.speedLimitKmh || tunnel.maxLegalSpeedKmh || 70;
   const floorMinutes = Math.round((tunnel.lengthKm * 1000) / (routeLimit / 3.6) / 60);
@@ -497,17 +507,21 @@ export function readingForRoute(
     const status: TrafficStatus =
       best.status >= minutesBasedEffectiveStatus ? best.status : minutesBasedEffectiveStatus;
     const finalMinutes = adjustMinutesForStatus(tunnel.lengthKm, tunnel.maxLegalSpeedKmh || 70, status, medianMinutes);
-    const finalSpeedKmh = finalMinutes !== null && finalMinutes > 0 ? Math.round((tunnel.lengthKm / finalMinutes) * 60) : null;
 
     return {
       status,
       minutes: finalMinutes,
-      speedKmh: finalSpeedKmh,
       speedLimitKmh: routeLimit,
     };
   }
 
-  const boreIds = (route.irnSegments ?? []).filter((seg) => seg.type === "bore").map((seg) => seg.id);
+  const boreIds = (route.irnSegments ?? [])
+    .filter((seg) => {
+      if (seg.type !== "bore") return false;
+      if (!seg.effectiveFrom) return true;
+      return currentTime !== null && currentTime.getTime() >= Date.parse(seg.effectiveFrom);
+    })
+    .map((seg) => seg.id);
   return readingFromIrnSpeeds(tunnel.lengthKm, routeLimit, floorMinutes, boreIds, irnSpeeds);
 }
 
@@ -543,7 +557,6 @@ function readingFromIrnSpeeds(
   return {
     status,
     minutes,
-    speedKmh: Math.round(govSpeed),
     speedLimitKmh: routeLimit,
   };
 }
@@ -571,8 +584,7 @@ export function readingForExtraRoute(
     if (item.netMinutes < best.netMinutes) best = item;
   }
   const minutes = adjustMinutesForStatus(lengthKm, route.speedLimitKmh, best.status, best.netMinutes);
-  const speedKmh = minutes !== null && minutes > 0 ? Math.min(route.speedLimitKmh, Math.round((lengthKm / minutes) * 60)) : null;
-  return { status: best.status, minutes, speedKmh, speedLimitKmh: route.speedLimitKmh };
+  return { status: best.status, minutes, speedLimitKmh: route.speedLimitKmh };
 }
 
 export function useLiveTrafficData(): LiveTrafficData {

@@ -369,6 +369,7 @@
         }
       }
     },
+    "central_kowloon_bypass": {},
     "tates_cairn": {},
     "aberdeen": {},
     "shing_mun": {},
@@ -383,7 +384,8 @@
         "aberdeen": 8,
         "shing_mun": 8,
         "lion_rock": 8,
-        "eagles_nest": 8
+        "eagles_nest": 8,
+        "central_kowloon_bypass": 8
       }
     },
     "motorcycle": {
@@ -394,7 +396,8 @@
         "aberdeen": 8,
         "shing_mun": 8,
         "lion_rock": 8,
-        "eagles_nest": 8
+        "eagles_nest": 8,
+        "central_kowloon_bypass": 8
       }
     },
     "taxi": {
@@ -408,7 +411,8 @@
         "aberdeen": 8,
         "shing_mun": 8,
         "lion_rock": 8,
-        "eagles_nest": 8
+        "eagles_nest": 8,
+        "central_kowloon_bypass": 8
       }
     },
     "light_commercial": {
@@ -422,7 +426,8 @@
         "aberdeen": 8,
         "shing_mun": 8,
         "lion_rock": 8,
-        "eagles_nest": 8
+        "eagles_nest": 8,
+        "central_kowloon_bypass": 8
       }
     },
     "commercial": {
@@ -436,7 +441,8 @@
         "aberdeen": 8,
         "shing_mun": 8,
         "lion_rock": 8,
-        "eagles_nest": 8
+        "eagles_nest": 8,
+        "central_kowloon_bypass": 8
       }
     }
   }

@@ -228,7 +228,7 @@ export const TUNNEL_DETAILS: TunnelDetailConfig[] = [
       en: "Tate's Cairn Tunnel Live Tolls & Traffic Status | Fixed Rates & Cameras",
     },
     seoDescription: {
-      zh: "即時查詢大老山隧道全日固定收費（私家車／的士 HK$20、電單車 HK$15、貨車 HK$24-$28）、往沙田及往九龍實時行車時間、平均車速及即時交通快拍。",
+      zh: "即時查詢大老山隧道全日固定收費（私家車／的士 HK$20、電單車 HK$15、貨車 HK$24-$28）、往沙田及往九龍實時行車時間及即時交通快拍。",
       en: "Check Tate's Cairn Tunnel fixed all-day tolls ($20 private cars/taxis, $15 motorcycles, $24-$28 goods vehicles), live traffic to Sha Tin and Kowloon, and CCTV.",
     },
     h1: { zh: "大老山隧道即時交通及收費表", en: "Tate's Cairn Tunnel Live Tolls & Traffic Status" },
@@ -265,8 +265,8 @@ export const TUNNEL_DETAILS: TunnelDetailConfig[] = [
       en: "Lion Rock Tunnel Live Tolls & Traffic Status | Flat $8 Rate & Cameras",
     },
     seoDescription: {
-      zh: "即時查看獅子山隧道（獅隧）所有車種全日劃一 HK$8 收費、往沙田及往九龍窩打老道實時車龍行車時間、平均車速與運輸署即時鏡頭。",
-      en: "Check live Lion Rock Tunnel traffic to Sha Tin and Kowloon, flat HK$8 toll for all vehicles, average speed, and official Transport Department CCTV snapshots.",
+      zh: "即時查看獅子山隧道（獅隧）所有車種全日劃一 HK$8 收費、往沙田及往九龍窩打老道實時車龍行車時間與運輸署即時鏡頭。",
+      en: "Check live Lion Rock Tunnel traffic to Sha Tin and Kowloon, flat HK$8 toll for all vehicles, journey times, and official Transport Department CCTV snapshots.",
     },
     h1: { zh: "獅子山隧道（獅隧）即時交通及收費表", en: "Lion Rock Tunnel Live Tolls & Traffic Status" },
     connectingRoads: {
@@ -340,8 +340,8 @@ export const TUNNEL_DETAILS: TunnelDetailConfig[] = [
       en: "Shing Mun Tunnels Live Tolls & Traffic Status | Flat $8 Rate & Cameras",
     },
     seoDescription: {
-      zh: "即時查看城門隧道（城隧）全日劃一 HK$8 收費、往沙田及往荃灣象鼻山路實時行車時間、平均車速及運輸署實時交通鏡頭。",
-      en: "Check live Shing Mun Tunnels traffic between Sha Tin and Tsuen Wan, flat HK$8 toll for all vehicles, average speed, and official CCTV snapshots.",
+      zh: "即時查看城門隧道（城隧）全日劃一 HK$8 收費、往沙田及往荃灣象鼻山路實時行車時間及運輸署實時交通鏡頭。",
+      en: "Check live Shing Mun Tunnels traffic between Sha Tin and Tsuen Wan, flat HK$8 toll for all vehicles, journey times, and official CCTV snapshots.",
     },
     h1: { zh: "城門隧道（城隧）即時交通及收費表", en: "Shing Mun Tunnels Live Tolls & Traffic Status" },
     connectingRoads: {
@@ -404,6 +404,44 @@ export const TUNNEL_DETAILS: TunnelDetailConfig[] = [
       { id: "TS104F", label: { zh: "青沙公路近荔枝角", en: "Tsing Sha Highway near Lai Chi Kok" } },
       { id: "TS105F", label: { zh: "沙田嶺隧道沙田入口", en: "Sha Tin Heights Tunnel - Sha Tin Side" } },
       { id: "AID03114", label: { zh: "西九龍公路近青沙公路（北行）", en: "West Kowloon Hwy near Tsing Sha Hwy (NB)" } },
+    ],
+  },
+  {
+    slug: "central-kowloon-bypass",
+    registryKey: "central_kowloon_bypass",
+    isFree: false,
+    color: "#ea580c",
+    lengthKm: 3.9,
+    speedLimitKmh: 80,
+    shortName: { zh: "中九龍繞道", en: "Central Kowloon Bypass" },
+    officialName: { zh: "中九龍繞道（六號幹線）", en: "Central Kowloon Bypass (Route 6)" },
+    seoTitle: {
+      zh: "中九龍繞道即時交通及收費表 | HK$8 收費、往油麻地及九龍灣實時路況",
+      en: "Central Kowloon Bypass Live Tolls & Traffic Status | Flat $8 Rate & Cameras",
+    },
+    seoDescription: {
+      zh: "即時查詢中九龍繞道（六號幹線油麻地段及九龍灣段）所有車種全日劃一 HK$8 收費、往九龍灣／啟德及往油麻地／西九龍實時行車時間與運輸署即時交通鏡頭。",
+      en: "Check live Central Kowloon Bypass (Route 6) traffic between Yau Ma Tei and Kowloon Bay, flat HK$8 toll for all vehicle classes, journey times, and TD CCTV snapshots.",
+    },
+    h1: { zh: "中九龍繞道即時交通及收費表", en: "Central Kowloon Bypass Live Tolls & Traffic Status" },
+    connectingRoads: {
+      zh: "六號幹線：連接西九龍公路／油麻地交匯處、啟德交匯處／九龍灣，並銜接茶果嶺及將軍澳－藍田隧道",
+      en: "Route 6: Connects West Kowloon Highway / Yau Ma Tei Interchange with Kai Tak Interchange, Kowloon Bay, Cha Kwo Ling, and Tseung Kwan O - Lam Tin Tunnel",
+    },
+    hkeTollNote: {
+      zh: "中九龍繞道採用「易通行」不停車繳費，所有車輛類型全日劃一收費 HK$8。",
+      en: "Uses HKeToll contactless payment with a flat HK$8 toll all day for all vehicle classes.",
+    },
+    alternativeRoutes: {
+      zh: "如中九龍繞道油麻地或啟德出入口車多擠塞，往返東西九龍可改用免費的啟德隧道、加士居道天橋、界限街或龍翔道。",
+      en: "When Yau Ma Tei or Kai Tak portals back up, drivers travelling across Kowloon can divert via the toll-free Kai Tak Tunnel, Gascoigne Road Flyover, or Lung Cheung Road.",
+    },
+    siblingSlugs: ["western-harbour-crossing", "cross-harbour-tunnel", "eastern-harbour-crossing", "tseung-kwan-o-tunnel"],
+    cameras: [
+      { id: "CK001F", label: { zh: "中九龍繞道（油麻地段）油麻地交匯處", en: "Central Kowloon Bypass (Yau Ma Tei Section) - Yau Ma Tei Interchange" } },
+      { id: "CK002F", label: { zh: "中九龍繞道（油麻地段）啟德交匯處", en: "Central Kowloon Bypass (Yau Ma Tei Section) - Kai Tak Interchange" } },
+      { id: "K911F", label: { zh: "西九龍公路油麻地北交匯處", en: "West Kowloon Hwy - Yau Ma Tei Interchange (N)" } },
+      { id: "K814F", label: { zh: "觀塘繞道近啟祥道", en: "Kwun Tong Bypass near Kai Cheung Road" } },
     ],
   },
   {
@@ -478,6 +516,7 @@ export const TUNNEL_SLUG_BY_REGISTRY_KEY: Record<HKTunnelIdentifier, string> = {
   shing_mun: "shing-mun-tunnels",
   lion_rock: "lion-rock-tunnel",
   eagles_nest: "eagles-nest-tunnel",
+  central_kowloon_bypass: "central-kowloon-bypass",
 };
 
 export const FREE_GOVERNMENT_TUNNELS: FreeTunnelEntry[] = [

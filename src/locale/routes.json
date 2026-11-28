@@ -68,6 +68,12 @@
         },
         {
             "paths": [
+                { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/central-kowloon-bypass/" },
+                { "lang": "en", "path": "/hk-tunnels-tolls/central-kowloon-bypass/" }
+            ]
+        },
+        {
+            "paths": [
                 { "lang": "zh", "hreflang": "zh-HK", "path": "/zh/hk-tunnels-tolls/tseung-kwan-o-tunnel/" },
                 { "lang": "en", "path": "/hk-tunnels-tolls/tseung-kwan-o-tunnel/" }
             ]

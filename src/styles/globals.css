@@ -39,10 +39,16 @@ body {
   font-style: normal;
 }
 
-/* text-blue-500 hover:underline */
+/* text-blue-600 dark:text-blue-400 hover:underline */
 a {
   --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity));
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  a {
+    color: rgb(96 165 250 / var(--tw-text-opacity));
+  }
 }
 
 a:hover {
