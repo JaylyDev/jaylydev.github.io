@@ -88,7 +88,7 @@ export function SiteHeader({ icon, t, lang = "en", localizedRoutes }: ISiteGloba
         {mobileMenuOpen && (
           <nav
             aria-label="Mobile navigation"
-            className="md:hidden border-t border-gray-200 px-4 py-2 flex flex-wrap gap-x-4 gap-y-2 bg-white"
+            className="md:hidden border-t border-gray-200 px-4 py-2 flex flex-wrap justify-end gap-x-4 gap-y-2 bg-white"
           >
             <Link
               href={`${localePrefix}/#home`}

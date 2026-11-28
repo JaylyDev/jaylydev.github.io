@@ -134,6 +134,7 @@ const IRN_SPEED_URL = "https://resource.data.one.gov.hk/td/traffic-detectors/irn
 const REFRESH_MS = 120000;
 // Central Kowloon Bypass full commissioning and HK$8 toll start at 2026-12-06 07:00 HKT.
 export const CKB_FULL_OPEN_MS = Date.parse("2026-12-06T07:00:00+08:00");
+export const CKB_BANNER_END_MS = CKB_FULL_OPEN_MS + 7 * 24 * 60 * 60 * 1000;
 
 export function isCkbFullOpen(currentTime: Date | null): boolean {
   return currentTime !== null && currentTime.getTime() >= CKB_FULL_OPEN_MS;

@@ -22,6 +22,7 @@ import {
 } from "./components";
 import {
   buildPublicHolidaySet,
+  CKB_BANNER_END_MS,
   Coordinates,
   getCurrentTollForTunnel,
   getHongKongDate,
@@ -179,58 +180,60 @@ const HKTollCard = React.memo(function HKTollCard(props: TollCardProps): JSX.Ele
   const detailPath = getTunnelPagePath(slug, lang);
 
   return (
-    <div className="flex gap-3 border-b border-black/20 dark:border-white/20 pb-2 last:border-b-0">
-      <span
-        className="w-1.5 self-stretch rounded-full shrink-0"
-        style={{ backgroundColor: tunnel.color }}
-        aria-hidden="true"
-      />
-      <div className="flex-1 min-w-0">
-        <div className="flex flex-row justify-between items-start gap-2">
-          <div className="text-left min-w-0">
-            <Link
-              href={detailPath}
-              className="block text-2xl sm:text-3xl md:text-2xl font-medium text-inherit hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              {resolveLocalizedString(tunnel.name, t)}
-            </Link>
-            <Link href={detailPath} className="text-sm text-blue-600 dark:text-blue-400">
-              {lang === "zh" ? "路況及收費表 →" : "Details & CCTV →"}
-            </Link>
-          </div>
-          <p className="text-right text-5xl py-1 md:py-2 font-bold text-green-600 dark:text-green-400 shrink-0">
-            {tollResult.message}
-          </p>
-        </div>
-        <TrafficRows
-          tunnelKey={tunnelKey}
-          journeyReadings={journeyReadings}
-          irnSpeeds={irnSpeeds}
-          currentDate={currentDate}
-          sortMode={sortMode}
-          userCoords={userCoords}
-          t={t}
+    <div id={slug} className="border-b border-black/20 dark:border-white/20 pb-2 last:border-b-0">
+      <Link
+        href={detailPath}
+        className="group flex gap-3 rounded-md -mx-1 px-1 py-1 text-inherit no-underline hover:no-underline transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+      >
+        <span
+          className="w-1.5 self-stretch rounded-full shrink-0"
+          style={{ backgroundColor: tunnel.color }}
+          aria-hidden="true"
         />
-        {tollResult.isTransitionTime && (
-          <div className="text-right py-1">
-            <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
-              {t("transitionPeriod")}
-            </AlertBadge>
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-row justify-between items-start gap-2">
+            <div className="text-left min-w-0">
+              <span className="block text-2xl sm:text-3xl md:text-2xl font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {resolveLocalizedString(tunnel.name, t)}
+              </span>
+              <span className="text-sm text-blue-600 dark:text-blue-400 group-hover:underline">
+                {lang === "zh" ? "路況及收費表 →" : "Details & CCTV →"}
+              </span>
+            </div>
+            <p className="text-right text-5xl py-1 md:py-2 font-bold text-green-600 dark:text-green-400 shrink-0">
+              {tollResult.message}
+            </p>
           </div>
-        )}
-        {tunnelKey === "central_kowloon_bypass" && !isCkbFullOpen(currentDate) && (
-          <div className="text-right py-1">
-            <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
-              {t("ckbTollStartNotice")}
-            </AlertBadge>
-          </div>
-        )}
-        {nextChange && (
-          <div className="text-right pt-0.5">
-            <NextTollCountdown nextChange={nextChange} lang={lang} />
-          </div>
-        )}
-      </div>
+          <TrafficRows
+            tunnelKey={tunnelKey}
+            journeyReadings={journeyReadings}
+            irnSpeeds={irnSpeeds}
+            currentDate={currentDate}
+            sortMode={sortMode}
+            userCoords={userCoords}
+            t={t}
+          />
+          {tollResult.isTransitionTime && (
+            <div className="text-right py-1">
+              <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
+                {t("transitionPeriod")}
+              </AlertBadge>
+            </div>
+          )}
+          {tunnelKey === "central_kowloon_bypass" && !isCkbFullOpen(currentDate) && (
+            <div className="text-right py-1">
+              <AlertBadge background="bg-amber-100 dark:bg-amber-900" text="text-amber-800 dark:text-amber-200">
+                {t("ckbTollStartNotice")}
+              </AlertBadge>
+            </div>
+          )}
+          {nextChange && (
+            <div className="text-right pt-0.5">
+              <NextTollCountdown nextChange={nextChange} lang={lang} />
+            </div>
+          )}
+        </div>
+      </Link>
     </div>
   );
 });
@@ -281,6 +284,47 @@ function IosShareButton({ t }: IosShareButtonProps): JSX.Element {
           className="h-6 inline-block mr-2"
         />
         <span>{t("iosAppGuide.title")}</span>
+      </div>
+    </a>
+  );
+}
+
+interface NewTunnelBannerProps {
+  t: TranslateFunction;
+  isFullOpen: boolean;
+}
+
+function NewTunnelBanner({ t, isFullOpen }: NewTunnelBannerProps): JSX.Element {
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+    const target = document.getElementById("central-kowloon-bypass");
+    if (!target) return;
+    event.preventDefault();
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    window.history.replaceState(null, "", "#central-kowloon-bypass");
+  };
+
+  return (
+    <a href="#central-kowloon-bypass" onClick={handleClick} className="block no-underline hover:no-underline">
+      <div className="mx-1 mb-4 px-4 py-3 rounded-lg border border-indigo-400 dark:border-blue-400 bg-indigo-50 dark:bg-blue-900/50 hover:bg-indigo-100/80 dark:hover:bg-blue-800/60 transition-colors shadow-sm flex items-center gap-3 text-left">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-6 w-6 shrink-0 text-indigo-600 dark:text-blue-400"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+        <span className="font-semibold text-lg sm:text-xl text-gray-900 dark:text-white">
+          {t(isFullOpen ? "ckbBanner.afterOpen" : "ckbBanner.beforeOpen")}
+        </span>
       </div>
     </a>
   );
@@ -507,12 +551,17 @@ function HKTunnelsTollsApp({
 
   const vehicleName = resolveLocalizedString(registryInfo.vehicleTypes[selectedVehicle].name, t);
   const vehicleDescription = registryInfo.vehicleTypes[selectedVehicle].description;
+  const showCkbBanner = currentTime !== null && currentTime.getTime() < CKB_BANNER_END_MS;
 
   return (
     <div className="max-w-4xl mx-auto px-3 sm:px-4">
       {/* Header */}
       <h1 className="text-center my-3 md:m-4 text-3xl md:text-4xl font-bold md:p-2">{t("pageHeading")}</h1>
-      {isAppleDevice && !isPWA && <IosShareButton t={t} />}
+      {showCkbBanner ? (
+        <NewTunnelBanner t={t} isFullOpen={isCkbFullOpen(currentTime)} />
+      ) : (
+        currentTime !== null && isAppleDevice && !isPWA && <IosShareButton t={t} />
+      )}
 
       {/* Selection Controls */}
       <VehicleSelector t={t} selectedVehicle={selectedVehicle} onSelectVehicle={handleSelectVehicle} />
